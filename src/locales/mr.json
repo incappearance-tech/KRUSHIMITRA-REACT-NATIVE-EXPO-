@@ -1,0 +1,61 @@
+{
+  "common": {
+    "app_name": "कृषि मित्र",
+    "next": "पुढे",
+    "back": "मागे",
+    "save": "जतन करा",
+    "cancel": "रद्द करा",
+    "submit": "सबमिट करा",
+    "loading": "लोड होत आहे...",
+    "error": "त्रुटी",
+    "success": "यशस्वी",
+    "logout": "लॉगआउट"
+  },
+  "language": {
+    "title": "भाषा निवडा",
+    "select": "भाषा निवडा",
+    "marathi": "मराठी",
+    "hindi": "हिंदी",
+    "english": "इंग्रजी"
+  },
+  "auth": {
+    "mobile_number": "मोबाईल नंबर",
+    "enter_mobile": "10 अंकांचा मोबाईल नंबर दर्ज करा",
+    "send_otp": "OTP पाठवा",
+    "otp": "OTP",
+    "enter_otp": "6 अंकांचा OTP दर्ज करा",
+    "verify_otp": "OTP सत्यापित करा",
+    "resend_otp": "OTP पुन्हा पाठवा",
+    "invalid_mobile": "कृपया एक वैध 10 अंकांचा नंबर दर्ज करा",
+    "invalid_otp": "कृपया एक वैध 6 अंकांचा OTP दर्ज करा"
+  },
+  "roles": {
+    "title": "तुमची भूमिका निवडा",
+    "farmer": "शेतकरी",
+    "labour": "मजदूर",
+    "transporter": "वाहतूकदार"
+  },
+  "farmer": {
+    "dashboard": "शेतकरी डॅशबोर्ड",
+    "welcome": "स्वागत आहे, शेतकरी",
+    "rent_in": "यंत्र भाड्याने घ्या",
+    "rent_out": "यंत्र भाड्याने द्या",
+    "buy_machine": "यंत्र खरेदी करा",
+    "sell_machine": "यंत्र विक्रय करा",
+    "transport": "वाहतूक शोधा",
+    "labour": "मजदूर शोधा"
+  },
+  "labour": {
+    "dashboard": "मजदूर डॅशबोर्ड",
+    "welcome": "स्वागत आहे, मजदूर"
+  },
+  "transporter": {
+    "dashboard": "वाहतूकदार डॅशबोर्ड",
+    "welcome": "स्वागत आहे, वाहतूकदार"
+  },
+  "navigation": {
+    "home": "होम",
+    "profile": "प्रोफाइल",
+    "settings": "सेटिंग्स"
+  }
+}

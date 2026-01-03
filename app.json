@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "KRUSHIMITRA-REACT-NATIVE-EXPO-",
+    "slug": "KRUSHIMITRA-REACT-NATIVE-EXPO-",
+    "version": "1.0.0",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "sdkVersion": "54.0.0",
+    "platforms": ["ios", "android", "web"],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "krushimitra-eas"
+      }
+    },
+    "orientation": "portrait",
+    "scheme": "krushimitrareactnativeexpo",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "common": {
+    "app_name": "कृषि मित्र",
+    "next": "अगला",
+    "back": "पीछे",
+    "save": "बचाएं",
+    "cancel": "रद्द करें",
+    "submit": "जमा करें",
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "success": "सफल",
+    "logout": "लॉग आउट"
+  },
+  "language": {
+    "title": "भाषा चुनें",
+    "select": "भाषा चुनें",
+    "marathi": "मराठी",
+    "hindi": "हिंदी",
+    "english": "अंग्रेजी"
+  },
+  "auth": {
+    "mobile_number": "मोबाइल नंबर",
+    "enter_mobile": "10 अंकों का मोबाइल नंबर दर्ज करें",
+    "send_otp": "OTP भेजें",
+    "otp": "OTP",
+    "enter_otp": "6 अंकों का OTP दर्ज करें",
+    "verify_otp": "OTP सत्यापित करें",
+    "resend_otp": "OTP फिर से भेजें",
+    "invalid_mobile": "कृपया एक वैध 10 अंकों का नंबर दर्ज करें",
+    "invalid_otp": "कृपया एक वैध 6 अंकों का OTP दर्ज करें"
+  },
+  "roles": {
+    "title": "अपनी भूमिका चुनें",
+    "farmer": "किसान",
+    "labour": "मजदूर",
+    "transporter": "परिवहनकर्ता"
+  },
+  "farmer": {
+    "dashboard": "किसान डैशबोर्ड",
+    "welcome": "स्वागत है, किसान",
+    "rent_in": "मशीन किराए पर लें",
+    "rent_out": "मशीन किराए पर दें",
+    "buy_machine": "मशीन खरीदें",
+    "sell_machine": "मशीन बेचें",
+    "transport": "परिवहन खोजें",
+    "labour": "मजदूर खोजें"
+  },
+  "labour": {
+    "dashboard": "मजदूर डैशबोर्ड",
+    "welcome": "स्वागत है, मजदूर"
+  },
+  "transporter": {
+    "dashboard": "परिवहनकर्ता डैशबोर्ड",
+    "welcome": "स्वागत है, परिवहनकर्ता"
+  },
+  "navigation": {
+    "home": "होम",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग्स"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "common": {
+    "app_name": "KrushiMitra",
+    "next": "Next",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "logout": "Logout"
+  },
+  "error": {
+  "fullName": {
+    "min": "Full name must be at least 3 characters",
+    "max": "Full name must be less than 50 characters"
+  },
+  "farmerId": {
+    "min": "Farmer ID must be at least 6 characters",
+    "max": "Farmer ID must be less than 20 characters",
+    "format": "Farmer ID must contain only letters and numbers"
+  },
+  "district": {
+    "required": "Please select district"
+  },
+  "taluka": {
+    "required": "Please select taluka",
+    "invalid": "Taluka does not belong to selected district"
+  },
+  "village": {
+    "min": "Village name is required",
+    "max": "Village name is too long"
+  }
+}
+,
+  "language": {
+    "title": "Select Language",
+    "select": "Select Language",
+    "marathi": "Marathi",
+    "hindi": "Hindi",
+    "english": "English"
+  },
+  "auth": {
+    "mobile_number": "Mobile Number",
+    "enter_mobile": "Enter 10 digit mobile number",
+    "send_otp": "Send OTP",
+    "otp": "OTP",
+    "enter_otp": "Enter 6 digit OTP",
+    "verify_otp": "Verify OTP",
+    "resend_otp": "Resend OTP",
+    "invalid_mobile": "Please enter a valid 10 digit number",
+    "invalid_otp": "Please enter a valid 6 digit OTP"
+  },
+  "roles": {
+    "title": "Select Your Role",
+    "farmer": "Farmer",
+    "labour": "Labour",
+    "transporter": "Transporter"
+  },
+  "farmer": {
+    "dashboard": "Farmer Dashboard",
+    "welcome": "Welcome, Farmer",
+    "rent_in": "Rent In Machine",
+    "rent_out": "Rent Out Machine",
+    "buy_machine": "Buy Machine",
+    "sell_machine": "Sell Machine",
+    "transport": "Find Transport",
+    "labour": "Find Labour"
+  },
+  "labour": {
+    "dashboard": "Labour Dashboard",
+    "welcome": "Welcome, Labour"
+  },
+  "transporter": {
+    "dashboard": "Transporter Dashboard",
+    "welcome": "Welcome, Transporter"
+  },
+  "navigation": {
+    "home": "Home",
+    "profile": "Profile",
+    "settings": "Settings"
+  }
+}

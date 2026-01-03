@@ -1,0 +1,92 @@
+# ===============================
+# OS / Editor
+# ===============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===============================
+# Node
+# ===============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===============================
+# Expo
+# ===============================
+.expo/
+.expo-shared/
+dist/
+web-build/
+
+# Expo local env
+.env
+.env.local
+.env.development
+.env.production
+
+# ===============================
+# React Native
+# ===============================
+*.keystore
+*.jks
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/app/release/
+android/app/debug/
+
+# iOS
+ios/Pods/
+ios/build/
+ios/DerivedData/
+ios/*.xcworkspace
+ios/*.xcodeproj/xcuserdata/
+
+# ===============================
+# TypeScript
+# ===============================
+*.tsbuildinfo
+
+# ===============================
+# Metro / Babel
+# ===============================
+.cache/
+metro-cache/
+
+# ===============================
+# Coverage / Tests
+# ===============================
+coverage/
+
+# ===============================
+# Logs
+# ===============================
+logs/
+*.log
+
+# ===============================
+# Temporary files
+# ===============================
+tmp/
+temp/
+
+# ===============================
+# IDE
+# ===============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===============================
+# Misc
+# ===============================
+*.bak
+*.old
