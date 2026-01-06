@@ -1,244 +1,290 @@
-import { useRouter } from 'expo-router';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
+  StyleSheet,
+  ImageBackground,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
+  SafeAreaView,
   Keyboard,
+  Dimensions,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+
+const { height } = Dimensions.get('window');
 
 export default function LoginScreen() {
-  const router = useRouter();
-  const { t } = useTranslation();
-
   const [mobile, setMobile] = useState('');
+  const [focused, setFocused] = useState(false);
+  const inputRef = useRef<TextInput>(null);
+
   const isValid = mobile.length === 10;
 
-  const handleGetOtp = () => {
-    if (!isValid) return;
-    router.push('/(auth)/otp');
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const onChange = (value: string) => {
+    const cleaned = value.replace(/\D/g, '');
+    if (cleaned.length <= 10) {
+      setMobile(cleaned);
+      if (cleaned.length === 10) {
+        Keyboard.dismiss();
+      }
+    }
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      {/* Curved Header */}
-      <View style={styles.headerCurve} />
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.container}>
+        {/* HERO */}
+        <View style={styles.heroWrap}>
+          <ImageBackground
+            source={{
+              uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA7Hq6kWROjPA6yyfJcZXrqhuCLJJCXalZLNcugCUGOGMs8HY6SuiVLitBM4ddxoeIRBkOO3GnWX-eUshxRePjWjxvgf9BCRmr8fZLh-iWz-wFVsutNQeYwK71t2AvnaFxmnmhcotAROTidx9h5J0bSwDOqPTHMKuHpSCtmqkhFtvvXqoMGgi82p3WeTZrxhEbrMIEX4izBxfV8usPFjHQDkRHiFzHJt4r3H_SvaR3BGD5B8x2hFQJAzl5o4Gh44ChXellIXhX_dKP3',
+            }}
+            style={styles.hero}
+            imageStyle={styles.heroImage}
+          >
+            <View style={styles.heroOverlay} />
 
-      {/* Main Content */}
-      <View style={styles.content}>
-        {/* App Icon */}
-        <View style={styles.iconWrap}>
-          <Ionicons name="leaf" size={44} color="#5BCF54" />
+            {/* Floating badge */}
+            <View style={styles.badge}>
+              <View style={styles.badgeIcon}>
+                <MaterialIcons name="agriculture" size={18} color="#37ec13" />
+              </View>
+              <Text style={styles.badgeText}>AgriConnect</Text>
+            </View>
+          </ImageBackground>
         </View>
 
-        {/* Title */}
-        <Text style={styles.appName}>FarmConnect</Text>
-        <Text style={styles.tagline}>
-          The platform for farmers, laborers, and transporters.
-        </Text>
+        {/* CARD */}
+        <View style={styles.cardWrap}>
+          <View style={styles.card}>
+            <Text style={styles.title}>Welcome Back</Text>
+            <Text style={styles.subtitle}>
+              Enter your mobile number to access your farming dashboard safely.
+            </Text>
 
-        {/* Mobile Input */}
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>{t('auth.mobile_number')}</Text>
+            {/* INPUT */}
+            <View
+              style={[
+                styles.inputBox,
+                focused && styles.inputFocused,
+              ]}
+            >
+              <View style={styles.country}>
+                <Text style={styles.flag}>🇮🇳</Text>
+                <Text style={styles.code}>+91</Text>
+                <Ionicons name="chevron-down" size={16} color="#6b7280" />
+              </View>
 
-          <View style={styles.inputBox}>
-            <View style={styles.countryCode}>
-              <Text style={styles.countryText}>+91</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.label, (focused || mobile) && styles.labelActive]}>
+                  Mobile Number
+                </Text>
+                <TextInput
+                  ref={inputRef}
+                  value={mobile}
+                  onChangeText={onChange}
+                  keyboardType="number-pad"
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  style={styles.input}
+                  maxLength={10}
+                />
+              </View>
+
+              {isValid && (
+                <MaterialIcons
+                  name="check-circle"
+                  size={22}
+                  color="#37ec13"
+                  style={{ marginRight: 16 }}
+                />
+              )}
             </View>
 
-            <TextInput
-              value={mobile}
-onChangeText={(text) => {
-    setMobile(text);
-    if (text.length === 10) {
-      Keyboard.dismiss();
-    }
-  }}              placeholder={t('auth.enter_mobile')}
-              keyboardType="number-pad"
-              maxLength={10}
-              style={styles.input}
-            />
-        <Ionicons name="call-outline" size={18} color="#4CAF50" />
+            {/* CTA */}
+            <TouchableOpacity style={styles.cta} onPress={()=>router.push("/otp")}>
+              <View style={styles.ctaIcon}>
+                <Ionicons name="lock-open" size={22} color="#000" />
+              </View>
+              <Text style={styles.ctaText}>GET OTP</Text>
+            </TouchableOpacity>
 
+            {/* REGISTER */}
+            <Text style={styles.register}>
+              New user? <Text style={styles.registerLink}>Register Here</Text>
+            </Text>
           </View>
         </View>
 
-        {/* Divider */}
-        <View style={styles.divider}>
-          <View style={styles.line} />
-          <Text style={styles.orText}>Or login with</Text>
-          <View style={styles.line} />
-        </View>
-
-        {/* Social Buttons (UI only) */}
-        <View style={styles.socialRow}>
-          <View style={styles.socialBtn}>
-            <Ionicons name="logo-google" size={18} />
-            <Text style={styles.socialText}>Google</Text>
-          </View>
-          <View style={styles.socialBtn}>
-            <Ionicons name="logo-apple" size={18} />
-            <Text style={styles.socialText}>Apple</Text>
-          </View>
-        </View>
+        {/* FOOTER */}
+        <Text style={styles.footer}>SECURE FARMING NETWORK</Text>
       </View>
-
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.terms}>
-          By continuing, you agree to our{' '}
-          <Text style={styles.link}>Terms of Service</Text> and{' '}
-          <Text style={styles.link}>Privacy Policy</Text>.
-        </Text>
-
-        <TouchableOpacity
-          style={[styles.otpButton, !isValid && styles.disabledBtn]}
-          disabled={!isValid}
-          onPress={handleGetOtp}
-          activeOpacity={0.85}
-        >
-          <Text style={styles.otpText}>Get OTP</Text>
-          <Ionicons name="arrow-forward" size={18} color="#fff" />
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-
-  /* Header */
-  headerCurve: {
-    position: 'absolute',
-    top: 0,
-    width: '100%',
-    height: 220,
-    backgroundColor: '#DCFCE7',
-    borderBottomLeftRadius: 180,
-    borderBottomRightRadius: 180,
-  },
-
-  topBar: {
-    paddingTop: 12,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  time: { fontSize: 12 },
-  statusIcons: { flexDirection: 'row', gap: 6 },
-
-  content: {
+  safe: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 60,
+    backgroundColor: '#f6f8f6',
+  },
+  container: {
+    flex: 1,
+  },
+  heroWrap: {
+    height: height * 0.45,
+  },
+  hero: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+  heroImage: {
+    borderBottomLeftRadius: 48,
+    borderBottomRightRadius: 48,
+  },
+  heroOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.25)',
+  },
+  badge: {
+    marginTop: 32,
+    alignSelf: 'center',
+    flexDirection: 'row',
     alignItems: 'center',
-  },
-
-  iconWrap: {
-    backgroundColor: '#EAF9E9',
-    padding: 18,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 999,
-    marginBottom: 16,
   },
-
-  appName: {
-    fontSize: 28,
+  badgeIcon: {
+    backgroundColor: 'rgba(55,236,19,0.2)',
+    padding: 6,
+    borderRadius: 999,
+    marginRight: 8,
+  },
+  badgeText: {
     fontWeight: '800',
-    marginBottom: 6,
+    letterSpacing: 1,
   },
-  tagline: {
-    fontSize: 14,
-    color: '#6B7280',
+  cardWrap: {
+    flex: 1,
+    marginTop: -64,
+    paddingHorizontal: 20,
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 40,
+    padding: 24,
+    elevation: 8,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: '800',
     textAlign: 'center',
-    marginBottom: 32,
+    marginBottom: 12,
   },
-
-  inputGroup: { width: '100%', marginBottom: 24 },
-  label: {
-    fontSize: 13,
-    fontWeight: '600',
-    marginBottom: 6,
+  subtitle: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#6b7280',
+    marginBottom: 28,
   },
-
   inputBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 56,
-    borderRadius: 14,
-    backgroundColor: '#F5F5F7',
-    paddingHorizontal: 12,
+    borderRadius: 24,
+    backgroundColor: '#f6f8f6',
+    height: 72,
+    marginBottom: 28,
   },
-  countryCode: {
-    paddingRight: 10,
-    marginRight: 10,
+  inputFocused: {
+    borderWidth: 2,
+    borderColor: '#37ec13',
+    backgroundColor: '#fff',
+  },
+  country: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
     borderRightWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: '#e5e7eb',
+    height: '100%',
   },
-  countryText: { fontWeight: '600' },
-
+  flag: {
+    fontSize: 22,
+    marginRight: 6,
+  },
+  code: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginRight: 4,
+  },
+  label: {
+    position: 'absolute',
+    left: 0,
+    top: 26,
+    fontSize: 16,
+    color: '#9ca3af',
+  },
+  labelActive: {
+    top: 10,
+    fontSize: 12,
+    color: '#37ec13',
+    fontWeight: '700',
+  },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 22,
+    fontWeight: '700',
+    paddingTop: 28,
+    paddingHorizontal: 16,
   },
-
-  divider: {
+  cta: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    backgroundColor: '#37ec13',
+    height: 68,
+    borderRadius: 999,
+    paddingHorizontal: 8,
     marginBottom: 20,
   },
-  line: { flex: 1, height: 1, backgroundColor: '#E5E7EB' },
-  orText: { fontSize: 12, color: '#6B7280' },
-
-  socialRow: {
-    flexDirection: 'row',
-    gap: 12,
-    marginBottom: 20,
-  },
-  socialBtn: {
-    flexDirection: 'row',
-    gap: 6,
-    alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    borderRadius: 14,
-    backgroundColor: '#F5F5F7',
-  },
-  socialText: { fontSize: 13, fontWeight: '600' },
-
-  footer: {
-    padding: 20,
-  },
-  terms: {
-    fontSize: 11,
-    color: '#6B7280',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  link: {
-    color: '#5BCF54',
-    fontWeight: '600',
-  },
-
-  otpButton: {
-    height: 56,
-    borderRadius: 14,
-    backgroundColor: '#5BCF54',
-    flexDirection: 'row',
+  ctaIcon: {
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    width: 52,
+    height: 52,
+    borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
   },
-  disabledBtn: { opacity: 0.5 },
-  otpText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  ctaText: {
+    flex: 1,
+    textAlign: 'center',
+    fontWeight: '900',
+    letterSpacing: 2,
+    color: '#052e00',
+    marginRight: 52,
+  },
+  register: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: '#6b7280',
+  },
+  registerLink: {
+    fontWeight: '800',
+    textDecorationLine: 'underline',
+    color: '#111827',
+  },
+  footer: {
+    textAlign: 'center',
+    fontSize: 10,
+    letterSpacing: 3,
+    color: '#9ca3af',
+    marginBottom: 24,
+  },
 });

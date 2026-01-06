@@ -1,379 +1,418 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
+  StyleSheet,
   View,
   Text,
-  StyleSheet,
-  ScrollView,
   TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
+  ScrollView,
+  Animated,
+  Image,
+  Dimensions,
+  Platform,
 } from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { MaterialIcons } from '@expo/vector-icons';
+
+const { width } = Dimensions.get('window');
+
+// --- Theme Colors ---
+const COLORS = {
+  primary: "#37ec13",
+  background: "#f6f8f6",
+  surface: "#ffffff",
+  textDark: "#132210",
+  textGray: "#6b7280",
+  border: "#f3f4f6",
+  successBg: "rgba(55, 236, 19, 0.15)",
+};
 
 export default function PaymentSuccessScreen() {
+  // Animations
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(20)).current;
+  const pingAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    // Entrance Animation
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    // Ping Animation for the checkmark circle
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pingAnim, {
+          toValue: 1.4,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pingAnim, {
+          toValue: 1,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
+
   return (
-    <View style={styles.root}>
-      {/* HEADER */}
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+      
+      {/* Navigation Header */}
       <View style={styles.header}>
-        <View style={{ width: 48 }} />
-        <Text style={styles.headerTitle}>Payment Confirmation</Text>
+        <TouchableOpacity style={styles.backButton}>
+          <MaterialIcons name="arrow-back" size={24} color={COLORS.textDark} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Confirmation</Text>
         <View style={{ width: 48 }} />
       </View>
 
-      {/* CONTENT */}
-      <ScrollView
-        contentContainerStyle={styles.content}
+      <ScrollView 
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* STATUS BADGE */}
-        <View style={styles.statusWrapper}>
-          <View style={styles.statusOuter}>
-            <View style={styles.statusInner}>
-              <MaterialIcons name="check" size={40} color="#FFFFFF" />
+        {/* Success Icon & Message */}
+        <Animated.View style={[styles.successSection, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
+          <View style={styles.iconContainer}>
+            <Animated.View 
+              style={[
+                styles.pingCircle, 
+                { transform: [{ scale: pingAnim }], opacity: fadeAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 0.4] }) }
+              ]} 
+            />
+            <View style={styles.mainCheckCircle}>
+              <MaterialIcons name="check-circle" size={56} color={COLORS.primary} />
             </View>
           </View>
-        </View>
-
-        {/* TITLE */}
-        <Text style={styles.successTitle}>Payment Successful!</Text>
-
-        <Text style={styles.successSubtitle}>
-          Your machine listing has been successfully published with the Premium
-          Plan.
-        </Text>
-
-        {/* RECEIPT CARD */}
-        <View style={styles.receiptCard}>
-          <View style={styles.topBar} />
-
-          {/* Amount */}
-          <View style={styles.amountSection}>
-            <View>
-              <Text style={styles.amountLabel}>AMOUNT PAID</Text>
-              <Text style={styles.amountText}>₹99.00</Text>
-            </View>
-
-            <View style={styles.receiptIcon}>
-              <MaterialIcons name="receipt-long" size={22} color="#137A25" />
-            </View>
-          </View>
-
-          {/* Separator */}
-          <View style={styles.separatorWrapper}>
-            <View style={styles.dashedLine} />
-            <View style={[styles.cutout, styles.cutoutLeft]} />
-            <View style={[styles.cutout, styles.cutoutRight]} />
-          </View>
-
-          {/* Details */}
-          <View style={styles.details}>
-            <DetailRow label="Plan Type" value="Premium (30 Days)" bold />
-            <DetailRow label="Transaction ID" value="TXN-8839210" mono />
-            <DetailRow label="Date" value="Oct 24, 2023" />
-            <DetailRow label="Payment Method" value="UPI" />
-          </View>
-        </View>
-
-        {/* INFO BANNER */}
-        <View style={styles.infoBanner}>
-          <MaterialIcons name="info-outline" size={20} color="#137A25" />
-          <Text style={styles.infoText}>
-            Your listing is now live. It will be featured on the home page for
-            higher visibility.
+          <Text style={styles.successTitle}>Payment Successful!</Text>
+          <Text style={styles.successSubtitle}>
+            Thank you! Your payment has been processed successfully.
           </Text>
+        </Animated.View>
+
+        {/* Receipt Card */}
+        <View style={styles.receiptCard}>
+          <View style={styles.receiptHeader}>
+            <Text style={styles.receiptLabel}>Total Amount Paid</Text>
+            <Text style={styles.receiptAmount}>₹ 499.00</Text>
+          </View>
+
+          <View style={styles.receiptBody}>
+            <DetailRow label="Transaction ID" value="#TRX-8923492" isMono />
+            <DetailRow label="Date" value="Oct 24, 2024, 10:30 AM" />
+            <DetailRow 
+              label="Payment Method" 
+              value="HDFC **** 4582" 
+              icon="credit-card" 
+            />
+          </View>
+
+          {/* Cutout Decorative Line */}
+          <View style={styles.cutoutContainer}>
+            <View style={[styles.cutoutCircle, { left: -10 }]} />
+            <View style={styles.dashedLine} />
+            <View style={[styles.cutoutCircle, { right: -10 }]} />
+          </View>
+        </View>
+
+        {/* Benefit Card */}
+        <View style={styles.benefitSection}>
+          <Text style={styles.sectionHeader}>UNLOCKED BENEFIT</Text>
+          <View style={styles.benefitCard}>
+            <Image 
+              source={{ uri: 'https://images.unsplash.com/photo-1594913785162-e6785b423cb1?q=80&w=500&auto=format&fit=crop' }} 
+              style={styles.benefitImage}
+            />
+            <View style={styles.benefitInfo}>
+              <Text style={styles.benefitTitle}>John Deere Tractor 5050D</Text>
+              <Text style={styles.benefitStatus}>Premium Listing - Live for 30 days</Text>
+              
+              <View style={styles.badgeRow}>
+                <View style={[styles.badge, { backgroundColor: '#dcfce7' }]}>
+                  <MaterialIcons name="calendar-today" size={12} color="#15803d" />
+                  <Text style={[styles.badgeText, { color: '#15803d' }]}>Expires Nov 23</Text>
+                </View>
+                <View style={[styles.badge, { backgroundColor: COLORS.successBg }]}>
+                  <MaterialIcons name="check-circle" size={12} color="#051103" />
+                  <Text style={[styles.badgeText, { color: '#051103' }]}>Active</Text>
+                </View>
+              </View>
+            </View>
+          </View>
         </View>
       </ScrollView>
 
-      {/* FOOTER ACTIONS */}
+      {/* Footer Actions */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.primaryBtn} onPress={()=>  navigate("/(farmer)/sell-machine/listing-details")}>
-          <Text style={styles.primaryText}>View Listing</Text>
-          <MaterialIcons name="visibility" size={22} color="#111812" />
+        <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8}>
+          <Text style={styles.primaryButtonText}>View My Listing</Text>
+          <MaterialIcons name="arrow-forward" size={20} color="#051103" style={{ marginLeft: 8 }} />
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.secondaryBtn}>
-          <Text style={styles.secondaryText}>Return to Dashboard</Text>
+        
+        <TouchableOpacity style={styles.secondaryButton}>
+          <Text style={styles.secondaryButtonText}>Back to Dashboard</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
-/* ---------------- DETAIL ROW ---------------- */
-
-const DetailRow = ({
-  label,
-  value,
-  bold,
-  mono,
-}: {
-  label: string;
-  value: string;
-  bold?: boolean;
-  mono?: boolean;
-}) => (
+// --- Helper Components ---
+const DetailRow = ({ label, value, isMono, icon }) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
-    <Text
-      style={[
-        styles.detailValue,
-        bold && styles.boldValue,
-        mono && styles.monoValue,
-      ]}
-    >
-      {value}
-    </Text>
+    <View style={styles.detailValueContainer}>
+      {icon && <MaterialIcons name={icon} size={14} color={COLORS.textGray} style={{ marginRight: 6 }} />}
+      <Text style={[styles.detailValue, isMono && styles.monoText]}>{value}</Text>
+    </View>
   </View>
 );
 
-/* ---------------- STYLES ---------------- */
-
+// --- Styles ---
 const styles = StyleSheet.create({
-  root: {
+  container: {
     flex: 1,
-    backgroundColor: '#F6F8F6',
+    backgroundColor: COLORS.background,
   },
-
-  /* HEADER */
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    backgroundColor: '#F6F8F6',
+    paddingHorizontal: 8,
+    height: 56,
   },
-
+  backButton: {
+    width: 48,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 24,
+  },
   headerTitle: {
+    flex: 1,
+    textAlign: 'center',
     fontSize: 18,
     fontWeight: '700',
-    color: '#111812',
+    color: COLORS.textDark,
   },
-
-  /* CONTENT */
-  content: {
-    paddingHorizontal: 24,
-    paddingBottom: 160,
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+  },
+  successSection: {
     alignItems: 'center',
+    paddingVertical: 32,
   },
-
-  /* STATUS */
-  statusWrapper: {
-    marginTop: 16,
+  iconContainer: {
+    width: 96,
+    height: 96,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 24,
   },
-
-  statusOuter: {
-    height: 96,
-    width: 96,
-    borderRadius: 48,
-    backgroundColor: 'rgba(19,236,55,0.1)',
-    alignItems: 'center',
+  mainCheckCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: COLORS.successBg,
     justifyContent: 'center',
-  },
-
-  statusInner: {
-    height: 64,
-    width: 64,
-    borderRadius: 32,
-    backgroundColor: '#13EC37',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 4,
-    borderColor: '#FFFFFF',
-    elevation: 6,
-    shadowColor: '#13EC37',
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
+    zIndex: 2,
   },
-
-  /* TEXT */
+  pingCircle: {
+    position: 'absolute',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: COLORS.primary,
+  },
   successTitle: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: '800',
-    color: '#111812',
-    marginTop: 12,
-    marginBottom: 8,
-  },
-
-  successSubtitle: {
-    fontSize: 14,
-    color: '#618968',
+    color: COLORS.textDark,
     textAlign: 'center',
-    maxWidth: 280,
-    marginBottom: 32,
   },
-
-  /* RECEIPT */
+  successSubtitle: {
+    fontSize: 16,
+    color: COLORS.textGray,
+    textAlign: 'center',
+    marginTop: 8,
+    maxWidth: 280,
+  },
   receiptCard: {
-    width: '100%',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#DBE6DD',
+    borderColor: COLORS.border,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 8,
+    elevation: 2,
   },
-
-  topBar: {
-    height: 6,
-    backgroundColor: '#13EC37',
-  },
-
-  amountSection: {
-    padding: 24,
-    paddingBottom: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-  },
-
-  amountLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 1,
-    color: '#618968',
-    marginBottom: 4,
-  },
-
-  amountText: {
-    fontSize: 30,
-    fontWeight: '800',
-    color: '#111812',
-  },
-
-  receiptIcon: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(19,236,55,0.1)',
+  receiptHeader: {
+    padding: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
   },
-
-  separatorWrapper: {
-    position: 'relative',
-    height: 1,
-    marginHorizontal: 24,
-    marginBottom: 8,
+  receiptLabel: {
+    fontSize: 14,
+    color: COLORS.textGray,
+    fontWeight: '500',
   },
-
-  dashedLine: {
-    borderTopWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: '#E5E7EB',
+  receiptAmount: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: COLORS.textDark,
+    marginTop: 4,
   },
-
-  cutout: {
-    position: 'absolute',
-    top: -6,
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: '#F6F8F6',
+  receiptBody: {
+    padding: 20,
+    gap: 12,
   },
-
-  cutoutLeft: {
-    left: -18,
-  },
-
-  cutoutRight: {
-    right: -18,
-  },
-
-  details: {
-    padding: 24,
-    paddingTop: 20,
-    gap: 14,
-  },
-
   detailRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-
   detailLabel: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#618968',
+    fontSize: 14,
+    color: COLORS.textGray,
   },
-
+  detailValueContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   detailValue: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '600',
-    color: '#111812',
+    color: COLORS.textDark,
   },
-
-  boldValue: {
-    fontWeight: '800',
+  monoText: {
+    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
   },
-
-  monoValue: {
-    fontFamily: 'monospace',
-    fontSize: 12,
-    letterSpacing: 0.8,
-  },
-
-  /* INFO BANNER */
-  infoBanner: {
-    marginTop: 24,
+  cutoutContainer: {
+    height: 20,
     flexDirection: 'row',
-    gap: 12,
-    padding: 16,
-    borderRadius: 12,
-    backgroundColor: 'rgba(19,236,55,0.05)',
-    borderWidth: 1,
-    borderColor: 'rgba(19,236,55,0.1)',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
-
-  infoText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#111812',
-    lineHeight: 18,
-    flex: 1,
-  },
-
-  /* FOOTER */
-  footer: {
+  cutoutCircle: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderColor: '#DBE6DD',
-    padding: 16,
-    gap: 12,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: COLORS.background,
+    zIndex: 5,
   },
-
-  primaryBtn: {
-    height: 56,
-    borderRadius: 12,
-    backgroundColor: '#13EC37',
+  dashedLine: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderStyle: 'dashed',
+    marginHorizontal: 15,
+  },
+  benefitSection: {
+    marginTop: 32,
+  },
+  sectionHeader: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: COLORS.textGray,
+    letterSpacing: 1,
+    marginBottom: 12,
+    paddingLeft: 4,
+  },
+  benefitCard: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 16,
+    padding: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
+    borderWidth: 1,
+    borderColor: COLORS.border,
   },
-
-  primaryText: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#111812',
-  },
-
-  secondaryBtn: {
-    height: 56,
+  benefitImage: {
+    width: 80,
+    height: 80,
     borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#DBE6DD',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#eee',
   },
-
-  secondaryText: {
+  benefitInfo: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  benefitTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#111812',
+    color: COLORS.textDark,
+  },
+  benefitStatus: {
+    fontSize: 13,
+    color: COLORS.primary,
+    fontWeight: '600',
+    marginTop: 2,
+  },
+  badgeRow: {
+    flexDirection: 'row',
+    marginTop: 8,
+    gap: 8,
+  },
+  badge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    gap: 4,
+  },
+  badgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  footer: {
+    padding: 20,
+    backgroundColor: COLORS.background,
+    gap: 12,
+  },
+  primaryButton: {
+    backgroundColor: COLORS.primary,
+    height: 52,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  primaryButtonText: {
+    color: '#051103',
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  secondaryButton: {
+    height: 52,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  secondaryButtonText: {
+    color: COLORS.textGray,
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
