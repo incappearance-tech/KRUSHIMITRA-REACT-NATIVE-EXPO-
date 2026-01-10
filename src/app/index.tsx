@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import Button from '../components/Button';
 
 const { width } = Dimensions.get('window');
 
@@ -74,20 +75,18 @@ export default function App() {
         </ScrollView>
 
         {/* STICKY FOOTER */}
-        <View style={styles.footer}>
-          <TouchableOpacity
-            style={styles.primaryButton}
-            onPress={() => router.replace('/(auth)/language')}
-          >
-            <Text style={styles.primaryText}>Get Started</Text>
-            <MaterialIcons name="arrow-forward" size={22} color="#000" />
-          </TouchableOpacity>
+        {/* <View style={styles.footer}> */}
+        <Button
+          label="Next Step"
+          onPress={() => router.push('/(auth)/language')}
 
-          <Text style={styles.footerText}>
-            Already have an account?{' '}
-            <Text style={styles.footerLink}>Log in</Text>
-          </Text>
-        </View>
+        />
+
+        <Text style={styles.footerText}>
+          Already have an account?{' '}
+          <Text style={styles.footerLink}>Log in</Text>
+        </Text>
+        {/* </View> */}
       </View>
     </SafeAreaView>
   );

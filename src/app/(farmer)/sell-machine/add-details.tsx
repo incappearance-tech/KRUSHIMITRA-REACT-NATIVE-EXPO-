@@ -1,26 +1,31 @@
+import AvailabilityPicker from '@/src/components/AvailabilityPicker';
+import Button from '@/src/components/Button';
+import FormCheckbox from '@/src/components/FormCheckbox';
+import FormDropdown from '@/src/components/FormDropdown';
+import FormInput from '@/src/components/FormInput';
+import FormSwitch from '@/src/components/FormSwitch';
+import MediaUploader from '@/src/components/MediaUploader';
+import RadioGroup from '@/src/components/RadioGroup';
+import { MaterialIcons } from '@expo/vector-icons';
+import { navigate } from 'expo-router/build/global-state/routing';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import {
-  StyleSheet,
-  Text,
-  View,
+  Alert,
+  FlatList,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  SafeAreaView,
   ScrollView,
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
   TextInput,
   TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
-  Switch,
-  Platform,
-  KeyboardAvoidingView,
-  Image,
-  Alert,
-  Modal,
-  FlatList
+  View
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
-import { Video, ResizeMode } from 'expo-av';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { navigate } from 'expo-router/build/global-state/routing';
 
 // --- Theme Colors ---
 const COLORS = {
@@ -42,51 +47,18 @@ export default function App() {
   const [year, setYear] = useState('2023');
   const [condition, setCondition] = useState('Good - Minor wear');
   const [sellingReason, setSellingReason] = useState('Upgrading to new machine');
-  
+
   const [usageLevel, setUsageLevel] = useState('medium');
   const [isNegotiable, setIsNegotiable] = useState(true);
   const [hasRepair, setHasRepair] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
   // Date Logic
-  const [availability, setAvailability] = useState('immediately');
+  const [availability, setAvailability] = useState({ key: 'immediately' });
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   // --- Handlers ---
-
-  // 1. Media Upload (Image & Video)
-  const pickMedia = async () => {
-    if (media.length >= 5) {
-      Alert.alert("Limit Reached", "You can upload a maximum of 5 files.");
-      return;
-    }
-
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All, // Allows Video & Image
-      allowsEditing: true,
-      quality: 1,
-      videoMaxDuration: 60,
-    });
-
-    if (!result.canceled) {
-      setMedia([...media, result.assets[0]]);
-    }
-  };
-
-  const removeMedia = (indexToRemove) => {
-    setMedia(media.filter((_, index) => index !== indexToRemove));
-  };
-
-  // 2. Date Picker
-  const handleDateChange = (event, date) => {
-    setShowDatePicker(Platform.OS === 'ios'); // Keep open on iOS, close on Android
-    if (date) {
-      setSelectedDate(date);
-      setAvailability('select_date');
-      if (Platform.OS === 'android') setShowDatePicker(false);
-    }
-  };
 
   // 3. Validation & Submit
   const handleNextStep = () => {
@@ -102,11 +74,33 @@ export default function App() {
       Alert.alert("Confirmation Required", "Please confirm the machine belongs to you.");
       return;
     }
-    
+
     Alert.alert("Success", "All validations passed. Proceeding...");
     navigate("/sell-machine/publish");
     console.log("Data:", { media, category, subCategory, usageLevel, selectedDate: availability === 'select_date' ? selectedDate : 'Now' });
   };
+const { control ,watch} = useForm({
+  defaultValues: {
+    isNegotiable: false,
+    hasRepair: false,
+    repairDetails: '',
+    category: '',
+    subCategory: '',
+    brand: '',
+    model: '',
+    year: '',
+    serialNo: '',
+    condition: '',
+    sellingReason: '',
+    usageLevel: '',
+    isChecked: false,
+    availability: { key: 'immediately' },
+    selectedDate: new Date(),
+    showDatePicker: false,
+    ownershipConfirmed: false,
+  },
+});
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -147,74 +141,31 @@ export default function App() {
         >
 
           {/* 1. Photos Section */}
-          <View style={styles.sectionSpacing}>
-            <View style={styles.rowBetween}>
-              <Text style={styles.heading}>Photos & Videos</Text>
-              <Text style={[styles.subText, media.length < 2 && { color: COLORS.error }]}>
-                {media.length}/5 (Min 2)
-              </Text>
-            </View>
-            
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.photoScroll}>
-              {/* Add Button */}
-              <TouchableOpacity style={styles.addPhotoBox} onPress={pickMedia}>
-                <View style={styles.iconCircle}>
-                  <MaterialIcons name="add-a-photo" size={24} color={COLORS.primary} />
-                </View>
-                <Text style={styles.addPhotoText}>Add</Text>
-              </TouchableOpacity>
-
-              {/* Render Uploaded Media */}
-              {media.map((item, index) => (
-                <View key={index} style={styles.mediaWrapper}>
-                  {item.type === 'video' ? (
-                    <Video
-                      style={styles.mediaPreview}
-                      source={{ uri: item.uri }}
-                      resizeMode={ResizeMode.COVER}
-                      shouldPlay={false}
-                      isMuted={true}
-                    />
-                  ) : (
-                    <Image source={{ uri: item.uri }} style={styles.mediaPreview} />
-                  )}
-                  
-                  {/* Video Icon Overlay */}
-                  {item.type === 'video' && (
-                    <View style={styles.videoIndicator}>
-                       <MaterialIcons name="play-circle-fill" size={24} color="#fff" />
-                    </View>
-                  )}
-
-                  {/* Close/Remove Button */}
-                  <TouchableOpacity 
-                    style={styles.removeBtn} 
-                    onPress={() => removeMedia(index)}
-                  >
-                    <MaterialIcons name="close" size={14} color="#fff" />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
+          <MediaUploader
+            title="Upload Photos"
+            onChange={(val) => setMedia(val)}
+            min={2}
+            max={5}
+          />
 
           {/* 2. Category Section */}
           <View style={styles.card}>
             <SectionHeader icon="category" title="Category" />
-            
-            <FunctionalDropdown 
+
+            <FormDropdown
               label="Category"
-              value={category}
               options={['Tractor', 'Harvester', 'Implements', 'Seeds']}
-              onSelect={setCategory}
               placeholder="Select Category"
+              control={control}
+              name="category"
+              
             />
 
-            <FunctionalDropdown 
+            <FormDropdown
+              control={control}
+              name="subCategory"
               label="Sub-Category"
-              value={subCategory}
               options={['4WD', 'Mini Tractor', 'Utility', 'Row Crop']}
-              onSelect={setSubCategory}
               placeholder="Select Sub-Category"
             />
           </View>
@@ -224,32 +175,40 @@ export default function App() {
             <SectionHeader icon="fingerprint" title="Machine Identity" />
 
             <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Brand</Text>
-              <TextInput style={styles.inputContainer} placeholder="e.g. Mahindra, John Deere" placeholderTextColor="#9ca3af" />
+              <FormInput
+                control={control}
+                name="brand"
+                label="Brand"
+                placeholder="e.g. Mahindra, John Deere"
+              />
             </View>
 
             <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Model Name/Number</Text>
-              <TextInput style={styles.inputContainer} placeholder="e.g. 575 DI" placeholderTextColor="#9ca3af" />
+              <FormInput
+                control={control}
+                name="model"
+                label="Model Name/Number"
+                placeholder="e.g. 575 DI"
+              />
             </View>
 
             <View style={styles.rowGap}>
               <View style={{ flex: 1 }}>
-                <FunctionalDropdown 
-                   label="Year of Purchase"
-                   value={year}
-                   options={['2024', '2023', '2022', '2021', '2020']}
-                   onSelect={setYear}
-                   placeholder="Select"
+                <FormDropdown
+                  label="Year of Purchase"
+                  options={['2024', '2023', '2022', '2021', '2020']}
+                  placeholder="Select"
+                  control={control}
+                  name="year"
                 />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.label}>Serial No. (Last 4)</Text>
-                <TextInput 
-                  style={[styles.inputContainer, { textAlign: 'center', letterSpacing: 2 }]} 
-                  placeholder="XXXX" 
-                  maxLength={4} 
-                  autoCapitalize="characters"
+                <FormInput
+                  control={control}
+                  name="serialNo"
+                  label="Serial No. (Last 4)"
+                  placeholder="XXXX"
+                  maxLength={4}
                 />
               </View>
             </View>
@@ -259,27 +218,12 @@ export default function App() {
           <View style={styles.card}>
             <SectionHeader icon="build" title="Usage & Condition" />
 
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Usage Level</Text>
-              <View style={styles.radioGroup}>
-                {['Light', 'Medium', 'Heavy'].map((level) => {
-                  const val = level.toLowerCase();
-                  const isActive = usageLevel === val;
-                  return (
-                    <TouchableOpacity
-                      key={val}
-                      onPress={() => setUsageLevel(val)}
-                      style={[styles.radioButton, isActive && styles.radioButtonActive]}
-                    >
-                      <Text style={[styles.radioText, isActive && { color: 'black' }]}>
-                        {level}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            </View>
-
+            <RadioGroup
+              label="Usage Level"
+              value={usageLevel}
+              options={[{ label: "Light", value: "light" }, { label: "Medium", value: "medium" }, { label: "Heavy", value: "heavy" }]}
+              onChange={setUsageLevel}
+            />
             <View style={styles.divider} />
 
             <View style={[styles.rowBetween, { marginVertical: 8 }]}>
@@ -287,28 +231,30 @@ export default function App() {
                 <Text style={styles.labelDark}>Any major repair done?</Text>
                 <Text style={styles.subTextSmall}>Engine, Transmission, etc.</Text>
               </View>
-              <Switch
-                trackColor={{ false: "#e5e7eb", true: COLORS.primary }}
-                thumbColor={"#fff"}
-                onValueChange={setHasRepair}
-                value={hasRepair}
+              <FormSwitch
+                control={control}
+                name="hasRepair"
+                // label="Price negotiable?"
+                // disabled={isNegotiable}
               />
             </View>
 
-            {hasRepair && (
-              <TextInput 
-                style={[styles.inputContainer, { marginTop: 8 }]} 
-                placeholder="If yes, please describe briefly..." 
+            {watch('hasRepair') && (
+              <FormInput
+                control={control}
+                name="repairDetails"
+                label="Repair Details"
+                placeholder="Enter repair details"
               />
             )}
 
             <View style={{ marginTop: 16 }}>
-              <FunctionalDropdown 
+              <FormDropdown
                 label="Overall Condition"
-                value={condition}
                 options={['Excellent', 'Good - Minor wear', 'Fair', 'Needs Repair']}
-                onSelect={setCondition}
                 placeholder="Select"
+                control={control}
+                name="condition"
               />
             </View>
           </View>
@@ -317,74 +263,45 @@ export default function App() {
           <View style={styles.card}>
             <SectionHeader icon="sell" title="Sales Details" />
 
-            <FunctionalDropdown 
-                label="Reason for Selling"
-                value={sellingReason}
-                options={['Upgrading to new machine', 'Need Cash', 'Not using anymore']}
-                onSelect={setSellingReason}
-                placeholder="Select"
+            <FormDropdown
+              label="Reason for Selling"
+              options={['Upgrading to new machine', 'Need Cash', 'Not using anymore']}
+              placeholder="Select"
+              control={control}
+              name="sellingReason"
             />
 
             <View style={styles.fieldGroup}>
               <Text style={styles.label}>Asking Price</Text>
               <View style={styles.inputWrapperRelative}>
                 <Text style={styles.currencyPrefix}>₹</Text>
-                <TextInput 
-                  style={[styles.inputContainer, { paddingLeft: 30, fontWeight: '600', fontSize: 16 }]} 
-                  placeholder="0.00" 
-                  keyboardType="numeric" 
+                <TextInput
+                  style={[styles.inputContainer, { paddingLeft: 30, fontWeight: '600', fontSize: 16 }]}
+                  placeholder="0.00"
+                  keyboardType="numeric"
                 />
               </View>
             </View>
 
             <View style={[styles.rowBetween, { marginVertical: 8 }]}>
               <Text style={styles.labelDark}>Price negotiable?</Text>
-              <Switch
-                trackColor={{ false: "#e5e7eb", true: COLORS.primary }}
-                thumbColor={"#fff"}
-                onValueChange={setIsNegotiable}
-                value={isNegotiable}
+              <FormSwitch
+                control={control}
+                name="isNegotiable"
+                // label="Price negotiable?"
+                // disabled={isNegotiable}
               />
             </View>
 
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>Available From</Text>
-              <View style={styles.rowGap}>
-                {/* Immediately Option */}
-                <TouchableOpacity 
-                  onPress={() => setAvailability('immediately')}
-                  style={[styles.radioBoxRow, availability === 'immediately' && styles.radioBoxActive]}
-                >
-                  <View style={[styles.radioCircle, availability === 'immediately' && styles.radioCircleActive]} />
-                  <Text style={styles.radioLabel}>Immediately</Text>
-                </TouchableOpacity>
-
-                {/* Calendar Option */}
-                <TouchableOpacity 
-                  onPress={() => {
-                    setAvailability('select_date');
-                    setShowDatePicker(true);
-                  }}
-                  style={[styles.radioBoxRow, availability === 'select_date' && styles.radioBoxActive]}
-                >
-                  <View style={[styles.radioCircle, availability === 'select_date' && styles.radioCircleActive]} />
-                  <Text style={styles.radioLabel}>
-                    {availability === 'select_date' ? selectedDate.toLocaleDateString() : 'Select Date'}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              
-              {/* Native Calendar Picker */}
-              {showDatePicker && (
-                <DateTimePicker
-                  value={selectedDate}
-                  mode="date"
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  onChange={handleDateChange}
-                  minimumDate={new Date()}
-                />
-              )}
-            </View>
+            <AvailabilityPicker
+              label="Available From"
+              value={availability}
+              onChange={setAvailability}
+              options={[
+                { type: 'static', key: 'immediately', label: 'Immediately' },
+                { type: 'date', key: 'select_date', label: 'Select Date' },
+              ]}
+            />;
           </View>
 
           {/* 6. Location Accuracy */}
@@ -403,45 +320,37 @@ export default function App() {
               </TouchableOpacity>
             </View>
             <View style={styles.gridContainer}>
-                <View style={styles.gridItem}>
-                    <Text style={styles.labelSmall}>Village</Text>
-                    <View style={styles.staticBox}><Text style={styles.staticText}>Sattur</Text></View>
-                </View>
-                <View style={styles.gridItem}>
-                    <Text style={styles.labelSmall}>Taluka</Text>
-                    <View style={styles.staticBox}><Text style={styles.staticText}>Virudhunagar</Text></View>
-                </View>
-                <View style={[styles.gridItem, { width: '100%' }]}>
-                    <Text style={styles.labelSmall}>District</Text>
-                    <View style={styles.staticBox}><Text style={styles.staticText}>Virudhunagar District</Text></View>
-                </View>
+              <View style={styles.gridItem}>
+                <Text style={styles.labelSmall}>Village</Text>
+                <View style={styles.staticBox}><Text style={styles.staticText}>Sattur</Text></View>
+              </View>
+              <View style={styles.gridItem}>
+                <Text style={styles.labelSmall}>Taluka</Text>
+                <View style={styles.staticBox}><Text style={styles.staticText}>Virudhunagar</Text></View>
+              </View>
+              <View style={[styles.gridItem, { width: '100%' }]}>
+                <Text style={styles.labelSmall}>District</Text>
+                <View style={styles.staticBox}><Text style={styles.staticText}>Virudhunagar District</Text></View>
+              </View>
             </View>
           </View>
 
           {/* 7. Ownership Checkbox */}
-          <TouchableOpacity 
-            style={styles.checkboxContainer} 
-            activeOpacity={0.8}
-            onPress={() => setIsChecked(!isChecked)}
-          >
-            <View style={[styles.checkbox, isChecked && styles.checkboxChecked]}>
-                {isChecked && <MaterialIcons name="check" size={16} color={COLORS.primary} />}
-            </View>
-            <Text style={styles.checkboxText}>
-              I confirm this machine belongs to me or my family and all details provided are accurate.
-            </Text>
-          </TouchableOpacity>
+          <FormCheckbox
+  control={control}
+  name="ownershipConfirmed"
+  label="I confirm this machine belongs to me or my family and all details provided are accurate."
+/>
 
         </ScrollView>
       </KeyboardAvoidingView>
 
       {/* --- Sticky Footer --- */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity style={styles.nextButton} activeOpacity={0.9} onPress={handleNextStep}>
-          <Text style={styles.nextButtonText}>Next Step</Text>
-          <MaterialIcons name="arrow-forward" size={20} color="black" />
-        </TouchableOpacity>
-      </View>
+        <Button
+          label="Next Step"
+          onPress={handleNextStep}
+          sticky
+        />
 
     </SafeAreaView>
   );
@@ -458,46 +367,46 @@ const SectionHeader = ({ icon, title }) => (
 
 // New Functional Dropdown Component
 const FunctionalDropdown = ({ label, placeholder, value, options, onSelect }) => {
-    const [visible, setVisible] = useState(false);
-  
-    return (
-      <View style={styles.fieldGroup}>
-        {label && <Text style={styles.label}>{label}</Text>}
-        <TouchableOpacity style={styles.inputContainer} activeOpacity={0.7} onPress={() => setVisible(true)}>
-          <Text style={[styles.inputText, !value && { color: '#9ca3af' }]}>
-            {value || placeholder}
-          </Text>
-          <MaterialIcons name="expand-more" size={24} color={COLORS.textSecondary} style={{ position: 'absolute', right: 12 }} />
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <View style={styles.fieldGroup}>
+      {label && <Text style={styles.label}>{label}</Text>}
+      <TouchableOpacity style={styles.inputContainer} activeOpacity={0.7} onPress={() => setVisible(true)}>
+        <Text style={[styles.inputText, !value && { color: '#9ca3af' }]}>
+          {value || placeholder}
+        </Text>
+        <MaterialIcons name="expand-more" size={24} color={COLORS.textSecondary} style={{ position: 'absolute', right: 12 }} />
+      </TouchableOpacity>
+
+      <Modal visible={visible} transparent animationType="fade">
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          activeOpacity={1}
+          onPress={() => setVisible(false)}
+        >
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Select {label}</Text>
+            <FlatList
+              data={options}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={styles.modalItem}
+                  onPress={() => { onSelect(item); setVisible(false); }}
+                >
+                  <Text style={[styles.modalItemText, item === value && { color: COLORS.primary, fontWeight: '700' }]}>
+                    {item}
+                  </Text>
+                  {item === value && <MaterialIcons name="check" size={20} color={COLORS.primary} />}
+                </TouchableOpacity>
+              )}
+            />
+          </View>
         </TouchableOpacity>
-  
-        <Modal visible={visible} transparent animationType="fade">
-          <TouchableOpacity 
-            style={styles.modalOverlay} 
-            activeOpacity={1} 
-            onPress={() => setVisible(false)}
-          >
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Select {label}</Text>
-              <FlatList
-                data={options}
-                keyExtractor={(item) => item}
-                renderItem={({ item }) => (
-                  <TouchableOpacity 
-                    style={styles.modalItem} 
-                    onPress={() => { onSelect(item); setVisible(false); }}
-                  >
-                    <Text style={[styles.modalItemText, item === value && { color: COLORS.primary, fontWeight: '700' }]}>
-                        {item}
-                    </Text>
-                    {item === value && <MaterialIcons name="check" size={20} color={COLORS.primary} />}
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
-          </TouchableOpacity>
-        </Modal>
-      </View>
-    );
+      </Modal>
+    </View>
+  );
 };
 
 // --- Styles ---
@@ -581,7 +490,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textSecondary,
   },
-  
+
   // Media Styling
   photoScroll: {
     marginTop: 12,
@@ -591,7 +500,7 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     borderWidth: 2,
-    borderStyle: 'dashed', 
+    borderStyle: 'dashed',
     borderColor: COLORS.border,
     borderRadius: 12,
     backgroundColor: COLORS.surfaceLight,
@@ -768,13 +677,13 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: COLORS.border,
-    borderStyle: 'dashed', 
+    borderStyle: 'dashed',
     borderWidth: 1,
     borderColor: COLORS.border,
     marginVertical: 12,
     opacity: 0.5
   },
-  
+
   // Price
   inputWrapperRelative: {
     justifyContent: 'center',
@@ -816,7 +725,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textMain,
   },
-  
+
   // Map
   mapPlaceholder: {
     height: 128,
@@ -890,7 +799,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textSecondary,
   },
-  
+
   // Checkbox
   checkboxContainer: {
     flexDirection: 'row',
@@ -918,7 +827,7 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     lineHeight: 20,
   },
-  
+
   // Sticky Footer
   footerContainer: {
     position: 'absolute',

@@ -15,6 +15,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { FarmerProfileForm, farmerProfileSchema } from '@/src/validators/farmerProfile.schema';
 import { router } from 'expo-router';
+import FormInput from '@/src/components/FormInput';
+import FormDropdown from '@/src/components/FormDropdown';
 
 
 const DISTRICT_TALUKA_MAP: Record<string, string[]> = {
@@ -90,140 +92,56 @@ export default function FarmerProfileScreen() {
       </View>
 
       {/* Full Name */}
-      <Controller
+
+      <FormInput
         control={control}
         name="fullName"
-        render={({ field, fieldState }) => (
-          <View style={styles.field}>
-            <Text style={styles.label}>Full Name *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your full name"
-              value={field.value}
-              onChangeText={field.onChange}
-            />
-            {fieldState.error && (
-              <Text style={styles.error}>{fieldState.error.message}</Text>
-            )}
-          </View>
-        )}
+        label="Full Name"
+        placeholder="Enter your full name"
       />
-
       {/* Farmer ID */}
-      <Controller
+      <FormInput
         control={control}
         name="farmerId"
-        render={({ field, fieldState }) => (
-          <View style={styles.field}>
-            <Text style={styles.label}>Farmer ID *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Farmer ID"
-              value={field.value}
-              onChangeText={field.onChange}
-            />
-            {fieldState.error && (
-              <Text style={styles.error}>{fieldState.error.message}</Text>
-            )}
-          </View>
-        )}
+        label="Farmer ID"
+        placeholder="Enter Farmer ID"
       />
-
       {/* District */}
-      <Controller
+      <FormDropdown
         control={control}
         name="district"
-        render={({ field, fieldState }) => (
-          <View style={styles.field}>
-            <Text style={styles.label}>District *</Text>
-            <View style={styles.pickerWrapper}>
-              <Picker
-                selectedValue={field.value}
-                onValueChange={(v) => {
-                  field.onChange(v);
-                  setValue('taluka', '');
-                }}
-              >
-                <Picker.Item label="Select District" value="" />
-                {Object.keys(DISTRICT_TALUKA_MAP).map(d => (
-                  <Picker.Item key={d} label={d} value={d} />
-                ))}
-              </Picker>
-            </View>
-            {fieldState.error && (
-              <Text style={styles.error}>{fieldState.error.message}</Text>
-            )}
-          </View>
-        )}
+        label="District"
+        placeholder="Select District"
+        options={Object.keys(DISTRICT_TALUKA_MAP)}
       />
-
+     
       {/* Taluka */}
-      <Controller
+      <FormDropdown
         control={control}
         name="taluka"
-        render={({ field, fieldState }) => (
-          <View style={styles.field}>
-            <Text style={styles.label}>Taluka *</Text>
-            <View style={styles.pickerWrapper}>
-              <Picker
-                enabled={!!district}
-                selectedValue={field.value}
-                onValueChange={field.onChange}
-              >
-                <Picker.Item label="Select Taluka" value="" />
-                {(DISTRICT_TALUKA_MAP[district] || []).map(t => (
-                  <Picker.Item key={t} label={t} value={t} />
-                ))}
-              </Picker>
-            </View>
-            {fieldState.error && (
-              <Text style={styles.error}>{fieldState.error.message}</Text>
-            )}
-          </View>
-        )}
+        label="Taluka"
+        placeholder="Select Taluka"
+        options={Object.keys(DISTRICT_TALUKA_MAP)}
       />
-
+    
       {/* Village */}
-      <Controller
+
+      <FormInput
         control={control}
         name="village"
-        render={({ field, fieldState }) => (
-          <View style={styles.field}>
-            <Text style={styles.label}>Village *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Village"
-              value={field.value}
-              onChangeText={field.onChange}
-            />
-            {fieldState.error && (
-              <Text style={styles.error}>{fieldState.error.message}</Text>
-            )}
-          </View>
-        )}
+        label="Village"
+        placeholder="Enter Village"
       />
-
       {/* Pin Code */}
-      <Controller
+      <FormInput
         control={control}
         name="pinCode"
-        render={({ field, fieldState }) => (
-          <View style={styles.field}>
-            <Text style={styles.label}>Pin Code *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter 6-digit Pin Code"
-              keyboardType="number-pad"
-              maxLength={6}
-              value={field.value}
-              onChangeText={field.onChange}
-            />
-            {fieldState.error && (
-              <Text style={styles.error}>{fieldState.error.message}</Text>
-            )}
-          </View>
-        )}
+        label="Pin Code"
+        placeholder="Enter 6-digit Pin Code"
+        keyboardType="number-pad"
+        maxLength={6}
       />
+
 
       {/* Submit */}
       <TouchableOpacity
