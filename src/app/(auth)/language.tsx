@@ -1,14 +1,16 @@
+import Button from '@/src/components/Button';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  View,
+  ImageBackground,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  ImageBackground,
+  View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { COLORS } from '../../constants/colors';
 import { useLanguage } from '../../context/LanguageContext';
 
 type LangCode = 'en' | 'hi' | 'mr';
@@ -94,18 +96,23 @@ export default function LanguageScreen() {
       </View>
 
       {/* Sticky Footer Button */}
-      <View style={styles.footer}>
+      {/* <View style={styles.footer}>
         <TouchableOpacity style={styles.continueBtn} onPress={handleContinue}>
           <Text style={styles.continueText}>Continue</Text>
           <Ionicons name="arrow-forward" size={20} color="#111812" />
         </TouchableOpacity>
-      </View>
+      </View> */}
+      <Button
+        label='Continue'
+        onPress={handleContinue}
+        icon='arrow-forward'
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: COLORS.background },
 
   headerImage: {
     height: 240,
@@ -121,11 +128,11 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#fff',
+    color: COLORS.white,
   },
   subWelcome: {
     fontSize: 14,
-    color: '#E5E7EB',
+    color: COLORS.border,
     marginTop: 4,
   },
 
@@ -136,11 +143,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#111812',
+    color: COLORS.text,
   },
   subtitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     marginTop: 6,
     textAlign: 'center',
   },
@@ -158,12 +165,12 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 14,
     borderWidth: 2,
-    borderColor: '#E5E7EB',
-    backgroundColor: '#fff',
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.white,
   },
   cardActive: {
-    borderColor: '#13ec37',
-    backgroundColor: 'rgba(19,236,55,0.06)',
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.muted,
   },
 
   left: {
@@ -187,16 +194,16 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#111812',
+    color: COLORS.text,
   },
   cardSub: {
     fontSize: 13,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     marginTop: 2,
   },
 
   checkIcon: {
-    backgroundColor: '#13ec37',
+    backgroundColor: COLORS.brand.primary,
     borderRadius: 12,
     padding: 4,
   },
@@ -204,12 +211,12 @@ const styles = StyleSheet.create({
   footer: {
     padding: 16,
     borderTopWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.border,
   },
   continueBtn: {
     height: 56,
     borderRadius: 14,
-    backgroundColor: '#13ec37',
+    backgroundColor: COLORS.brand.primary,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -218,6 +225,6 @@ const styles = StyleSheet.create({
   continueText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#111812',
+    color: COLORS.text,
   },
 });

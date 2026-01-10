@@ -1,32 +1,24 @@
+import Button from '@/src/components/Button';
+import { MaterialIcons } from '@expo/vector-icons';
+import { navigate } from 'expo-router/build/global-state/routing';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
+  Dimensions,
   Image,
   ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
-  Dimensions,
-  StatusBar as RNStatusBar,
+  View
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { COLORS } from '../../../constants/colors';
 
 const { width } = Dimensions.get('window');
 
 // --- Theme Constants ---
-const COLORS = {
-  primary: '#37ec13',
-  bgLight: '#f6f8f6',
-  cardBg: '#ffffff',
-  textDark: '#101b0d',
-  textGray: '#6b7280',
-  border: '#e5e7eb',
-  warningBg: '#fefce8',
-  warningText: '#854d0e',
-};
+
 
 export default function MachineDetailsScreen() {
   return (
@@ -46,38 +38,38 @@ function MachineDetailsContent() {
       {/* Floating Header Buttons */}
       <View style={[styles.headerActions, { top: insets.top + 10 }]}>
         <TouchableOpacity style={styles.iconButton}>
-          <MaterialIcons name="arrow-back-ios" size={20} color="white" style={{ marginLeft: 5 }} />
+          <MaterialIcons name="arrow-back-ios" size={20} color={COLORS.white} style={{ marginLeft: 5 }} />
         </TouchableOpacity>
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.iconButton}>
-            <MaterialIcons name="share" size={22} color="white" />
+            <MaterialIcons name="share" size={22} color={COLORS.white} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <MaterialIcons name="favorite-border" size={22} color="white" />
+            <MaterialIcons name="favorite-border" size={22} color={COLORS.white} />
           </TouchableOpacity>
         </View>
       </View>
 
-      <ScrollView 
+      <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 140 }}
       >
         {/* Main Image & Gallery Label */}
         <View style={styles.imageContainer}>
-          <Image 
-            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=1000' }} 
-            style={styles.mainImage} 
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=1000' }}
+            style={styles.mainImage}
           />
           <View style={styles.photoCount}>
-            <MaterialIcons name="grid-view" size={14} color="white" />
+            <MaterialIcons name="grid-view" size={14} color={COLORS.white} />
             <Text style={styles.photoCountText}>See All 5 Photos</Text>
           </View>
         </View>
 
         {/* Thumbnail Strip */}
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false} 
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.thumbStrip}
         >
           <View style={[styles.thumb, styles.thumbActive]}>
@@ -94,7 +86,7 @@ function MachineDetailsContent() {
         <View style={styles.contentPadding}>
           <View style={styles.badgeRow}>
             <View style={styles.verifiedBadge}>
-              <MaterialIcons name="verified" size={14} color="#15803d" />
+              <MaterialIcons name="verified" size={14} color={COLORS.success} />
               <Text style={styles.verifiedText}>Verified Listing</Text>
             </View>
             <Text style={styles.listingId}>ID: #TR-4059</Text>
@@ -106,7 +98,7 @@ function MachineDetailsContent() {
 
           {/* Safety Box */}
           <View style={styles.safetyBox}>
-            <MaterialIcons name="warning" size={20} color="#ca8a04" />
+            <MaterialIcons name="warning" size={20} color={COLORS.warningDark} />
             <View style={{ flex: 1 }}>
               <Text style={styles.safetyTitle}>Safety First</Text>
               <Text style={styles.safetyDesc}>Always inspect the machine physically before making any payment.</Text>
@@ -139,30 +131,30 @@ function MachineDetailsContent() {
           <Text style={styles.sectionHeading}>Seller Profile</Text>
           <TouchableOpacity style={styles.sellerCard}>
             <View style={styles.sellerInfo}>
-              <Image 
-                source={{ uri: 'https://i.pravatar.cc/150?u=miller' }} 
-                style={styles.sellerAvatar} 
+              <Image
+                source={{ uri: 'https://i.pravatar.cc/150?u=miller' }}
+                style={styles.sellerAvatar}
               />
               <View>
                 <Text style={styles.sellerName}>Robert Miller</Text>
                 <Text style={styles.sellerVillage}>Village: Oakdale</Text>
                 <View style={styles.ratingBadge}>
-                  <MaterialIcons name="star" size={14} color="#eab308" />
+                  <MaterialIcons name="star" size={14} color={COLORS.warning} />
                   <Text style={styles.ratingText}>4.8</Text>
                 </View>
               </View>
             </View>
-            <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
+            <MaterialIcons name="chevron-right" size={24} color={COLORS.textSecondary} />
           </TouchableOpacity>
 
           {/* Location Map Placeholder */}
           <Text style={styles.sectionHeading}>Location</Text>
           <View style={styles.mapContainer}>
-             <View style={styles.mapPlaceholder}>
-                <View style={styles.mapMarker}>
-                   <MaterialIcons name="location-on" size={24} color={COLORS.primary} />
-                </View>
-             </View>
+            <View style={styles.mapPlaceholder}>
+              <View style={styles.mapMarker}>
+                <MaterialIcons name="location-on" size={24} color={COLORS.brand.primary} />
+              </View>
+            </View>
           </View>
           <Text style={styles.mapDisclaimer}>Approximate location shown for safety</Text>
         </View>
@@ -173,14 +165,17 @@ function MachineDetailsContent() {
         <View style={styles.footerInfo}>
           <Text style={styles.contactHidden}>Contact hidden for privacy</Text>
           <View style={styles.footerVerified}>
-            <MaterialIcons name="shield" size={12} color={COLORS.primary} />
+            <MaterialIcons name="shield" size={12} color={COLORS.success} />
             <Text style={styles.footerVerifiedText}>Verified Seller</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8} onPress={()=>navigate("/buy-machine/intent")}>
-          <MaterialIcons name="lock-open" size={20} color={COLORS.textDark} />
-          <Text style={styles.primaryButtonText}>Unlock Seller Contact</Text>
-        </TouchableOpacity>
+        <Button
+          label="Unlock Seller Contact"
+          onPress={() => navigate("/buy-machine/intent")}
+          icon="lock-open"
+          textColor={COLORS.text}
+          backgroundColor={COLORS.brand.primary}
+        />
       </View>
     </View>
   );
@@ -195,7 +190,7 @@ const SpecItem = ({ label, value }) => (
   </View>
 );
 
-const DetailRow = ({ label, value, isGreen }) => (
+const DetailRow = ({ label, value, isGreen = false }: { label: string, value: string, isGreen?: boolean }) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
     <View style={isGreen ? styles.statusBadge : null}>
@@ -206,7 +201,7 @@ const DetailRow = ({ label, value, isGreen }) => (
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.bgLight },
+  container: { flex: 1, backgroundColor: COLORS.background },
   headerActions: {
     position: 'absolute',
     left: 0,
@@ -239,30 +234,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
   },
-  photoCountText: { color: 'white', fontSize: 10, fontWeight: '600' },
+  photoCountText: { color: COLORS.white, fontSize: 10, fontWeight: '600' },
   thumbStrip: { paddingHorizontal: 20, paddingVertical: 12, gap: 8 },
-  thumb: { width: 80, height: 64, borderRadius: 8, overflow: 'hidden', backgroundColor: '#e5e7eb' },
-  thumbActive: { borderWidth: 2, borderColor: COLORS.primary },
+  thumb: { width: 80, height: 64, borderRadius: 8, overflow: 'hidden', backgroundColor: COLORS.gray[200] },
+  thumbActive: { borderWidth: 2, borderColor: COLORS.brand.primary },
   thumbImg: { width: '100%', height: '100%' },
-  thumbPlaceholder: { width: '100%', height: '100%', backgroundColor: '#d1d5db', opacity: 0.7 },
+  thumbPlaceholder: { width: '100%', height: '100%', backgroundColor: COLORS.gray[300], opacity: 0.7 },
   contentPadding: { paddingHorizontal: 20 },
   badgeRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
-  verifiedBadge: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    backgroundColor: 'rgba(55,236,19,0.15)', 
-    paddingHorizontal: 8, 
-    paddingVertical: 4, 
+  verifiedBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.successLight,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 4,
     gap: 4
   },
-  verifiedText: { color: '#15803d', fontSize: 10, fontWeight: '700', textTransform: 'uppercase' },
-  listingId: { color: COLORS.textGray, fontSize: 12 },
-  title: { fontSize: 24, fontWeight: '700', color: COLORS.textDark, marginBottom: 4 },
-  location: { fontSize: 14, color: COLORS.textGray, marginBottom: 8 },
-  price: { fontSize: 32, fontWeight: '800', color: COLORS.primary, marginBottom: 16 },
+  verifiedText: { color: COLORS.successDark, fontSize: 10, fontWeight: '700', textTransform: 'uppercase' },
+  listingId: { color: COLORS.textSecondary, fontSize: 12 },
+  title: { fontSize: 24, fontWeight: '700', color: COLORS.text, marginBottom: 4 },
+  location: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 8 },
+  price: { fontSize: 32, fontWeight: '800', color: COLORS.brand.primary, marginBottom: 16 },
   safetyBox: {
-    backgroundColor: COLORS.warningBg,
+    backgroundColor: COLORS.warningLight,
     borderColor: '#fef08a',
     borderWidth: 1,
     borderRadius: 12,
@@ -271,87 +266,78 @@ const styles = StyleSheet.create({
     gap: 12,
     marginBottom: 24,
   },
-  safetyTitle: { fontSize: 12, fontWeight: '800', color: COLORS.warningText, textTransform: 'uppercase', marginBottom: 2 },
-  safetyDesc: { fontSize: 12, color: COLORS.warningText, opacity: 0.8 },
-  sectionHeading: { fontSize: 12, fontWeight: '700', color: COLORS.textDark, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12, marginTop: 8 },
+  safetyTitle: { fontSize: 12, fontWeight: '800', color: COLORS.warningDark, textTransform: 'uppercase', marginBottom: 2 },
+  safetyDesc: { fontSize: 12, color: COLORS.warningDark, opacity: 0.8 },
+  sectionHeading: { fontSize: 12, fontWeight: '700', color: COLORS.text, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12, marginTop: 8 },
   specsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 16 },
-  specBox: { 
-    width: (width - 50) / 2, 
-    backgroundColor: '#fff', 
-    padding: 12, 
-    borderRadius: 12, 
-    borderWidth: 1, 
-    borderColor: '#f1f5f9' 
+  specBox: {
+    width: (width - 50) / 2,
+    backgroundColor: COLORS.white,
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.gray[100]
   },
-  specLabel: { fontSize: 10, color: COLORS.textGray, textTransform: 'uppercase', marginBottom: 4 },
-  specValue: { fontSize: 16, fontWeight: '700', color: COLORS.textDark },
+  specLabel: { fontSize: 10, color: COLORS.textSecondary, textTransform: 'uppercase', marginBottom: 4 },
+  specValue: { fontSize: 16, fontWeight: '700', color: COLORS.text },
   listDetails: { marginBottom: 24 },
-  detailRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f1f5f9' },
-  detailLabel: { color: COLORS.textGray, fontSize: 14 },
-  detailValue: { fontWeight: '600', color: COLORS.textDark, fontSize: 14 },
-  statusBadge: { backgroundColor: '#dcfce7', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 4 },
-  statusText: { color: '#15803d' },
-  subHeading: { fontSize: 10, color: COLORS.textGray, textTransform: 'uppercase', marginBottom: 8 },
-  quoteBox: { borderLeftWidth: 3, borderLeftColor: COLORS.primary, paddingLeft: 12, paddingVertical: 8, backgroundColor: '#fff', borderRadius: 4 },
-  quoteText: { fontStyle: 'italic', color: COLORS.textDark, fontSize: 14 },
-  sellerCard: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'space-between', 
-    padding: 16, 
-    backgroundColor: '#fff', 
-    borderRadius: 16, 
+  detailRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: COLORS.gray[100] },
+  detailLabel: { color: COLORS.textSecondary, fontSize: 14 },
+  detailValue: { fontWeight: '600', color: COLORS.text, fontSize: 14 },
+  statusBadge: { backgroundColor: COLORS.successLight, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 4 },
+  statusText: { color: COLORS.successDark },
+  subHeading: { fontSize: 10, color: COLORS.textSecondary, textTransform: 'uppercase', marginBottom: 8 },
+  quoteBox: { borderLeftWidth: 3, borderLeftColor: COLORS.brand.primary, paddingLeft: 12, paddingVertical: 8, backgroundColor: COLORS.white, borderRadius: 4 },
+  quoteText: { fontStyle: 'italic', color: COLORS.text, fontSize: 14 },
+  sellerCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    backgroundColor: COLORS.white,
+    borderRadius: 16,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: '#f1f5f9'
+    borderColor: COLORS.gray[100]
   },
   sellerInfo: { flexDirection: 'row', gap: 12, alignItems: 'center' },
   sellerAvatar: { width: 56, height: 56, borderRadius: 28 },
-  sellerName: { fontSize: 16, fontWeight: '700', color: COLORS.textDark },
-  sellerVillage: { fontSize: 12, color: COLORS.textGray, marginBottom: 4 },
-  ratingBadge: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    backgroundColor: '#f8fafc', 
-    paddingHorizontal: 6, 
-    paddingVertical: 2, 
-    borderRadius: 4, 
-    borderWidth: 1, 
-    borderColor: '#e2e8f0',
+  sellerName: { fontSize: 16, fontWeight: '700', color: COLORS.text },
+  sellerVillage: { fontSize: 12, color: COLORS.textSecondary, marginBottom: 4 },
+  ratingBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.gray[50],
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: COLORS.border,
     width: 45
   },
   ratingText: { fontSize: 12, fontWeight: '700', marginLeft: 2 },
-  mapContainer: { width: '100%', height: 128, borderRadius: 16, overflow: 'hidden', backgroundColor: '#e2e8f0' },
-  mapPlaceholder: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#cbd5e1' },
-  mapMarker: { backgroundColor: 'white', padding: 8, borderRadius: 20, elevation: 4 },
-  mapDisclaimer: { textAlign: 'center', fontSize: 11, color: COLORS.textGray, marginTop: 8 },
+  mapContainer: { width: '100%', height: 128, borderRadius: 16, overflow: 'hidden', backgroundColor: COLORS.gray[200] },
+  mapPlaceholder: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.gray[300] },
+  mapMarker: { backgroundColor: COLORS.white, padding: 8, borderRadius: 20, elevation: 4 },
+  mapDisclaimer: { textAlign: 'center', fontSize: 11, color: COLORS.textSecondary, marginTop: 8 },
   footer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     padding: 16,
     borderTopWidth: 1,
-    borderTopColor: '#f1f5f9',
+    borderTopColor: COLORS.gray[100],
     elevation: 20,
-    shadowColor: '#000',
+    shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.05,
     shadowRadius: 10,
   },
   footerInfo: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12, paddingHorizontal: 4 },
-  contactHidden: { fontSize: 12, color: COLORS.textGray },
+  contactHidden: { fontSize: 12, color: COLORS.textSecondary },
   footerVerified: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  footerVerifiedText: { fontSize: 12, fontWeight: '600', color: '#15803d' },
-  primaryButton: { 
-    height: 56, 
-    backgroundColor: COLORS.primary, 
-    borderRadius: 12, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    gap: 8,
-  },
-  primaryButtonText: { color: COLORS.textDark, fontSize: 16, fontWeight: '700' },
+  footerVerifiedText: { fontSize: 12, fontWeight: '600', color: COLORS.successDark },
+
 });

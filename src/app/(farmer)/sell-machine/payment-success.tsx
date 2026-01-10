@@ -1,31 +1,23 @@
+import Button from '@/src/components/Button';
+import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef } from 'react';
 import {
+  Animated,
+  Dimensions,
+  Image,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
   StyleSheet,
-  View,
   Text,
   TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-  Animated,
-  Image,
-  Dimensions,
-  Platform,
+  View,
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { COLORS } from '../../../constants/colors';
 
 const { width } = Dimensions.get('window');
 
-// --- Theme Colors ---
-const COLORS = {
-  primary: "#37ec13",
-  background: "#f6f8f6",
-  surface: "#ffffff",
-  textDark: "#132210",
-  textGray: "#6b7280",
-  border: "#f3f4f6",
-  successBg: "rgba(55, 236, 19, 0.15)",
-};
 
 export default function PaymentSuccessScreen() {
   // Animations
@@ -68,31 +60,31 @@ export default function PaymentSuccessScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      
+
       {/* Navigation Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
-          <MaterialIcons name="arrow-back" size={24} color={COLORS.textDark} />
+          <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Confirmation</Text>
         <View style={{ width: 48 }} />
       </View>
 
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         {/* Success Icon & Message */}
         <Animated.View style={[styles.successSection, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
           <View style={styles.iconContainer}>
-            <Animated.View 
+            <Animated.View
               style={[
-                styles.pingCircle, 
+                styles.pingCircle,
                 { transform: [{ scale: pingAnim }], opacity: fadeAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 0.4] }) }
-              ]} 
+              ]}
             />
             <View style={styles.mainCheckCircle}>
-              <MaterialIcons name="check-circle" size={56} color={COLORS.primary} />
+              <MaterialIcons name="check-circle" size={56} color={COLORS.brand.primary} />
             </View>
           </View>
           <Text style={styles.successTitle}>Payment Successful!</Text>
@@ -111,10 +103,10 @@ export default function PaymentSuccessScreen() {
           <View style={styles.receiptBody}>
             <DetailRow label="Transaction ID" value="#TRX-8923492" isMono />
             <DetailRow label="Date" value="Oct 24, 2024, 10:30 AM" />
-            <DetailRow 
-              label="Payment Method" 
-              value="HDFC **** 4582" 
-              icon="credit-card" 
+            <DetailRow
+              label="Payment Method"
+              value="HDFC **** 4582"
+              icon="credit-card"
             />
           </View>
 
@@ -130,20 +122,20 @@ export default function PaymentSuccessScreen() {
         <View style={styles.benefitSection}>
           <Text style={styles.sectionHeader}>UNLOCKED BENEFIT</Text>
           <View style={styles.benefitCard}>
-            <Image 
-              source={{ uri: 'https://images.unsplash.com/photo-1594913785162-e6785b423cb1?q=80&w=500&auto=format&fit=crop' }} 
+            <Image
+              source={{ uri: 'https://images.unsplash.com/photo-1594913785162-e6785b423cb1?q=80&w=500&auto=format&fit=crop' }}
               style={styles.benefitImage}
             />
             <View style={styles.benefitInfo}>
               <Text style={styles.benefitTitle}>John Deere Tractor 5050D</Text>
               <Text style={styles.benefitStatus}>Premium Listing - Live for 30 days</Text>
-              
+
               <View style={styles.badgeRow}>
                 <View style={[styles.badge, { backgroundColor: '#dcfce7' }]}>
                   <MaterialIcons name="calendar-today" size={12} color="#15803d" />
                   <Text style={[styles.badgeText, { color: '#15803d' }]}>Expires Nov 23</Text>
                 </View>
-                <View style={[styles.badge, { backgroundColor: COLORS.successBg }]}>
+                <View style={[styles.badge, { backgroundColor: COLORS.brand.muted }]}>
                   <MaterialIcons name="check-circle" size={12} color="#051103" />
                   <Text style={[styles.badgeText, { color: '#051103' }]}>Active</Text>
                 </View>
@@ -155,14 +147,19 @@ export default function PaymentSuccessScreen() {
 
       {/* Footer Actions */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8}>
-          <Text style={styles.primaryButtonText}>View My Listing</Text>
-          <MaterialIcons name="arrow-forward" size={20} color="#051103" style={{ marginLeft: 8 }} />
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.secondaryButton}>
-          <Text style={styles.secondaryButtonText}>Back to Dashboard</Text>
-        </TouchableOpacity>
+        <Button
+          label="View My Listing"
+          onPress={() => { }}
+          icon="arrow-forward"
+          textColor="#051103"
+          backgroundColor={COLORS.brand.primary}
+        />
+
+        <Button
+          label="Back to Dashboard"
+          onPress={() => { }}
+          type="secondary"
+        />
       </View>
     </SafeAreaView>
   );
@@ -173,7 +170,7 @@ const DetailRow = ({ label, value, isMono, icon }) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
     <View style={styles.detailValueContainer}>
-      {icon && <MaterialIcons name={icon} size={14} color={COLORS.textGray} style={{ marginRight: 6 }} />}
+      {icon && <MaterialIcons name={icon} size={14} color={COLORS.textSecondary} style={{ marginRight: 6 }} />}
       <Text style={[styles.detailValue, isMono && styles.monoText]}>{value}</Text>
     </View>
   </View>
@@ -203,7 +200,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.textDark,
+    color: COLORS.text,
   },
   scrollContent: {
     paddingHorizontal: 20,
@@ -224,7 +221,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: COLORS.successBg,
+    backgroundColor: COLORS.brand.muted,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 2,
@@ -234,17 +231,17 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.brand.primary,
   },
   successTitle: {
     fontSize: 28,
     fontWeight: '800',
-    color: COLORS.textDark,
+    color: COLORS.text,
     textAlign: 'center',
   },
   successSubtitle: {
     fontSize: 16,
-    color: COLORS.textGray,
+    color: COLORS.textSecondary,
     textAlign: 'center',
     marginTop: 8,
     maxWidth: 280,
@@ -269,13 +266,13 @@ const styles = StyleSheet.create({
   },
   receiptLabel: {
     fontSize: 14,
-    color: COLORS.textGray,
+    color: COLORS.textSecondary,
     fontWeight: '500',
   },
   receiptAmount: {
     fontSize: 32,
     fontWeight: '800',
-    color: COLORS.textDark,
+    color: COLORS.text,
     marginTop: 4,
   },
   receiptBody: {
@@ -289,7 +286,7 @@ const styles = StyleSheet.create({
   },
   detailLabel: {
     fontSize: 14,
-    color: COLORS.textGray,
+    color: COLORS.textSecondary,
   },
   detailValueContainer: {
     flexDirection: 'row',
@@ -298,7 +295,7 @@ const styles = StyleSheet.create({
   detailValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: COLORS.textDark,
+    color: COLORS.text,
   },
   monoText: {
     fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
@@ -330,7 +327,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     fontSize: 12,
     fontWeight: '800',
-    color: COLORS.textGray,
+    color: COLORS.textSecondary,
     letterSpacing: 1,
     marginBottom: 12,
     paddingLeft: 4,
@@ -357,11 +354,11 @@ const styles = StyleSheet.create({
   benefitTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.textDark,
+    color: COLORS.text,
   },
   benefitStatus: {
     fontSize: 13,
-    color: COLORS.primary,
+    color: COLORS.brand.primary,
     fontWeight: '600',
     marginTop: 2,
   },
@@ -386,33 +383,5 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: COLORS.background,
     gap: 12,
-  },
-  primaryButton: {
-    backgroundColor: COLORS.primary,
-    height: 52,
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  primaryButtonText: {
-    color: '#051103',
-    fontSize: 16,
-    fontWeight: '800',
-  },
-  secondaryButton: {
-    height: 52,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    color: COLORS.textGray,
-    fontSize: 14,
-    fontWeight: '600',
   },
 });

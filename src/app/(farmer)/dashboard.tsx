@@ -1,17 +1,26 @@
 import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
   Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { COLORS } from "../../constants/colors";
 import { navigate } from "expo-router/build/global-state/routing";
 
-/* ================= MOCK DATA ================= */
+/* ================= DATA ================= */
+
+const actions = [
+  { title: "Sell Machine", subtitle: "List used equipment", icon: "sell" ,link:"/(farmer)/sell-machine/add-details"},
+  { title: "Buy Machine", subtitle: "Find used equipment", icon: "shopping-cart" ,link:"/(farmer)/buy-machine/list"},
+  { title: "Rent Out", subtitle: "List for rental", icon: "output" ,link:""},
+  { title: "Take on Rent", subtitle: "Find equipment for hire", icon: "schedule" ,link:""},
+  { title: "Find Labour", subtitle: "Hire skilled workers", icon: "engineering" ,link:""},
+  { title: "Find Transport", subtitle: "Book vehicles", icon: "local-shipping" ,link:""},
+] as const;
 
 const user = {
   name: "Rajesh Kumar",
@@ -22,16 +31,16 @@ const user = {
     "https://lh3.googleusercontent.com/aida-public/AB6AXuBoI1aexhIhVEdTBySd1Eh6_onePyb5eegkRmSHmmwVhsbN6BPl4xi2PRDz0oUbUPg03xu2EtiBIOL1U5ayQZe82uSJ0o4DlGVTfvBCsK8XqQ7a-MhBNB9r4PfP9Phl5n6-3-dbPyN0chEN2AW3R3Qa0tP_rKFtlPr7R0VXQJSXejYzDCaLOZksBncFh9HBAL_O9avRUyVNI78t5TaGOL3DsA_y78j6CTBrag9TnzqHIED4ZFiltfc6QG4s6J6yeK5Ok6okJ2tFw8Wv",
 };
 
-/* ================= APP ================= */
+/* ================= SCREEN ================= */
 
-export default function App() {
+export default function Dashboard() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <MaterialIcons name="agriculture" size={22} color="#16a34a" />
-          <Text style={styles.headerTitle}>KisanConnect</Text>
+          <MaterialIcons name="agriculture" size={22} color={COLORS.success} />
+          <Text style={styles.headerTitle}>KrushiMitra</Text>
         </View>
         <View>
           <MaterialIcons name="notifications" size={22} />
@@ -39,14 +48,15 @@ export default function App() {
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 90 }}>
-        {/* PROFILE CARD */}
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}         showsVerticalScrollIndicator={false}
+>
+        {/* PROFILE */}
         <View style={styles.card}>
           <View style={styles.profileRow}>
             <View style={styles.avatarWrap}>
               <Image source={{ uri: user.profileImage }} style={styles.avatar} />
               <View style={styles.verifiedIcon}>
-                <MaterialIcons name="check" size={12} color="#fff" />
+                <MaterialIcons name="check" size={12} color={COLORS.white} />
               </View>
             </View>
 
@@ -59,7 +69,7 @@ export default function App() {
               </View>
 
               <View style={styles.locationRow}>
-                <MaterialIcons name="location-on" size={14} color="#6b7280" />
+                <MaterialIcons name="location-on" size={14} color={COLORS.textSecondary} />
                 <Text style={styles.location}>{user.location}</Text>
               </View>
 
@@ -73,80 +83,73 @@ export default function App() {
 
                 <View style={{ alignItems: "flex-end" }}>
                   <Text style={styles.infoLabel}>TRUST SCORE</Text>
-                  <Text style={styles.trustScore}>
-                    {user.trustScore}% Complete
-                  </Text>
+                  <Text style={styles.trustScore}>{user.trustScore}% Complete</Text>
                 </View>
               </View>
             </View>
           </View>
         </View>
 
+        {/* OVERVIEW */}
+        <SectionTitle title="Overview" />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <OverviewCard icon="list-alt" label="My Listings" value="12" badge="Active" badgeStyle={styles.badgeGreen} />
+          <OverviewCard icon="pending-actions" label="Rent Requests" value="5" badge="Pending" badgeStyle={styles.badgeOrange} />
+          <OverviewCard icon="perm-contact-calendar" label="Contacts Used" value="24" subText="Total" />
+        </ScrollView>
+
         {/* QUICK ACTIONS */}
-        <Section title="Quick Actions">
-          <View style={styles.grid}>
-        
-            <ActionCard
-              icon="sell"
-              title="Sell Old"
-              subtitle="Machine"
-              badge="2 active listings"
-              badgeStyle={styles.badgeGreen}
-              onPress={() => navigate("/sell-machine/add-details")}
-            />
-            <ActionCard
-              icon="shopping-cart"
-              title="Buy Old"
-              subtitle="Machine"
-              badge="15+ new"
-              onPress={() => navigate("/buy-machine/list")}
-            />
-            <ActionCard
-              icon="storefront"
-              title="Rent Out"
-              subtitle="Machine"
-              badge="1 pending req"
-              badgeStyle={styles.badgeOrange}
-            />
-            <ActionCard
-              icon="agriculture"
-              title="Take on"
-              subtitle="Rent"
-              badge="Available near"
-            />
-            <ActionCard
-              icon="engineering"
-              title="Find"
-              subtitle="Labour"
-              badge="1 contact open"
-              badgeStyle={styles.badgeBlue}
-            />
-            <ActionCard
-              icon="local-shipping"
-              title="Find"
-              subtitle="Transport"
-              badge="Enquiry pending"
-            />
-          </View>
-        </Section>
+        <View style={styles.quickHeader}>
+          <Text style={styles.title}>Quick Actions</Text>
+          <Text style={styles.subtitle}>Buy, sell, rent, or hire services</Text>
+        </View>
+
+        <View style={styles.gridAction}>
+          {actions.map((action, index) => (
+            <Pressable
+              key={index}
+              style={({ pressed }) => [
+                styles.cardAction,
+                pressed && styles.cardPressed,
+              ]}
+              onPress={()=>navigate(action.link)}
+            >
+              <View style={styles.iconWrap}>
+                <MaterialIcons name={action.icon} size={24} color={COLORS.brand.primary} />
+              </View>
+
+              <View>
+                <Text style={styles.cardTitle}>{action.title}</Text>
+                <Text style={styles.cardSubtitle}>{action.subtitle}</Text>
+              </View>
+
+              <MaterialIcons
+                name="arrow-forward"
+                size={20}
+                color={COLORS.gray[400]}
+                style={styles.arrow}
+              />
+            </Pressable>
+          ))}
+        </View>
 
         {/* ACTIVE REQUESTS */}
         <SectionRow title="My Active Requests" action="View all">
           <RequestItem
-            color="#22c55e"
+            color={COLORS.success}
             icon="check-circle"
             title="Your tractor listing is live"
             subtitle="Visible to farmers within 50km"
           />
           <RequestItem
-            color="#3b82f6"
+            color={COLORS.info}
             icon="group"
             title="2 farmers requested rotavator"
             subtitle="Review requests to confirm"
             count="2"
           />
           <RequestItem
-            color="#eab308"
+            color={COLORS.warning}
             icon="pending"
             title="Transport enquiry pending"
             subtitle="Waiting for response from driver"
@@ -168,7 +171,7 @@ export default function App() {
         <Section title="Alerts">
           <AlertItem
             icon="warning"
-            color="#ef4444"
+            color={COLORS.danger}
             title="PROFILE INCOMPLETE"
             text="Please add a photo to increase trust."
             action="Add"
@@ -176,14 +179,14 @@ export default function App() {
           />
           <AlertItem
             icon="schedule"
-            color="#eab308"
+            color={COLORS.warning}
             title="EXPIRING SOON"
             text='Listing "Mahindra 575" expires in 2 days.'
             action="Renew"
           />
           <AlertItem
             icon="visibility"
-            color="#3b82f6"
+            color={COLORS.info}
             title="PERFORMANCE"
             text="15 people viewed your harvester today."
           />
@@ -193,11 +196,7 @@ export default function App() {
         <Section title="Support & Settings">
           <SupportItem icon="support-agent" label="Call Support" />
           <SupportItem icon="play-circle" label="How it works (Video)" />
-          <SupportItem
-            icon="translate"
-            label="Change Language"
-            right="English"
-          />
+          <SupportItem icon="translate" label="Change Language" right="English" />
           <SupportItem icon="logout" label="Logout" />
         </Section>
       </ScrollView>
@@ -209,7 +208,7 @@ export default function App() {
         <NavItem icon="receipt-long" label="Orders" />
         <NavItem icon="account-circle" label="Profile" />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -232,15 +231,22 @@ const SectionRow = ({ title, action, children }: any) => (
   </View>
 );
 
-const ActionCard = ({ icon, title, subtitle, badge, badgeStyle, onPress }: any) => (
-  <View style={styles.actionCard} onTouchEnd={onPress}>
-    <MaterialIcons name={icon} size={28} color="#16a34a" />
-    <Text style={styles.actionTitle}>
-      {title}{"\n"}
-      {subtitle}
-    </Text>
-    <View style={[styles.badge, badgeStyle]}>
-      <Text style={styles.badgeText}>{badge}</Text>
+const SectionTitle = ({ title }: any) => (
+  <Text style={styles.sectionTitle}>{title.toUpperCase()}</Text>
+);
+
+const OverviewCard = ({ icon, label, value, badge, badgeStyle, subText }: any) => (
+  <View style={styles.overviewCard}>
+    <MaterialIcons name={icon} size={20} color={COLORS.brand.primary} />
+    <Text style={styles.overviewLabel}>{label}</Text>
+    <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+      <Text style={styles.overviewValue}>{value}</Text>
+      {badge && (
+        <View style={[styles.badge, badgeStyle]}>
+          <Text style={styles.badgeText}>{badge}</Text>
+        </View>
+      )}
+      {subText && <Text style={styles.subText}>{subText}</Text>}
     </View>
   </View>
 );
@@ -252,12 +258,10 @@ const RequestItem = ({ icon, title, subtitle, color, count }: any) => (
       <Text style={styles.reqTitle}>{title}</Text>
       <Text style={styles.reqSub}>{subtitle}</Text>
     </View>
-    {count ? (
+    {count && (
       <View style={styles.countBadge}>
         <Text style={styles.countText}>{count}</Text>
       </View>
-    ) : (
-      <MaterialIcons name="chevron-right" size={20} color="#9ca3af" />
     )}
   </View>
 );
@@ -288,10 +292,10 @@ const AlertItem = ({ icon, title, text, action, color, danger }: any) => (
 
 const SupportItem = ({ icon, label, right }: any) => (
   <View style={styles.supportItem}>
-    <MaterialIcons name={icon} size={20} color="#16a34a" />
+    <MaterialIcons name={icon} size={20} color={COLORS.success} />
     <Text style={styles.supportText}>{label}</Text>
     {right && <Text style={styles.supportRight}>{right}</Text>}
-    <MaterialIcons name="chevron-right" size={20} color="#9ca3af" />
+    <MaterialIcons name="chevron-right" size={20} color={COLORS.textLight} />
   </View>
 );
 
@@ -300,26 +304,20 @@ const NavItem = ({ icon, label, active }: any) => (
     <MaterialIcons
       name={icon}
       size={24}
-      color={active ? "#16a34a" : "#6b7280"}
+      color={active ? COLORS.success : COLORS.textSecondary}
     />
-    <Text style={[styles.navText, active && styles.navActive]}>
-      {label}
-    </Text>
+    <Text style={[styles.navText, active && styles.navActive]}>{label}</Text>
   </View>
 );
 
 /* ================= STYLES ================= */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f6f8f6" },
+  container: { flex: 1, backgroundColor: COLORS.background },
 
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 16,
-    backgroundColor: "#fff",
-    borderBottomWidth: 1,
-    borderColor: "#e5e7eb",
   },
   headerLeft: { flexDirection: "row", gap: 8, alignItems: "center" },
   headerTitle: { fontSize: 18, fontWeight: "700" },
@@ -334,8 +332,8 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#fff",
-    margin: 16,
+    backgroundColor: COLORS.white,
+    marginVertical: 16,
     padding: 16,
     borderRadius: 16,
   },
@@ -345,9 +343,9 @@ const styles = StyleSheet.create({
   avatar: { width: 64, height: 64, borderRadius: 32 },
   verifiedIcon: {
     position: "absolute",
-    bottom: -2,
+    bottom: 28,
     right: -2,
-    backgroundColor: "#3b82f6",
+    backgroundColor: COLORS.brand.primary,
     padding: 4,
     borderRadius: 10,
   },
@@ -356,30 +354,31 @@ const styles = StyleSheet.create({
   name: { fontSize: 16, fontWeight: "700" },
 
   verifiedBadge: {
-    backgroundColor: "#dcfce7",
+    backgroundColor: COLORS.brand.muted,
     paddingHorizontal: 6,
     borderRadius: 6,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  verifiedText: { fontSize: 10, fontWeight: "700", color: "#166534" },
+  verifiedText: { fontSize: 10, fontWeight: "700", color: COLORS.brand.primary },
 
   locationRow: { flexDirection: "row", gap: 4 },
-  location: { fontSize: 12, color: "#6b7280" },
+  location: { fontSize: 12, color: COLORS.textSecondary },
 
   infoRow: {
     marginTop: 8,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#f9fafb",
+    backgroundColor: COLORS.gray[100],
     padding: 8,
     borderRadius: 10,
   },
-  infoLabel: { fontSize: 10, color: "#6b7280" },
+  infoLabel: { fontSize: 10, color: COLORS.textSecondary },
   infoMono: { fontFamily: "monospace", fontSize: 12 },
-  trustScore: { color: "#16a34a", fontWeight: "700" },
-  divider: { width: 1, backgroundColor: "#e5e7eb" },
+  trustScore: { color: COLORS.brand.primary, fontWeight: "700" },
+  divider: { width: 1, backgroundColor: COLORS.borderFocus },
 
   sectionTitle: {
-    marginHorizontal: 16,
     marginBottom: 8,
     fontSize: 12,
     fontWeight: "700",
@@ -388,88 +387,121 @@ const styles = StyleSheet.create({
   sectionRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
   },
-  link: { fontSize: 12, color: "#16a34a", fontWeight: "600" },
+  link: { fontSize: 12, color: COLORS.success, fontWeight: "600" },
 
-  grid: {
+  overviewCard: {
+    width: 150,
+    backgroundColor: COLORS.white,
+    padding: 14,
+    borderRadius: 16,
+    marginRight:8
+  },
+  overviewLabel: { fontSize: 12, color: COLORS.textSecondary },
+  overviewValue: { fontSize: 22, fontWeight: "700" },
+  subText: { fontSize: 10, color: COLORS.textSecondary },
+
+  quickHeader: {
+    paddingTop: 16,
+    paddingBottom: 8,
+  },
+  title: { fontSize: 20, fontWeight: "700", color: "#111812" },
+  subtitle: { fontSize: 14, color: COLORS.textSecondary, marginTop: 4 },
+
+  gridAction: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 12,
-    paddingHorizontal: 16,
+    paddingTop: 8,
   },
-  actionCard: {
-    width: "47%",
-    backgroundColor: "#fff",
-    padding: 16,
+  cardAction: {
+    width: "48%",
+    height: 140,
+    backgroundColor: COLORS.white,
     borderRadius: 16,
-    alignItems: "center",
+    padding: 16,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    justifyContent: "space-between",
   },
-  actionTitle: { fontWeight: "700", textAlign: "center" },
+  cardPressed: { transform: [{ scale: 0.97 }] },
+
+  iconWrap: {
+    height: 40,
+    width: 40,
+    borderRadius: 10,
+    backgroundColor: COLORS.brand.muted,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  cardTitle: { fontSize: 16, fontWeight: "700", color: "#111812" },
+  cardSubtitle: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+    marginTop: 4,
+  },
+  arrow: { position: "absolute", top: 16, right: 16 },
 
   badge: {
-    marginTop: 6,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 12,
-    backgroundColor: "#f3f4f6",
+    backgroundColor: COLORS.gray[100],
   },
   badgeText: { fontSize: 10, fontWeight: "700" },
-  badgeGreen: { backgroundColor: "#dcfce7" },
-  badgeOrange: { backgroundColor: "#ffedd5" },
-  badgeBlue: { backgroundColor: "#dbeafe" },
+  badgeGreen: { backgroundColor: COLORS.successLight },
+  badgeOrange: { backgroundColor: COLORS.warningLight },
 
   requestCard: {
     flexDirection: "row",
     gap: 12,
-    backgroundColor: "#fff",
-    marginHorizontal: 16,
-    marginBottom: 8,
+    backgroundColor: COLORS.white,
+    // marginHorizontal: 16,
+    marginBottom: 12,
     padding: 12,
     borderRadius: 12,
     borderLeftWidth: 4,
   },
   reqTitle: { fontWeight: "700" },
-  reqSub: { fontSize: 12, color: "#6b7280" },
+  reqSub: { fontSize: 12, color: COLORS.textSecondary },
 
   countBadge: {
-    backgroundColor: "#ef4444",
+    backgroundColor: COLORS.danger,
     paddingHorizontal: 6,
     borderRadius: 10,
   },
-  countText: { color: "#fff", fontSize: 10, fontWeight: "700" },
+  countText: { color: COLORS.white, fontSize: 10, fontWeight: "700" },
 
   summaryGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
-    paddingHorizontal: 16,
   },
   summaryBox: {
     width: "48%",
-    backgroundColor: "#f9fafb",
+    backgroundColor: COLORS.white,
     padding: 12,
     borderRadius: 12,
     alignItems: "center",
   },
-  summaryLabel: { fontSize: 10, color: "#6b7280" },
+  summaryLabel: { fontSize: 10, color: COLORS.textSecondary },
   summaryValue: { fontSize: 18, fontWeight: "700" },
 
   alertRow: {
     flexDirection: "row",
     gap: 12,
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.white,
     padding: 12,
-    marginHorizontal: 16,
     borderRadius: 12,
-    marginBottom: 8,
+    marginBottom: 12,
   },
-  alertDanger: { backgroundColor: "#fef2f2" },
+  alertDanger: { backgroundColor: COLORS.dangerLight },
   alertTitle: { fontSize: 10, fontWeight: "700" },
   alertText: { fontSize: 12 },
 
   alertBtn: {
-    backgroundColor: "#f3f4f6",
+    backgroundColor: COLORS.gray[100],
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
@@ -480,27 +512,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.white,
     padding: 14,
-    marginHorizontal: 16,
     borderRadius: 12,
-    marginBottom: 8,
+    marginBottom: 12,
   },
   supportText: { flex: 1, fontWeight: "600" },
-  supportRight: { fontSize: 12, color: "#6b7280" },
+  supportRight: { fontSize: 12, color: COLORS.textSecondary },
 
   bottomNav: {
     position: "absolute",
     bottom: 0,
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-    backgroundColor: "#fff",
-    width: "100%",
+    backgroundColor: COLORS.white,
     paddingVertical: 8,
     borderTopWidth: 1,
-    borderColor: "#e5e7eb",
+    borderColor: COLORS.border,
   },
   navItem: { alignItems: "center" },
-  navText: { fontSize: 10, color: "#6b7280" },
-  navActive: { color: "#16a34a", fontWeight: "700" },
+  navText: { fontSize: 10, color: COLORS.textSecondary },
+  navActive: { color: COLORS.success, fontWeight: "700" },
 });

@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { navigate } from 'expo-router/build/global-state/routing';
+import { COLORS } from '../../../constants/colors';
+import Button from '@/src/components/Button';
 
 /* ------------------ DATA ------------------ */
 
@@ -121,7 +123,7 @@ export default function SelectPlanScreen() {
                         <MaterialIcons
                           name={plan.featuredIcon as any}
                           size={20}
-                          color="#13EC37"
+                          color={COLORS.brand.primary}
                         />
                       )}
                     </View>
@@ -157,7 +159,7 @@ export default function SelectPlanScreen() {
                     <MaterialIcons
                       name={f.icon as any}
                       size={18}
-                      color={f.highlight ? '#13EC37' : '#618968'}
+                      color={f.highlight ? COLORS.brand.primary : COLORS.textSecondary}
                     />
                     <Text style={styles.featureText}>{f.text}</Text>
                   </View>
@@ -179,15 +181,15 @@ export default function SelectPlanScreen() {
 
       {/* FOOTER */}
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.cta}
-          onPress={() =>
-            navigate("/(farmer)/sell-machine/payment-success")
-          }
-        >
-          <Text style={styles.ctaText}>Proceed to Payment</Text>
-          <Ionicons name="arrow-forward" size={22} color="#111812" />
-        </TouchableOpacity>
+        <View style={styles.footer}>
+          <Button
+            label="Proceed to Payment"
+            onPress={() => navigate("/(farmer)/sell-machine/payment-success")}
+            icon="arrow-forward"
+            textColor={COLORS.black}
+            backgroundColor={COLORS.brand.primary}
+          />
+        </View>
       </View>
     </View>
   );
@@ -262,12 +264,12 @@ const styles = StyleSheet.create({
   },
 
   planSelected: {
-    borderColor: '#13EC37',
-    backgroundColor: 'rgba(19,236,55,0.05)',
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.muted,
   },
 
   planHighlight: {
-    shadowColor: '#13EC37',
+    shadowColor: COLORS.brand.primary,
     shadowOpacity: 0.15,
     shadowRadius: 12,
     elevation: 4,
@@ -277,7 +279,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -12,
     left: 16,
-    backgroundColor: '#13EC37',
+    backgroundColor: COLORS.brand.primary,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 999,
@@ -328,7 +330,7 @@ const styles = StyleSheet.create({
 
   priceHighlight: {
     fontSize: 22,
-    color: '#13EC37',
+    color: COLORS.brand.primary,
   },
 
   radio: {
@@ -341,80 +343,80 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  radioSelected: {
-    backgroundColor: '#13EC37',
-    borderColor: '#13EC37',
-  },
+    radioSelected: {
+      backgroundColor: COLORS.brand.primary,
+      borderColor: COLORS.brand.primary,
+    },
 
-  radioDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#FFFFFF',
-  },
+    radioDot: {
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      backgroundColor: '#FFFFFF',
+    },
 
-  divider: {
-    height: 1,
-    backgroundColor: '#DBE6DD',
-    marginVertical: 12,
-  },
+    divider: {
+      height: 1,
+      backgroundColor: '#DBE6DD',
+      marginVertical: 12,
+    },
 
-  featureRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 8,
-  },
+    featureRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      marginBottom: 8,
+    },
 
-  featureText: {
-    fontSize: 13,
-    color: '#111812',
-  },
+    featureText: {
+      fontSize: 13,
+      color: '#111812',
+    },
 
-  /* INFO */
-  infoBox: {
-    marginTop: 32,
-    padding: 16,
-    borderRadius: 12,
-    backgroundColor: '#F3F4F6',
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    flexDirection: 'row',
-    gap: 12,
-  },
+    /* INFO */
+    infoBox: {
+      marginTop: 32,
+      padding: 16,
+      borderRadius: 12,
+      backgroundColor: '#F3F4F6',
+      borderWidth: 1,
+      borderColor: '#E5E7EB',
+      flexDirection: 'row',
+      gap: 12,
+    },
 
-  infoText: {
-    fontSize: 12,
-    color: '#618968',
-    lineHeight: 18,
-    flex: 1,
-  },
+    infoText: {
+      fontSize: 12,
+      color: '#618968',
+      lineHeight: 18,
+      flex: 1,
+    },
 
-  /* FOOTER */
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderTopWidth: 1,
-    borderColor: '#DBE6DD',
-  },
+    /* FOOTER */
+    footer: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: '#FFFFFF',
+      padding: 16,
+      borderTopWidth: 1,
+      borderColor: '#DBE6DD',
+    },
 
-  cta: {
-    height: 56,
-    borderRadius: 12,
-    backgroundColor: '#13EC37',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 10,
-  },
+    cta: {
+      height: 56,
+      borderRadius: 12,
+      backgroundColor: COLORS.brand.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      gap: 10,
+    },
 
-  ctaText: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#111812',
-  },
-});
+    ctaText: {
+      fontSize: 18,
+      fontWeight: '700',
+      color: '#111812',
+    },
+  })

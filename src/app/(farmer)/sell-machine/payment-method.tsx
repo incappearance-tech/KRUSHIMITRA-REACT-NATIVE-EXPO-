@@ -1,39 +1,30 @@
-import React, { useState, useRef } from 'react';
+import Button from '@/src/components/Button';
+import { MaterialIcons } from '@expo/vector-icons';
+import { navigate } from 'expo-router/build/global-state/routing';
+import React, { useRef, useState } from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-  Platform,
-  ActivityIndicator,
   Animated,
   Dimensions,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { COLORS } from '../../../constants/colors';
 
 const { width, height } = Dimensions.get('window');
 
-// --- Theme Colors ---
-const COLORS = {
-  primary: "#37ec13",
-  background: "#f6f8f6",
-  surface: "#ffffff",
-  textMain: "#101b0d",
-  textSecondary: "#6b7280",
-  border: "#f3f4f6",
-  success: "#15803d",
-  white: "#ffffff",
-};
+
 
 export default function CheckoutScreen() {
   const [selectedMethod, setSelectedMethod] = useState('upi');
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  
+
   // Animation value for success checkmark
   const scaleAnim = useRef(new Animated.Value(0)).current;
 
@@ -44,7 +35,7 @@ export default function CheckoutScreen() {
     setTimeout(() => {
       setLoading(false);
       setIsSuccess(true);
-      
+
       // Trigger Success Animation
       Animated.spring(scaleAnim, {
         toValue: 1,
@@ -67,10 +58,10 @@ export default function CheckoutScreen() {
         ]}
       >
         <View style={[styles.methodIconContainer, isSelected && styles.methodIconActive]}>
-          <MaterialIcons 
-            name={icon} 
-            size={24} 
-            color={isSelected ? COLORS.primary : COLORS.textSecondary} 
+          <MaterialIcons
+            name={icon}
+            size={24}
+            color={isSelected ? COLORS.brand.primary : COLORS.textSecondary}
           />
         </View>
         <View style={styles.methodTextContainer}>
@@ -89,16 +80,14 @@ export default function CheckoutScreen() {
       <View style={styles.successOverlay}>
         <StatusBar barStyle="dark-content" />
         <Animated.View style={[styles.successCircle, { transform: [{ scale: scaleAnim }] }]}>
-          <MaterialIcons name="check-circle" size={100} color={COLORS.primary} />
+          <MaterialIcons name="check-circle" size={100} color={COLORS.brand.primary} />
         </Animated.View>
         <Text style={styles.successTitle}>Payment Successful!</Text>
         <Text style={styles.successSub}>Your listing is now live.</Text>
-        <TouchableOpacity 
-          style={styles.doneButton} 
+        <Button
+          label="Back to Dashboard"
           onPress={() => setIsSuccess(false)}
-        >
-          <Text style={styles.doneButtonText}>Back to Dashboard</Text>
-        </TouchableOpacity>
+        />
       </View>
     );
   }
@@ -106,22 +95,22 @@ export default function CheckoutScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      
+
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
-          <MaterialIcons name="arrow-back" size={24} color={COLORS.textMain} />
+          <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Checkout</Text>
         <View style={{ width: 40 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
-        
+
         {/* Order Summary Card */}
         <View style={styles.summaryCard}>
           <View style={styles.summaryWatermark}>
-            <MaterialIcons name="receipt-long" size={80} color={COLORS.primary} />
+            <MaterialIcons name="receipt-long" size={80} color={COLORS.brand.primary} />
           </View>
           <View style={styles.summaryContent}>
             <Text style={styles.summaryLabel}>Total Payable</Text>
@@ -148,21 +137,14 @@ export default function CheckoutScreen() {
           <Text style={styles.securityText}>100% Secure 256-bit encryption</Text>
         </View>
 
-        <TouchableOpacity 
-          style={[styles.payButton, loading && { opacity: 0.8 }]} 
-          onPress={handlePay} 
-          disabled={loading}
-          activeOpacity={0.8}
-        >
-          {loading ? (
-            <ActivityIndicator color={COLORS.textMain} />
-          ) : (
-            <>
-              <Text style={styles.payButtonText}>Pay ₹ 499.00</Text>
-              <MaterialIcons name="arrow-forward" size={20} color={COLORS.textMain} />
-            </>
-          )}
-        </TouchableOpacity>
+        <Button
+          label="Pay ₹ 499.00"
+          onPress={handlePay}
+          loading={loading}
+          icon="arrow-forward"
+          backgroundColor={COLORS.brand.primary}
+          textColor={COLORS.black}
+        />
       </View>
     </SafeAreaView>
   );
@@ -172,41 +154,37 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, backgroundColor: COLORS.surface, borderBottomWidth: 1, borderBottomColor: COLORS.border },
   backButton: { padding: 8 },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },
   scrollBody: { padding: 20, paddingBottom: 150 },
   summaryCard: { backgroundColor: COLORS.surface, borderRadius: 24, padding: 24, marginBottom: 32, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 10 },
   summaryWatermark: { position: 'absolute', right: -10, top: -10, opacity: 0.1 },
   summaryContent: { alignItems: 'center' },
   summaryLabel: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 4 },
-  summaryAmount: { fontSize: 36, fontWeight: '800', color: COLORS.textMain, marginBottom: 12 },
+  summaryAmount: { fontSize: 36, fontWeight: '800', color: COLORS.text, marginBottom: 12 },
   dashedLine: { width: '100%', height: 1, borderWidth: 1, borderColor: '#e5e7eb', borderStyle: 'dashed', borderRadius: 1, marginVertical: 12 },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: 8 },
   rowLabel: { fontSize: 14, color: COLORS.textSecondary },
-  rowValue: { fontSize: 14, fontWeight: '600', color: COLORS.textMain },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: COLORS.textMain, marginBottom: 16 },
+  rowValue: { fontSize: 14, fontWeight: '600', color: COLORS.text },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text, marginBottom: 16 },
   methodsList: { gap: 12 },
   methodCard: { flexDirection: 'row', alignItems: 'center', padding: 16, borderRadius: 16, backgroundColor: COLORS.surface, borderWidth: 2 },
-  methodCardActive: { borderColor: COLORS.primary },
+  methodCardActive: { borderColor: COLORS.brand.primary },
   methodCardInactive: { borderColor: 'transparent' },
   methodIconContainer: { width: 48, height: 48, borderRadius: 12, backgroundColor: '#f3f4f6', justifyContent: 'center', alignItems: 'center' },
   methodIconActive: { backgroundColor: '#e9f3e7' },
   methodTextContainer: { flex: 1, marginLeft: 16 },
-  methodTitle: { fontSize: 16, fontWeight: '600', color: COLORS.textMain },
+  methodTitle: { fontSize: 16, fontWeight: '600', color: COLORS.text },
   methodSubtitle: { fontSize: 12, color: COLORS.textSecondary },
   radioOuter: { width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: '#d1d5db', justifyContent: 'center', alignItems: 'center' },
-  radioOuterActive: { borderColor: COLORS.primary, backgroundColor: COLORS.primary },
+  radioOuterActive: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.brand.primary },
   radioInner: { width: 10, height: 10, borderRadius: 5, backgroundColor: COLORS.white },
   footer: { position: 'absolute', bottom: 0, width: '100%', backgroundColor: COLORS.surface, padding: 20, paddingBottom: Platform.OS === 'ios' ? 40 : 20, borderTopWidth: 1, borderTopColor: COLORS.border },
   securityBadge: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 16 },
   securityText: { fontSize: 12, color: COLORS.success, fontWeight: '600', marginLeft: 6 },
-  payButton: { backgroundColor: COLORS.primary, borderRadius: 30, height: 60, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8 },
-  payButtonText: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
-  
+
   // Success Screen Styles
   successOverlay: { flex: 1, backgroundColor: COLORS.white, justifyContent: 'center', alignItems: 'center', padding: 40 },
   successCircle: { marginBottom: 20 },
-  successTitle: { fontSize: 24, fontWeight: '800', color: COLORS.textMain, marginBottom: 10 },
+  successTitle: { fontSize: 24, fontWeight: '800', color: COLORS.text, marginBottom: 10 },
   successSub: { fontSize: 16, color: COLORS.textSecondary, textAlign: 'center', marginBottom: 40 },
-  doneButton: { backgroundColor: COLORS.textMain, paddingVertical: 16, paddingHorizontal: 32, borderRadius: 30, width: '100%', alignItems: 'center' },
-  doneButtonText: { color: COLORS.white, fontSize: 16, fontWeight: '700' }
 });

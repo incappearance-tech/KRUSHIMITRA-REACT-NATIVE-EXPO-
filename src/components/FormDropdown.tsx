@@ -1,19 +1,20 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  FlatList,
-} from 'react-native';
-import {
-  Controller,
   Control,
+  Controller,
   FieldValues,
   Path,
 } from 'react-hook-form';
-import { MaterialIcons } from '@expo/vector-icons';
+import {
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { COLORS } from '../constants/colors';
 
 type FormDropdownProps<TForm extends FieldValues, TValue extends string> = {
   control: Control<TForm>;
@@ -24,6 +25,7 @@ type FormDropdownProps<TForm extends FieldValues, TValue extends string> = {
 
   options: TValue[];
   disabled?: boolean;
+  required?:boolean
 };
 
 function FormDropdown<TForm extends FieldValues, TValue extends string>({
@@ -33,6 +35,7 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
   placeholder = 'Select',
   options,
   disabled = false,
+  required
 }: FormDropdownProps<TForm, TValue>) {
   const [visible, setVisible] = useState(false);
 
@@ -43,7 +46,10 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
       render={({ field: { value, onChange }, fieldState }) => (
         <View style={styles.field}>
           {/* Label */}
-          {label && <Text style={styles.label}>{label}</Text>}
+          {label && <Text style={styles.label}>{label}
+                        {required && <Text style={styles.required}> *</Text>}
+            
+            </Text>}
 
           {/* Input */}
           <TouchableOpacity
@@ -67,7 +73,7 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
             <MaterialIcons
               name="expand-more"
               size={24}
-              color="#6B7280"
+              color={COLORS.textSecondary}
               style={styles.icon}
             />
           </TouchableOpacity>
@@ -118,7 +124,7 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
                           <MaterialIcons
                             name="check"
                             size={20}
-                            color="#2E7D32"
+                            color={COLORS.brand.primary}
                           />
                         )}
                       </TouchableOpacity>
@@ -141,41 +147,45 @@ export default FormDropdown;
    ======================= */
 const styles = StyleSheet.create({
   field: {
-    marginBottom: 16,
+    marginBottom: 12,
   },
 
-  label: {
-    fontSize: 14,
+ label: {
+    fontSize: 16,
+    marginBottom: 8,
+    color: COLORS.text,
     fontWeight: '500',
-    color: '#6B7280',
-    marginBottom: 6,
+  },
+
+  required: {
+    color: COLORS.danger,
   },
 
   input: {
     height: 48,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.border,
     borderRadius: 8,
     paddingHorizontal: 16,
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.white,
   },
 
   inputDisabled: {
-    backgroundColor: '#F3F4F6',
+    backgroundColor: COLORS.background,
   },
 
   inputError: {
-    borderColor: '#D32F2F',
+    borderColor: COLORS.danger,
   },
 
   inputText: {
     fontSize: 15,
-    color: '#111827',
+    color: COLORS.text,
   },
 
   placeholder: {
-    color: '#9CA3AF',
+    color: COLORS.textLight,
   },
 
   icon: {
@@ -186,7 +196,7 @@ const styles = StyleSheet.create({
   error: {
     marginTop: 6,
     fontSize: 13,
-    color: '#D32F2F',
+    color: COLORS.danger,
   },
 
   overlay: {
@@ -196,7 +206,7 @@ const styles = StyleSheet.create({
   },
 
   sheet: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
@@ -207,13 +217,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 16,
-    color: '#111827',
+    color: COLORS.text,
   },
 
   option: {
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#F3F4F6',
+    borderBottomColor: COLORS.background,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -221,11 +231,11 @@ const styles = StyleSheet.create({
 
   optionText: {
     fontSize: 16,
-    color: '#111827',
+    color: COLORS.text,
   },
 
   optionActive: {
-    color: '#2E7D32',
+    color: COLORS.brand.primary,
     fontWeight: '700',
   },
 });

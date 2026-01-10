@@ -1,18 +1,19 @@
 import React from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  KeyboardTypeOptions,
-  Pressable,
-} from 'react-native';
-import {
-  Controller,
   Control,
+  Controller,
   FieldValues,
   Path,
 } from 'react-hook-form';
+import {
+  KeyboardTypeOptions,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import { COLORS } from '../constants/colors';
 
 type FormInputProps<T extends FieldValues> = {
   control: Control<T>;
@@ -35,6 +36,8 @@ type FormInputProps<T extends FieldValues> = {
   rightIcon?: React.ReactNode;
   onRightIconPress?: () => void;
   maxLength?: number;
+    helperText?:string;
+  showHelperWhenError?:boolean,
 };
 
 function FormInput<T extends FieldValues>({
@@ -43,20 +46,18 @@ function FormInput<T extends FieldValues>({
   label,
   placeholder,
   required = false,
-
   keyboardType = 'default',
   secureTextEntry = false,
-
   multiline = false,
   numberOfLines = 3,
-
   disabled = false,
   readOnly = false,
-
   leftIcon,
   rightIcon,
   maxLength,
   onRightIconPress,
+    helperText,
+  showHelperWhenError = false,
 }: FormInputProps<T>) {
   const isDisabled = disabled || readOnly;
 
@@ -92,7 +93,7 @@ function FormInput<T extends FieldValues>({
               value={field.value}
               onChangeText={field.onChange}
               placeholder={placeholder}
-              placeholderTextColor="#888"
+              placeholderTextColor={COLORS.textLight}
               keyboardType={keyboardType}
               secureTextEntry={secureTextEntry}
               editable={!isDisabled}
@@ -115,11 +116,18 @@ function FormInput<T extends FieldValues>({
           </View>
 
           {/* Error */}
-          {fieldState.error?.message && (
-            <Text style={styles.error}>
-              {fieldState.error.message}
-            </Text>
-          )}
+         {/* Helper / Error */}
+{fieldState.error?.message ? (
+  <>
+    <Text style={styles.error}>{fieldState.error.message}</Text>
+    {showHelperWhenError && helperText && (
+      <Text style={styles.helper}>{helperText}</Text>
+    )}
+  </>
+) : (
+  helperText && <Text style={styles.helper}>{helperText}</Text>
+)}
+
         </View>
       )}
     />
@@ -133,27 +141,27 @@ export default FormInput;
    ======================= */
 const styles = StyleSheet.create({
   field: {
-    marginBottom: 20,
+    marginBottom: 12,
   },
 
   label: {
     fontSize: 16,
     marginBottom: 8,
-    color: '#1A1A1A',
+    color: COLORS.text,
     fontWeight: '500',
   },
 
   required: {
-    color: '#D32F2F',
+    color: COLORS.danger,
   },
 
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#DADADA',
+    borderColor: COLORS.border,
     borderRadius: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.white,
     paddingHorizontal: 12,
   },
 
@@ -161,7 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     paddingVertical: 14,
-    color: '#1A1A1A',
+    color: COLORS.text,
   },
 
   multilineInput: {
@@ -178,16 +186,22 @@ const styles = StyleSheet.create({
   },
 
   inputError: {
-    borderColor: '#D32F2F',
+    borderColor: COLORS.danger,
   },
 
   inputDisabled: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: COLORS.gray[100],
   },
 
   error: {
     marginTop: 6,
     fontSize: 13,
-    color: '#D32F2F',
+    color: COLORS.danger,
   },
+  helper: {
+  marginTop: 4,
+  fontSize: 13,
+  color: COLORS.textLight,
+},
+
 });

@@ -1,31 +1,21 @@
+import Button from '@/src/components/Button';
+import { MaterialIcons } from '@expo/vector-icons';
+import { navigate } from 'expo-router/build/global-state/routing';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {
+  Image,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  Image,
-  ScrollView,
   TouchableOpacity,
-  Dimensions,
-  Platform,
+  View
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { COLORS } from '../../../constants/colors';
 
-// --- Theme Constants ---
-const COLORS = {
-  primary: '#37ec13',
-  bgLight: '#f6f8f6',
-  surfaceWhite: '#ffffff',
-  textMain: '#0f172a', // Slate 900
-  textMuted: '#64748b', // Slate 500
-  border: '#f1f5f9',
-  warningBg: '#fffbeb', // Amber 50
-  warningText: '#78350f', // Amber 900
-  warningBorder: '#fef3c7',
-};
+
 
 export default function UnlockContactScreen() {
   return (
@@ -45,13 +35,13 @@ function UnlockContactContent() {
       {/* Top App Bar */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <TouchableOpacity style={styles.backButton}>
-          <MaterialIcons name="arrow-back" size={24} color={COLORS.textMain} />
+          <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Unlock Seller Contact</Text>
-        <View style={{ width: 40 }} /> 
+        <View style={{ width: 40 }} />
       </View>
 
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 120 }]}
         showsVerticalScrollIndicator={false}
       >
@@ -65,13 +55,13 @@ function UnlockContactContent() {
               <Text style={styles.sellerName}>Ramesh Kumar</Text>
             </View>
             <View style={styles.metaRow}>
-              <MaterialIcons name="location-on" size={16} color={COLORS.textMuted} />
+              <MaterialIcons name="location-on" size={16} color={COLORS.textSecondary} />
               <Text style={styles.locationName}>Village: Palwal</Text>
             </View>
           </View>
-          <Image 
-            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=200' }} 
-            style={styles.machineImg} 
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=200' }}
+            style={styles.machineImg}
           />
         </View>
 
@@ -87,7 +77,7 @@ function UnlockContactContent() {
 
         {/* Warning Box */}
         <View style={styles.warningBox}>
-          <MaterialIcons name="warning" size={20} color="#d97706" style={{ marginTop: 2 }} />
+          <MaterialIcons name="warning" size={20} color={COLORS.warningDark} style={{ marginTop: 2 }} />
           <View style={{ flex: 1 }}>
             <Text style={styles.warningTitle}>Important Warning</Text>
             <Text style={styles.warningDesc}>
@@ -98,19 +88,19 @@ function UnlockContactContent() {
 
         {/* Access Rules */}
         <View style={styles.rulesList}>
-          <RuleItem 
-            icon="lock-open" 
-            title="Lifetime Access" 
-            desc="Pay once and view this seller's contact details anytime in your history." 
+          <RuleItem
+            icon="lock-open"
+            title="Lifetime Access"
+            desc="Pay once and view this seller's contact details anytime in your history."
             color="#2563eb"
             bg="#eff6ff"
           />
-          <RuleItem 
-            icon="verified-user" 
-            title="Verified Seller" 
-            desc="Ramesh Kumar has been verified by our field agents." 
+          <RuleItem
+            icon="verified-user"
+            title="Verified Seller"
+            desc="Ramesh Kumar has been verified by our field agents."
             color="#16a34a"
-            bg="#f0fdf4"
+            bg={COLORS.brand.muted}
           />
         </View>
 
@@ -118,7 +108,7 @@ function UnlockContactContent() {
         <Text style={styles.sectionLabel}>Payment Method</Text>
         <TouchableOpacity style={styles.paymentMethod} activeOpacity={0.9}>
           <View style={styles.row}>
-            <MaterialIcons name="account-balance-wallet" size={22} color={COLORS.primary} />
+            <MaterialIcons name="account-balance-wallet" size={22} color={COLORS.brand.primary} />
             <Text style={styles.paymentMethodText}>UPI / Wallet</Text>
           </View>
           <View style={styles.radioSelectedOuter}>
@@ -130,12 +120,15 @@ function UnlockContactContent() {
 
       {/* Sticky Bottom Footer */}
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
-        <TouchableOpacity style={styles.payButton} activeOpacity={0.8} onPress={()=>navigate("/buy-machine/unlock-contact")}>
-          <Text style={styles.payButtonText}>Pay ₹29 & Unlock</Text>
-          <MaterialIcons name="lock-open" size={20} color="black" />
-        </TouchableOpacity>
+        <Button
+          label="Pay ₹29 & Unlock"
+          onPress={() => navigate("/buy-machine/unlock-contact")}
+          icon="lock-open"
+          backgroundColor={COLORS.brand.primary}
+          textColor={COLORS.black}
+        />
         <View style={styles.secureRow}>
-          <MaterialIcons name="lock" size={14} color={COLORS.textMuted} />
+          <MaterialIcons name="lock" size={14} color={COLORS.textSecondary} />
           <Text style={styles.secureText}>Secure Payment by Razorpay</Text>
         </View>
       </View>
@@ -158,11 +151,11 @@ const RuleItem = ({ icon, title, desc, color, bg }) => (
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.bgLight },
-  header: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'space-between', 
+  container: { flex: 1, backgroundColor: COLORS.background },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
@@ -170,19 +163,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   backButton: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
-  
+  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },
+
   scrollContent: { padding: 16 },
-  sectionLabel: { 
-    fontSize: 12, 
-    fontWeight: '700', 
-    color: COLORS.textMuted, 
-    textTransform: 'uppercase', 
-    letterSpacing: 1, 
+  sectionLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: COLORS.textSecondary,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
     marginBottom: 12,
     marginLeft: 4
   },
-  
+
   machineCard: {
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -195,29 +188,29 @@ const styles = StyleSheet.create({
     ...Platform.select({ ios: { shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 }, android: { elevation: 2 } })
   },
   machineInfo: { flex: 1 },
-  machineTitle: { fontSize: 18, fontWeight: '700', color: COLORS.textMain, marginBottom: 6 },
+  machineTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text, marginBottom: 6 },
   metaRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 },
   sellerName: { fontSize: 14, fontWeight: '600', color: '#15803d' },
-  locationName: { fontSize: 14, color: COLORS.textMuted },
+  locationName: { fontSize: 14, color: COLORS.textSecondary },
   machineImg: { width: 80, height: 80, borderRadius: 12, marginLeft: 16 },
 
   priceHero: { alignItems: 'center', paddingVertical: 16, marginBottom: 16 },
-  priceLabel: { fontSize: 14, color: COLORS.textMuted, marginBottom: 4 },
-  priceAmount: { fontSize: 48, fontWeight: '800', color: COLORS.textMain, marginBottom: 8 },
-  oneTimeBadge: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    backgroundColor: '#f0fdf4', 
-    paddingHorizontal: 12, 
-    paddingVertical: 4, 
-    borderRadius: 20, 
-    gap: 4 
+  priceLabel: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 4 },
+  priceAmount: { fontSize: 48, fontWeight: '800', color: COLORS.text, marginBottom: 8 },
+  oneTimeBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0fdf4',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 20,
+    gap: 4
   },
   oneTimeText: { fontSize: 12, fontWeight: '700', color: '#16a34a' },
 
   warningBox: {
-    backgroundColor: COLORS.warningBg,
-    borderColor: COLORS.warningBorder,
+    backgroundColor: COLORS.warningLight,
+    borderColor: COLORS.warning,
     borderWidth: 1,
     borderRadius: 12,
     padding: 16,
@@ -225,28 +218,28 @@ const styles = StyleSheet.create({
     gap: 12,
     marginBottom: 24
   },
-  warningTitle: { fontSize: 14, fontWeight: '800', color: COLORS.warningText, marginBottom: 2 },
-  warningDesc: { fontSize: 14, color: COLORS.warningText, lineHeight: 20 },
+  warningTitle: { fontSize: 14, fontWeight: '800', color: COLORS.warningDark, marginBottom: 2 },
+  warningDesc: { fontSize: 14, color: COLORS.warningDark, lineHeight: 20 },
 
   rulesList: { marginBottom: 32 },
   ruleItem: { flexDirection: 'row', gap: 16, marginBottom: 20, paddingHorizontal: 4 },
   ruleIconCircle: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
-  ruleTitle: { fontSize: 15, fontWeight: '700', color: COLORS.textMain, marginBottom: 2 },
-  ruleDesc: { fontSize: 14, color: COLORS.textMuted, lineHeight: 20 },
+  ruleTitle: { fontSize: 15, fontWeight: '700', color: COLORS.text, marginBottom: 2 },
+  ruleDesc: { fontSize: 14, color: COLORS.textSecondary, lineHeight: 20 },
 
   paymentMethod: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 16,
-    backgroundColor: 'rgba(55, 236, 19, 0.08)',
-    borderColor: COLORS.primary,
+    backgroundColor: COLORS.brand.muted,
+    borderColor: COLORS.brand.primary,
     borderWidth: 1,
     borderRadius: 12
   },
   row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  paymentMethodText: { fontSize: 16, fontWeight: '600', color: COLORS.textMain },
-  radioSelectedOuter: { width: 22, height: 22, borderRadius: 11, backgroundColor: COLORS.primary, alignItems: 'center', justifyContent: 'center' },
+  paymentMethodText: { fontSize: 16, fontWeight: '600', color: COLORS.text },
+  radioSelectedOuter: { width: 22, height: 22, borderRadius: 11, backgroundColor: COLORS.brand.primary, alignItems: 'center', justifyContent: 'center' },
   radioSelectedInner: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'black' },
 
   footer: {
@@ -275,5 +268,5 @@ const styles = StyleSheet.create({
   },
   payButtonText: { color: 'black', fontSize: 18, fontWeight: '800' },
   secureRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4, marginTop: 12 },
-  secureText: { fontSize: 12, color: COLORS.textMuted }
+  secureText: { fontSize: 12, color: COLORS.textSecondary }
 });

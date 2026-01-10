@@ -1,37 +1,23 @@
+import Button from '@/src/components/Button';
+import { MaterialIcons } from '@expo/vector-icons';
+import Slider from '@react-native-community/slider'; // IMPT: Requires npx expo install @react-native-community/slider
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  Switch,
   Platform,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import Slider from '@react-native-community/slider'; // IMPT: Requires npx expo install @react-native-community/slider
+import { COLORS } from '../../../constants/colors';
 
 // --- Theme Constants ---
-const COLORS = {
-  primary: '#37ec13',
-  primaryDark: '#2ebd10',
-  backgroundLight: '#f6f8f6',
-  surfaceWhite: '#ffffff',
-  textDark: '#101b0d',
-  textGray: '#6b7280',
-  border: '#e5e7eb',
-  
-  // Condition Colors
-  greenBg: '#dcfce7',
-  greenText: '#15803d',
-  yellowBg: '#fef9c3',
-  yellowText: '#a16207',
-  redBg: '#fee2e2',
-  redText: '#b91c1c',
-};
+
 
 // --- Mock Data ---
 const CATEGORIES = [
@@ -49,24 +35,25 @@ const CONDITIONS = [
     label: 'Good',
     subLabel: 'Minimal wear, ready to work',
     icon: 'thumb-up',
-    colorBg: COLORS.greenBg,
-    colorText: COLORS.greenText,
+    icon: 'thumb-up',
+    colorBg: COLORS.successLight,
+    colorText: COLORS.successDark,
   },
   {
     id: 'average',
     label: 'Average',
     subLabel: 'Normal wear, needs minor fixes',
     icon: 'handyman',
-    colorBg: COLORS.yellowBg,
-    colorText: COLORS.yellowText,
+    colorBg: COLORS.warningLight,
+    colorText: COLORS.warningDark,
   },
   {
     id: 'poor',
     label: 'Poor',
     subLabel: 'Significant repairs required',
     icon: 'build-circle',
-    colorBg: COLORS.redBg,
-    colorText: COLORS.redText,
+    colorBg: COLORS.dangerLight,
+    colorText: COLORS.dangerDark,
   },
 ];
 
@@ -100,7 +87,7 @@ const CategoryPills = ({ selected, onSelect }) => (
           ]}
         >
           {isSelected && (
-            <MaterialIcons name={cat.icon} size={20} color="#000" style={{ marginRight: 6 }} />
+            <MaterialIcons name={cat.icon} size={20} color={COLORS.black} style={{ marginRight: 6 }} />
           )}
           <Text
             style={[
@@ -123,23 +110,23 @@ const FunctionalDistanceSlider = ({ value, onValueChange }) => {
         <SectionTitle title="Distance" />
         <Text style={styles.sliderValueText}>Within {Math.round(value)} km</Text>
       </View>
-      
+
       {/* This is the Functional Slider 
         Requires: npx expo install @react-native-community/slider
       */}
       <View style={styles.sliderContainer}>
         <Slider
-            style={{ width: '100%', height: 40 }}
-            minimumValue={10}
-            maximumValue={500}
-            step={5}
-            value={value}
-            onValueChange={onValueChange}
-            minimumTrackTintColor={COLORS.primary}
-            maximumTrackTintColor={COLORS.border}
-            thumbTintColor={COLORS.primary}
-            // Android styling props to make the thumb bigger/shadowed
-            thumbImage={Platform.OS === 'android' ? undefined : undefined} 
+          style={{ width: '100%', height: 40 }}
+          minimumValue={10}
+          maximumValue={500}
+          step={5}
+          value={value}
+          onValueChange={onValueChange}
+          minimumTrackTintColor={COLORS.brand.primary}
+          maximumTrackTintColor={COLORS.border}
+          thumbTintColor={COLORS.brand.primary}
+          // Android styling props to make the thumb bigger/shadowed
+          thumbImage={Platform.OS === 'android' ? undefined : undefined}
         />
       </View>
 
@@ -156,7 +143,7 @@ const PriceRange = ({ min, max, setMin, setMax }) => {
   return (
     <View style={styles.sectionPadding}>
       <SectionTitle title="Price Range" />
-      
+
       <View style={styles.priceInputRow}>
         <View style={styles.priceInputWrapper}>
           <Text style={styles.currencyPrefix}>$</Text>
@@ -167,10 +154,10 @@ const PriceRange = ({ min, max, setMin, setMax }) => {
             keyboardType="numeric"
           />
           <View style={styles.floatingLabelContainer}>
-             <Text style={styles.floatingLabel}>MIN</Text>
+            <Text style={styles.floatingLabel}>MIN</Text>
           </View>
         </View>
-        
+
         <View style={styles.dashSeparator} />
 
         <View style={styles.priceInputWrapper}>
@@ -182,7 +169,7 @@ const PriceRange = ({ min, max, setMin, setMax }) => {
             keyboardType="numeric"
           />
           <View style={styles.floatingLabelContainer}>
-             <Text style={styles.floatingLabel}>MAX</Text>
+            <Text style={styles.floatingLabel}>MAX</Text>
           </View>
         </View>
       </View>
@@ -200,32 +187,32 @@ const ConditionList = ({ selected, onSelect }) => (
     <SectionTitle title="Condition" />
     <View style={styles.conditionContainer}>
       {CONDITIONS.map((item) => {
-          const isSelected = selected === item.id;
-          return (
-              <TouchableOpacity
-                  key={item.id}
-                  activeOpacity={0.9}
-                  onPress={() => onSelect(item.id)}
-                  style={[
-                      styles.conditionCard,
-                      isSelected && styles.conditionCardActive
-                  ]}
-              >
-                  <View style={styles.conditionContent}>
-                      <View style={[styles.iconCircle, { backgroundColor: item.colorBg }]}>
-                          <MaterialIcons name={item.icon} size={20} color={item.colorText} />
-                      </View>
-                      <View style={styles.conditionTextContainer}>
-                          <Text style={styles.conditionLabel}>{item.label}</Text>
-                          <Text style={styles.conditionSubLabel}>{item.subLabel}</Text>
-                      </View>
-                  </View>
-                  
-                  <View style={styles.radioOuter}>
-                      {isSelected && <View style={styles.radioInner} />}
-                  </View>
-              </TouchableOpacity>
-          )
+        const isSelected = selected === item.id;
+        return (
+          <TouchableOpacity
+            key={item.id}
+            activeOpacity={0.9}
+            onPress={() => onSelect(item.id)}
+            style={[
+              styles.conditionCard,
+              isSelected && styles.conditionCardActive
+            ]}
+          >
+            <View style={styles.conditionContent}>
+              <View style={[styles.iconCircle, { backgroundColor: item.colorBg }]}>
+                <MaterialIcons name={item.icon} size={20} color={item.colorText} />
+              </View>
+              <View style={styles.conditionTextContainer}>
+                <Text style={styles.conditionLabel}>{item.label}</Text>
+                <Text style={styles.conditionSubLabel}>{item.subLabel}</Text>
+              </View>
+            </View>
+
+            <View style={styles.radioOuter}>
+              {isSelected && <View style={styles.radioInner} />}
+            </View>
+          </TouchableOpacity>
+        )
       })}
     </View>
   </View>
@@ -236,7 +223,7 @@ const Divider = () => <View style={styles.divider} />;
 // --- Main Screen ---
 export default function MachineFiltersScreen() {
   const insets = useSafeAreaInsets();
-  
+
   // State
   const [selectedCategory, setSelectedCategory] = useState('tractor');
   const [distance, setDistance] = useState(50); // Default 50km
@@ -249,18 +236,18 @@ export default function MachineFiltersScreen() {
     <SafeAreaProvider>
       <View style={[styles.container, { paddingTop: insets.top }]}>
         <StatusBar style="dark" backgroundColor="rgba(246, 248, 246, 0.95)" />
-        
+
         {/* Sticky Header */}
         <View style={styles.stickyHeader}>
           <Header />
         </View>
 
-        <ScrollView 
-            contentContainerStyle={[
-                styles.scrollContent, 
-                { paddingBottom: insets.bottom + 80 }
-            ]}
-            showsVerticalScrollIndicator={false}
+        <ScrollView
+          contentContainerStyle={[
+            styles.scrollContent,
+            { paddingBottom: insets.bottom + 80 }
+          ]}
+          showsVerticalScrollIndicator={false}
         >
           {/* Category Section */}
           <View style={styles.topSection}>
@@ -271,19 +258,19 @@ export default function MachineFiltersScreen() {
           <Divider />
 
           {/* Functional Distance Slider */}
-          <FunctionalDistanceSlider 
-             value={distance} 
-             onValueChange={setDistance} 
+          <FunctionalDistanceSlider
+            value={distance}
+            onValueChange={setDistance}
           />
 
           <Divider />
 
           {/* Price Section */}
-          <PriceRange 
-            min={minPrice} 
-            max={maxPrice} 
-            setMin={setMinPrice} 
-            setMax={setMaxPrice} 
+          <PriceRange
+            min={minPrice}
+            max={maxPrice}
+            setMin={setMinPrice}
+            setMax={setMaxPrice}
           />
 
           <Divider />
@@ -295,12 +282,12 @@ export default function MachineFiltersScreen() {
               <Text style={styles.sectionSubtitle}>Show prices that can be bargained</Text>
             </View>
             <Switch
-              trackColor={{ false: '#e5e7eb', true: COLORS.primary }}
-              thumbColor={'#ffffff'}
-              ios_backgroundColor="#e5e7eb"
+              trackColor={{ false: COLORS.gray[200], true: COLORS.brand.primary }}
+              thumbColor={COLORS.white}
+              ios_backgroundColor={COLORS.gray[200]}
               onValueChange={() => setIsNegotiable(!isNegotiable)}
               value={isNegotiable}
-              style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }} 
+              style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
             />
           </View>
 
@@ -313,10 +300,13 @@ export default function MachineFiltersScreen() {
 
         {/* Fixed Footer */}
         <View style={[styles.footer, { paddingBottom: Math.max(16, insets.bottom) }]}>
-          <TouchableOpacity style={styles.footerButton} activeOpacity={0.9}>
-            <Text style={styles.footerButtonText}>Show 24 Machines</Text>
-            <MaterialIcons name="arrow-forward" size={20} color="#000" />
-          </TouchableOpacity>
+          <Button
+            label="Show 24 Machines"
+            onPress={() => { }}
+            icon="arrow-forward"
+            textColor={COLORS.black}
+            backgroundColor={COLORS.brand.primary}
+          />
         </View>
 
       </View>
@@ -328,7 +318,7 @@ export default function MachineFiltersScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: COLORS.background,
   },
   stickyHeader: {
     backgroundColor: 'rgba(246, 248, 246, 0.95)',
@@ -347,13 +337,13 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: COLORS.textDark,
+    color: COLORS.text,
     letterSpacing: -0.3,
   },
   resetText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.greenText,
+    color: COLORS.successDark,
     letterSpacing: 0.3,
   },
   scrollContent: {
@@ -369,14 +359,14 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.textDark,
+    color: COLORS.text,
     letterSpacing: -0.3,
     marginBottom: 12,
   },
   sectionSubtitle: {
     fontSize: 14,
     fontWeight: '500',
-    color: COLORS.textGray,
+    color: COLORS.textSecondary,
     marginTop: 4,
   },
   divider: {
@@ -390,7 +380,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  
+
   // Category Styles
   categoryContainer: {
     flexDirection: 'row',
@@ -407,16 +397,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   categoryPillActive: {
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
-    shadowColor: '#000',
+    backgroundColor: COLORS.brand.primary,
+    borderColor: COLORS.brand.primary,
+    shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 1,
     elevation: 1,
   },
   categoryPillInactive: {
-    backgroundColor: COLORS.surfaceWhite,
+    backgroundColor: COLORS.white,
     borderColor: COLORS.border,
   },
   categoryText: {
@@ -424,17 +414,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   categoryTextActive: {
-    color: '#000000',
+    color: COLORS.black,
   },
   categoryTextInactive: {
-    color: '#374151',
+    color: COLORS.gray[700],
   },
 
   // Slider Styles
   sliderValueText: {
     fontSize: 14,
     fontWeight: '500',
-    color: COLORS.greenText,
+    color: COLORS.successDark,
   },
   sliderContainer: {
     height: 40,
@@ -449,7 +439,7 @@ const styles = StyleSheet.create({
   sliderLabelText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#9ca3af',
+    color: COLORS.textLight,
   },
 
   // Price Input Styles
@@ -465,7 +455,7 @@ const styles = StyleSheet.create({
   },
   priceInput: {
     width: '100%',
-    backgroundColor: COLORS.surfaceWhite,
+    backgroundColor: COLORS.white,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 12,
@@ -474,7 +464,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     fontSize: 14,
     fontWeight: '600',
-    color: COLORS.textDark,
+    color: COLORS.text,
   },
   currencyPrefix: {
     position: 'absolute',
@@ -482,28 +472,28 @@ const styles = StyleSheet.create({
     top: 13,
     fontSize: 14,
     fontWeight: '500',
-    color: COLORS.textGray,
+    color: COLORS.textSecondary,
     zIndex: 1,
   },
   floatingLabelContainer: {
     position: 'absolute',
     top: -8,
     left: 8,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: COLORS.background,
     paddingHorizontal: 4,
     zIndex: 2,
   },
   floatingLabel: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#9ca3af',
+    color: COLORS.textLight,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   dashSeparator: {
     width: 16,
     height: 2,
-    backgroundColor: '#d1d5db',
+    backgroundColor: COLORS.gray[300],
     borderRadius: 99,
   },
 
@@ -518,12 +508,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 12,
     borderRadius: 12,
-    backgroundColor: COLORS.surfaceWhite,
+    backgroundColor: COLORS.white,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
   conditionCardActive: {
-    backgroundColor: '#ffffff',
+    backgroundColor: COLORS.white,
   },
   conditionContent: {
     flexDirection: 'row',
@@ -543,28 +533,28 @@ const styles = StyleSheet.create({
   conditionLabel: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.textDark,
+    color: COLORS.text,
   },
   conditionSubLabel: {
     fontSize: 12,
     fontWeight: '500',
-    color: COLORS.textGray,
+    color: COLORS.textSecondary,
   },
   radioOuter: {
     width: 20,
     height: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#d1d5db',
+    borderColor: COLORS.gray[300],
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f3f4f6',
+    backgroundColor: COLORS.gray[100],
   },
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.brand.primary,
   },
 
   // Footer
@@ -573,30 +563,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: COLORS.background,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
     padding: 16,
     zIndex: 30,
   },
-  footerButton: {
-    width: '100%',
-    height: 56,
-    backgroundColor: COLORS.primary,
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  footerButtonText: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#000000',
-    marginRight: 8,
-  },
+
 });

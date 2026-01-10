@@ -1,16 +1,17 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { ResizeMode, Video } from 'expo-av';
+import * as ImagePicker from 'expo-image-picker';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
   Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Video, ResizeMode } from 'expo-av';
+import { COLORS } from '../constants/colors';
 
 /* =======================
    Types
@@ -50,7 +51,7 @@ const MediaPreview = React.memo(
               isMuted
             />
             <View style={styles.videoOverlay}>
-              <MaterialIcons name="play-circle-fill" size={24} color="#fff" />
+              <MaterialIcons name="play-circle-fill" size={24} color={COLORS.white} />
             </View>
           </>
         ) : (
@@ -58,7 +59,7 @@ const MediaPreview = React.memo(
         )}
 
         <TouchableOpacity style={styles.removeBtn} onPress={onRemove}>
-          <MaterialIcons name="close" size={14} color="#fff" />
+          <MaterialIcons name="close" size={14} color={COLORS.white} />
         </TouchableOpacity>
       </View>
     );
@@ -161,7 +162,7 @@ const MediaUploader: React.FC<MediaUploaderProps> = ({
         {media.length < max && (
           <TouchableOpacity style={styles.addBox} onPress={pickMedia}>
             <View style={styles.iconCircle}>
-              <MaterialIcons name="add-a-photo" size={24} color="#2E7D32" />
+              <MaterialIcons name="add-a-photo" size={24} color={COLORS.brand.primary} />
             </View>
             <Text style={styles.addText}>Add</Text>
           </TouchableOpacity>
@@ -196,14 +197,14 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#111827',
+    color: COLORS.text,
   },
   subText: {
     fontSize: 14,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
   },
   errorText: {
-    color: '#D32F2F',
+    color: COLORS.danger,
   },
   scroll: {
     marginTop: 12,
@@ -213,22 +214,22 @@ const styles = StyleSheet.create({
     height: 110,
     borderWidth: 2,
     borderStyle: 'dashed',
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.border,
     borderRadius: 12,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: COLORS.background,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
   },
   iconCircle: {
-    backgroundColor: 'rgba(46,125,50,0.1)',
+    backgroundColor: COLORS.brand.muted,
     padding: 8,
     borderRadius: 50,
     marginBottom: 4,
   },
   addText: {
     fontSize: 12,
-    color: '#2E7D32',
+    color: COLORS.brand.primary,
     fontWeight: '500',
   },
   mediaWrapper: {
@@ -253,13 +254,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -6,
     right: -6,
-    backgroundColor: '#D32F2F',
+    backgroundColor: COLORS.danger,
     borderRadius: 12,
     width: 22,
     height: 22,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#fff',
+    borderColor: COLORS.white,
   },
 });

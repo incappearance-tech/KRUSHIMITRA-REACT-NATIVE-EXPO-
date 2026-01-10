@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Switch,
-} from 'react-native';
-import {
-  Controller,
   Control,
+  Controller,
   FieldValues,
   Path,
 } from 'react-hook-form';
+import {
+  StyleSheet,
+  Switch,
+  Text,
+  View,
+} from 'react-native';
+import { COLORS } from '../constants/colors';
 
 type FormSwitchProps<T extends FieldValues> = {
   control: Control<T>;
@@ -38,10 +39,10 @@ function FormSwitch<T extends FieldValues>({
             onValueChange={onChange}
             disabled={disabled}
             trackColor={{
-              false: '#e5e7eb',
-              true: '#2E7D32',
+              false: COLORS.border,
+              true: COLORS.brand.primary,
             }}
-            thumbColor="#fff"
+            thumbColor={COLORS.white}
           />
         </View>
       )}
@@ -65,6 +66,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#111827',
+    color: COLORS.text,
   },
 });

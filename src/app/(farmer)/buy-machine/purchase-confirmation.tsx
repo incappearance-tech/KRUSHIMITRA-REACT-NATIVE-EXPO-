@@ -1,28 +1,22 @@
+import Button from '@/src/components/Button';
+import { MaterialIcons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
   TextInput,
-  Platform,
-  KeyboardAvoidingView,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { COLORS } from '../../../constants/colors';
 
-// --- Theme Constants ---
-const COLORS = {
-  primary: '#37ec13',
-  bgLight: '#f6f8f6',
-  surfaceWhite: '#ffffff',
-  textMain: '#111827', // Gray 900
-  textMuted: '#6b7280', // Gray 500
-  border: '#e5e7eb',
-};
+
 
 const REASONS = ["Price too high", "Condition issue", "Seller unresponsive"];
 
@@ -36,7 +30,7 @@ export default function UpdateStatusScreen() {
 
 function UpdateStatusContent() {
   const insets = useSafeAreaInsets();
-  
+
   // State
   const [purchaseStatus, setPurchaseStatus] = useState('purchased'); // 'purchased' or 'not_purchased'
   const [selectedReason, setSelectedReason] = useState(null);
@@ -49,17 +43,17 @@ function UpdateStatusContent() {
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <TouchableOpacity style={styles.backButton}>
-          <MaterialIcons name="arrow-back" size={24} color={COLORS.textMain} />
+          <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Update Status</Text>
         <View style={{ width: 40 }} />
       </View>
 
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 100 }]}
           showsVerticalScrollIndicator={false}
         >
@@ -72,9 +66,9 @@ function UpdateStatusContent() {
           {/* Machine Summary Card */}
           <View style={styles.itemCard}>
             <View style={styles.cardRow}>
-              <Image 
-                source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=150' }} 
-                style={styles.itemImage} 
+              <Image
+                source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=150' }}
+                style={styles.itemImage}
               />
               <View style={styles.itemInfo}>
                 <Text style={styles.itemName}>John Deere 5050 D</Text>
@@ -91,14 +85,14 @@ function UpdateStatusContent() {
 
           {/* Radio Options */}
           <View style={styles.radioGroup}>
-            <StatusOption 
+            <StatusOption
               id="purchased"
               title="Yes, Purchased"
               desc="I have bought this item and the deal is closed."
               selected={purchaseStatus === 'purchased'}
               onSelect={setPurchaseStatus}
             />
-            <StatusOption 
+            <StatusOption
               id="not_purchased"
               title="No, Not Purchased"
               desc="Deal was cancelled or I decided not to buy."
@@ -112,8 +106,8 @@ function UpdateStatusContent() {
             <Text style={styles.reasonLabel}>Reason (Optional)</Text>
             <View style={styles.chipRow}>
               {REASONS.map(reason => (
-                <TouchableOpacity 
-                  key={reason} 
+                <TouchableOpacity
+                  key={reason}
                   onPress={() => setSelectedReason(reason)}
                   style={[styles.chip, selectedReason === reason && styles.chipActive]}
                 >
@@ -123,10 +117,10 @@ function UpdateStatusContent() {
                 </TouchableOpacity>
               ))}
             </View>
-            <TextInput 
+            <TextInput
               style={styles.textArea}
               placeholder="Tell us more about why..."
-              placeholderTextColor={COLORS.textMuted}
+              placeholderTextColor={COLORS.textLight}
               multiline
               numberOfLines={4}
               value={note}
@@ -138,10 +132,13 @@ function UpdateStatusContent() {
 
       {/* Sticky Bottom Footer */}
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
-        <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8}>
-          <MaterialIcons name="check-circle" size={20} color="black" />
-          <Text style={styles.primaryButtonText}>Update Listing</Text>
-        </TouchableOpacity>
+        <Button
+          label="Update Listing"
+          onPress={() => { }}
+          icon="check-circle"
+          backgroundColor={COLORS.brand.primary}
+          textColor={COLORS.black}
+        />
       </View>
     </View>
   );
@@ -149,8 +146,8 @@ function UpdateStatusContent() {
 
 // --- Sub-components ---
 const StatusOption = ({ id, title, desc, selected, onSelect }) => (
-  <TouchableOpacity 
-    style={[styles.radioCard, selected && styles.radioCardSelected]} 
+  <TouchableOpacity
+    style={[styles.radioCard, selected && styles.radioCardSelected]}
     onPress={() => onSelect(id)}
     activeOpacity={0.9}
   >
@@ -166,23 +163,23 @@ const StatusOption = ({ id, title, desc, selected, onSelect }) => (
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.bgLight },
-  header: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'space-between', 
+  container: { flex: 1, backgroundColor: COLORS.background },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 8,
     backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border
   },
   backButton: { width: 48, height: 48, alignItems: 'center', justifyContent: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
+  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },
 
   scrollContent: { padding: 16 },
   sectionHeader: { marginBottom: 20, paddingHorizontal: 4 },
-  mainHeading: { fontSize: 24, fontWeight: '800', color: COLORS.textMain },
-  subHeading: { fontSize: 14, color: COLORS.textMuted, marginTop: 4 },
+  mainHeading: { fontSize: 24, fontWeight: '800', color: COLORS.text },
+  subHeading: { fontSize: 14, color: COLORS.textSecondary, marginTop: 4 },
 
   itemCard: {
     backgroundColor: 'white',
@@ -196,9 +193,9 @@ const styles = StyleSheet.create({
   cardRow: { flexDirection: 'row', gap: 16 },
   itemImage: { width: 80, height: 80, borderRadius: 12, backgroundColor: '#e5e7eb' },
   itemInfo: { flex: 1, justifyContent: 'center' },
-  itemName: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
-  itemPrice: { fontSize: 16, fontWeight: '600', color: COLORS.primary, marginTop: 2 },
-  itemMeta: { fontSize: 12, color: COLORS.textMuted, marginTop: 4 },
+  itemName: { fontSize: 18, fontWeight: '700', color: COLORS.text },
+  itemPrice: { fontSize: 16, fontWeight: '600', color: COLORS.brand.primary, marginTop: 2 },
+  itemMeta: { fontSize: 12, color: COLORS.textSecondary, marginTop: 4 },
   divider: { height: 1, backgroundColor: '#f3f4f6', marginVertical: 12 },
   viewListingBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
   viewListingText: { fontSize: 13, fontWeight: '600', color: '#4b5563' },
@@ -214,56 +211,41 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 12
   },
-  radioCardSelected: { borderColor: COLORS.primary, backgroundColor: 'rgba(55, 236, 19, 0.05)' },
+  radioCardSelected: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.brand.muted },
   radioCircle: { width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: '#d1d5db', alignItems: 'center', justifyContent: 'center', marginTop: 2 },
-  radioCircleActive: { borderColor: COLORS.primary, backgroundColor: COLORS.primary },
+  radioCircleActive: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.brand.primary },
   radioInner: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'white' },
   radioContent: { flex: 1 },
-  radioTitle: { fontSize: 16, fontWeight: '700', color: COLORS.textMain },
-  radioDesc: { fontSize: 14, color: COLORS.textMuted, marginTop: 4, lineHeight: 18 },
+  radioTitle: { fontSize: 16, fontWeight: '700', color: COLORS.text },
+  radioDesc: { fontSize: 14, color: COLORS.textSecondary, marginTop: 4, lineHeight: 18 },
 
   reasonSection: { paddingHorizontal: 4 },
-  reasonLabel: { fontSize: 16, fontWeight: '700', color: COLORS.textMain, marginBottom: 12 },
+  reasonLabel: { fontSize: 16, fontWeight: '700', color: COLORS.text, marginBottom: 12 },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
   chip: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, borderWidth: 1, borderColor: COLORS.border, backgroundColor: 'white' },
-  chipActive: { backgroundColor: COLORS.primary, borderColor: COLORS.primary },
+  chipActive: { backgroundColor: COLORS.brand.primary, borderColor: COLORS.brand.primary },
   chipText: { fontSize: 12, fontWeight: '600', color: '#4b5563' },
   chipTextActive: { color: 'black' },
-  textArea: { 
-    backgroundColor: 'white', 
-    borderRadius: 12, 
-    borderWidth: 1, 
-    borderColor: COLORS.border, 
-    padding: 12, 
-    fontSize: 14, 
-    color: COLORS.textMain, 
+  textArea: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    padding: 12,
+    fontSize: 14,
+    color: COLORS.text,
     textAlignVertical: 'top',
     minHeight: 100
   },
 
-  footer: { 
-    position: 'absolute', 
-    bottom: 0, 
-    left: 0, 
-    right: 0, 
-    backgroundColor: 'white', 
-    padding: 16, 
-    borderTopWidth: 1, 
-    borderTopColor: COLORS.border 
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border
   },
-  primaryButton: { 
-    height: 52, 
-    backgroundColor: COLORS.primary, 
-    borderRadius: 12, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    gap: 8,
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4
-  },
-  primaryButtonText: { color: 'black', fontSize: 16, fontWeight: '800' }
 });

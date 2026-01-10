@@ -1,4 +1,5 @@
 import { StyleSheet, TextInput } from 'react-native';
+import { COLORS } from '../constants/colors';
 
 interface InputProps {
   placeholder: string;
@@ -23,11 +24,21 @@ export default function Input({
       onChangeText={onChangeText}
       keyboardType={keyboardType}
       secureTextEntry={secureTextEntry}
-      placeholderTextColor="#bbb"
+      placeholderTextColor={COLORS.textLight}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, marginVertical: 8, fontSize: 16 },
+  input: {
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginVertical: 8,
+    fontSize: 16,
+    color: COLORS.text,
+    backgroundColor: COLORS.white,
+  },
 });

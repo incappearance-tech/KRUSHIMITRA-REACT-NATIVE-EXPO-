@@ -5,6 +5,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LanguageProvider } from '../context/LanguageContext';
 import { loadSavedLanguage } from '../services/i18n';
+import { COLORS } from '../constants/colors';
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
@@ -33,9 +34,9 @@ export default function RootLayout() {
 
   return (
     <LanguageProvider>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1,backgroundColor:COLORS.background,paddingLeft:16,paddingRight:16 }}>
         {/* Default system status bar (no overlap) */}
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
 
         <Stack
           screenOptions={{

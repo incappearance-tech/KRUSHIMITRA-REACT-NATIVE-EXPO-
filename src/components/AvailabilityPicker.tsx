@@ -1,12 +1,13 @@
+import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { COLORS } from '../constants/colors';
 
 /* =======================
    Types
@@ -14,15 +15,15 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 export type AvailabilityOption =
   | {
-      type: 'static';
-      key: string;
-      label: string;
-    }
+    type: 'static';
+    key: string;
+    label: string;
+  }
   | {
-      type: 'date';
-      key: string;
-      label: string;
-    };
+    type: 'date';
+    key: string;
+    label: string;
+  };
 
 export type AvailabilityValue =
   | { key: string }
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     marginBottom: 6,
   },
   rowGap: {
@@ -189,28 +190,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 12,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.border,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.white,
   },
   radioBoxActive: {
-    borderColor: '#2E7D32',
-    backgroundColor: 'rgba(46,125,50,0.05)',
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.muted,
   },
   radioCircle: {
     width: 16,
     height: 16,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#9CA3AF',
+    borderColor: COLORS.textLight,
     marginRight: 8,
   },
   radioCircleActive: {
-    borderColor: '#2E7D32',
-    backgroundColor: '#2E7D32',
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.primary,
   },
   radioLabel: {
     fontSize: 14,
-    color: '#111827',
+    color: COLORS.text,
   },
 });

@@ -20,24 +20,12 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Switch,
   Text,
   TextInput,
   TouchableOpacity,
   View
 } from 'react-native';
-
-// --- Theme Colors ---
-const COLORS = {
-  primary: "#37ec13",
-  backgroundLight: "#f6f8f6",
-  surfaceLight: "#ffffff",
-  textMain: "#101b0d",
-  textSecondary: "#4b5563",
-  border: "#d3e7cf",
-  bgDarkDetails: "#132210",
-  error: "#ef4444",
-};
+import { COLORS } from '../../../constants/colors';
 
 export default function App() {
   // --- Form State ---
@@ -79,38 +67,39 @@ export default function App() {
     navigate("/sell-machine/publish");
     console.log("Data:", { media, category, subCategory, usageLevel, selectedDate: availability === 'select_date' ? selectedDate : 'Now' });
   };
-const { control ,watch} = useForm({
-  defaultValues: {
-    isNegotiable: false,
-    hasRepair: false,
-    repairDetails: '',
-    category: '',
-    subCategory: '',
-    brand: '',
-    model: '',
-    year: '',
-    serialNo: '',
-    condition: '',
-    sellingReason: '',
-    usageLevel: '',
-    isChecked: false,
-    availability: { key: 'immediately' },
-    selectedDate: new Date(),
-    showDatePicker: false,
-    ownershipConfirmed: false,
-  },
-});
+
+  const { control, watch } = useForm({
+    defaultValues: {
+      isNegotiable: false,
+      hasRepair: false,
+      repairDetails: '',
+      category: '',
+      subCategory: '',
+      brand: '',
+      model: '',
+      year: '',
+      serialNo: '',
+      condition: '',
+      sellingReason: '',
+      usageLevel: '',
+      isChecked: false,
+      availability: { key: 'immediately' },
+      selectedDate: new Date(),
+      showDatePicker: false,
+      ownershipConfirmed: false,
+    },
+  });
 
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={COLORS.backgroundLight} />
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
 
       {/* --- Top App Bar --- */}
       <View style={styles.appBar}>
         <View style={styles.appBarTop}>
           <TouchableOpacity>
-            <MaterialIcons name="arrow-back" size={24} color={COLORS.textMain} />
+            <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
           </TouchableOpacity>
           <Text style={styles.appBarTitle}>Add Machine Details</Text>
           <TouchableOpacity>
@@ -158,7 +147,7 @@ const { control ,watch} = useForm({
               placeholder="Select Category"
               control={control}
               name="category"
-              
+
             />
 
             <FormDropdown
@@ -234,8 +223,8 @@ const { control ,watch} = useForm({
               <FormSwitch
                 control={control}
                 name="hasRepair"
-                // label="Price negotiable?"
-                // disabled={isNegotiable}
+              // label="Price negotiable?"
+              // disabled={isNegotiable}
               />
             </View>
 
@@ -288,8 +277,8 @@ const { control ,watch} = useForm({
               <FormSwitch
                 control={control}
                 name="isNegotiable"
-                // label="Price negotiable?"
-                // disabled={isNegotiable}
+              // label="Price negotiable?"
+              // disabled={isNegotiable}
               />
             </View>
 
@@ -309,7 +298,7 @@ const { control ,watch} = useForm({
             <SectionHeader icon="location-on" title="Location Accuracy" />
             <View style={styles.mapPlaceholder}>
               <View style={styles.pinContainer}>
-                <MaterialIcons name="location-on" size={40} color="#ef4444" />
+                <MaterialIcons name="location-on" size={40} color={COLORS.danger} />
                 <View style={styles.pinLabel}>
                   <Text style={styles.pinText}>Sattur, TN</Text>
                 </View>
@@ -337,20 +326,20 @@ const { control ,watch} = useForm({
 
           {/* 7. Ownership Checkbox */}
           <FormCheckbox
-  control={control}
-  name="ownershipConfirmed"
-  label="I confirm this machine belongs to me or my family and all details provided are accurate."
-/>
+            control={control}
+            name="ownershipConfirmed"
+            label="I confirm this machine belongs to me or my family and all details provided are accurate."
+          />
 
         </ScrollView>
       </KeyboardAvoidingView>
 
       {/* --- Sticky Footer --- */}
-        <Button
-          label="Next Step"
-          onPress={handleNextStep}
-          sticky
-        />
+      <Button
+        label="Next Step"
+        onPress={handleNextStep}
+        sticky
+      />
 
     </SafeAreaView>
   );
@@ -360,7 +349,7 @@ const { control ,watch} = useForm({
 
 const SectionHeader = ({ icon, title }) => (
   <View style={styles.sectionHeader}>
-    <MaterialIcons name={icon} size={20} color={COLORS.primary} style={{ marginRight: 8 }} />
+    <MaterialIcons name={icon} size={20} color={COLORS.brand.primary} style={{ marginRight: 8 }} />
     <Text style={styles.sectionHeaderText}>{title}</Text>
   </View>
 );
@@ -395,10 +384,10 @@ const FunctionalDropdown = ({ label, placeholder, value, options, onSelect }) =>
                   style={styles.modalItem}
                   onPress={() => { onSelect(item); setVisible(false); }}
                 >
-                  <Text style={[styles.modalItemText, item === value && { color: COLORS.primary, fontWeight: '700' }]}>
+                  <Text style={[styles.modalItemText, item === value && { color: COLORS.brand.primary, fontWeight: '700' }]}>
                     {item}
                   </Text>
-                  {item === value && <MaterialIcons name="check" size={20} color={COLORS.primary} />}
+                  {item === value && <MaterialIcons name="check" size={20} color={COLORS.brand.primary} />}
                 </TouchableOpacity>
               )}
             />
@@ -413,7 +402,7 @@ const FunctionalDropdown = ({ label, placeholder, value, options, onSelect }) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: COLORS.background,
   },
   // Header
   appBar: {
@@ -431,7 +420,7 @@ const styles = StyleSheet.create({
   appBarTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   saveDraftText: {
     color: '#599a4c',
@@ -455,7 +444,7 @@ const styles = StyleSheet.create({
   },
   percentText: {
     fontSize: 12,
-    color: COLORS.primary,
+    color: COLORS.brand.primary,
     fontWeight: '600',
   },
   progressBarBg: {
@@ -466,7 +455,7 @@ const styles = StyleSheet.create({
   },
   progressBarFill: {
     height: '100%',
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.brand.primary,
     borderRadius: 999,
   },
   // Content
@@ -484,7 +473,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   subText: {
     fontSize: 14,
@@ -503,7 +492,7 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: COLORS.border,
     borderRadius: 12,
-    backgroundColor: COLORS.surfaceLight,
+    backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -530,7 +519,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -6,
     right: -6,
-    backgroundColor: COLORS.error,
+    backgroundColor: COLORS.danger,
     borderRadius: 12,
     width: 22,
     height: 22,
@@ -548,13 +537,13 @@ const styles = StyleSheet.create({
   },
   addPhotoText: {
     fontSize: 12,
-    color: COLORS.primary,
+    color: COLORS.brand.primary,
     fontWeight: '500',
   },
 
   // Card & Forms
   card: {
-    backgroundColor: COLORS.surfaceLight,
+    backgroundColor: COLORS.white,
     padding: 16,
     borderRadius: 12,
     borderWidth: 1,
@@ -574,7 +563,7 @@ const styles = StyleSheet.create({
   sectionHeaderText: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   fieldGroup: {
     marginBottom: 16,
@@ -588,7 +577,7 @@ const styles = StyleSheet.create({
   labelDark: {
     fontSize: 14,
     fontWeight: '600',
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   labelSmall: {
     fontSize: 12,
@@ -602,18 +591,18 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     height: 48,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: COLORS.background,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 8,
     paddingHorizontal: 16,
     justifyContent: 'center',
-    color: COLORS.textMain,
+    color: COLORS.text,
     fontSize: 15,
   },
   inputText: {
     fontSize: 15,
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   rowGap: {
     flexDirection: 'row',
@@ -637,18 +626,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 16,
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   modalItem: {
     paddingVertical: 14,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.backgroundLight,
+    borderBottomColor: COLORS.background,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   modalItemText: {
     fontSize: 16,
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
 
   // Radio Buttons
@@ -666,8 +655,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   radioButtonActive: {
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
+    backgroundColor: COLORS.brand.primary,
+    borderColor: COLORS.brand.primary,
   },
   radioText: {
     fontSize: 14,
@@ -706,8 +695,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   radioBoxActive: {
-    borderColor: COLORS.primary,
-    backgroundColor: 'rgba(55, 236, 19, 0.05)',
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.muted,
   },
   radioCircle: {
     width: 16,
@@ -718,18 +707,18 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   radioCircleActive: {
-    borderColor: COLORS.primary,
-    backgroundColor: COLORS.primary,
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.primary,
   },
   radioLabel: {
     fontSize: 14,
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
 
   // Map
   mapPlaceholder: {
     height: 128,
-    backgroundColor: '#e5e7eb',
+    backgroundColor: COLORS.gray[200],
     borderRadius: 8,
     marginBottom: 16,
     borderWidth: 1,
@@ -756,7 +745,7 @@ const styles = StyleSheet.create({
   pinText: {
     fontSize: 10,
     fontWeight: 'bold',
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   updatePinButton: {
     position: 'absolute',
@@ -777,7 +766,7 @@ const styles = StyleSheet.create({
   updatePinText: {
     fontSize: 12,
     fontWeight: '700',
-    color: COLORS.textMain,
+    color: COLORS.text,
   },
   gridContainer: {
     flexDirection: 'row',
@@ -790,7 +779,7 @@ const styles = StyleSheet.create({
   },
   staticBox: {
     padding: 10,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: COLORS.background,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 8,
@@ -798,64 +787,5 @@ const styles = StyleSheet.create({
   staticText: {
     fontSize: 14,
     color: COLORS.textSecondary,
-  },
-
-  // Checkbox
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    padding: 8,
-    marginBottom: 40,
-  },
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: '#d1d5db',
-    marginRight: 12,
-    marginTop: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  checkboxChecked: {
-    borderColor: COLORS.primary,
-  },
-  checkboxText: {
-    flex: 1,
-    fontSize: 14,
-    color: COLORS.textSecondary,
-    lineHeight: 20,
-  },
-
-  // Sticky Footer
-  footerContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-  },
-  nextButton: {
-    backgroundColor: COLORS.primary,
-    height: 56,
-    borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  nextButtonText: {
-    color: '#000',
-    fontSize: 18,
-    fontWeight: '700',
-    marginRight: 8,
   },
 });

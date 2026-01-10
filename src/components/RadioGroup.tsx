@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
+import { COLORS } from '../constants/colors';
 
 export type RadioOption<T extends string> = {
   label: string;
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     marginBottom: 6,
   },
 
@@ -83,26 +84,26 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.border,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.white,
   },
 
   radioButtonActive: {
-    backgroundColor: '#2E7D32',
-    borderColor: '#2E7D32',
+    backgroundColor: COLORS.brand.primary,
+    borderColor: COLORS.brand.primary,
   },
 
   radioText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#6B7280',
+    color: COLORS.textSecondary,
   },
 
   radioTextActive: {
-    color: '#000000',
+    color: COLORS.black,
     fontWeight: '600',
   },
 });

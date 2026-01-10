@@ -1,17 +1,18 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import {
-  Controller,
   Control,
+  Controller,
   FieldValues,
   Path,
 } from 'react-hook-form';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { COLORS } from '../constants/colors';
 
 type FormCheckboxProps<T extends FieldValues> = {
   control: Control<T>;
@@ -47,7 +48,7 @@ function FormCheckbox<T extends FieldValues>({
               <MaterialIcons
                 name="check"
                 size={16}
-                color="#2E7D32"
+                color={COLORS.brand.primary}
               />
             )}
           </View>
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: '#D1D5DB',
+    borderColor: COLORS.border,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -92,22 +93,22 @@ const styles = StyleSheet.create({
   },
 
   checkboxChecked: {
-    borderColor: '#2E7D32',
+    borderColor: COLORS.brand.primary,
   },
 
   checkboxDisabled: {
-    borderColor: '#E5E7EB',
-    backgroundColor: '#F3F4F6',
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.background,
   },
 
   text: {
     flex: 1,
     fontSize: 14,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     lineHeight: 20,
   },
 
   textDisabled: {
-    color: '#9CA3AF',
+    color: COLORS.textLight,
   },
 });

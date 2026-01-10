@@ -8,11 +8,13 @@ export const COLORS = {
     300: '#80ddaa',
     400: '#55d18d',
     500: '#2ecc71', // Base
-    600: '#25a35a',
-    700: '#1c7a44',
-    800: '#12522d',
-    900: '#092917',
-    950: '#05140b',
+    600: "#13ec37",
+    700: '#25a35a',
+    800: '#1c7a44',
+    900: '#12522d',
+    950: '#092917',
+
+    1000: '#05140b',
   },
 
   // Secondary - Blue (Water/Trust)
@@ -31,18 +33,22 @@ export const COLORS = {
     950: '#154360',
   },
 
-  // Status Colors
-  success: '#27ae60', // can keep flat for simple status or expand later
-  successLight: '#d5f5e3',
+  // Status Colors (Matching Dashboard/List usage)
+  success: '#16a34a', // green-600
+  successLight: '#dcfce7', // green-100
+  successDark: '#166534', // green-800
 
-  warning: '#f39c12',
-  warningLight: '#fcf3cf',
+  warning: '#f59e0b', // amber-500
+  warningLight: '#fffbeb', // amber-50
+  warningDark: '#b45309', // amber-700
 
-  danger: '#e74c3c',
-  dangerLight: '#fadbd8',
+  danger: '#ef4444', // red-500
+  dangerLight: '#fef2f2', // red-50
+  dangerDark: '#b91c1c', // red-700
 
-  info: '#3498db',
-  infoLight: '#d6eaf8',
+  info: '#3b82f6', // blue-500
+  infoLight: '#dbeafe', // blue-100
+  infoDark: '#1e40af', // blue-800
 
   // Neutrals / Grays (Slate-ish)
   gray: {
@@ -65,8 +71,21 @@ export const COLORS = {
   transparent: 'transparent',
 
   // Semantic Aliases (mapped to scales)
-  background: '#f8fafc', // gray[50]
-  border: '#e2e8f0', // gray[200]
-  text: '#1e293b', // gray[800]
-  textLight: '#64748b', // gray[500]
+  background: '#f6faf5ff', // Updated to match login screen background
+  surface: '#ffffff',
+  surfaceHighlight: '#f8faf8', // Light background for inputs etc
+
+  border: '#e5e7eb', // gray[200]
+  borderFocus: '#37ec13', // Bright Green
+
+  text: '#1a1a1a', // Darker than gray[800]
+  textSecondary: '#6b7280', // gray[500]-ish
+  textLight: '#9ca3af', // gray[400]
+
+  // Custom Brand Colors
+  brand: {
+    primary: '#37ec13', // The bright neon green used in login
+    secondary: '#052e00', // Dark green for text on primary button
+    muted: 'rgba(147, 250, 126, 0.15)', // Light brand background
+  }
 };

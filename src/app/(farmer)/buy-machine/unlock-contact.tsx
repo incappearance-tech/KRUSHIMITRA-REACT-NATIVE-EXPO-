@@ -1,30 +1,21 @@
+import Button from '@/src/components/Button';
+import { MaterialIcons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
   Image,
-  ScrollView,
-  TouchableOpacity,
   Linking,
   Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { COLORS } from '../../../constants/colors';
 
-// --- Theme Constants ---
-const COLORS = {
-  primary: '#37ec13',
-  primaryDark: '#2ec50f',
-  bgLight: '#f6f8f6',
-  surfaceWhite: '#ffffff',
-  textMain: '#101b0d',
-  textSub: '#599a4c',
-  border: 'rgba(0,0,0,0.05)',
-  infoBg: '#eff6ff', // Blue 50
-  infoText: '#1e3a8a', // Blue 900
-};
+
 
 export default function ContactSellerSuccess() {
   return (
@@ -48,13 +39,13 @@ function ContactContent() {
       {/* Top App Bar */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <TouchableOpacity style={styles.iconButton}>
-          <MaterialIcons name="arrow-back" size={28} color={COLORS.textMain} />
+          <MaterialIcons name="arrow-back" size={28} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Contact Seller</Text>
         <View style={{ width: 48 }} />
       </View>
 
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 40 }]}
         showsVerticalScrollIndicator={false}
       >
@@ -69,23 +60,23 @@ function ContactContent() {
 
         {/* Machine Context Card */}
         <View style={styles.machineMiniCard}>
-          <Image 
-            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=150' }} 
-            style={styles.miniImg} 
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=150' }}
+            style={styles.miniImg}
           />
           <View style={styles.miniInfo}>
             <Text style={styles.miniTitle} numberOfLines={1}>John Deere 5050D - 2018</Text>
             <Text style={styles.miniId}>MACHINE ID: #TR-8821</Text>
           </View>
-          <MaterialIcons name="open-in-new" size={20} color={COLORS.textSub} />
+          <MaterialIcons name="open-in-new" size={20} color={COLORS.success} />
         </View>
 
         {/* Seller Profile Card */}
         <View style={styles.profileCard}>
           <View style={styles.avatarContainer}>
-            <Image 
-              source={{ uri: 'https://i.pravatar.cc/300?u=ram' }} 
-              style={styles.avatar} 
+            <Image
+              source={{ uri: 'https://i.pravatar.cc/300?u=ram' }}
+              style={styles.avatar}
             />
             <View style={styles.verifiedBadge}>
               <MaterialIcons name="verified" size={10} color="black" />
@@ -95,7 +86,7 @@ function ContactContent() {
 
           <Text style={styles.sellerName}>Ram Singh</Text>
           <View style={styles.locationRow}>
-            <MaterialIcons name="location-on" size={16} color={COLORS.textSub} />
+            <MaterialIcons name="location-on" size={16} color={COLORS.textSecondary} />
             <Text style={styles.locationText}>Bhatinda, Punjab (5km away)</Text>
           </View>
 
@@ -105,21 +96,30 @@ function ContactContent() {
 
           {/* Action Buttons */}
           <View style={styles.actionArea}>
-            <TouchableOpacity style={styles.callButton} onPress={handleCall} activeOpacity={0.8}>
-              <MaterialIcons name="call" size={24} color={COLORS.textMain} />
-              <Text style={styles.callButtonText}>Call Seller Now</Text>
-            </TouchableOpacity>
+            <View style={styles.actionArea}>
+              <Button
+                label="Call Seller Now"
+                onPress={handleCall}
+                icon="call"
+                backgroundColor={COLORS.brand.primary}
+                textColor={COLORS.black}
+              />
 
-            <TouchableOpacity style={styles.whatsappButton} onPress={handleWhatsApp} activeOpacity={0.8}>
-              <MaterialCommunityIcons name="whatsapp" size={24} color="#25D366" />
-              <Text style={styles.whatsappButtonText}>Message on WhatsApp</Text>
-            </TouchableOpacity>
+              <Button
+                label="Message on WhatsApp"
+                onPress={handleWhatsApp}
+                backgroundColor="white"
+                borderColor="#25D366"
+                textColor="#25D366"
+                icon="chat"
+              />
+            </View>
           </View>
         </View>
 
         {/* Offline Disclaimer */}
         <View style={styles.infoBox}>
-          <MaterialIcons name="info" size={20} color="#2563eb" style={{ marginTop: 2 }} />
+          <MaterialIcons name="info" size={20} color={COLORS.info} style={{ marginTop: 2 }} />
           <View style={{ flex: 1 }}>
             <Text style={styles.infoTitle}>Deal Directly Offline</Text>
             <Text style={styles.infoDesc}>
@@ -130,13 +130,13 @@ function ContactContent() {
 
         {/* Safety Tips */}
         <View style={styles.safetyHeader}>
-          <MaterialIcons name="shield" size={20} color={COLORS.textSub} />
+          <MaterialIcons name="shield" size={20} color={COLORS.textSecondary} />
           <Text style={styles.safetyTitleText}>Safety Tips</Text>
         </View>
         <View style={styles.safetyList}>
-          <SafetyItem icon="visibility" color="#f97316" text="Always inspect the machine in person before making any payment." />
-          <SafetyItem icon="payments" color="#ef4444" text="Do not send advance money online without verifying documents." />
-          <SafetyItem icon="description" color="#3b82f6" text="Check RC and insurance validity before finalizing the deal." />
+          <SafetyItem icon="visibility" color={COLORS.warning} text="Always inspect the machine in person before making any payment." />
+          <SafetyItem icon="payments" color={COLORS.danger} text="Do not send advance money online without verifying documents." />
+          <SafetyItem icon="description" color={COLORS.info} text="Check RC and insurance validity before finalizing the deal." />
         </View>
 
         {/* Footer Support */}
@@ -159,22 +159,22 @@ const SafetyItem = ({ icon, color, text }) => (
 // --- Styles ---
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bgLight },
-  header: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'space-between', 
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 8,
     backgroundColor: 'rgba(246,248,246,0.95)'
   },
   iconButton: { width: 48, height: 48, alignItems: 'center', justifyContent: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
-  
+  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },
+
   scrollContent: { padding: 16 },
-  
+
   successHeader: { alignItems: 'center', marginVertical: 12 },
-  checkCircle: { width: 64, height: 64, borderRadius: 32, backgroundColor: 'rgba(55,236,19,0.15)', alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
-  successTitle: { fontSize: 24, fontWeight: '900', color: COLORS.textMain, textAlign: 'center' },
-  successSubtitle: { fontSize: 14, color: COLORS.textSub, marginTop: 4, textAlign: 'center' },
+  checkCircle: { width: 64, height: 64, borderRadius: 32, backgroundColor: COLORS.brand.muted, alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
+  successTitle: { fontSize: 24, fontWeight: '900', color: COLORS.text, textAlign: 'center' },
+  successSubtitle: { fontSize: 14, color: COLORS.textSecondary, marginTop: 4, textAlign: 'center' },
 
   machineMiniCard: {
     flexDirection: 'row',
@@ -188,8 +188,8 @@ const styles = StyleSheet.create({
   },
   miniImg: { width: 64, height: 64, borderRadius: 8 },
   miniInfo: { flex: 1, paddingHorizontal: 12 },
-  miniTitle: { fontSize: 16, fontWeight: '600', color: COLORS.textMain },
-  miniId: { fontSize: 10, fontWeight: '700', color: COLORS.textSub, marginTop: 2, letterSpacing: 0.5 },
+  miniTitle: { fontSize: 16, fontWeight: '600', color: COLORS.text },
+  miniId: { fontSize: 10, fontWeight: '700', color: COLORS.textSecondary, marginTop: 2, letterSpacing: 0.5 },
 
   profileCard: {
     backgroundColor: 'white',
@@ -202,44 +202,44 @@ const styles = StyleSheet.create({
     ...Platform.select({ ios: { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 10 }, android: { elevation: 3 } })
   },
   avatarContainer: { marginBottom: 16 },
-  avatar: { width: 96, height: 96, borderRadius: 48, borderWidth: 4, borderColor: 'rgba(55,236,19,0.1)' },
-  verifiedBadge: { 
-    position: 'absolute', 
-    bottom: 0, 
-    right: 0, 
-    backgroundColor: COLORS.primary, 
-    paddingHorizontal: 8, 
-    paddingVertical: 3, 
-    borderRadius: 12, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
+  avatar: { width: 96, height: 96, borderRadius: 48, borderWidth: 4, borderColor: COLORS.brand.muted },
+  verifiedBadge: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: COLORS.brand.primary,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 2,
     borderWidth: 2,
     borderColor: 'white'
   },
   verifiedText: { fontSize: 9, fontWeight: '900', color: 'black' },
-  sellerName: { fontSize: 24, fontWeight: '700', color: COLORS.textMain },
+  sellerName: { fontSize: 24, fontWeight: '700', color: COLORS.text },
   locationRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 },
-  locationText: { fontSize: 14, color: COLORS.textSub, fontWeight: '500' },
-  phoneBox: { 
-    marginTop: 16, 
-    backgroundColor: COLORS.bgLight, 
-    paddingHorizontal: 20, 
-    paddingVertical: 10, 
-    borderRadius: 12, 
-    borderWidth: 1, 
-    borderColor: COLORS.border 
+  locationText: { fontSize: 14, color: COLORS.textSecondary, fontWeight: '500' },
+  phoneBox: {
+    marginTop: 16,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border
   },
-  phoneText: { fontSize: 20, fontWeight: '800', color: COLORS.textMain, letterSpacing: 1.5 },
+  phoneText: { fontSize: 20, fontWeight: '800', color: COLORS.text, letterSpacing: 1.5 },
 
   actionArea: { width: '100%', gap: 12, marginTop: 24 },
-  callButton: { 
-    height: 56, 
-    backgroundColor: COLORS.primary, 
-    borderRadius: 14, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
+  callButton: {
+    height: 56,
+    backgroundColor: COLORS.primary,
+    borderRadius: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 12,
     shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: 4 },
@@ -248,13 +248,13 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   callButtonText: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
-  whatsappButton: { 
-    height: 56, 
-    backgroundColor: 'white', 
-    borderRadius: 14, 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
+  whatsappButton: {
+    height: 56,
+    backgroundColor: 'white',
+    borderRadius: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 12,
     borderWidth: 2,
     borderColor: '#25D366'
@@ -262,37 +262,37 @@ const styles = StyleSheet.create({
   whatsappButtonText: { fontSize: 18, fontWeight: '700', color: '#25D366' },
 
   infoBox: {
-    backgroundColor: COLORS.infoBg,
+    backgroundColor: COLORS.infoLight,
     padding: 16,
     borderRadius: 16,
     flexDirection: 'row',
     gap: 12,
     borderWidth: 1,
-    borderColor: '#dbeafe',
+    borderColor: COLORS.infoLight,
     marginBottom: 24
   },
-  infoTitle: { fontSize: 14, fontWeight: '700', color: COLORS.infoText, marginBottom: 2 },
-  infoDesc: { fontSize: 13, color: COLORS.infoText, opacity: 0.8, lineHeight: 18 },
+  infoTitle: { fontSize: 14, fontWeight: '700', color: COLORS.infoDark, marginBottom: 2 },
+  infoDesc: { fontSize: 13, color: COLORS.infoDark, opacity: 0.8, lineHeight: 18 },
 
   safetyHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 4, marginBottom: 12 },
-  safetyTitleText: { fontSize: 16, fontWeight: '700', color: COLORS.textMain },
-  safetyList: { 
-    backgroundColor: 'white', 
-    borderRadius: 16, 
-    borderWidth: 1, 
+  safetyTitleText: { fontSize: 16, fontWeight: '700', color: COLORS.text },
+  safetyList: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    borderWidth: 1,
     borderColor: COLORS.border,
     overflow: 'hidden'
   },
-  safetyItem: { 
-    flexDirection: 'row', 
-    padding: 16, 
-    gap: 12, 
-    borderBottomWidth: 1, 
+  safetyItem: {
+    flexDirection: 'row',
+    padding: 16,
+    gap: 12,
+    borderBottomWidth: 1,
     borderBottomColor: '#f1f5f9',
     alignItems: 'center'
   },
-  safetyItemText: { flex: 1, fontSize: 14, color: COLORS.textMain, lineHeight: 20 },
+  safetyItemText: { flex: 1, fontSize: 14, color: COLORS.text, lineHeight: 20 },
 
   supportButton: { marginTop: 24, padding: 16, alignItems: 'center' },
-  supportText: { fontSize: 14, fontWeight: '600', color: COLORS.textSub }
+  supportText: { fontSize: 14, fontWeight: '600', color: COLORS.textSecondary }
 });

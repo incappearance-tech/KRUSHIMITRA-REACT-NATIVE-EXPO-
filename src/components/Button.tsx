@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { COLORS } from '../constants/colors';
 
 /* =======================
    Types
@@ -55,14 +56,14 @@ const Button: React.FC<ButtonProps> = ({
   const bg =
     backgroundColor ??
     (type === 'danger'
-      ? '#DC2626'
+      ? COLORS.danger
       : type === 'secondary'
-      ? '#FFFFFF'
-      : '#2E7D32');
+      ? COLORS.gray[50]
+      : COLORS.primary[600]);
 
   const txtColor =
     textColor ??
-    (type === 'secondary' ? '#374151' : '#000');
+    (type === 'secondary' ? '#374151' : COLORS.gray[200]);
 
   const brColor =
     borderColor ??
@@ -117,20 +118,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 16,
-    backgroundColor: 'rgba(255,255,255,0.95)',
+    backgroundColor: COLORS.background,
     borderTopWidth: 1,
     borderTopColor: '#E5E7EB',
   },
 
   button: {
     height: 56,
-    borderRadius: 8,
+   borderRadius: 14,
     borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
+    
   },
 
   text: {

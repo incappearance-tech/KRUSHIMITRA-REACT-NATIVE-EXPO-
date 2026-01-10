@@ -1,32 +1,72 @@
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { COLORS } from '../../constants/colors';
+import Button from '@/src/components/Button';
 
 type Role = 'farmer' | 'labour' | 'transporter';
+type RoleCardProps = {
+  data: {
+    title: string;
+    desc: string;
+    icon: keyof typeof MaterialIcons.glyphMap;
+    iconBg: string;
+    iconColor: string;
+  };
+  selected: boolean;
+  onPress: () => void;
+};
+
+const ROLES = [
+  {
+    key: 'farmer',
+    title: 'Farmer',
+    desc: 'Manage crops, track harvest, and connect with markets.',
+    icon: 'agriculture',
+    iconBg: COLORS.primary[100],
+    iconColor: COLORS.primary[800],
+    route: '(farmer)/profile',
+  },
+  {
+    key: 'labour',
+    title: 'Labour',
+    desc: 'Find daily work, manage schedule, and receive payments.',
+    icon: 'engineering',
+    iconBg: '#FEF9C3',
+    iconColor: '#A16207',
+    route: '(labour)/profile',
+  },
+  {
+    key: 'transporter',
+    title: 'Transporter',
+    desc: 'Logistics, route planning, and delivery tracking.',
+    icon: 'local-shipping',
+    iconBg: '#DBEAFE',
+    iconColor: '#1D4ED8',
+    route: '(transporter)/profile',
+  },
+] as const;
 
 export default function RoleSelectScreen() {
   const router = useRouter();
   const [role, setRole] = useState<Role>('farmer');
 
+  const selectedRole = ROLES.find(r => r.key === role);
+
   return (
     <View style={styles.container}>
-      {/* Top bar */}
-      {/* Back + Language */}
+      {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={22} />
+        <TouchableOpacity style={styles.backBtn} onPress={router.back}>
+          <Ionicons name="arrow-back" size={22} color={COLORS.borderFocus} />
         </TouchableOpacity>
 
         <View style={styles.languagePill}>
-          <MaterialIcons name="language" size={16} color="#15803D" />
+          <MaterialIcons name="language" size={16} color={COLORS.borderFocus} />
           <Text style={styles.languageText}>English</Text>
-          <Ionicons name="chevron-down" size={16} color="#15803D" />
+          <Ionicons name="chevron-down" size={16} color={COLORS.borderFocus} />
         </View>
       </View>
 
@@ -37,129 +77,79 @@ export default function RoleSelectScreen() {
           Choose your account type to get started with the tailored experience.
         </Text>
 
-        {/* Farmer */}
-        <TouchableOpacity
-          style={[
-            styles.card,
-            role === 'farmer' && styles.cardSelected,
-          ]}
-          onPress={() => setRole('farmer')}
-          activeOpacity={0.9}
-        >
-          <View style={styles.iconCircleGreen}>
-            <MaterialIcons name="agriculture" size={26} color="#15803D" />
-          </View>
-
-          <View style={styles.cardText}>
-            <Text style={styles.cardTitle}>Farmer</Text>
-            <Text style={styles.cardDesc}>
-              Manage crops, track harvest, and connect with markets.
-            </Text>
-          </View>
-
-          <View style={styles.radioOuter}>
-            {role === 'farmer' && <View style={styles.radioInner} />}
-          </View>
-        </TouchableOpacity>
-
-        {/* Labour */}
-        <TouchableOpacity
-          style={[
-            styles.card,
-            role === 'labour' && styles.cardSelected,
-          ]}
-          onPress={() => setRole('labour')}
-          activeOpacity={0.9}
-        >
-          <View style={styles.iconCircleYellow}>
-            <MaterialIcons name="engineering" size={26} color="#A16207" />
-          </View>
-
-          <View style={styles.cardText}>
-            <Text style={styles.cardTitle}>Labour</Text>
-            <Text style={styles.cardDesc}>
-              Find daily work, manage schedule, and receive payments.
-            </Text>
-          </View>
-
-          <View style={styles.radioOuter}>
-            {role === 'labour' && <View style={styles.radioInner} />}
-          </View>
-        </TouchableOpacity>
-
-        {/* Transporter */}
-        <TouchableOpacity
-          style={[
-            styles.card,
-            role === 'transporter' && styles.cardSelected,
-          ]}
-          onPress={() => setRole('transporter')}
-          activeOpacity={0.9}
-        >
-          <View style={styles.iconCircleBlue}>
-            <MaterialIcons name="local-shipping" size={26} color="#1D4ED8" />
-          </View>
-
-          <View style={styles.cardText}>
-            <Text style={styles.cardTitle}>Transporter</Text>
-            <Text style={styles.cardDesc}>
-              Logistics, route planning, and delivery tracking.
-            </Text>
-          </View>
-
-          <View style={styles.radioOuter}>
-            {role === 'transporter' && <View style={styles.radioInner} />}
-          </View>
-        </TouchableOpacity>
+        {ROLES.map(item => (
+          <RoleCard
+            key={item.key}
+            data={item}
+            selected={role === item.key}
+            onPress={() => setRole(item.key)}
+          />
+        ))}
       </View>
 
-      {/* Bottom CTA */}
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.continueBtn} onPress={()=>router.push("(farmer)/profile")}>
-          <Text style={styles.continueText}>Continue</Text>
-          <Ionicons name="arrow-forward" size={18} color="#fff" />
-        </TouchableOpacity>
+      {/* Footer */}
+      {/* <View> */}
+        <Button
+          label="Continue"
+          icon="arrow-forward"
+          onPress={() => selectedRole && router.push(selectedRole.route)}
+        />
 
         <Text style={styles.terms}>
           By continuing, you agree to our{' '}
           <Text style={styles.link}>Terms of Service</Text> &{' '}
           <Text style={styles.link}>Privacy Policy</Text>.
         </Text>
-      </View>
+      {/* </View> */}
     </View>
   );
 }
+
+function RoleCard({ data, selected, onPress }: RoleCardProps) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={onPress}
+      style={[styles.card, selected && styles.cardSelected]}
+    >
+      <View style={[styles.iconCircle, { backgroundColor: data.iconBg }]}>
+        <MaterialIcons name={data.icon} size={26} color={data.iconColor} />
+      </View>
+
+      <View style={styles.cardText}>
+        <Text style={styles.cardTitle}>{data.title}</Text>
+        <Text style={styles.cardDesc}>{data.desc}</Text>
+      </View>
+
+      <View style={[styles.radioOuter, selected && styles.radioActive]}>
+        {selected && <View style={styles.radioInner} />}
+      </View>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: COLORS.background,
   },
-
-  topBar: {
-    paddingHorizontal: 24,
-    paddingTop: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  time: { fontSize: 12 },
-  statusIcons: { flexDirection: 'row', gap: 6 },
 
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
+    // padding: 24,
+    marginBottom:24
   },
 
   backBtn: {
     height: 40,
     width: 40,
     borderRadius: 20,
-    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: COLORS.borderFocus,
+    backgroundColor: COLORS.brand.muted,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
   },
 
   languagePill: {
@@ -168,87 +158,73 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    backgroundColor: '#DCFCE7',
-    borderRadius: 999,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: COLORS.borderFocus,
+    backgroundColor: COLORS.brand.muted,
   },
+
   languageText: {
     fontSize: 13,
     fontWeight: '500',
-    color: '#15803D',
+    color: COLORS.borderFocus,
   },
 
   content: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 16,
   },
 
   title: {
     fontSize: 24,
     fontWeight: '700',
+    color: COLORS.text,
     marginBottom: 8,
-    color: '#111827',
   },
+
   subtitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     marginBottom: 24,
   },
 
   card: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    padding: 16,
+    padding:16,
     borderRadius: 16,
-    backgroundColor: '#fff',
     borderWidth: 2,
-    borderColor: '#E5E7EB',
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.white,
     marginBottom: 16,
   },
+
   cardSelected: {
-    borderColor: '#16A34A',
-    backgroundColor: 'rgba(22,163,74,0.05)',
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.muted,
   },
 
-  iconCircleGreen: {
+  iconCircle: {
     height: 48,
     width: 48,
     borderRadius: 24,
-    backgroundColor: '#DCFCE7',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  iconCircleYellow: {
-    height: 48,
-    width: 48,
-    borderRadius: 24,
-    backgroundColor: '#FEF9C3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  iconCircleBlue: {
-    height: 48,
-    width: 48,
-    borderRadius: 24,
-    backgroundColor: '#DBEAFE',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
   },
 
-  cardText: { flex: 1 },
+  cardText: {
+    flex: 1,
+  },
 
   cardTitle: {
     fontSize: 16,
     fontWeight: '700',
+    color: COLORS.text,
     marginBottom: 4,
-    color: '#111827',
   },
+
   cardDesc: {
     fontSize: 12,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     lineHeight: 16,
   },
 
@@ -257,47 +233,33 @@ const styles = StyleSheet.create({
     width: 22,
     borderRadius: 11,
     borderWidth: 2,
-    borderColor: '#D1D5DB',
+    borderColor: COLORS.border,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 4,
   },
+
+  radioActive: {
+    borderColor: COLORS.brand.primary,
+  },
+
   radioInner: {
     height: 10,
     width: 10,
     borderRadius: 5,
-    backgroundColor: '#16A34A',
-  },
-
-  footer: {
-    padding: 20,
-    paddingBottom: 28,
-  },
-
-  continueBtn: {
-    flexDirection: 'row',
-    gap: 8,
-    backgroundColor: '#16A34A',
-    paddingVertical: 16,
-    borderRadius: 999,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  continueText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    backgroundColor: COLORS.brand.primary,
   },
 
   terms: {
     fontSize: 12,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
     textAlign: 'center',
+    marginTop: 12,
     lineHeight: 16,
   },
+
   link: {
-    color: '#16A34A',
+    color: COLORS.brand.primary,
     fontWeight: '600',
   },
 });
