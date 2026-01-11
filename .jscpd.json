@@ -1,0 +1,17 @@
+{
+  "threshold": 5,
+  "reporters": ["console", "json"],
+  "ignore": [
+    "node_modules",
+    "dist",
+    ".expo",
+    "android",
+    "ios",
+    "package-lock.json",
+    "assets",
+    "src/locales/*.json"
+  ],
+  "absolute": true,
+  "minLines": 5,
+  "minTokens": 50
+}

@@ -1,0 +1,2609 @@
+{
+  "statistics": {
+    "detectionDate": "2026-01-11T13:55:31.184Z",
+    "formats": {
+      "javascript": {
+        "sources": {
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/search.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/list.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/details.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/select-plan.tsx": {
+            "lines": 117,
+            "tokens": 1027,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/publish.tsx": {
+            "lines": 178,
+            "tokens": 1534,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-success.tsx": {
+            "lines": 151,
+            "tokens": 1353,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-method.tsx": {
+            "lines": 135,
+            "tokens": 1012,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/listing-details.tsx": {
+            "lines": 177,
+            "tokens": 1824,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx": {
+            "lines": 190,
+            "tokens": 1380,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/requests.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/pricing.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/availability.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/add-machine.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/list.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/filters.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/details.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/profile.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/list.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx": {
+            "lines": 121,
+            "tokens": 1423,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx": {
+            "lines": 102,
+            "tokens": 1164,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx": {
+            "lines": 121,
+            "tokens": 1237,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 26,
+            "duplicatedTokens": 352,
+            "percentage": 21.49,
+            "percentageTokens": 28.46,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx": {
+            "lines": 119,
+            "tokens": 1482,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 176,
+            "percentage": 10.92,
+            "percentageTokens": 11.88,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/list.tsx": {
+            "lines": 173,
+            "tokens": 1431,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/intent.tsx": {
+            "lines": 131,
+            "tokens": 1423,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx": {
+            "lines": 75,
+            "tokens": 911,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 176,
+            "percentage": 17.33,
+            "percentageTokens": 19.32,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/filters.tsx": {
+            "lines": 282,
+            "tokens": 2739,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/details.tsx": {
+            "lines": 164,
+            "tokens": 2088,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/profile.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/dashboard.tsx": {
+            "lines": 1,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/profile.tsx": {
+            "lines": 0,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/dashboard.tsx": {
+            "lines": 1,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/profile.tsx": {
+            "lines": 72,
+            "tokens": 717,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/dashboard.tsx": {
+            "lines": 270,
+            "tokens": 3245,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/role-select.tsx": {
+            "lines": 63,
+            "tokens": 718,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/otp.tsx": {
+            "lines": 65,
+            "tokens": 776,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/login.tsx": {
+            "lines": 91,
+            "tokens": 900,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/language.tsx": {
+            "lines": 70,
+            "tokens": 570,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/context/LanguageContext.tsx": {
+            "lines": 3,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/RatingStars.tsx": {
+            "lines": 9,
+            "tokens": 105,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/RadioGroup.tsx": {
+            "lines": 20,
+            "tokens": 160,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaUploader.tsx": {
+            "lines": 132,
+            "tokens": 1250,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 17,
+            "duplicatedTokens": 178,
+            "percentage": 12.88,
+            "percentageTokens": 14.24,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaPicker.tsx": {
+            "lines": 54,
+            "tokens": 508,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 17,
+            "duplicatedTokens": 178,
+            "percentage": 31.48,
+            "percentageTokens": 35.04,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Input.tsx": {
+            "lines": 6,
+            "tokens": 43,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/index.tsx": {
+            "lines": 3,
+            "tokens": 59,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormSwitch.tsx": {
+            "lines": 11,
+            "tokens": 87,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormInput.tsx": {
+            "lines": 59,
+            "tokens": 448,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormDropdown.tsx": {
+            "lines": 80,
+            "tokens": 550,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormCheckbox.tsx": {
+            "lines": 24,
+            "tokens": 137,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Card.tsx": {
+            "lines": 0,
+            "tokens": 5,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Button.tsx": {
+            "lines": 26,
+            "tokens": 170,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/BackButton.tsx": {
+            "lines": 12,
+            "tokens": 73,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/AvailabilityPicker.tsx": {
+            "lines": 39,
+            "tokens": 303,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/AppBar.tsx": {
+            "lines": 4,
+            "tokens": 56,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/ActionGrid.tsx": {
+            "lines": 8,
+            "tokens": 87,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/_layout.tsx": {
+            "lines": 16,
+            "tokens": 151,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/index.tsx": {
+            "lines": 58,
+            "tokens": 574,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 3433,
+          "tokens": 34033,
+          "sources": 56,
+          "clones": 3,
+          "duplicatedLines": 43,
+          "duplicatedTokens": 530,
+          "percentage": 1.25,
+          "percentageTokens": 1.56,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "tsx": {
+        "sources": {
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/search.tsx": {
+            "lines": 8,
+            "tokens": 91,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/list.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/details.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/select-plan.tsx": {
+            "lines": 449,
+            "tokens": 3515,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/publish.tsx": {
+            "lines": 472,
+            "tokens": 3694,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-success.tsx": {
+            "lines": 421,
+            "tokens": 3301,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-method.tsx": {
+            "lines": 317,
+            "tokens": 2415,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/listing-details.tsx": {
+            "lines": 535,
+            "tokens": 4567,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx": {
+            "lines": 335,
+            "tokens": 2539,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/requests.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/pricing.tsx": {
+            "lines": 8,
+            "tokens": 93,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/availability.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/add-machine.tsx": {
+            "lines": 8,
+            "tokens": 93,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/list.tsx": {
+            "lines": 8,
+            "tokens": 93,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/filters.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/details.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/profile.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/list.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx": {
+            "lines": 303,
+            "tokens": 3560,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 22,
+            "duplicatedTokens": 301,
+            "percentage": 7.26,
+            "percentageTokens": 8.46,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx": {
+            "lines": 258,
+            "tokens": 2925,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 50,
+            "duplicatedTokens": 455,
+            "percentage": 19.38,
+            "percentageTokens": 15.56,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx": {
+            "lines": 260,
+            "tokens": 3013,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 34,
+            "duplicatedTokens": 336,
+            "percentage": 13.08,
+            "percentageTokens": 11.15,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx": {
+            "lines": 278,
+            "tokens": 3359,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 11,
+            "duplicatedTokens": 151,
+            "percentage": 3.96,
+            "percentageTokens": 4.5,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/list.tsx": {
+            "lines": 388,
+            "tokens": 3236,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/intent.tsx": {
+            "lines": 250,
+            "tokens": 2988,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx": {
+            "lines": 203,
+            "tokens": 2597,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 27,
+            "duplicatedTokens": 269,
+            "percentage": 13.3,
+            "percentageTokens": 10.36,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/filters.tsx": {
+            "lines": 561,
+            "tokens": 4816,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/details.tsx": {
+            "lines": 346,
+            "tokens": 4570,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/profile.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/dashboard.tsx": {
+            "lines": 15,
+            "tokens": 154,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/profile.tsx": {
+            "lines": 8,
+            "tokens": 89,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/dashboard.tsx": {
+            "lines": 15,
+            "tokens": 154,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/profile.tsx": {
+            "lines": 217,
+            "tokens": 1894,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/dashboard.tsx": {
+            "lines": 538,
+            "tokens": 5942,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/role-select.tsx": {
+            "lines": 230,
+            "tokens": 2089,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/otp.tsx": {
+            "lines": 278,
+            "tokens": 2786,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/login.tsx": {
+            "lines": 324,
+            "tokens": 2878,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/language.tsx": {
+            "lines": 228,
+            "tokens": 1879,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/context/LanguageContext.tsx": {
+            "lines": 49,
+            "tokens": 505,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/RatingStars.tsx": {
+            "lines": 26,
+            "tokens": 302,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/RadioGroup.tsx": {
+            "lines": 98,
+            "tokens": 668,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaUploader.tsx": {
+            "lines": 252,
+            "tokens": 2133,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaPicker.tsx": {
+            "lines": 186,
+            "tokens": 1402,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Input.tsx": {
+            "lines": 37,
+            "tokens": 276,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/index.tsx": {
+            "lines": 41,
+            "tokens": 363,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormSwitch.tsx": {
+            "lines": 63,
+            "tokens": 436,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormInput.tsx": {
+            "lines": 180,
+            "tokens": 1251,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 21,
+            "duplicatedTokens": 116,
+            "percentage": 11.67,
+            "percentageTokens": 9.27,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormDropdown.tsx": {
+            "lines": 228,
+            "tokens": 1554,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 21,
+            "duplicatedTokens": 116,
+            "percentage": 9.21,
+            "percentageTokens": 7.46,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormCheckbox.tsx": {
+            "lines": 106,
+            "tokens": 692,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Card.tsx": {
+            "lines": 10,
+            "tokens": 138,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Button.tsx": {
+            "lines": 123,
+            "tokens": 815,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/BackButton.tsx": {
+            "lines": 44,
+            "tokens": 339,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/AvailabilityPicker.tsx": {
+            "lines": 195,
+            "tokens": 1494,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/AppBar.tsx": {
+            "lines": 39,
+            "tokens": 363,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/ActionGrid.tsx": {
+            "lines": 26,
+            "tokens": 341,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/_layout.tsx": {
+            "lines": 49,
+            "tokens": 463,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/index.tsx": {
+            "lines": 204,
+            "tokens": 1617,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 9289,
+          "tokens": 85283,
+          "sources": 56,
+          "clones": 6,
+          "duplicatedLines": 93,
+          "duplicatedTokens": 872,
+          "percentage": 1,
+          "percentageTokens": 1.02,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "css": {
+        "sources": {
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-success.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/intent.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/details.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/_layout.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 0,
+          "tokens": 35,
+          "sources": 9,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "typescript": {
+        "sources": {
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/validators/sellMachine.schema.ts": {
+            "lines": 12,
+            "tokens": 191,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/validators/farmerProfile.schema.ts": {
+            "lines": 11,
+            "tokens": 174,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/sell-machine/select-plan.ts": {
+            "lines": 14,
+            "tokens": 108,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/sell-machine/publish.ts": {
+            "lines": 20,
+            "tokens": 154,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/sell-machine/payment-success.ts": {
+            "lines": 14,
+            "tokens": 117,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/sell-machine/payment-method.ts": {
+            "lines": 11,
+            "tokens": 110,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/sell-machine/listing-details.ts": {
+            "lines": 32,
+            "tokens": 241,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/sell-machine/add-details.ts": {
+            "lines": 55,
+            "tokens": 560,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/RatingStars.ts": {
+            "lines": 3,
+            "tokens": 26,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/RadioGroup.ts": {
+            "lines": 10,
+            "tokens": 101,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/media.ts": {
+            "lines": 19,
+            "tokens": 170,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/Input.ts": {
+            "lines": 6,
+            "tokens": 72,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/FormSwitch.ts": {
+            "lines": 7,
+            "tokens": 78,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/FormInput.ts": {
+            "lines": 27,
+            "tokens": 237,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/FormDropdown.ts": {
+            "lines": 12,
+            "tokens": 117,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/FormCheckbox.ts": {
+            "lines": 7,
+            "tokens": 77,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/Card.ts": {
+            "lines": 4,
+            "tokens": 31,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/Button.ts": {
+            "lines": 19,
+            "tokens": 154,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/BackButton.ts": {
+            "lines": 8,
+            "tokens": 75,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/AvailabilityPicker.ts": {
+            "lines": 21,
+            "tokens": 178,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/AppBar.ts": {
+            "lines": 6,
+            "tokens": 56,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/ActionGrid.ts": {
+            "lines": 7,
+            "tokens": 61,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/buy-machine/unlock-contact.ts": {
+            "lines": 6,
+            "tokens": 55,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/buy-machine/purchase-confirmation.ts": {
+            "lines": 6,
+            "tokens": 66,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/buy-machine/payment.ts": {
+            "lines": 8,
+            "tokens": 71,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/buy-machine/list.ts": {
+            "lines": 32,
+            "tokens": 241,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/buy-machine/inspection-guide.ts": {
+            "lines": 7,
+            "tokens": 63,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/buy-machine/filters.ts": {
+            "lines": 41,
+            "tokens": 326,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/buy-machine/details.ts": {
+            "lines": 9,
+            "tokens": 64,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/hooks/forms/useSellMachineForm.ts": {
+            "lines": 19,
+            "tokens": 171,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/hooks/forms/useFarmerProfileForm.ts": {
+            "lines": 17,
+            "tokens": 154,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/validators/sellMachine.schema.ts": {
+            "lines": 34,
+            "tokens": 295,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/validators/farmerProfile.schema.ts": {
+            "lines": 13,
+            "tokens": 180,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/utils/validators.ts": {
+            "lines": 7,
+            "tokens": 149,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/utils/permissions.ts": {
+            "lines": 28,
+            "tokens": 274,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/utils/formatters.ts": {
+            "lines": 23,
+            "tokens": 288,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/index.ts": {
+            "lines": 2,
+            "tokens": 39,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/farmer.store.ts": {
+            "lines": 25,
+            "tokens": 285,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/auth.store.ts": {
+            "lines": 21,
+            "tokens": 234,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/app.store.ts": {
+            "lines": 14,
+            "tokens": 184,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/storage.ts": {
+            "lines": 10,
+            "tokens": 120,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/payment.service.ts": {
+            "lines": 14,
+            "tokens": 141,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/machine.service.ts": {
+            "lines": 18,
+            "tokens": 192,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/location.service.ts": {
+            "lines": 19,
+            "tokens": 136,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/i18n.ts": {
+            "lines": 65,
+            "tokens": 591,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/farmer.service.ts": {
+            "lines": 22,
+            "tokens": 178,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/auth.service.ts": {
+            "lines": 14,
+            "tokens": 148,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/services/api.ts": {
+            "lines": 26,
+            "tokens": 265,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/hooks/useNetwork.ts": {
+            "lines": 24,
+            "tokens": 224,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/hooks/useLocation.ts": {
+            "lines": 12,
+            "tokens": 135,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/hooks/useDebounce.ts": {
+            "lines": 14,
+            "tokens": 169,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/hooks/useAuth.ts": {
+            "lines": 5,
+            "tokens": 59,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/constants/routes.ts": {
+            "lines": 40,
+            "tokens": 308,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/constants/roles.ts": {
+            "lines": 6,
+            "tokens": 63,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/constants/pricing.ts": {
+            "lines": 6,
+            "tokens": 52,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/constants/location.ts": {
+            "lines": 4,
+            "tokens": 68,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/constants/colors.ts": {
+            "lines": 90,
+            "tokens": 647,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 1026,
+          "tokens": 9723,
+          "sources": 57,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "json": {
+        "sources": {
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/locales/mr.json": {
+            "lines": 487,
+            "tokens": 3640,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/locales/hi.json": {
+            "lines": 487,
+            "tokens": 3640,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/locales/en.json": {
+            "lines": 487,
+            "tokens": 3640,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/data/machinList.json": {
+            "lines": 102,
+            "tokens": 1627,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 1563,
+          "tokens": 12547,
+          "sources": 4,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 15311,
+      "tokens": 141621,
+      "sources": 182,
+      "clones": 9,
+      "duplicatedLines": 136,
+      "duplicatedTokens": 1402,
+      "percentage": 0.89,
+      "percentageTokens": 0.99,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": ";\r\n\r\n  return (\r\n    <View style={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Top App Bar */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('rating.title'",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx",
+        "start": 62,
+        "end": 73,
+        "startLoc": {
+          "line": 62,
+          "column": 2,
+          "position": 572
+        },
+        "endLoc": {
+          "line": 73,
+          "column": 15,
+          "position": 722
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx",
+        "start": 37,
+        "end": 48,
+        "startLoc": {
+          "line": 37,
+          "column": 2,
+          "position": 331
+        },
+        "endLoc": {
+          "line": 48,
+          "column": 24,
+          "position": 481
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 24,
+      "fragment": "import Button from '@/src/components/Button';\r\nimport { MaterialIcons } from '@expo/vector-icons';\r\nimport { router } from 'expo-router';\r\nimport { StatusBar } from 'expo-status-bar';\r\nimport React, { useState } from 'react';\r\nimport {\r\n  Image,\r\n  KeyboardAvoidingView,\r\n  Platform,\r\n  ScrollView,\r\n  StyleSheet,\r\n  Text,\r\n  TextInput,\r\n  TouchableOpacity,\r\n  View,\r\n} from 'react-native';\r\nimport { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';\r\nimport { COLORS } from '../../../constants/colors';\r\n\r\n\r\n\r\nimport { useTranslation } from 'react-i18next';\r\n\r\nexport default function UpdateStatusScreen",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx",
+        "start": 1,
+        "end": 24,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 24,
+          "column": 19,
+          "position": 186
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx",
+        "start": 1,
+        "end": 24,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 24,
+          "column": 13,
+          "position": 186
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 14,
+      "fragment": "={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Top App Bar */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('payment_unlock.title')}</Text>\r\n        <View style={{ width: 40 }} />\r\n      </View>\r\n\r\n      <ScrollView\r\n        contentContainerStyle={[",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx",
+        "start": 35,
+        "end": 48,
+        "startLoc": {
+          "line": 35,
+          "column": 6,
+          "position": 265
+        },
+        "endLoc": {
+          "line": 48,
+          "column": 2,
+          "position": 441
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx",
+        "start": 48,
+        "end": 61,
+        "startLoc": {
+          "line": 48,
+          "column": 6,
+          "position": 397
+        },
+        "endLoc": {
+          "line": 61,
+          "column": 9,
+          "position": 573
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": ");\r\n\r\n  return (\r\n    <View style={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Top App Bar */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('payment_unlock.title'",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx",
+        "start": 32,
+        "end": 43,
+        "startLoc": {
+          "line": 32,
+          "column": 2,
+          "position": 248
+        },
+        "endLoc": {
+          "line": 43,
+          "column": 23,
+          "position": 399
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx",
+        "start": 37,
+        "end": 48,
+        "startLoc": {
+          "line": 37,
+          "column": 5,
+          "position": 330
+        },
+        "endLoc": {
+          "line": 48,
+          "column": 24,
+          "position": 481
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 14,
+      "fragment": "={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Header */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('inspection_guide.title')}</Text>\r\n        <View style={{ width: 40 }} />\r\n      </View>\r\n\r\n      <ScrollView\r\n        contentContainerStyle={{",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx",
+        "start": 49,
+        "end": 62,
+        "startLoc": {
+          "line": 49,
+          "column": 6,
+          "position": 605
+        },
+        "endLoc": {
+          "line": 62,
+          "column": 2,
+          "position": 781
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx",
+        "start": 48,
+        "end": 61,
+        "startLoc": {
+          "line": 48,
+          "column": 6,
+          "position": 397
+        },
+        "endLoc": {
+          "line": 61,
+          "column": 9,
+          "position": 573
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": ";\r\n\r\n  return (\r\n    <View style={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Header */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('inspection_guide.title'",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx",
+        "start": 46,
+        "end": 57,
+        "startLoc": {
+          "line": 46,
+          "column": 2,
+          "position": 589
+        },
+        "endLoc": {
+          "line": 57,
+          "column": 25,
+          "position": 739
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx",
+        "start": 45,
+        "end": 56,
+        "startLoc": {
+          "line": 45,
+          "column": 2,
+          "position": 381
+        },
+        "endLoc": {
+          "line": 56,
+          "column": 30,
+          "position": 531
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": "\"\r\n          backgroundColor={COLORS.brand.primary}\r\n          textColor={COLORS.black}\r\n        />\r\n      </View>\r\n    </View>\r\n  );\r\n}\r\n\r\n// --- Styles ---\r\nconst styles = StyleSheet.create({\r\n  container: { flex: 1, backgroundColor: COLORS.background },\r\n  header: {\r\n    flexDirection: 'row',\r\n    alignItems: 'center',\r\n    justifyContent: 'space-between',\r\n    paddingHorizontal: 16",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx",
+        "start": 122,
+        "end": 138,
+        "startLoc": {
+          "line": 122,
+          "column": 5,
+          "position": 1498
+        },
+        "endLoc": {
+          "line": 138,
+          "column": 3,
+          "position": 1617
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx",
+        "start": 165,
+        "end": 181,
+        "startLoc": {
+          "line": 165,
+          "column": 5,
+          "position": 1734
+        },
+        "endLoc": {
+          "line": 181,
+          "column": 2,
+          "position": 1853
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 18,
+      "fragment": "={styles.section}>\r\n      {/* Header */}\r\n      <View style={styles.rowBetween}>\r\n        <Text style={styles.heading}>{title}</Text>\r\n        <Text style={[styles.subText, isInvalid && styles.errorText]}>\r\n          {media.length}/{max} {min > 0 && `(Min ${min})`}\r\n        </Text>\r\n      </View>\r\n\r\n      {/* Media List */}\r\n      <ScrollView\r\n        horizontal\r\n        showsHorizontalScrollIndicator={false}\r\n        style={styles.scroll}\r\n      >\r\n        {/* Add Button */}\r\n        {media.length < max && (\r\n          <TouchableOpacity style={styles.addBox} onPress={onAdd",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaPicker.tsx",
+        "start": 26,
+        "end": 43,
+        "startLoc": {
+          "line": 26,
+          "column": 6,
+          "position": 200
+        },
+        "endLoc": {
+          "line": 43,
+          "column": 6,
+          "position": 378
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaUploader.tsx",
+        "start": 134,
+        "end": 150,
+        "startLoc": {
+          "line": 134,
+          "column": 6,
+          "position": 1196
+        },
+        "endLoc": {
+          "line": 150,
+          "column": 10,
+          "position": 1346
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 22,
+      "fragment": ";\r\n\r\n/* =======================\r\n   Styles\r\n   ======================= */\r\nconst styles = StyleSheet.create({\r\n  field: {\r\n    marginBottom: 12,\r\n  },\r\n\r\n  label: {\r\n    fontSize: 16,\r\n    marginBottom: 8,\r\n    color: COLORS.text,\r\n    fontWeight: '500',\r\n  },\r\n\r\n  required: {\r\n    color: COLORS.danger,\r\n  },\r\n\r\n  input",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormDropdown.tsx",
+        "start": 131,
+        "end": 152,
+        "startLoc": {
+          "line": 131,
+          "column": 13,
+          "position": 919
+        },
+        "endLoc": {
+          "line": 152,
+          "column": 6,
+          "position": 1035
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormInput.tsx",
+        "start": 111,
+        "end": 132,
+        "startLoc": {
+          "line": 111,
+          "column": 10,
+          "position": 809
+        },
+        "endLoc": {
+          "line": 132,
+          "column": 13,
+          "position": 925
+        }
+      }
+    }
+  ]
+}
