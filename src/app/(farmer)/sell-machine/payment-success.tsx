@@ -1,23 +1,23 @@
 import Button from '@/src/components/Button';
+import AppBar from '@/src/components/AppBar';
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef } from 'react';
 import {
   Animated,
-  Dimensions,
   Image,
   Platform,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { COLORS } from '../../../constants/colors';
+import { navigate } from 'expo-router/build/global-state/routing';
 
-const { width } = Dimensions.get('window');
-
+/* -------------------------------------------------------------------------- */
+/*                                  SCREEN                                    */
+/* -------------------------------------------------------------------------- */
 
 export default function PaymentSuccessScreen() {
   // Animations
@@ -26,7 +26,6 @@ export default function PaymentSuccessScreen() {
   const pingAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    // Entrance Animation
     Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -40,7 +39,6 @@ export default function PaymentSuccessScreen() {
       }),
     ]).start();
 
-    // Ping Animation for the checkmark circle
     Animated.loop(
       Animated.sequence([
         Animated.timing(pingAnim, {
@@ -58,42 +56,50 @@ export default function PaymentSuccessScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
-      {/* Navigation Header */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
-          <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Confirmation</Text>
-        <View style={{ width: 48 }} />
-      </View>
+      <AppBar title="Confirmation" />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Success Icon & Message */}
-        <Animated.View style={[styles.successSection, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
+        {/* Success */}
+        <Animated.View
+          style={[
+            styles.successSection,
+            { opacity: fadeAnim, transform: [{ translateY: slideAnim }] },
+          ]}
+        >
           <View style={styles.iconContainer}>
             <Animated.View
               style={[
                 styles.pingCircle,
-                { transform: [{ scale: pingAnim }], opacity: fadeAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 0.4] }) }
+                {
+                  transform: [{ scale: pingAnim }],
+                  opacity: fadeAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 0.4],
+                  }),
+                },
               ]}
             />
             <View style={styles.mainCheckCircle}>
-              <MaterialIcons name="check-circle" size={56} color={COLORS.brand.primary} />
+              <MaterialIcons
+                name="check-circle"
+                size={56}
+                color={COLORS.brand.primary}
+              />
             </View>
           </View>
+
           <Text style={styles.successTitle}>Payment Successful!</Text>
           <Text style={styles.successSubtitle}>
             Thank you! Your payment has been processed successfully.
           </Text>
         </Animated.View>
 
-        {/* Receipt Card */}
+        {/* Receipt */}
         <View style={styles.receiptCard}>
           <View style={styles.receiptHeader}>
             <Text style={styles.receiptLabel}>Total Amount Paid</Text>
@@ -101,7 +107,7 @@ export default function PaymentSuccessScreen() {
           </View>
 
           <View style={styles.receiptBody}>
-            <DetailRow label="Transaction ID" value="#TRX-8923492" isMono />
+            <DetailRow label="Transaction ID" value="#TRX-8923492" mono />
             <DetailRow label="Date" value="Oct 24, 2024, 10:30 AM" />
             <DetailRow
               label="Payment Method"
@@ -110,7 +116,6 @@ export default function PaymentSuccessScreen() {
             />
           </View>
 
-          {/* Cutout Decorative Line */}
           <View style={styles.cutoutContainer}>
             <View style={[styles.cutoutCircle, { left: -10 }]} />
             <View style={styles.dashedLine} />
@@ -118,98 +123,119 @@ export default function PaymentSuccessScreen() {
           </View>
         </View>
 
-        {/* Benefit Card */}
+        {/* Benefit */}
         <View style={styles.benefitSection}>
           <Text style={styles.sectionHeader}>UNLOCKED BENEFIT</Text>
+
           <View style={styles.benefitCard}>
             <Image
-              source={{ uri: 'https://images.unsplash.com/photo-1594913785162-e6785b423cb1?q=80&w=500&auto=format&fit=crop' }}
+              source={{
+                uri: 'https://images.unsplash.com/photo-1594913785162-e6785b423cb1',
+              }}
               style={styles.benefitImage}
             />
+
             <View style={styles.benefitInfo}>
-              <Text style={styles.benefitTitle}>John Deere Tractor 5050D</Text>
-              <Text style={styles.benefitStatus}>Premium Listing - Live for 30 days</Text>
+              <Text style={styles.benefitTitle}>
+                John Deere Tractor 5050D
+              </Text>
+              <Text style={styles.benefitStatus}>
+                Premium Listing - Live for 30 days
+              </Text>
 
               <View style={styles.badgeRow}>
-                <View style={[styles.badge, { backgroundColor: '#dcfce7' }]}>
-                  <MaterialIcons name="calendar-today" size={12} color="#15803d" />
-                  <Text style={[styles.badgeText, { color: '#15803d' }]}>Expires Nov 23</Text>
-                </View>
-                <View style={[styles.badge, { backgroundColor: COLORS.brand.muted }]}>
-                  <MaterialIcons name="check-circle" size={12} color="#051103" />
-                  <Text style={[styles.badgeText, { color: '#051103' }]}>Active</Text>
-                </View>
+                <Badge
+                  icon="calendar-today"
+                  text="Expires Nov 23"
+                  bg="#dcfce7"
+                  color="#15803d"
+                />
+                <Badge
+                  icon="check-circle"
+                  text="Active"
+                  bg={COLORS.brand.muted}
+                  color="#051103"
+                />
               </View>
             </View>
           </View>
         </View>
       </ScrollView>
 
-      {/* Footer Actions */}
+      {/* Footer */}
       <View style={styles.footer}>
-        <Button
-          label="View My Listing"
-          onPress={() => { }}
-          icon="arrow-forward"
-          textColor="#051103"
-          backgroundColor={COLORS.brand.primary}
-        />
-
+        <Button label="View My Listing" icon="arrow-forward" onPress={() => {}} />
         <Button
           label="Back to Dashboard"
-          onPress={() => { }}
           type="secondary"
+          onPress={() => navigate("/(farmer)/dashboard")}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
-// --- Helper Components ---
-const DetailRow = ({ label, value, isMono, icon }) => (
+/* -------------------------------------------------------------------------- */
+/*                               HELPERS                                      */
+/* -------------------------------------------------------------------------- */
+
+interface DetailRowProps {
+  label: string;
+  value: string;
+  mono?: boolean;
+  icon?: keyof typeof MaterialIcons.glyphMap;
+}
+
+const DetailRow = ({ label, value, mono, icon }: DetailRowProps) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
     <View style={styles.detailValueContainer}>
-      {icon && <MaterialIcons name={icon} size={14} color={COLORS.textSecondary} style={{ marginRight: 6 }} />}
-      <Text style={[styles.detailValue, isMono && styles.monoText]}>{value}</Text>
+      {icon && (
+        <MaterialIcons
+          name={icon}
+          size={14}
+          color={COLORS.textSecondary}
+          style={{ marginRight: 6 }}
+        />
+      )}
+      <Text style={[styles.detailValue, mono && styles.monoText]}>
+        {value}
+      </Text>
     </View>
   </View>
 );
 
-// --- Styles ---
+const Badge = ({
+  icon,
+  text,
+  bg,
+  color,
+}: {
+  icon: keyof typeof MaterialIcons.glyphMap;
+  text: string;
+  bg: string;
+  color: string;
+}) => (
+  <View style={[styles.badge, { backgroundColor: bg }]}>
+    <MaterialIcons name={icon} size={12} color={color} />
+    <Text style={[styles.badgeText, { color }]}>{text}</Text>
+  </View>
+);
+
+/* -------------------------------------------------------------------------- */
+/*                                   STYLES                                   */
+/* -------------------------------------------------------------------------- */
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    height: 56,
-  },
-  backButton: {
-    width: 48,
-    height: 48,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 24,
-  },
-  headerTitle: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 18,
-    fontWeight: '700',
-    color: COLORS.text,
-  },
-  scrollContent: {
-    paddingHorizontal: 20,
-    paddingBottom: 40,
-  },
+  container: { flex: 1, backgroundColor: COLORS.background },
+
+  scrollContent: { paddingBottom: 40 },
+
   successSection: {
     alignItems: 'center',
     paddingVertical: 32,
   },
+
   iconContainer: {
     width: 96,
     height: 96,
@@ -217,6 +243,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 24,
   },
+
   mainCheckCircle: {
     width: 80,
     height: 80,
@@ -226,6 +253,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 2,
   },
+
   pingCircle: {
     position: 'absolute',
     width: 80,
@@ -233,79 +261,85 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     backgroundColor: COLORS.brand.primary,
   },
+
   successTitle: {
     fontSize: 28,
     fontWeight: '800',
     color: COLORS.text,
-    textAlign: 'center',
   },
+
   successSubtitle: {
     fontSize: 16,
     color: COLORS.textSecondary,
-    textAlign: 'center',
     marginTop: 8,
     maxWidth: 280,
+    textAlign: 'center',
   },
+
   receiptCard: {
     backgroundColor: COLORS.surface,
     borderRadius: 16,
     borderWidth: 1,
     borderColor: COLORS.border,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
     elevation: 2,
   },
+
   receiptHeader: {
     padding: 20,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
+
   receiptLabel: {
     fontSize: 14,
     color: COLORS.textSecondary,
-    fontWeight: '500',
   },
+
   receiptAmount: {
     fontSize: 32,
     fontWeight: '800',
-    color: COLORS.text,
     marginTop: 4,
   },
+
   receiptBody: {
     padding: 20,
     gap: 12,
   },
+
   detailRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
   detailLabel: {
     fontSize: 14,
     color: COLORS.textSecondary,
   },
+
   detailValueContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   detailValue: {
     fontSize: 14,
     fontWeight: '600',
     color: COLORS.text,
   },
+
   monoText: {
     fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
   },
+
   cutoutContainer: {
     height: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    overflow: 'hidden',
   },
+
   cutoutCircle: {
     position: 'absolute',
     width: 20,
@@ -314,6 +348,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     zIndex: 5,
   },
+
   dashedLine: {
     flex: 1,
     borderWidth: 1,
@@ -321,9 +356,11 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     marginHorizontal: 15,
   },
+
   benefitSection: {
     marginTop: 32,
   },
+
   sectionHeader: {
     fontSize: 12,
     fontWeight: '800',
@@ -332,41 +369,45 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingLeft: 4,
   },
+
   benefitCard: {
     backgroundColor: COLORS.surface,
     borderRadius: 16,
     padding: 12,
     flexDirection: 'row',
-    alignItems: 'center',
     borderWidth: 1,
     borderColor: COLORS.border,
   },
+
   benefitImage: {
     width: 80,
     height: 80,
     borderRadius: 12,
-    backgroundColor: '#eee',
   },
+
   benefitInfo: {
     flex: 1,
     marginLeft: 16,
   },
+
   benefitTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: COLORS.text,
   },
+
   benefitStatus: {
     fontSize: 13,
     color: COLORS.brand.primary,
     fontWeight: '600',
     marginTop: 2,
   },
+
   badgeRow: {
     flexDirection: 'row',
     marginTop: 8,
     gap: 8,
   },
+
   badge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -375,12 +416,13 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     gap: 4,
   },
+
   badgeText: {
     fontSize: 10,
     fontWeight: '700',
   },
+
   footer: {
-    padding: 20,
     backgroundColor: COLORS.background,
     gap: 12,
   },

@@ -1,26 +1,40 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider'; // IMPT: Requires npx expo install @react-native-community/slider
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
-  Platform,
   ScrollView,
   StyleSheet,
   Switch,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '../../../constants/colors';
 
 // --- Theme Constants ---
 
 
+// --- TYPES ---
+interface Category {
+  id: string;
+  label: string;
+  icon: keyof typeof MaterialIcons.glyphMap;
+}
+
+interface Condition {
+  id: string;
+  label: string;
+  subLabel: string;
+  icon: keyof typeof MaterialIcons.glyphMap;
+  colorBg: string;
+  colorText: string;
+}
+
 // --- Mock Data ---
-const CATEGORIES = [
+const CATEGORIES: Category[] = [
   { id: 'tractor', label: 'Tractor', icon: 'agriculture' },
   { id: 'harvester', label: 'Harvester', icon: 'local-shipping' },
   { id: 'plow', label: 'Plow', icon: 'grass' },
@@ -29,12 +43,11 @@ const CATEGORIES = [
   { id: 'tiller', label: 'Tiller', icon: 'handyman' },
 ];
 
-const CONDITIONS = [
+const CONDITIONS: Condition[] = [
   {
     id: 'good',
     label: 'Good',
     subLabel: 'Minimal wear, ready to work',
-    icon: 'thumb-up',
     icon: 'thumb-up',
     colorBg: COLORS.successLight,
     colorText: COLORS.successDark,
@@ -68,11 +81,20 @@ const Header = () => (
   </View>
 );
 
-const SectionTitle = ({ title }) => (
+interface SectionTitleProps {
+  title: string;
+}
+
+const SectionTitle = ({ title }: SectionTitleProps) => (
   <Text style={styles.sectionTitle}>{title}</Text>
 );
 
-const CategoryPills = ({ selected, onSelect }) => (
+interface CategoryPillsProps {
+  selected: string;
+  onSelect: (id: string) => void;
+}
+
+const CategoryPills = ({ selected, onSelect }: CategoryPillsProps) => (
   <View style={styles.categoryContainer}>
     {CATEGORIES.map((cat) => {
       const isSelected = selected === cat.id;
@@ -103,7 +125,12 @@ const CategoryPills = ({ selected, onSelect }) => (
   </View>
 );
 
-const FunctionalDistanceSlider = ({ value, onValueChange }) => {
+interface DistanceSliderProps {
+  value: number;
+  onValueChange: (val: number) => void;
+}
+
+const FunctionalDistanceSlider = ({ value, onValueChange }: DistanceSliderProps) => {
   return (
     <View style={styles.sectionPadding}>
       <View style={styles.flexRowBetween}>
@@ -125,8 +152,6 @@ const FunctionalDistanceSlider = ({ value, onValueChange }) => {
           minimumTrackTintColor={COLORS.brand.primary}
           maximumTrackTintColor={COLORS.border}
           thumbTintColor={COLORS.brand.primary}
-          // Android styling props to make the thumb bigger/shadowed
-          thumbImage={Platform.OS === 'android' ? undefined : undefined}
         />
       </View>
 
@@ -139,7 +164,14 @@ const FunctionalDistanceSlider = ({ value, onValueChange }) => {
   );
 };
 
-const PriceRange = ({ min, max, setMin, setMax }) => {
+interface PriceRangeProps {
+  min: string;
+  max: string;
+  setMin: (val: string) => void;
+  setMax: (val: string) => void;
+}
+
+const PriceRange = ({ min, max, setMin, setMax }: PriceRangeProps) => {
   return (
     <View style={styles.sectionPadding}>
       <SectionTitle title="Price Range" />
@@ -173,16 +205,16 @@ const PriceRange = ({ min, max, setMin, setMax }) => {
           </View>
         </View>
       </View>
-
-      {/* NOTE: A true "Dual Thumb" slider requires complex custom gestures 
-         or libraries like '@ptomasroos/react-native-multi-slider'.
-         For a single file solution, we keep the inputs as the primary driver.
-      */}
     </View>
   );
 };
 
-const ConditionList = ({ selected, onSelect }) => (
+interface ConditionListProps {
+  selected: string;
+  onSelect: (id: string) => void;
+}
+
+const ConditionList = ({ selected, onSelect }: ConditionListProps) => (
   <View style={styles.sectionPadding}>
     <SectionTitle title="Condition" />
     <View style={styles.conditionContainer}>
@@ -233,84 +265,77 @@ export default function MachineFiltersScreen() {
   const [selectedCondition, setSelectedCondition] = useState('average');
 
   return (
-    <SafeAreaProvider>
-      <View style={[styles.container, { paddingTop: insets.top }]}>
-        <StatusBar style="dark" backgroundColor="rgba(246, 248, 246, 0.95)" />
 
-        {/* Sticky Header */}
-        <View style={styles.stickyHeader}>
-          <Header />
-        </View>
-
-        <ScrollView
-          contentContainerStyle={[
-            styles.scrollContent,
-            { paddingBottom: insets.bottom + 80 }
-          ]}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* Category Section */}
-          <View style={styles.topSection}>
-            <SectionTitle title="Category" />
-            <CategoryPills selected={selectedCategory} onSelect={setSelectedCategory} />
-          </View>
-
-          <Divider />
-
-          {/* Functional Distance Slider */}
-          <FunctionalDistanceSlider
-            value={distance}
-            onValueChange={setDistance}
-          />
-
-          <Divider />
-
-          {/* Price Section */}
-          <PriceRange
-            min={minPrice}
-            max={maxPrice}
-            setMin={setMinPrice}
-            setMax={setMaxPrice}
-          />
-
-          <Divider />
-
-          {/* Negotiable Section */}
-          <View style={[styles.sectionPadding, styles.flexRowBetween]}>
-            <View>
-              <Text style={styles.sectionTitle}>Negotiable only</Text>
-              <Text style={styles.sectionSubtitle}>Show prices that can be bargained</Text>
-            </View>
-            <Switch
-              trackColor={{ false: COLORS.gray[200], true: COLORS.brand.primary }}
-              thumbColor={COLORS.white}
-              ios_backgroundColor={COLORS.gray[200]}
-              onValueChange={() => setIsNegotiable(!isNegotiable)}
-              value={isNegotiable}
-              style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
-            />
-          </View>
-
-          <Divider />
-
-          {/* Condition Section */}
-          <ConditionList selected={selectedCondition} onSelect={setSelectedCondition} />
-
-        </ScrollView>
-
-        {/* Fixed Footer */}
-        <View style={[styles.footer, { paddingBottom: Math.max(16, insets.bottom) }]}>
-          <Button
-            label="Show 24 Machines"
-            onPress={() => { }}
-            icon="arrow-forward"
-            textColor={COLORS.black}
-            backgroundColor={COLORS.brand.primary}
-          />
-        </View>
-
+    <View style={[styles.container]}>
+      {/* Sticky Header */}
+      <View style={styles.stickyHeader}>
+        <Header />
       </View>
-    </SafeAreaProvider>
+
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: insets.bottom + 80 }
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Category Section */}
+        <View style={styles.topSection}>
+          <SectionTitle title="Category" />
+          <CategoryPills selected={selectedCategory} onSelect={setSelectedCategory} />
+        </View>
+
+        <Divider />
+
+        {/* Functional Distance Slider */}
+        <FunctionalDistanceSlider
+          value={distance}
+          onValueChange={setDistance}
+        />
+
+        <Divider />
+
+        {/* Price Section */}
+        <PriceRange
+          min={minPrice}
+          max={maxPrice}
+          setMin={setMinPrice}
+          setMax={setMaxPrice}
+        />
+
+        <Divider />
+
+        {/* Negotiable Section */}
+        <View style={[styles.sectionPadding, styles.flexRowBetween]}>
+          <View>
+            <Text style={styles.sectionTitle}>Negotiable only</Text>
+            <Text style={styles.sectionSubtitle}>Show prices that can be bargained</Text>
+          </View>
+          <Switch
+            trackColor={{ false: COLORS.gray[200], true: COLORS.brand.primary }}
+            thumbColor={COLORS.white}
+            ios_backgroundColor={COLORS.gray[200]}
+            onValueChange={() => setIsNegotiable(!isNegotiable)}
+            value={isNegotiable}
+            style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
+          />
+        </View>
+
+        <Divider />
+
+        {/* Condition Section */}
+        <ConditionList selected={selectedCondition} onSelect={setSelectedCondition} />
+
+      </ScrollView>
+
+      {/* Fixed Footer */}
+      <Button
+        label="Show 24 Machines"
+        onPress={() => { }}
+        icon="arrow-forward"
+      />
+
+    </View>
   );
 }
 
@@ -330,7 +355,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
     paddingVertical: 12,
     height: 56,
   },
@@ -350,11 +375,11 @@ const styles = StyleSheet.create({
     paddingTop: 24,
   },
   topSection: {
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
     marginBottom: 8,
   },
   sectionPadding: {
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
   },
   sectionTitle: {
     fontSize: 18,
@@ -372,7 +397,7 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: COLORS.border,
-    marginHorizontal: 16,
+    // marginHorizontal: 16,
     marginVertical: 24,
   },
   flexRowBetween: {
@@ -499,7 +524,7 @@ const styles = StyleSheet.create({
 
   // Condition Styles
   conditionContainer: {
-    flexDirection: 'col',
+    // flexDirection: 'col',
     gap: 12,
   },
   conditionCard: {
@@ -555,19 +580,6 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     backgroundColor: COLORS.brand.primary,
-  },
-
-  // Footer
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: COLORS.background,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    padding: 16,
-    zIndex: 30,
   },
 
 });

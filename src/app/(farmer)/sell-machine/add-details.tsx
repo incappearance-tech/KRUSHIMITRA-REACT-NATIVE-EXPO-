@@ -1,37 +1,32 @@
 import AvailabilityPicker from '@/src/components/AvailabilityPicker';
-import BackButton from '@/src/components/BackButton';
 import Button from '@/src/components/Button';
+import Card from '@/src/components/Card';
 import FormCheckbox from '@/src/components/FormCheckbox';
 import FormDropdown from '@/src/components/FormDropdown';
 import FormInput from '@/src/components/FormInput';
 import FormSwitch from '@/src/components/FormSwitch';
 import MediaUploader from '@/src/components/MediaUploader';
 import RadioGroup from '@/src/components/RadioGroup';
-import Card from '@/src/components/Card';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   Alert,
-  FlatList,
   KeyboardAvoidingView,
-  Modal,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
-import { COLORS } from '../../../constants/colors';
 import AppBar from '@/src/components/AppBar';
+import { COLORS } from '../../../constants/colors';
 
 /* -------------------------------------------------------------------------- */
 /*                               ZOD SCHEMA                                   */
@@ -86,9 +81,15 @@ const machineSchema = z
 /*                                  SCREEN                                    */
 /* -------------------------------------------------------------------------- */
 
+interface AvailabilityOption {
+  key: string;
+  type?: string;
+  label?: string;
+}
+
 export default function App() {
-  const [media, setMedia] = useState<any[]>([]);
-  const [availability, setAvailability] = useState({ key: 'immediately' });
+  const [media, setMedia] = useState<string[]>([]);
+  const [availability, setAvailability] = useState<AvailabilityOption>({ key: 'immediately' });
 
   const {
     control,
@@ -114,7 +115,7 @@ export default function App() {
       availability: { key: 'immediately' },
       selectedDate: new Date(),
       ownershipConfirmed: false,
-      askingPrice: '',  
+      askingPrice: '',
     },
   });
 
@@ -127,7 +128,7 @@ export default function App() {
     }
 
     console.log('FINAL DATA ✅', { ...data, media });
-    navigate('/sell-machine/publish');
+    router.push('/sell-machine/publish');
   });
 
   /* ----------------------------------------------------------------------- */
@@ -315,7 +316,12 @@ export default function App() {
 /*                               HELPERS                                      */
 /* -------------------------------------------------------------------------- */
 
-const SectionHeader = ({ icon, title }: any) => (
+interface SectionHeaderProps {
+  icon: keyof typeof MaterialIcons.glyphMap;
+  title: string;
+}
+
+const SectionHeader = ({ icon, title }: SectionHeaderProps) => (
   <View style={styles.sectionHeader}>
     <MaterialIcons
       name={icon}
@@ -333,20 +339,6 @@ const SectionHeader = ({ icon, title }: any) => (
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
-
-  appBar: {
-    backgroundColor: 'rgba(246,248,246,0.95)',
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.brand.primary,
-    alignItems: 'center',
-    marginBottom:16
-  },
-
-  appBarTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: COLORS.text,
-  },
 
   sectionHeader: {
     flexDirection: 'row',

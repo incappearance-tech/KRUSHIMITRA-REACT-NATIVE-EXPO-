@@ -1,0 +1,103 @@
+{
+  "categories": [
+    {
+      "id": "land_preparation",
+      "name": "Land Preparation",
+      "machines": [
+        { "id": "tractor", "name": "Tractor", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "power_tiller", "name": "Power Tiller", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "mini_tractor", "name": "Mini Tractor", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "disc_plough", "name": "Disc Plough", "needsOperator": true, "fuelType": "manual" },
+        { "id": "mb_plough", "name": "Mould Board Plough", "needsOperator": true, "fuelType": "manual" },
+        { "id": "cultivator", "name": "Cultivator", "needsOperator": true, "fuelType": "manual" },
+        { "id": "harrow", "name": "Harrow", "needsOperator": true, "fuelType": "manual" },
+        { "id": "rotavator", "name": "Rotavator", "needsOperator": true, "fuelType": "manual" },
+        { "id": "subsoiler", "name": "Subsoiler", "needsOperator": true, "fuelType": "manual" },
+        { "id": "land_leveller", "name": "Land Leveller", "needsOperator": true, "fuelType": "manual" }
+      ]
+    },
+
+    {
+      "id": "sowing_planting",
+      "name": "Sowing & Planting",
+      "machines": [
+        { "id": "seed_drill", "name": "Seed Drill", "needsOperator": true, "fuelType": "manual" },
+        { "id": "seed_fertilizer_drill", "name": "Seed Cum Fertilizer Drill", "needsOperator": true, "fuelType": "manual" },
+        { "id": "happy_seeder", "name": "Happy Seeder", "needsOperator": true, "fuelType": "manual" },
+        { "id": "zero_till_drill", "name": "Zero Till Seed Drill", "needsOperator": true, "fuelType": "manual" },
+        { "id": "rice_transplanter", "name": "Rice Transplanter", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "vegetable_planter", "name": "Vegetable Planter", "needsOperator": true, "fuelType": "manual" }
+      ]
+    },
+
+    {
+      "id": "crop_protection",
+      "name": "Crop Protection",
+      "machines": [
+        { "id": "hand_sprayer", "name": "Hand Sprayer", "needsOperator": false, "fuelType": "manual" },
+        { "id": "knapsack_sprayer", "name": "Knapsack Sprayer", "needsOperator": false, "fuelType": "manual" },
+        { "id": "battery_sprayer", "name": "Battery Sprayer", "needsOperator": false, "fuelType": "electric" },
+        { "id": "power_sprayer", "name": "Power Sprayer", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "boom_sprayer", "name": "Boom Sprayer", "needsOperator": true, "fuelType": "manual" }
+      ]
+    },
+
+    {
+      "id": "irrigation",
+      "name": "Irrigation & Water",
+      "machines": [
+        { "id": "diesel_pump", "name": "Diesel Water Pump", "needsOperator": false, "fuelType": "diesel" },
+        { "id": "electric_pump", "name": "Electric Water Pump", "needsOperator": false, "fuelType": "electric" },
+        { "id": "solar_pump", "name": "Solar Water Pump", "needsOperator": false, "fuelType": "solar" },
+        { "id": "submersible_pump", "name": "Submersible Pump", "needsOperator": false, "fuelType": "electric" },
+        { "id": "sprinkler_set", "name": "Sprinkler Set", "needsOperator": false, "fuelType": "manual" },
+        { "id": "drip_irrigation", "name": "Drip Irrigation Set", "needsOperator": false, "fuelType": "manual" }
+      ]
+    },
+
+    {
+      "id": "weeding_interculture",
+      "name": "Weeding & Interculture",
+      "machines": [
+        { "id": "power_weeder", "name": "Power Weeder", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "cono_weeder", "name": "Cono Weeder", "needsOperator": false, "fuelType": "manual" },
+        { "id": "brush_cutter", "name": "Brush Cutter", "needsOperator": true, "fuelType": "petrol" }
+      ]
+    },
+
+    {
+      "id": "harvesting",
+      "name": "Harvesting",
+      "machines": [
+        { "id": "reaper", "name": "Reaper", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "reaper_binder", "name": "Reaper Binder", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "combine_harvester", "name": "Combine Harvester", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "maize_harvester", "name": "Maize Harvester", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "sugarcane_harvester", "name": "Sugarcane Harvester", "needsOperator": true, "fuelType": "diesel" }
+      ]
+    },
+
+    {
+      "id": "post_harvest",
+      "name": "Post Harvest & Processing",
+      "machines": [
+        { "id": "thresher", "name": "Thresher", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "winnower", "name": "Winnowing Machine", "needsOperator": false, "fuelType": "electric" },
+        { "id": "paddy_huller", "name": "Paddy Huller", "needsOperator": true, "fuelType": "electric" },
+        { "id": "flour_mill", "name": "Flour Mill", "needsOperator": true, "fuelType": "electric" },
+        { "id": "chaff_cutter", "name": "Chaff Cutter", "needsOperator": false, "fuelType": "manual" }
+      ]
+    },
+
+    {
+      "id": "transport",
+      "name": "Transport & Loading",
+      "machines": [
+        { "id": "tractor_trolley", "name": "Tractor Trolley", "needsOperator": true, "fuelType": "manual" },
+        { "id": "agri_trailer", "name": "Agricultural Trailer", "needsOperator": true, "fuelType": "manual" },
+        { "id": "mini_truck", "name": "Mini Truck (Pickup)", "needsOperator": true, "fuelType": "diesel" },
+        { "id": "front_loader", "name": "Front End Loader", "needsOperator": true, "fuelType": "manual" }
+      ]
+    }
+  ]
+}
