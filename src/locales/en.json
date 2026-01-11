@@ -9,31 +9,39 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
-    "logout": "Logout"
+    "logout": "Logout",
+    "continue": "Continue",
+    "register": "Register Here",
+    "new_user": "New user?",
+    "terms_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy",
+    "save_continue": "Save & Continue",
+    "upload_photo": "Upload Photo",
+    "contact_seller": "Contact Seller",
+    "negotiable": "NEGOTIABLE"
   },
   "error": {
-  "fullName": {
-    "min": "Full name must be at least 3 characters",
-    "max": "Full name must be less than 50 characters"
+    "fullName": {
+      "min": "Full name must be at least 3 characters",
+      "max": "Full name must be less than 50 characters"
+    },
+    "farmerId": {
+      "min": "Farmer ID must be at least 6 characters",
+      "max": "Farmer ID must be less than 20 characters",
+      "format": "Farmer ID must contain only letters and numbers"
+    },
+    "district": {
+      "required": "Please select district"
+    },
+    "taluka": {
+      "required": "Please select taluka",
+      "invalid": "Taluka does not belong to selected district"
+    },
+    "village": {
+      "min": "Village name is required",
+      "max": "Village name is too long"
+    }
   },
-  "farmerId": {
-    "min": "Farmer ID must be at least 6 characters",
-    "max": "Farmer ID must be less than 20 characters",
-    "format": "Farmer ID must contain only letters and numbers"
-  },
-  "district": {
-    "required": "Please select district"
-  },
-  "taluka": {
-    "required": "Please select taluka",
-    "invalid": "Taluka does not belong to selected district"
-  },
-  "village": {
-    "min": "Village name is required",
-    "max": "Village name is too long"
-  }
-}
-,
   "language": {
     "title": "Select Language",
     "select": "Select Language",
@@ -48,15 +56,30 @@
     "otp": "OTP",
     "enter_otp": "Enter 6 digit OTP",
     "verify_otp": "Verify OTP",
-    "resend_otp": "Resend OTP",
+    "resend_otp": "Resend Code",
     "invalid_mobile": "Please enter a valid 10 digit number",
-    "invalid_otp": "Please enter a valid 6 digit OTP"
+    "invalid_otp": "Please enter a valid 6 digit OTP",
+    "welcome_back": "Welcome Back",
+    "login_subtitle": "Enter your mobile number to access your farming dashboard safely.",
+    "get_otp": "GET OTP",
+    "secure_network": "SECURE FARMING NETWORK",
+    "verification_code": "Verification Code",
+    "otp_sent_to": "We have sent a 4-digit verification code to",
+    "didnt_receive_otp": "Didn't receive the code?",
+    "verify_account": "Verify Account",
+    "verified": "Verified"
   },
   "roles": {
     "title": "Select Your Role",
     "farmer": "Farmer",
     "labour": "Labour",
-    "transporter": "Transporter"
+    "transporter": "Transporter",
+    "who_are_you": "Who are you?",
+    "role_subtitle": "Choose your account type to get started with the tailored experience.",
+    "farmer_desc": "Manage crops, track harvest, and connect with markets.",
+    "labour_desc": "Find daily work, manage schedule, and receive payments.",
+    "transporter_desc": "Logistics, route planning, and delivery tracking.",
+    "agree_terms": "By continuing, you agree to our"
   },
   "farmer": {
     "dashboard": "Farmer Dashboard",
@@ -80,5 +103,386 @@
     "home": "Home",
     "profile": "Profile",
     "settings": "Settings"
+  },
+  "dashboard": {
+    "verified": "VERIFIED",
+    "farmer_id": "FARMER ID",
+    "trust_score": "TRUST SCORE",
+    "complete": "Complete",
+    "overview": "Overview",
+    "my_listings": "My Listings",
+    "active": "Active",
+    "rent_requests": "Rent Requests",
+    "pending": "Pending",
+    "contacts_used": "Contacts Used",
+    "total": "Total",
+    "quick_actions": "Quick Actions",
+    "quick_actions_sub": "Buy, sell, rent, or hire services",
+    "active_requests": "My Active Requests",
+    "view_all": "View all",
+    "summary": "Summary",
+    "machines_listed": "Machines Listed",
+    "rented_out": "Rented Out",
+    "taken_on_rent": "Taken on Rent",
+    "labour_req": "Labour Req",
+    "transport_searches": "Transport Searches",
+    "alerts": "Alerts",
+    "profile_incomplete": "PROFILE INCOMPLETE",
+    "profile_incomplete_desc": "Please add a photo to increase trust.",
+    "add": "Add",
+    "expiring_soon": "EXPIRING SOON",
+    "expiring_soon_desc": "Listing expires soon",
+    "renew": "Renew",
+    "performance": "PERFORMANCE",
+    "performance_desc": "people viewed your listing today",
+    "support_settings": "Support & Settings",
+    "call_support": "Call Support",
+    "how_it_works": "How it works (Video)",
+    "change_language": "Change Language",
+    "my_ads": "My Ads",
+    "orders": "Orders"
+  },
+  "profile": {
+    "title": "Farmer Profile",
+    "full_name": "Full Name",
+    "enter_full_name": "Enter your full name",
+    "farmer_id": "Farmer ID",
+    "enter_farmer_id": "Enter Farmer ID",
+    "district": "District",
+    "select_district": "Select District",
+    "taluka": "Taluka",
+    "select_taluka": "Select Taluka",
+    "village": "Village",
+    "enter_village": "Enter Village",
+    "village_helper": "We need this to connect you with nearby workers",
+    "pin_code": "Pin Code",
+    "enter_pin": "Enter 6-digit Pin Code",
+    "photo_permission": "Permission required to upload photo"
+  },
+  "machine_list": {
+    "title": "Browse Machines",
+    "nearby": "Near",
+    "search_placeholder": "Search machines...",
+    "all": "All",
+    "tractors": "Tractors",
+    "harvesters": "Harvesters",
+    "implements": "Implements",
+    "good_condition": "Good Condition",
+    "excellent": "Excellent",
+    "like_new": "Like New",
+    "hours": "hrs"
+  },
+  "sell_machine": {
+    "title": "Add Machine Details",
+    "upload_photos": "Upload Photos",
+    "photo_alert_title": "Upload Photos",
+    "photo_alert_msg": "Please upload at least 2 photos",
+    "category": "Category",
+    "select_category": "Select Category",
+    "sub_category": "Sub-Category",
+    "select_sub_category": "Select Sub-Category",
+    "identity_title": "Machine Identity",
+    "brand": "Brand",
+    "brand_placeholder": "e.g. Mahindra",
+    "model": "Model",
+    "model_placeholder": "e.g. 575 DI",
+    "year": "Year",
+    "select": "Select",
+    "serial_no": "Serial No (Last 4)",
+    "serial_placeholder": "XXXX",
+    "condition_title": "Usage & Condition",
+    "usage_level": "Usage Level",
+    "light": "Light",
+    "medium": "Medium",
+    "heavy": "Heavy",
+    "any_repair": "Any major repair?",
+    "repair_details": "Repair Details",
+    "enter_repair_details": "Enter repair details",
+    "overall_condition": "Overall Condition",
+    "excellent": "Excellent",
+    "good_minor_wear": "Good - Minor wear",
+    "fair": "Fair",
+    "needs_repair": "Needs Repair",
+    "sales_details": "Sales Details",
+    "selling_reason": "Reason for Selling",
+    "upgrading": "Upgrading to new machine",
+    "need_cash": "Need Cash",
+    "not_using": "Not using anymore",
+    "asking_price": "Asking Price",
+    "price_negotiable": "Price negotiable?",
+    "available_from": "Available From",
+    "immediately": "Immediately",
+    "select_date": "Select Date",
+    "ownership_confirm": "I confirm this machine belongs to me and details are correct.",
+    "next_step": "Next Step",
+    "listing_details": "Listing Details",
+    "live_listing": "LIVE LISTING",
+    "performance_7_days": "Performance (Last 7 days)",
+    "total_views": "Total Views",
+    "calls_received": "Calls Received",
+    "machine_specs": "Machine Specifications",
+    "description": "Description",
+    "edit": "Edit",
+    "analytics": "Analytics",
+    "mark_as_sold": "Mark as Sold",
+    "specs": {
+      "model": "Model",
+      "year": "Year",
+      "condition": "Condition",
+      "usage": "Usage"
+    }
+  },
+  "publish": {
+    "title": "Select Plan",
+    "trial_run": "Trial Run",
+    "valid_7_days": "Valid for 7 Days",
+    "one_left": "1 Left",
+    "standard": "Standard",
+    "valid_15_days": "Valid for 15 Days",
+    "premium_reach": "Premium Reach",
+    "valid_30_days": "Valid for 30 Days",
+    "best_value": "Best Value",
+    "recommended": "Recommended",
+    "processing": "Processing",
+    "proceeding_to_pay": "Proceeding to pay {{price}} for the {{title}} plan.",
+    "whats_included": "WHAT'S INCLUDED",
+    "visible_to": "Visible to 5000+ local farmers",
+    "verified_badge": "Verified Seller Badge",
+    "buyer_alerts": "Instant Buyer Alerts",
+    "proceed_to_pay": "Proceed to Pay",
+    "first_listing_free": "First Listing Free!",
+    "welcome_gift": "As a welcome gift, your first machine listing is completely free. No payment required.",
+    "choose_duration": "Choose Duration",
+    "secure_payment": "Secure Payment & Instant Activation",
+    "choose_plan": "Choose a plan for your machine listing",
+    "select_duration": "Select how long your machine stays listed on the marketplace.",
+    "terms_info": "By proceeding, you agree to our terms of service. Listings are reviewed within 24 hours. Premium listings get 3x more views on average.",
+    "plans": {
+      "basic": {
+        "title": "Basic Listing",
+        "subtitle": "For quick sales",
+        "features": {
+          "listing": "1 machine listing only",
+          "validity": "Valid for 7 days"
+        }
+      },
+      "standard": {
+        "title": "Standard Visibility",
+        "subtitle": "Better reach",
+        "features": {
+          "visibility": "Standard visibility on search",
+          "validity": "Valid for 15 days"
+        }
+      },
+      "premium": {
+        "title": "Maximum Reach",
+        "subtitle": "Best value for money",
+        "features": {
+          "featured": "Featured on home page",
+          "priority": "High priority in search results",
+          "validity": "Valid for 30 days"
+        }
+      }
+    }
+  },
+  "sell_payment": {
+    "title": "Payment Method",
+    "total_payable": "Total Payable",
+    "order_id": "Order ID",
+    "item": "Item",
+    "listing_fee_tractor": "Listing Fee (Tractor)",
+    "select_method": "Select Payment Method",
+    "pay_amount": "Pay {{amount}}",
+    "secure_payment": "100% Secure 256-bit encryption",
+    "methods": {
+      "upi": {
+        "title": "UPI Apps",
+        "subtitle": "GPay, PhonePe, Paytm"
+      },
+      "card": {
+        "title": "Debit / Credit Card",
+        "subtitle": "Visa, MasterCard, Rupay"
+      },
+      "netbanking": {
+        "title": "Net Banking",
+        "subtitle": "All Indian banks"
+      }
+    },
+    "success": {
+      "title": "Payment Successful!",
+      "subtitle": "Your listing is now live.",
+      "back_to_dashboard": "Back to Dashboard",
+      "thank_you": "Thank you! Your payment has been processed successfully.",
+      "total_paid": "Total Amount Paid",
+      "transaction_id": "Transaction ID",
+      "date": "Date",
+      "method": "Payment Method",
+      "unlocked_benefit": "UNLOCKED BENEFIT",
+      "premium_desc": "Premium Listing - Live for 30 days",
+      "expires_on": "Expires {{date}}",
+      "active": "Active",
+      "view_listing": "View My Listing",
+      "confirmation": "Confirmation"
+    }
+  },
+  "welcome": {
+    "headline": "Connecting Farms\nto Markets",
+    "subheadline": "The all-in-one platform for farmers, laborers, and transporters.",
+    "get_started": "Get Started",
+    "find_work": "Find Work",
+    "find_work_desc": "Locate jobs nearby effortlessly",
+    "hire_help": "Hire Help",
+    "hire_help_desc": "Find reliable workers quickly",
+    "transport": "Transport",
+    "transport_desc": "Move produce efficiently"
+  },
+  "buy_machine_details": {
+    "see_photos": "See All {{count}} Photos",
+    "verified_listing": "Verified Listing",
+    "located_in": "Located in {{location}}",
+    "safety_first": "Safety First",
+    "safety_desc": "Always inspect the machine physically before making any payment.",
+    "machine_details": "Machine Details",
+    "make_year": "Make Year",
+    "engine_power": "Engine Power",
+    "hours_used": "Hours Used",
+    "tyre_condition": "Tyre Condition",
+    "availability": "Availability",
+    "rc_available": "RC Available",
+    "insurance": "Insurance",
+    "selling_reason": "Reason for Selling",
+    "seller_profile": "Seller Profile",
+    "village": "Village: {{name}}",
+    "location_title": "Location",
+    "map_disclaimer": "Approximate location shown for safety",
+    "contact_hidden": "Contact hidden for privacy",
+    "verified_seller": "Verified Seller",
+    "unlock_contact": "Unlock Seller Contact"
+  },
+  "filters": {
+    "title": "Filters",
+    "reset": "Reset",
+    "distance": "Distance",
+    "within": "Within {{distance}} km",
+    "price_range": "Price Range",
+    "negotiable_only": "Negotiable only",
+    "negotiable_desc": "Show prices that can be bargained",
+    "show_machines": "Show {{count}} Machines",
+    "category": "Category",
+    "condition": "Condition",
+    "good": "Good",
+    "average": "Average",
+    "poor": "Poor",
+    "good_desc": "Minimal wear, ready to work",
+    "average_desc": "Normal wear, needs minor fixes",
+    "poor_desc": "Significant repairs required",
+    "min": "MIN",
+    "max": "MAX"
+  },
+  "inspection_guide": {
+    "title": "Inspection Guide",
+    "safety_first": "SAFETY FIRST",
+    "inspect_before_buy": "Inspect before you buy",
+    "check_points": "Check these points",
+    "verify_condition": "Verify machine condition carefully before payment.",
+    "items": {
+      "engine": {
+        "title": "Engine Start & Sound",
+        "desc": "Check for smooth starting and listen for irregular knocking sounds."
+      },
+      "oil": {
+        "title": "Oil Leakage",
+        "desc": "Inspect the engine and hydraulic pipes for any visible wet spots or leaks."
+      },
+      "vibration": {
+        "title": "Vibration",
+        "desc": "Sit on the machine while running to feel for excessive shaking or rattling."
+      },
+      "tyres": {
+        "title": "Tyres & Blades",
+        "desc": "Check tyre tread depth and look for cracks. Ensure blades are sharp."
+      },
+      "repairs": {
+        "title": "Major Repairs",
+        "desc": "Ask the seller about any past engine or transmission overhauls."
+      },
+      "documents": {
+        "title": "Documents",
+        "desc": "Verify RC book, insurance validity, and chassis number matching."
+      }
+    },
+    "disclaimer": "Disclaimer:",
+    "disclaimer_desc": "This list is for educational purposes only. The platform is not responsible for the machine's condition.",
+    "call_seller": "Call Seller"
+  },
+  "payment_unlock": {
+    "title": "Unlock Seller Contact",
+    "unlock_fee": "Total Unlock Fee",
+    "one_time": "One-time payment",
+    "warning_title": "Important Warning",
+    "warning_desc": "Payment is <0>ONLY</0> to reveal the phone number. It is not a deposit for the machine itself.",
+    "lifetime_access": "Lifetime Access",
+    "lifetime_desc": "Pay once and view this seller's contact details anytime in your history.",
+    "verified_seller": "Verified Seller",
+    "verified_desc": "{{name}} has been verified by our field agents.",
+    "payment_method": "Payment Method",
+    "upi_wallet": "UPI / Wallet",
+    "pay_unlock": "Pay {{price}} & Unlock",
+    "secure_payment": "Secure Payment by Razorpay"
+  },
+  "purchase_confirmation": {
+    "title": "Update Status",
+    "headline": "Did you buy this machine?",
+    "subheading": "Please confirm if the transaction was successful.",
+    "view_listing": "View Original Listing",
+    "yes_purchased": "Yes, Purchased",
+    "yes_purchased_desc": "I have bought this item and the deal is closed.",
+    "no_purchased": "No, Not Purchased",
+    "no_purchased_desc": "Deal was cancelled or I decided not to buy.",
+    "reason_label": "Reason (Optional)",
+    "reasons": {
+      "price_high": "Price too high",
+      "condition_issue": "Condition issue",
+      "seller_unresponsive": "Seller unresponsive"
+    },
+    "tell_us_more": "Tell us more about why...",
+    "update_listing": "Update Listing"
+  },
+  "rating": {
+    "title": "Rating & Trust Update",
+    "completed_on": "TRANSACTION COMPLETED: {{date}}",
+    "sold_to": "Sold to: {{name}}",
+    "experience_prompt": "How was your experience?",
+    "rate_deal": "Rate your deal with {{name}}",
+    "excellent": "Excellent!",
+    "good": "Good!",
+    "average": "Average",
+    "poor": "Could be better",
+    "tags": {
+      "on_time": "On Time",
+      "polite": "Polite",
+      "hassle_free": "Hassle Free",
+      "genuine": "Genuine",
+      "fair_price": "Fair Price"
+    },
+    "placeholder": "Write a short review (Optional)...",
+    "trust_helper": "Your feedback helps build trust in our community.",
+    "submit": "Submit Review"
+  },
+  "contact_success": {
+    "title": "Contact Seller",
+    "unlocked": "Contact Details Unlocked",
+    "subtitle": "You can now connect with the seller directly",
+    "machine_id": "MACHINE ID: {{id}}",
+    "verified": "VERIFIED",
+    "call_now": "Call Seller Now",
+    "whatsapp": "Message on WhatsApp",
+    "deal_offline": "Deal Directly Offline",
+    "offline_desc": "This app connects you directly. There is no chat feature inside the app. Please call or WhatsApp the seller to negotiate.",
+    "safety_tips": "Safety Tips",
+    "safety_item_1": "Always inspect the machine in person before making any payment.",
+    "safety_item_2": "Do not send advance money online without verifying documents.",
+    "safety_item_3": "Check RC and insurance validity before finalizing the deal.",
+    "need_help": "Need Help? Contact Support"
   }
 }

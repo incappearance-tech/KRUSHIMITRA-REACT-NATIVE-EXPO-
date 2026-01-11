@@ -1,5 +1,6 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {
@@ -17,6 +18,8 @@ import { COLORS } from '../../../constants/colors';
 
 
 
+import { useTranslation } from 'react-i18next';
+
 export default function ContactSellerSuccess() {
   return (
     <SafeAreaProvider>
@@ -26,11 +29,12 @@ export default function ContactSellerSuccess() {
 }
 
 function ContactContent() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const phoneNumber = "+919876543210";
 
   const handleCall = () => Linking.openURL(`tel:${phoneNumber}`);
-  const handleWhatsApp = () => Linking.openURL(`whatsapp://send?phone=${9527398933}&text=Hello, I am interested in your John Deere tractor.`);
+  const handleWhatsApp = () => Linking.openURL(`whatsapp://send?phone=${9527398933}&text=${encodeURIComponent(t('contact_success.whatsapp_message', { defaultValue: 'Hello, I am interested in your John Deere tractor.' }))}`);
 
   return (
     <View style={styles.container}>
@@ -38,10 +42,10 @@ function ContactContent() {
 
       {/* Top App Bar */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.iconButton}>
+        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back" size={28} color={COLORS.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Contact Seller</Text>
+        <Text style={styles.headerTitle}>{t('contact_success.title')}</Text>
         <View style={{ width: 48 }} />
       </View>
 
@@ -54,19 +58,19 @@ function ContactContent() {
           <View style={styles.checkCircle}>
             <MaterialIcons name="check-circle" size={48} color="#15803d" />
           </View>
-          <Text style={styles.successTitle}>Contact Details Unlocked</Text>
-          <Text style={styles.successSubtitle}>You can now connect with the seller directly</Text>
+          <Text style={styles.successTitle}>{t('contact_success.unlocked')}</Text>
+          <Text style={styles.successSubtitle}>{t('contact_success.subtitle')}</Text>
         </View>
 
         {/* Machine Context Card */}
         <View style={styles.machineMiniCard}>
           <Image
             source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=150' }}
-            style={styles.miniImg}
+            style={styles.miniImg as any}
           />
           <View style={styles.miniInfo}>
             <Text style={styles.miniTitle} numberOfLines={1}>John Deere 5050D - 2018</Text>
-            <Text style={styles.miniId}>MACHINE ID: #TR-8821</Text>
+            <Text style={styles.miniId}>{t('contact_success.machine_id', { id: '#TR-8821' })}</Text>
           </View>
           <MaterialIcons name="open-in-new" size={20} color={COLORS.success} />
         </View>
@@ -76,11 +80,11 @@ function ContactContent() {
           <View style={styles.avatarContainer}>
             <Image
               source={{ uri: 'https://i.pravatar.cc/300?u=ram' }}
-              style={styles.avatar}
+              style={styles.avatar as any}
             />
             <View style={styles.verifiedBadge}>
               <MaterialIcons name="verified" size={10} color="black" />
-              <Text style={styles.verifiedText}>VERIFIED</Text>
+              <Text style={styles.verifiedText}>{t('contact_success.verified')}</Text>
             </View>
           </View>
 
@@ -98,7 +102,7 @@ function ContactContent() {
           <View style={styles.actionArea}>
             <View style={styles.actionArea}>
               <Button
-                label="Call Seller Now"
+                label={t('contact_success.call_now')}
                 onPress={handleCall}
                 icon="call"
                 backgroundColor={COLORS.brand.primary}
@@ -106,7 +110,7 @@ function ContactContent() {
               />
 
               <Button
-                label="Message on WhatsApp"
+                label={t('contact_success.whatsapp')}
                 onPress={handleWhatsApp}
                 backgroundColor="white"
                 borderColor="#25D366"
@@ -121,9 +125,9 @@ function ContactContent() {
         <View style={styles.infoBox}>
           <MaterialIcons name="info" size={20} color={COLORS.info} style={{ marginTop: 2 }} />
           <View style={{ flex: 1 }}>
-            <Text style={styles.infoTitle}>Deal Directly Offline</Text>
+            <Text style={styles.infoTitle}>{t('contact_success.deal_offline')}</Text>
             <Text style={styles.infoDesc}>
-              This app connects you directly. There is no chat feature inside the app. Please call or WhatsApp the seller to negotiate.
+              {t('contact_success.offline_desc')}
             </Text>
           </View>
         </View>
@@ -131,17 +135,17 @@ function ContactContent() {
         {/* Safety Tips */}
         <View style={styles.safetyHeader}>
           <MaterialIcons name="shield" size={20} color={COLORS.textSecondary} />
-          <Text style={styles.safetyTitleText}>Safety Tips</Text>
+          <Text style={styles.safetyTitleText}>{t('contact_success.safety_tips')}</Text>
         </View>
         <View style={styles.safetyList}>
-          <SafetyItem icon="visibility" color={COLORS.warning} text="Always inspect the machine in person before making any payment." />
-          <SafetyItem icon="payments" color={COLORS.danger} text="Do not send advance money online without verifying documents." />
-          <SafetyItem icon="description" color={COLORS.info} text="Check RC and insurance validity before finalizing the deal." />
+          <SafetyItem icon="visibility" color={COLORS.warning} text={t('contact_success.safety_item_1')} />
+          <SafetyItem icon="payments" color={COLORS.danger} text={t('contact_success.safety_item_2')} />
+          <SafetyItem icon="description" color={COLORS.info} text={t('contact_success.safety_item_3')} />
         </View>
 
         {/* Footer Support */}
         <TouchableOpacity style={styles.supportButton}>
-          <Text style={styles.supportText}>Need Help? Contact Support</Text>
+          <Text style={styles.supportText}>{t('contact_success.need_help')}</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -149,7 +153,9 @@ function ContactContent() {
 }
 
 // --- Helpers ---
-const SafetyItem = ({ icon, color, text }) => (
+import { ISafetyItemProps } from '@/src/types/buy-machine/unlock-contact';
+
+const SafetyItem = ({ icon, color, text }: ISafetyItemProps) => (
   <View style={styles.safetyItem}>
     <MaterialIcons name={icon} size={20} color={color} />
     <Text style={styles.safetyItemText}>{text}</Text>
@@ -158,7 +164,7 @@ const SafetyItem = ({ icon, color, text }) => (
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.bgLight },
+  container: { flex: 1, backgroundColor: COLORS.background },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -235,19 +241,19 @@ const styles = StyleSheet.create({
   actionArea: { width: '100%', gap: 12, marginTop: 24 },
   callButton: {
     height: 56,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.brand.primary,
     borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
-    shadowColor: COLORS.primary,
+    shadowColor: COLORS.brand.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 4
   },
-  callButtonText: { fontSize: 18, fontWeight: '700', color: COLORS.textMain },
+  callButtonText: { fontSize: 18, fontWeight: '700', color: COLORS.text },
   whatsappButton: {
     height: 56,
     backgroundColor: 'white',

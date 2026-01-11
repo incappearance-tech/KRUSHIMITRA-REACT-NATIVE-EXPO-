@@ -1,6 +1,7 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
   ImageBackground,
@@ -12,11 +13,11 @@ import {
   View
 } from 'react-native';
 import { COLORS } from '../../constants/colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { height } = Dimensions.get('window');
 
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const [mobile, setMobile] = useState('');
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<TextInput>(null);
@@ -39,107 +40,107 @@ export default function LoginScreen() {
   };
 
   return (
-      <View style={styles.container}>
-        {/* HERO */}
-        <View style={styles.heroWrap}>
-          <ImageBackground
-            source={{ uri: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000' }}
-            style={styles.hero}
-            imageStyle={styles.heroImage}
-          >
-            <View style={styles.heroOverlay} />
-            <View style={styles.badge}>
-              <View style={styles.badgeIcon}>
-                <MaterialIcons name="agriculture" size={18} color={COLORS.brand.primary} />
-              </View>
-              <Text style={styles.badgeText}>KrushiMitra</Text>
+    <View style={styles.container}>
+      {/* HERO */}
+      <View style={styles.heroWrap}>
+        <ImageBackground
+          source={{ uri: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000' }}
+          style={styles.hero}
+          imageStyle={styles.heroImage}
+        >
+          <View style={styles.heroOverlay} />
+          <View style={styles.badge}>
+            <View style={styles.badgeIcon}>
+              <MaterialIcons name="agriculture" size={18} color={COLORS.brand.primary} />
             </View>
-          </ImageBackground>
-        </View>
-
-        {/* CARD */}
-        <View style={styles.cardWrap}>
-          <View style={styles.card}>
-            <Text style={styles.title}>Welcome Back</Text>
-            <Text style={styles.subtitle}>
-              Enter your mobile number to access your farming dashboard safely.
-            </Text>
-
-            {/* IMPROVED INPUT BOX */}
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => inputRef.current?.focus()}
-              style={[
-                styles.inputBox,
-                focused && styles.inputFocused,
-              ]}
-            >
-              <View style={styles.country}>
-                <Text style={styles.flag}>🇮🇳</Text>
-                <Text style={styles.code}>+91</Text>
-                <Ionicons name="chevron-down" size={14} color={COLORS.textSecondary} />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={[
-                  styles.label,
-                  (focused || mobile) && styles.labelActive
-                ]}>
-                  Mobile Number
-                </Text>
-                <TextInput
-                  ref={inputRef}
-                  value={mobile}
-                  onChangeText={onChange}
-                  keyboardType="number-pad"
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
-                  style={styles.input}
-                  maxLength={10}
-                  selectionColor={COLORS.brand.primary}
-                />
-              </View>
-
-              {isValid && (
-                <View style={styles.successIcon}>
-                  <MaterialIcons name="check-circle" size={24} color={COLORS.brand.primary} />
-                </View>
-              )}
-            </TouchableOpacity>
-
-            {/* IMPROVED CTA */}
-            <TouchableOpacity
-              style={[styles.cta, !isValid && { opacity: 0.7 }]}
-              onPress={() => isValid && router.push("/otp")}
-              activeOpacity={0.8}
-            >
-              <View style={styles.ctaIcon}>
-                <Ionicons name="lock-open" size={20} color="#fff" />
-              </View>
-              <Text style={styles.ctaText}>GET OTP</Text>
-              {/* Spacer for visual balance against the icon */}
-              <View style={{ width: 44 }} />
-            </TouchableOpacity>
-
-            {/* REGISTER */}
-            <TouchableOpacity onPress={() => { }} style={styles.registerBtn}>
-              <Text style={styles.register}>
-                New user? <Text style={styles.registerLink}>Register Here</Text>
-              </Text>
-            </TouchableOpacity>
+            <Text style={styles.badgeText}>KrushiMitra</Text>
           </View>
-        </View>
-
-        <Text style={styles.footer}>SECURE FARMING NETWORK</Text>
+        </ImageBackground>
       </View>
+
+      {/* CARD */}
+      <View style={styles.cardWrap}>
+        <View style={styles.card}>
+          <Text style={styles.title}>{t('auth.welcome_back')}</Text>
+          <Text style={styles.subtitle}>
+            {t('auth.login_subtitle')}
+          </Text>
+
+          {/* IMPROVED INPUT BOX */}
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => inputRef.current?.focus()}
+            style={[
+              styles.inputBox,
+              focused && styles.inputFocused,
+            ]}
+          >
+            <View style={styles.country}>
+              <Text style={styles.flag}>🇮🇳</Text>
+              <Text style={styles.code}>+91</Text>
+              <Ionicons name="chevron-down" size={14} color={COLORS.textSecondary} />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={[
+                styles.label,
+                (focused || mobile) && styles.labelActive
+              ]}>
+                {t('auth.mobile_number')}
+              </Text>
+              <TextInput
+                ref={inputRef}
+                value={mobile}
+                onChangeText={onChange}
+                keyboardType="number-pad"
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                style={styles.input}
+                maxLength={10}
+                selectionColor={COLORS.brand.primary}
+              />
+            </View>
+
+            {isValid && (
+              <View style={styles.successIcon}>
+                <MaterialIcons name="check-circle" size={24} color={COLORS.brand.primary} />
+              </View>
+            )}
+          </TouchableOpacity>
+
+          {/* IMPROVED CTA */}
+          <TouchableOpacity
+            style={[styles.cta, !isValid && { opacity: 0.7 }]}
+            onPress={() => isValid && router.push("/otp")}
+            activeOpacity={0.8}
+          >
+            <View style={styles.ctaIcon}>
+              <Ionicons name="lock-open" size={20} color="#fff" />
+            </View>
+            <Text style={styles.ctaText}>{t('auth.get_otp')}</Text>
+            {/* Spacer for visual balance against the icon */}
+            <View style={{ width: 44 }} />
+          </TouchableOpacity>
+
+          {/* REGISTER */}
+          <TouchableOpacity onPress={() => { }} style={styles.registerBtn}>
+            <Text style={styles.register}>
+              {t('common.new_user')} <Text style={styles.registerLink}>{t('common.register')}</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <Text style={styles.footer}>{t('auth.secure_network')}</Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
- 
+
   container: {
     flex: 1,
-    backgroundColor:COLORS.background
+    backgroundColor: COLORS.background
   },
   heroWrap: {
     height: height * 0.4,

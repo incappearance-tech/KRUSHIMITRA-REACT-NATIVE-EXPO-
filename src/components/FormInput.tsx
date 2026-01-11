@@ -1,44 +1,18 @@
 import React from 'react';
 import {
-  Control,
   Controller,
-  FieldValues,
-  Path,
+  FieldValues
 } from 'react-hook-form';
 import {
-  KeyboardTypeOptions,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
-  View,
+  View
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-type FormInputProps<T extends FieldValues> = {
-  control: Control<T>;
-  name: Path<T>;
-  label: string;
-
-  placeholder?: string;
-  required?: boolean;
-
-  keyboardType?: KeyboardTypeOptions;
-  secureTextEntry?: boolean;
-
-  multiline?: boolean;
-  numberOfLines?: number;
-
-  disabled?: boolean;
-  readOnly?: boolean;
-
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  onRightIconPress?: () => void;
-  maxLength?: number;
-    helperText?:string;
-  showHelperWhenError?:boolean,
-};
+import { IFormInputProps } from '@/src/types/components/FormInput';
 
 function FormInput<T extends FieldValues>({
   control,
@@ -56,9 +30,9 @@ function FormInput<T extends FieldValues>({
   rightIcon,
   maxLength,
   onRightIconPress,
-    helperText,
+  helperText,
   showHelperWhenError = false,
-}: FormInputProps<T>) {
+}: IFormInputProps<T>) {
   const isDisabled = disabled || readOnly;
 
   return (
@@ -116,17 +90,17 @@ function FormInput<T extends FieldValues>({
           </View>
 
           {/* Error */}
-         {/* Helper / Error */}
-{fieldState.error?.message ? (
-  <>
-    <Text style={styles.error}>{fieldState.error.message}</Text>
-    {showHelperWhenError && helperText && (
-      <Text style={styles.helper}>{helperText}</Text>
-    )}
-  </>
-) : (
-  helperText && <Text style={styles.helper}>{helperText}</Text>
-)}
+          {/* Helper / Error */}
+          {fieldState.error?.message ? (
+            <>
+              <Text style={styles.error}>{fieldState.error.message}</Text>
+              {showHelperWhenError && helperText && (
+                <Text style={styles.helper}>{helperText}</Text>
+              )}
+            </>
+          ) : (
+            helperText && <Text style={styles.helper}>{helperText}</Text>
+          )}
 
         </View>
       )}
@@ -199,9 +173,9 @@ const styles = StyleSheet.create({
     color: COLORS.danger,
   },
   helper: {
-  marginTop: 4,
-  fontSize: 13,
-  color: COLORS.textLight,
-},
+    marginTop: 4,
+    fontSize: 13,
+    color: COLORS.textLight,
+  },
 
 });

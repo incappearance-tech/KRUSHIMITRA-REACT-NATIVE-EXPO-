@@ -13,20 +13,7 @@ import {
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-/* =======================
-   Types
-   ======================= */
-type MediaItem = {
-  uri: string;
-  type: 'image' | 'video';
-};
-
-type MediaUploaderProps = {
-  title?: string;
-  min?: number;
-  max?: number;
-  onChange: (media: MediaItem[]) => void;
-};
+import { IMediaItem, IMediaUploaderProps } from '@/src/types/components/media';
 
 /* =======================
    Media Item (Memoized)
@@ -36,7 +23,7 @@ const MediaPreview = React.memo(
     item,
     onRemove,
   }: {
-    item: MediaItem;
+    item: IMediaItem;
     onRemove: () => void;
   }) => {
     return (
@@ -68,14 +55,14 @@ const MediaPreview = React.memo(
 
 /* =======================
    Main Component
-   ======================= */
-const MediaUploader: React.FC<MediaUploaderProps> = ({
+    ======================= */
+const MediaUploader: React.FC<IMediaUploaderProps> = ({
   title = 'Photos & Videos',
   min = 0,
   max = 5,
   onChange,
 }) => {
-  const [media, setMedia] = useState<MediaItem[]>([]);
+  const [media, setMedia] = useState<IMediaItem[]>([]);
 
   /* ---------- Derived State ---------- */
   const countText = useMemo(
@@ -116,7 +103,7 @@ const MediaUploader: React.FC<MediaUploaderProps> = ({
 
     if (result.canceled) return;
 
-    const newItems: MediaItem[] = result.assets.map((asset) => ({
+    const newItems: IMediaItem[] = result.assets.map((asset) => ({
       uri: asset.uri,
       type: asset.type === 'video' ? 'video' : 'image',
     }));

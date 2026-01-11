@@ -1,10 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import {
-  Control,
   Controller,
-  FieldValues,
-  Path,
+  FieldValues
 } from 'react-hook-form';
 import {
   StyleSheet,
@@ -14,19 +12,14 @@ import {
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-type FormCheckboxProps<T extends FieldValues> = {
-  control: Control<T>;
-  name: Path<T>;
-  label: string;
-  disabled?: boolean;
-};
+import { IFormCheckboxProps } from '@/src/types/components/FormCheckbox';
 
 function FormCheckbox<T extends FieldValues>({
   control,
   name,
   label,
   disabled = false,
-}: FormCheckboxProps<T>) {
+}: IFormCheckboxProps<T>) {
   return (
     <Controller
       control={control}

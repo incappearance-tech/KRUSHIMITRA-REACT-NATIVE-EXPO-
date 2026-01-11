@@ -15,10 +15,7 @@ export const sellMachineSchema = z.object({
     .string()
     .min(1, 'Category is required'),
 
-  condition: z
-    .enum(['Fair', 'Good', 'Excellent'], {
-      errorMap: () => ({ message: 'Condition is required' }),
-    }),
+  condition: z.enum(['Fair', 'Good', 'Excellent']),
 
   modelYear: z
     .string()
@@ -28,10 +25,7 @@ export const sellMachineSchema = z.object({
     .string()
     .regex(/^[1-9][0-9]*$/, 'Enter valid price'),
 
-  usageType: z
-    .enum(['Personal', 'Commercial'], {
-      errorMap: () => ({ message: 'Usage type is required' }),
-    }),
+  usageType: z.enum(['Personal', 'Commercial']),
 
   location: z
     .string()

@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-  Control,
   Controller,
-  FieldValues,
-  Path,
+  FieldValues
 } from 'react-hook-form';
 import {
   StyleSheet,
@@ -13,19 +11,14 @@ import {
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-type FormSwitchProps<T extends FieldValues> = {
-  control: Control<T>;
-  name: Path<T>;
-  label?: string;
-  disabled?: boolean;
-};
+import { IFormSwitchProps } from '@/src/types/components/FormSwitch';
 
 function FormSwitch<T extends FieldValues>({
   control,
   name,
   label,
   disabled = false,
-}: FormSwitchProps<T>) {
+}: IFormSwitchProps<T>) {
   return (
     <Controller
       control={control}

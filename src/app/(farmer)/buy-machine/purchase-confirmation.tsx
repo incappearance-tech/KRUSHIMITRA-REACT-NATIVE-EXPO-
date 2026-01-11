@@ -1,5 +1,6 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
@@ -18,7 +19,7 @@ import { COLORS } from '../../../constants/colors';
 
 
 
-const REASONS = ["Price too high", "Condition issue", "Seller unresponsive"];
+import { useTranslation } from 'react-i18next';
 
 export default function UpdateStatusScreen() {
   return (
@@ -29,12 +30,19 @@ export default function UpdateStatusScreen() {
 }
 
 function UpdateStatusContent() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   // State
-  const [purchaseStatus, setPurchaseStatus] = useState('purchased'); // 'purchased' or 'not_purchased'
-  const [selectedReason, setSelectedReason] = useState(null);
+  const [purchaseStatus, setPurchaseStatus] = useState<'purchased' | 'not_purchased'>('purchased');
+  const [selectedReason, setSelectedReason] = useState<string | null>(null);
   const [note, setNote] = useState('');
+
+  const REASONS = [
+    t('purchase_confirmation.reasons.price_high'),
+    t('purchase_confirmation.reasons.condition_issue'),
+    t('purchase_confirmation.reasons.seller_unresponsive')
+  ];
 
   return (
     <View style={styles.container}>
@@ -42,10 +50,10 @@ function UpdateStatusContent() {
 
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Update Status</Text>
+        <Text style={styles.headerTitle}>{t('purchase_confirmation.title')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -59,8 +67,8 @@ function UpdateStatusContent() {
         >
           {/* Headline */}
           <View style={styles.sectionHeader}>
-            <Text style={styles.mainHeading}>Did you buy this machine?</Text>
-            <Text style={styles.subHeading}>Please confirm if the transaction was successful.</Text>
+            <Text style={styles.mainHeading}>{t('purchase_confirmation.headline')}</Text>
+            <Text style={styles.subHeading}>{t('purchase_confirmation.subheading')}</Text>
           </View>
 
           {/* Machine Summary Card */}
@@ -79,7 +87,7 @@ function UpdateStatusContent() {
             <View style={styles.divider} />
             <TouchableOpacity style={styles.viewListingBtn}>
               <MaterialIcons name="visibility" size={18} color="#4b5563" />
-              <Text style={styles.viewListingText}>View Original Listing</Text>
+              <Text style={styles.viewListingText}>{t('purchase_confirmation.view_listing')}</Text>
             </TouchableOpacity>
           </View>
 
@@ -87,15 +95,15 @@ function UpdateStatusContent() {
           <View style={styles.radioGroup}>
             <StatusOption
               id="purchased"
-              title="Yes, Purchased"
-              desc="I have bought this item and the deal is closed."
+              title={t('purchase_confirmation.yes_purchased')}
+              desc={t('purchase_confirmation.yes_purchased_desc')}
               selected={purchaseStatus === 'purchased'}
               onSelect={setPurchaseStatus}
             />
             <StatusOption
               id="not_purchased"
-              title="No, Not Purchased"
-              desc="Deal was cancelled or I decided not to buy."
+              title={t('purchase_confirmation.no_purchased')}
+              desc={t('purchase_confirmation.no_purchased_desc')}
               selected={purchaseStatus === 'not_purchased'}
               onSelect={setPurchaseStatus}
             />
@@ -103,7 +111,7 @@ function UpdateStatusContent() {
 
           {/* Conditional Reason Section (Commonly shown if not purchased) */}
           <View style={styles.reasonSection}>
-            <Text style={styles.reasonLabel}>Reason (Optional)</Text>
+            <Text style={styles.reasonLabel}>{t('purchase_confirmation.reason_label')}</Text>
             <View style={styles.chipRow}>
               {REASONS.map(reason => (
                 <TouchableOpacity
@@ -119,7 +127,7 @@ function UpdateStatusContent() {
             </View>
             <TextInput
               style={styles.textArea}
-              placeholder="Tell us more about why..."
+              placeholder={t('purchase_confirmation.tell_us_more')}
               placeholderTextColor={COLORS.textLight}
               multiline
               numberOfLines={4}
@@ -133,7 +141,7 @@ function UpdateStatusContent() {
       {/* Sticky Bottom Footer */}
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
         <Button
-          label="Update Listing"
+          label={t('purchase_confirmation.update_listing')}
           onPress={() => { }}
           icon="check-circle"
           backgroundColor={COLORS.brand.primary}
@@ -145,7 +153,9 @@ function UpdateStatusContent() {
 }
 
 // --- Sub-components ---
-const StatusOption = ({ id, title, desc, selected, onSelect }) => (
+import { IStatusOptionProps } from '@/src/types/buy-machine/purchase-confirmation';
+
+const StatusOption = ({ id, title, desc, selected, onSelect }: IStatusOptionProps) => (
   <TouchableOpacity
     style={[styles.radioCard, selected && styles.radioCardSelected]}
     onPress={() => onSelect(id)}

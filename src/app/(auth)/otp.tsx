@@ -1,7 +1,9 @@
+import BackButton from '@/src/components/BackButton';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Animated,
   Keyboard,
@@ -12,11 +14,11 @@ import {
   View,
 } from 'react-native';
 import { COLORS } from '../../constants/colors';
-import BackButton from '@/src/components/BackButton';
 
 const OTP_LENGTH = 4;
 
 export default function OtpScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const inputRef = useRef<TextInput>(null);
 
@@ -92,15 +94,15 @@ export default function OtpScreen() {
           <Ionicons name="arrow-back" size={24} color={COLORS.black} />
         </TouchableOpacity>
       </View> */}
-<BackButton/>
+      <BackButton />
       <View style={styles.main}>
         <View style={styles.iconWrap}>
           <Ionicons name="lock-closed" size={36} color={COLORS.brand.primary} />
         </View>
 
-        <Text style={styles.title}>Verification Code</Text>
+        <Text style={styles.title}>{t('auth.verification_code')}</Text>
         <Text style={styles.subtitle}>
-          We have sent a 4-digit verification code to{'\n'}
+          {t('auth.otp_sent_to')}{'\n'}
           <Text style={styles.bold}>+1 805 *** 8947</Text>
         </Text>
 
@@ -140,8 +142,8 @@ export default function OtpScreen() {
 
         <TouchableOpacity disabled={timer > 0} onPress={() => setTimer(117)}>
           <Text style={styles.resendText}>
-            Didn’t receive the code?
-            <Text style={[styles.resendLink, timer > 0 && { color: COLORS.textLight }]}> Resend Code</Text>
+            {t('auth.didnt_receive_otp')}
+            <Text style={[styles.resendLink, timer > 0 && { color: COLORS.textLight }]}> {t('auth.resend_otp')}</Text>
           </Text>
         </TouchableOpacity>
 
@@ -150,7 +152,7 @@ export default function OtpScreen() {
             style={[styles.verifyBtn, otp.length < OTP_LENGTH && { opacity: 0.5 }]}
             onPress={() => handleOtpChange(otp)}
           >
-            <Text style={styles.verifyText}>Verify Account</Text>
+            <Text style={styles.verifyText}>{t('auth.verify_account')}</Text>
             <Ionicons name="arrow-forward" size={20} color="#fff" />
           </TouchableOpacity>
         </View>

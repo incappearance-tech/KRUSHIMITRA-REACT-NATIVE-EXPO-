@@ -1,15 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../constants/colors';
 import BackButton from './BackButton';
 
-interface AppBarProps {
-    title: string;
-    onBackPress?: () => void;
-    style?: ViewStyle;
-}
+import { IAppBarProps } from '@/src/types/components/AppBar';
 
-export default function AppBar({ title, onBackPress, style }: AppBarProps) {
+export default function AppBar({ title, onBackPress, style }: IAppBarProps) {
     return (
         <View style={[styles.appBar, style]}>
             <View style={styles.backButtonContainer}>

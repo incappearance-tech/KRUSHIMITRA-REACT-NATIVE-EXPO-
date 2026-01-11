@@ -7,24 +7,14 @@ import {
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-export type RadioOption<T extends string> = {
-  label: string;
-  value: T;
-};
-
-type RadioGroupProps<T extends string> = {
-  label?: string;
-  value?: T;
-  options: RadioOption<T>[];
-  onChange: (value: T) => void;
-};
+import { IRadioGroupProps } from '@/src/types/components/RadioGroup';
 
 function RadioGroup<T extends string>({
   label,
   value,
   options,
   onChange,
-}: RadioGroupProps<T>) {
+}: IRadioGroupProps<T>) {
   return (
     <View style={styles.fieldGroup}>
       {label && <Text style={styles.label}>{label}</Text>}

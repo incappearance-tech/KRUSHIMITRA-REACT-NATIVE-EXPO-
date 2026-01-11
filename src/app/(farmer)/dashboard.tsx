@@ -1,4 +1,7 @@
+import { MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Image,
   Pressable,
@@ -7,20 +10,9 @@ import {
   Text,
   View,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import { COLORS } from "../../constants/colors";
-import { navigate } from "expo-router/build/global-state/routing";
 
 /* ================= DATA ================= */
-
-const actions = [
-  { title: "Sell Machine", subtitle: "List used equipment", icon: "sell" ,link:"/(farmer)/sell-machine/add-details"},
-  { title: "Buy Machine", subtitle: "Find used equipment", icon: "shopping-cart" ,link:"/(farmer)/buy-machine/list"},
-  { title: "Rent Out", subtitle: "List for rental", icon: "output" ,link:""},
-  { title: "Take on Rent", subtitle: "Find equipment for hire", icon: "schedule" ,link:""},
-  { title: "Find Labour", subtitle: "Hire skilled workers", icon: "engineering" ,link:""},
-  { title: "Find Transport", subtitle: "Book vehicles", icon: "local-shipping" ,link:""},
-] as const;
 
 const user = {
   name: "Rajesh Kumar",
@@ -34,6 +26,17 @@ const user = {
 /* ================= SCREEN ================= */
 
 export default function Dashboard() {
+  const { t } = useTranslation();
+  const router = useRouter();
+
+  const actions = [
+    { title: t('farmer.sell_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "sell", link: "/(farmer)/sell-machine/add-details" },
+    { title: t('farmer.buy_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "shopping-cart", link: "/(farmer)/buy-machine/list" },
+    { title: t('farmer.rent_out'), subtitle: t('dashboard.quick_actions_sub'), icon: "output", link: "" },
+    { title: t('farmer.rent_in'), subtitle: t('dashboard.quick_actions_sub'), icon: "schedule", link: "" },
+    { title: t('farmer.labour'), subtitle: t('dashboard.quick_actions_sub'), icon: "engineering", link: "" },
+    { title: t('farmer.transport'), subtitle: t('dashboard.quick_actions_sub'), icon: "local-shipping", link: "" },
+  ];
   return (
     <View style={styles.container}>
       {/* HEADER */}
@@ -48,8 +51,8 @@ export default function Dashboard() {
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}         showsVerticalScrollIndicator={false}
->
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}
+      >
         {/* PROFILE */}
         <View style={styles.card}>
           <View style={styles.profileRow}>
@@ -64,7 +67,7 @@ export default function Dashboard() {
               <View style={styles.nameRow}>
                 <Text style={styles.name}>{user.name}</Text>
                 <View style={styles.verifiedBadge}>
-                  <Text style={styles.verifiedText}>VERIFIED</Text>
+                  <Text style={styles.verifiedText}>{t('dashboard.verified')}</Text>
                 </View>
               </View>
 
@@ -75,33 +78,32 @@ export default function Dashboard() {
 
               <View style={styles.infoRow}>
                 <View>
-                  <Text style={styles.infoLabel}>FARMER ID</Text>
+                  <Text style={styles.infoLabel}>{t('dashboard.farmer_id')}</Text>
                   <Text style={styles.infoMono}>{user.farmerId}</Text>
                 </View>
 
                 <View style={styles.divider} />
 
                 <View style={{ alignItems: "flex-end" }}>
-                  <Text style={styles.infoLabel}>TRUST SCORE</Text>
-                  <Text style={styles.trustScore}>{user.trustScore}% Complete</Text>
+                  <Text style={styles.infoLabel}>{t('dashboard.trust_score')}</Text>
+                  <Text style={styles.trustScore}>{user.trustScore}% {t('dashboard.complete')}</Text>
                 </View>
               </View>
             </View>
           </View>
         </View>
 
-        {/* OVERVIEW */}
-        <SectionTitle title="Overview" />
+        <SectionTitle title={t('dashboard.overview')} />
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <OverviewCard icon="list-alt" label="My Listings" value="12" badge="Active" badgeStyle={styles.badgeGreen} />
-          <OverviewCard icon="pending-actions" label="Rent Requests" value="5" badge="Pending" badgeStyle={styles.badgeOrange} />
-          <OverviewCard icon="perm-contact-calendar" label="Contacts Used" value="24" subText="Total" />
+          <OverviewCard icon="list-alt" label={t('dashboard.my_listings')} value="12" badge={t('dashboard.active')} badgeStyle={styles.badgeGreen} />
+          <OverviewCard icon="pending-actions" label={t('dashboard.rent_requests')} value="5" badge={t('dashboard.pending')} badgeStyle={styles.badgeOrange} />
+          <OverviewCard icon="perm-contact-calendar" label={t('dashboard.contacts_used')} value="24" subText={t('dashboard.total')} />
         </ScrollView>
 
         {/* QUICK ACTIONS */}
         <View style={styles.quickHeader}>
-          <Text style={styles.title}>Quick Actions</Text>
-          <Text style={styles.subtitle}>Buy, sell, rent, or hire services</Text>
+          <Text style={styles.title}>{t('dashboard.quick_actions')}</Text>
+          <Text style={styles.subtitle}>{t('dashboard.quick_actions_sub')}</Text>
         </View>
 
         <View style={styles.gridAction}>
@@ -112,10 +114,10 @@ export default function Dashboard() {
                 styles.cardAction,
                 pressed && styles.cardPressed,
               ]}
-              onPress={()=>navigate(action.link)}
+              onPress={() => action.link && router.push(action.link)}
             >
               <View style={styles.iconWrap}>
-                <MaterialIcons name={action.icon} size={24} color={COLORS.brand.primary} />
+                <MaterialIcons name={action.icon as any} size={24} color={COLORS.brand.primary} />
               </View>
 
               <View>
@@ -134,7 +136,7 @@ export default function Dashboard() {
         </View>
 
         {/* ACTIVE REQUESTS */}
-        <SectionRow title="My Active Requests" action="View all">
+        <SectionRow title={t('dashboard.active_requests')} action={t('dashboard.view_all')}>
           <RequestItem
             color={COLORS.success}
             icon="check-circle"
@@ -157,56 +159,56 @@ export default function Dashboard() {
         </SectionRow>
 
         {/* SUMMARY */}
-        <Section title="Summary">
+        <Section title={t('dashboard.summary')}>
           <View style={styles.summaryGrid}>
-            <SummaryBox label="Machines Listed" value="2" />
-            <SummaryBox label="Rented Out" value="1" highlight />
-            <SummaryBox label="Taken on Rent" value="1" />
-            <SummaryBox label="Labour Req" value="3" />
-            <SummaryBox label="Transport Searches" value="2" wide />
+            <SummaryBox label={t('dashboard.machines_listed')} value="2" />
+            <SummaryBox label={t('dashboard.rented_out')} value="1" highlight />
+            <SummaryBox label={t('dashboard.taken_on_rent')} value="1" />
+            <SummaryBox label={t('dashboard.labour_req')} value="3" />
+            <SummaryBox label={t('dashboard.transport_searches')} value="2" wide />
           </View>
         </Section>
 
         {/* ALERTS */}
-        <Section title="Alerts">
+        <Section title={t('dashboard.alerts')}>
           <AlertItem
             icon="warning"
             color={COLORS.danger}
-            title="PROFILE INCOMPLETE"
-            text="Please add a photo to increase trust."
-            action="Add"
+            title={t('dashboard.profile_incomplete')}
+            text={t('dashboard.profile_incomplete_desc')}
+            action={t('dashboard.add')}
             danger
           />
           <AlertItem
             icon="schedule"
             color={COLORS.warning}
-            title="EXPIRING SOON"
-            text='Listing "Mahindra 575" expires in 2 days.'
-            action="Renew"
+            title={t('dashboard.expiring_soon')}
+            text={t('dashboard.expiring_soon_desc')}
+            action={t('dashboard.renew')}
           />
           <AlertItem
             icon="visibility"
             color={COLORS.info}
-            title="PERFORMANCE"
-            text="15 people viewed your harvester today."
+            title={t('dashboard.performance')}
+            text={`15 ${t('dashboard.performance_desc')}`}
           />
         </Section>
 
         {/* SUPPORT */}
-        <Section title="Support & Settings">
-          <SupportItem icon="support-agent" label="Call Support" />
-          <SupportItem icon="play-circle" label="How it works (Video)" />
-          <SupportItem icon="translate" label="Change Language" right="English" />
-          <SupportItem icon="logout" label="Logout" />
+        <Section title={t('dashboard.support_settings')}>
+          <SupportItem icon="support-agent" label={t('dashboard.call_support')} />
+          <SupportItem icon="play-circle" label={t('dashboard.how_it_works')} />
+          <SupportItem icon="translate" label={t('dashboard.change_language')} right={t('language.english')} />
+          <SupportItem icon="logout" label={t('common.logout')} />
         </Section>
       </ScrollView>
 
       {/* BOTTOM NAV */}
       <View style={styles.bottomNav}>
-        <NavItem icon="home" label="Home" active />
-        <NavItem icon="campaign" label="My Ads" />
-        <NavItem icon="receipt-long" label="Orders" />
-        <NavItem icon="account-circle" label="Profile" />
+        <NavItem icon="home" label={t('navigation.home')} active />
+        <NavItem icon="campaign" label={t('dashboard.my_ads')} />
+        <NavItem icon="receipt-long" label={t('dashboard.orders')} />
+        <NavItem icon="account-circle" label={t('navigation.profile')} />
       </View>
     </View>
   );
@@ -395,7 +397,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     padding: 14,
     borderRadius: 16,
-    marginRight:8
+    marginRight: 8
   },
   overviewLabel: { fontSize: 12, color: COLORS.textSecondary },
   overviewValue: { fontSize: 22, fontWeight: "700" },

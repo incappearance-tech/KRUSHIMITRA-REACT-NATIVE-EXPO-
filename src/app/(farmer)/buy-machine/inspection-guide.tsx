@@ -1,5 +1,6 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
@@ -14,16 +15,9 @@ import {
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '../../../constants/colors';
 
+import { IInspectionItem } from '@/src/types/buy-machine/inspection-guide';
 
-
-const INSPECTION_ITEMS = [
-  { id: 1, title: 'Engine Start & Sound', desc: 'Check for smooth starting and listen for irregular knocking sounds.', icon: 'engineering' },
-  { id: 2, title: 'Oil Leakage', desc: 'Inspect the engine and hydraulic pipes for any visible wet spots or leaks.', icon: 'opacity' },
-  { id: 3, title: 'Vibration', desc: 'Sit on the machine while running to feel for excessive shaking or rattling.', icon: 'vibration' },
-  { id: 4, title: 'Tyres & Blades', desc: 'Check tyre tread depth and look for cracks. Ensure blades are sharp.', icon: 'tire-repair' },
-  { id: 5, title: 'Major Repairs', desc: 'Ask the seller about any past engine or transmission overhauls.', icon: 'build' },
-  { id: 6, title: 'Documents', desc: 'Verify RC book, insurance validity, and chassis number matching.', icon: 'description' },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function InspectionGuideScreen() {
   return (
@@ -34,10 +28,20 @@ export default function InspectionGuideScreen() {
 }
 
 function InspectionContent() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const [checkedItems, setCheckedItems] = useState({});
+  const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
 
-  const toggleItem = (id) => {
+  const INSPECTION_ITEMS: IInspectionItem[] = [
+    { id: 1, title: t('inspection_guide.items.engine.title'), desc: t('inspection_guide.items.engine.desc'), icon: 'engineering' },
+    { id: 2, title: t('inspection_guide.items.oil.title'), desc: t('inspection_guide.items.oil.desc'), icon: 'opacity' },
+    { id: 3, title: t('inspection_guide.items.vibration.title'), desc: t('inspection_guide.items.vibration.desc'), icon: 'vibration' },
+    { id: 4, title: t('inspection_guide.items.tyres.title'), desc: t('inspection_guide.items.tyres.desc'), icon: 'tire-repair' },
+    { id: 5, title: t('inspection_guide.items.repairs.title'), desc: t('inspection_guide.items.repairs.desc'), icon: 'build' },
+    { id: 6, title: t('inspection_guide.items.documents.title'), desc: t('inspection_guide.items.documents.desc'), icon: 'description' },
+  ];
+
+  const toggleItem = (id: number) => {
     setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
@@ -47,10 +51,10 @@ function InspectionContent() {
 
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Inspection Guide</Text>
+        <Text style={styles.headerTitle}>{t('inspection_guide.title')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -66,16 +70,16 @@ function InspectionContent() {
             imageStyle={{ borderRadius: 16 }}
           >
             <View style={styles.heroOverlay}>
-              <Text style={styles.heroTag}>SAFETY FIRST</Text>
-              <Text style={styles.heroText}>Inspect before you buy</Text>
+              <Text style={styles.heroTag}>{t('inspection_guide.safety_first')}</Text>
+              <Text style={styles.heroText}>{t('inspection_guide.inspect_before_buy')}</Text>
             </View>
           </ImageBackground>
         </View>
 
         {/* Headline */}
         <View style={styles.introSection}>
-          <Text style={styles.mainTitle}>Check these points</Text>
-          <Text style={styles.subTitle}>Verify machine condition carefully before payment.</Text>
+          <Text style={styles.mainTitle}>{t('inspection_guide.check_points')}</Text>
+          <Text style={styles.subTitle}>{t('inspection_guide.verify_condition')}</Text>
         </View>
 
         {/* Checklist */}
@@ -88,7 +92,7 @@ function InspectionContent() {
               activeOpacity={0.7}
             >
               <View style={styles.iconContainer}>
-                <MaterialIcons name={item.icon} size={24} color="#15803d" />
+                <MaterialIcons name={item.icon as any} size={24} color="#15803d" />
               </View>
               <View style={styles.cardContent}>
                 <Text style={styles.itemTitle}>{item.title}</Text>
@@ -105,7 +109,7 @@ function InspectionContent() {
         <View style={styles.disclaimer}>
           <MaterialIcons name="info" size={18} color={COLORS.textSecondary} />
           <Text style={styles.disclaimerText}>
-            <Text style={{ fontWeight: '700' }}>Disclaimer:</Text> This list is for educational purposes only. The platform is not responsible for the machine's condition.
+            <Text style={{ fontWeight: '700' }}>{t('inspection_guide.disclaimer')}</Text> {t('inspection_guide.disclaimer_desc')}
           </Text>
         </View>
       </ScrollView>
@@ -113,7 +117,7 @@ function InspectionContent() {
       {/* Fixed Footer */}
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
         <Button
-          label="Call Seller"
+          label={t('inspection_guide.call_seller')}
           onPress={() => { }}
           icon="call"
           backgroundColor={COLORS.brand.primary}
@@ -189,17 +193,12 @@ const styles = StyleSheet.create({
   },
   callButton: {
     height: 56,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.brand.primary,
     borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4
   },
   callButtonText: { color: 'black', fontSize: 18, fontWeight: '700' },
 });

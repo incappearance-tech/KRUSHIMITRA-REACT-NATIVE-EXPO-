@@ -9,38 +9,17 @@ import {
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-/* =======================
-   Types
-   ======================= */
-
-export type AvailabilityOption =
-  | {
-    type: 'static';
-    key: string;
-    label: string;
-  }
-  | {
-    type: 'date';
-    key: string;
-    label: string;
-  };
-
-export type AvailabilityValue =
-  | { key: string }
-  | { key: string; date: Date };
-
-type AvailabilityPickerProps = {
-  label?: string;
-  options: AvailabilityOption[];
-  value?: AvailabilityValue;
-  onChange: (value: AvailabilityValue) => void;
-};
+import {
+  IAvailabilityOption,
+  IAvailabilityPickerProps,
+  IAvailabilityValue
+} from '@/src/types/components/AvailabilityPicker';
 
 /* =======================
    Type Guard
    ======================= */
 const hasDate = (
-  value: AvailabilityValue
+  value: IAvailabilityValue
 ): value is { key: string; date: Date } => {
   return 'date' in value;
 };
@@ -49,7 +28,7 @@ const hasDate = (
    Component
    ======================= */
 
-const AvailabilityPicker: React.FC<AvailabilityPickerProps> = ({
+const AvailabilityPicker: React.FC<IAvailabilityPickerProps> = ({
   label = 'Available From',
   options,
   value,
@@ -68,7 +47,7 @@ const AvailabilityPicker: React.FC<AvailabilityPickerProps> = ({
   );
 
   const [date, setDate] = useState<Date>(
-    value && hasDate(value) ? value.date : new Date()
+    value && hasDate(value) ? (value as { key: string; date: Date }).date : new Date()
   );
 
   const [showPicker, setShowPicker] = useState(false);
@@ -86,7 +65,7 @@ const AvailabilityPicker: React.FC<AvailabilityPickerProps> = ({
 
   /* ---------- Handlers ---------- */
   const handleSelect = useCallback(
-    (option: AvailabilityOption) => {
+    (option: IAvailabilityOption) => {
       setSelectedKey(option.key);
 
       if (option.type === 'static') {

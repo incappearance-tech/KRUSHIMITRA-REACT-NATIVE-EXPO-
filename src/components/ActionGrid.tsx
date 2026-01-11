@@ -1,15 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-interface ActionGridProps {
-  actions: Array<{
-    id: string;
-    label: string;
-    icon: string;
-    onPress: () => void;
-  }>;
-}
+import { IActionGridProps } from '@/src/types/components/ActionGrid';
 
-export default function ActionGrid({ actions }: ActionGridProps) {
+export default function ActionGrid({ actions }: IActionGridProps) {
   return (
     <View style={styles.container}>
       {actions.map((action) => (

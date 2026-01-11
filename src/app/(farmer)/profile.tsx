@@ -1,7 +1,7 @@
 import Button from '@/src/components/Button';
 import FormDropdown from '@/src/components/FormDropdown';
 import FormInput from '@/src/components/FormInput';
-import { FarmerProfileForm, farmerProfileSchema } from '@/src/validators/farmerProfile.schema';
+import { IFarmerProfileForm, farmerProfileSchema } from '@/src/types/validators/farmerProfile.schema';
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {
   Image,
   StyleSheet,
@@ -27,13 +28,13 @@ const DISTRICT_TALUKA_MAP: Record<string, string[]> = {
 };
 
 export default function FarmerProfileScreen() {
+  const { t } = useTranslation();
   const [photoUri, setPhotoUri] = useState<string | null>(null);
 
   const {
     control,
     handleSubmit,
-    watch,
-  } = useForm<FarmerProfileForm>({
+  } = useForm<IFarmerProfileForm>({
     resolver: zodResolver(farmerProfileSchema),
     defaultValues: {
       fullName: '',
@@ -45,7 +46,7 @@ export default function FarmerProfileScreen() {
     },
   });
 
-  const onSubmit = (data: FarmerProfileForm) => {
+  const onSubmit = (data: IFarmerProfileForm) => {
     console.log('VALID DATA', data);
     router.push('/(farmer)/dashboard');
   };
@@ -54,7 +55,7 @@ export default function FarmerProfileScreen() {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permission.granted) {
-      alert('Permission required to upload photo');
+      alert(t('profile.photo_permission'));
       return;
     }
 
@@ -92,56 +93,58 @@ export default function FarmerProfileScreen() {
               <Ionicons name="camera" size={14} color={COLORS.white} />
             </View>
           </TouchableOpacity>
-          <Text style={styles.addPhotoText}>Upload Photo</Text>
+          <Text style={styles.addPhotoText}>{t('common.upload_photo')}</Text>
 
-          <Text style={{marginTop:16, flex:1, gap: 8, backgroundColor: COLORS.brand.muted, padding: 4, borderRadius: 50, borderWidth: 1, borderColor: COLORS.brand.primary, justifyContent: "center", alignContent: "center", color: COLORS.brand.primary }}>
-            <FontAwesome name="check-circle" size={16} color={COLORS.brand.primary} style={{marginRight:4}}/>   
-            <Text style={{marginLeft:4}}>9527189774 * Verified</Text>
-          </Text>
+          <View style={{ marginTop: 16, flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: COLORS.brand.muted, padding: 8, borderRadius: 50, borderWidth: 1, borderColor: COLORS.brand.primary }}>
+            <FontAwesome name="check-circle" size={16} color={COLORS.brand.primary} />
+            <Text style={{ color: COLORS.brand.primary, fontWeight: '600' }}>9527189774 * {t('auth.verified')}</Text>
+          </View>
         </View>
 
-        <FormInput control={control} name="fullName" label="Full Name" placeholder="Enter your full name" required />
-        <FormInput control={control} name="farmerId" label="Farmer ID" placeholder="Enter Farmer ID" required />
+        <FormInput control={control} name="fullName" label={t('profile.full_name')} placeholder={t('profile.enter_full_name')} required />
+        <FormInput control={control} name="farmerId" label={t('profile.farmer_id')} placeholder={t('profile.enter_farmer_id')} required />
 
         <FormDropdown
           control={control}
           name="district"
-          label="District"
-          placeholder="Select District"
+          label={t('profile.district')}
+          placeholder={t('profile.select_district')}
           options={Object.keys(DISTRICT_TALUKA_MAP)}
           required
-
         />
 
         <FormDropdown
           control={control}
           name="taluka"
-          label="Taluka"
-          placeholder="Select Taluka"
+          label={t('profile.taluka')}
+          placeholder={t('profile.select_taluka')}
           options={Object.keys(DISTRICT_TALUKA_MAP)}
           required
         />
 
-        <FormInput control={control} name="village" label="Village" placeholder="Enter Village" 
-        
-        helperText='We need this to connect you with near by labores'
-        required />
+        <FormInput
+          control={control}
+          name="village"
+          label={t('profile.village')}
+          placeholder={t('profile.enter_village')}
+          helperText={t('profile.village_helper')}
+          required
+        />
         <FormInput
           control={control}
           name="pinCode"
-          label="Pin Code"
-          placeholder="Enter 6-digit Pin Code"
+          label={t('profile.pin_code')}
+          placeholder={t('profile.enter_pin')}
           keyboardType="number-pad"
           maxLength={6}
           required
-          
         />
       </KeyboardAwareScrollView>
 
       {/* Fixed Bottom Button */}
-      <View>
+      <View style={styles.footer}>
         <Button
-          label="Save & Continue"
+          label={t('common.save_continue')}
           onPress={handleSubmit(onSubmit)}
           icon="arrow-forward"
         />
@@ -164,6 +167,7 @@ const styles = StyleSheet.create({
   photoSection: {
     alignItems: 'center',
     marginBottom: 24,
+    paddingTop: 20
   },
 
   avatar: {
@@ -205,5 +209,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#6B7280',
   },
+  footer: {
+    backgroundColor: COLORS.background,
+    padding: 16,
+    borderTopWidth: 1,
+    borderColor: COLORS.border
+  }
 });
-

@@ -1,10 +1,10 @@
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SellMachineForm, sellMachineSchema } from '@/src/validators/sellMachine.schema';
+import { useForm } from 'react-hook-form';
+import { ISellMachineForm, sellMachineSchema } from '../../types/validators/sellMachine.schema';
 
 
 export const useSellMachineForm = () => {
-  return useForm<SellMachineForm>({
+  return useForm<ISellMachineForm>({
     resolver: zodResolver(sellMachineSchema),
     mode: 'onSubmit',
     defaultValues: {

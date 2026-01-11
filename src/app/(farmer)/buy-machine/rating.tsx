@@ -1,5 +1,6 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
@@ -18,7 +19,7 @@ import { COLORS } from '../../../constants/colors';
 
 
 
-const FEEDBACK_TAGS = ["On Time", "Polite", "Hassle Free", "Genuine", "Fair Price"];
+import { useTranslation } from 'react-i18next';
 
 export default function RatingScreen() {
   return (
@@ -29,14 +30,23 @@ export default function RatingScreen() {
 }
 
 function RatingContent() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   // State
-  const [rating, setRating] = useState(4);
-  const [selectedTags, setSelectedTags] = useState(["On Time", "Polite"]);
+  const [rating, setRating] = useState<number>(4);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [comment, setComment] = useState('');
 
-  const toggleTag = (tag) => {
+  const FEEDBACK_TAGS = [
+    t('rating.tags.on_time'),
+    t('rating.tags.polite'),
+    t('rating.tags.hassle_free'),
+    t('rating.tags.genuine'),
+    t('rating.tags.fair_price')
+  ];
+
+  const toggleTag = (tag: string) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter(t => t !== tag));
     } else {
@@ -45,10 +55,10 @@ function RatingContent() {
   };
 
   const getRatingText = () => {
-    if (rating >= 5) return "Excellent!";
-    if (rating >= 4) return "Good!";
-    if (rating >= 3) return "Average";
-    return "Could be better";
+    if (rating >= 5) return t('rating.excellent');
+    if (rating >= 4) return t('rating.good');
+    if (rating >= 3) return t('rating.average');
+    return t('rating.poor');
   };
 
   return (
@@ -57,10 +67,10 @@ function RatingContent() {
 
       {/* Top App Bar */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.iconButton}>
+        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Rating & Trust Update</Text>
+        <Text style={styles.headerTitle}>{t('rating.title')}</Text>
         <View style={{ width: 48 }} />
       </View>
 
@@ -73,7 +83,7 @@ function RatingContent() {
           showsVerticalScrollIndicator={false}
         >
           {/* Transaction Date */}
-          <Text style={styles.dateLabel}>TRANSACTION COMPLETED: DEC 12, 2025</Text>
+          <Text style={styles.dateLabel}>{t('rating.completed_on', { date: 'DEC 12, 2025' })}</Text>
 
           {/* Summary Card */}
           <View style={styles.summaryCard}>
@@ -84,7 +94,7 @@ function RatingContent() {
               />
               <View style={styles.summaryInfo}>
                 <Text style={styles.tractorName}>John Deere 5050D</Text>
-                <Text style={styles.soldTo}>Sold to: Ramesh Kumar</Text>
+                <Text style={styles.soldTo}>{t('rating.sold_to', { name: 'Ramesh Kumar' })}</Text>
               </View>
               <View style={styles.checkBadge}>
                 <MaterialIcons name="check-circle" size={20} color={COLORS.brand.primary} />
@@ -94,8 +104,8 @@ function RatingContent() {
 
           {/* Rating Logic */}
           <View style={styles.ratingSection}>
-            <Text style={styles.ratingPrompt}>How was your experience?</Text>
-            <Text style={styles.ratingSubPrompt}>Rate your deal with Ramesh</Text>
+            <Text style={styles.ratingPrompt}>{t('rating.experience_prompt')}</Text>
+            <Text style={styles.ratingSubPrompt}>{t('rating.rate_deal', { name: 'Ramesh' })}</Text>
 
             <View style={styles.starsRow}>
               {[1, 2, 3, 4, 5].map((num) => (
@@ -132,7 +142,7 @@ function RatingContent() {
           <View style={styles.inputWrapper}>
             <TextInput
               style={styles.textArea}
-              placeholder="Write a short review (Optional)..."
+              placeholder={t('rating.placeholder')}
               placeholderTextColor="#9ca3af"
               multiline
               value={comment}
@@ -146,11 +156,11 @@ function RatingContent() {
       {/* Sticky Footer */}
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
         <View style={styles.trustRow}>
-          <MaterialIcons name="shield" size={14} color={COLORS.textSub} />
-          <Text style={styles.trustText}>Your feedback helps build trust in our community.</Text>
+          <MaterialIcons name="shield" size={14} color={COLORS.success} />
+          <Text style={styles.trustText}>{t('rating.trust_helper')}</Text>
         </View>
         <Button
-          label="Submit Review"
+          label={t('rating.submit')}
           onPress={() => { }}
           icon="send"
           backgroundColor={COLORS.brand.primary}

@@ -1,30 +1,18 @@
+import { MaterialIcons } from '@expo/vector-icons';
+import { ResizeMode, Video } from 'expo-av';
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Video, ResizeMode } from 'expo-av';
 
-type MediaItem = {
-  uri: string;
-  type: 'image' | 'video';
-};
+import { IMediaPickerProps } from '@/src/types/components/media';
 
-type MediaPickerProps = {
-  title?: string;
-  media: MediaItem[];
-  min?: number;
-  max?: number;
-  onAdd: () => void;
-  onRemove: (index: number) => void;
-};
-
-const MediaPicker: React.FC<MediaPickerProps> = ({
+const MediaPicker: React.FC<IMediaPickerProps> = ({
   title = 'Photos & Videos',
   media,
   min = 0,

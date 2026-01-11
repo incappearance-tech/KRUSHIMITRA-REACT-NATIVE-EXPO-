@@ -1,6 +1,6 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import {
@@ -17,6 +17,8 @@ import { COLORS } from '../../../constants/colors';
 
 
 
+import { Trans, useTranslation } from 'react-i18next';
+
 export default function UnlockContactScreen() {
   return (
     <SafeAreaProvider>
@@ -26,6 +28,7 @@ export default function UnlockContactScreen() {
 }
 
 function UnlockContactContent() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   return (
@@ -34,10 +37,10 @@ function UnlockContactContent() {
 
       {/* Top App Bar */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Unlock Seller Contact</Text>
+        <Text style={styles.headerTitle}>{t('payment_unlock.title')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
@@ -46,7 +49,7 @@ function UnlockContactContent() {
         showsVerticalScrollIndicator={false}
       >
         {/* Machine Info Card */}
-        <Text style={styles.sectionLabel}>Machine Details</Text>
+        <Text style={styles.sectionLabel}>{t('buy_machine_details.machine_details')}</Text>
         <View style={styles.machineCard}>
           <View style={styles.machineInfo}>
             <Text style={styles.machineTitle}>John Deere 5310</Text>
@@ -56,22 +59,22 @@ function UnlockContactContent() {
             </View>
             <View style={styles.metaRow}>
               <MaterialIcons name="location-on" size={16} color={COLORS.textSecondary} />
-              <Text style={styles.locationName}>Village: Palwal</Text>
+              <Text style={styles.locationName}>{t('buy_machine_details.village', { name: 'Palwal' })}</Text>
             </View>
           </View>
           <Image
             source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=200' }}
-            style={styles.machineImg}
+            style={styles.machineImg as any}
           />
         </View>
 
         {/* Pricing Hero */}
         <View style={styles.priceHero}>
-          <Text style={styles.priceLabel}>Total Unlock Fee</Text>
+          <Text style={styles.priceLabel}>{t('payment_unlock.unlock_fee')}</Text>
           <Text style={styles.priceAmount}>₹29</Text>
           <View style={styles.oneTimeBadge}>
             <MaterialIcons name="verified" size={14} color="#16a34a" />
-            <Text style={styles.oneTimeText}>One-time payment</Text>
+            <Text style={styles.oneTimeText}>{t('payment_unlock.one_time')}</Text>
           </View>
         </View>
 
@@ -79,9 +82,11 @@ function UnlockContactContent() {
         <View style={styles.warningBox}>
           <MaterialIcons name="warning" size={20} color={COLORS.warningDark} style={{ marginTop: 2 }} />
           <View style={{ flex: 1 }}>
-            <Text style={styles.warningTitle}>Important Warning</Text>
+            <Text style={styles.warningTitle}>{t('payment_unlock.warning_title')}</Text>
             <Text style={styles.warningDesc}>
-              Payment is <Text style={{ fontWeight: '800' }}>ONLY</Text> to reveal the phone number. It is not a deposit for the machine itself.
+              <Trans i18nKey="payment_unlock.warning_desc">
+                Payment is <Text style={{ fontWeight: '800' }}>ONLY</Text> to reveal the phone number. It is not a deposit for the machine itself.
+              </Trans>
             </Text>
           </View>
         </View>
@@ -90,26 +95,26 @@ function UnlockContactContent() {
         <View style={styles.rulesList}>
           <RuleItem
             icon="lock-open"
-            title="Lifetime Access"
-            desc="Pay once and view this seller's contact details anytime in your history."
+            title={t('payment_unlock.lifetime_access')}
+            desc={t('payment_unlock.lifetime_desc')}
             color="#2563eb"
             bg="#eff6ff"
           />
           <RuleItem
             icon="verified-user"
-            title="Verified Seller"
-            desc="Ramesh Kumar has been verified by our field agents."
+            title={t('payment_unlock.verified_seller')}
+            desc={t('payment_unlock.verified_desc', { name: 'Ramesh Kumar' })}
             color="#16a34a"
             bg={COLORS.brand.muted}
           />
         </View>
 
         {/* Payment Method Selector */}
-        <Text style={styles.sectionLabel}>Payment Method</Text>
+        <Text style={styles.sectionLabel}>{t('payment_unlock.payment_method')}</Text>
         <TouchableOpacity style={styles.paymentMethod} activeOpacity={0.9}>
           <View style={styles.row}>
             <MaterialIcons name="account-balance-wallet" size={22} color={COLORS.brand.primary} />
-            <Text style={styles.paymentMethodText}>UPI / Wallet</Text>
+            <Text style={styles.paymentMethodText}>{t('payment_unlock.upi_wallet')}</Text>
           </View>
           <View style={styles.radioSelectedOuter}>
             <View style={styles.radioSelectedInner} />
@@ -121,15 +126,15 @@ function UnlockContactContent() {
       {/* Sticky Bottom Footer */}
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
         <Button
-          label="Pay ₹29 & Unlock"
-          onPress={() => navigate("/buy-machine/unlock-contact")}
+          label={t('payment_unlock.pay_unlock', { price: '₹29' })}
+          onPress={() => router.push("/buy-machine/unlock-contact")}
           icon="lock-open"
           backgroundColor={COLORS.brand.primary}
           textColor={COLORS.black}
         />
         <View style={styles.secureRow}>
           <MaterialIcons name="lock" size={14} color={COLORS.textSecondary} />
-          <Text style={styles.secureText}>Secure Payment by Razorpay</Text>
+          <Text style={styles.secureText}>{t('payment_unlock.secure_payment')}</Text>
         </View>
       </View>
     </View>
@@ -137,7 +142,9 @@ function UnlockContactContent() {
 }
 
 // --- Helper Components ---
-const RuleItem = ({ icon, title, desc, color, bg }) => (
+import { IRuleItemProps } from '@/src/types/buy-machine/payment';
+
+const RuleItem = ({ icon, title, desc, color, bg }: IRuleItemProps) => (
   <View style={styles.ruleItem}>
     <View style={[styles.ruleIconCircle, { backgroundColor: bg }]}>
       <MaterialIcons name={icon} size={20} color={color} />
@@ -254,13 +261,13 @@ const styles = StyleSheet.create({
   },
   payButton: {
     height: 58,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.brand.primary,
     borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 10,
-    shadowColor: COLORS.primary,
+    shadowColor: COLORS.brand.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 10,

@@ -1,8 +1,10 @@
 import AppBar from '@/src/components/AppBar';
 import Button from '@/src/components/Button';
+import { IFeatureItemProps, IPlan, IPlanCardProps } from '@/src/types/sell-machine/publish';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { router } from 'expo-router';
 import React, { memo, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Alert,
   ScrollView,
@@ -17,38 +19,35 @@ import { COLORS } from '../../../constants/colors';
 /*                                   DATA                                     */
 /* -------------------------------------------------------------------------- */
 
-const PLANS = [
-  {
-    id: 'free',
-    title: 'Trial Run',
-    duration: 'Valid for 7 Days',
-    price: 'FREE',
-    oldPrice: '₹29',
-    badge: '1 Left',
-  },
-  {
-    id: '15days',
-    title: 'Standard',
-    duration: 'Valid for 15 Days',
-    price: '₹49',
-    valueLabel: '₹3.2/day',
-  },
-  {
-    id: '30days',
-    title: 'Premium Reach',
-    duration: 'Valid for 30 Days',
-    price: '₹99',
-    valueLabel: 'Best Value',
-    recommended: true,
-  },
-];
-
-/* -------------------------------------------------------------------------- */
-/*                                  SCREEN                                    */
-/* -------------------------------------------------------------------------- */
-
 export default function App() {
+  const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState('30days');
+
+  const PLANS: IPlan[] = [
+    {
+      id: 'free',
+      title: t('publish.trial_run'),
+      duration: t('publish.valid_7_days'),
+      price: 'FREE',
+      oldPrice: '₹29',
+      badge: t('publish.one_left'),
+    },
+    {
+      id: '15days',
+      title: t('publish.standard'),
+      duration: t('publish.valid_15_days'),
+      price: '₹49',
+      valueLabel: '₹3.2/day',
+    },
+    {
+      id: '30days',
+      title: t('publish.premium_reach'),
+      duration: t('publish.valid_30_days'),
+      price: '₹99',
+      valueLabel: t('publish.best_value'),
+      recommended: true,
+    },
+  ];
 
   const currentPlanData = useMemo(
     () => PLANS.find(p => p.id === selectedPlan) ?? PLANS[0],
@@ -56,16 +55,16 @@ export default function App() {
   );
 
   const handlePayment = useCallback(() => {
-    navigate('/sell-machine/payment-method');
+    router.push('/(farmer)/sell-machine/select-plan');
     Alert.alert(
-      'Processing',
-      `Proceeding to pay ${currentPlanData.price} for the ${currentPlanData.title} plan.`
+      t('publish.processing'),
+      t('publish.proceeding_to_pay', { price: currentPlanData.price, title: currentPlanData.title })
     );
-  }, [currentPlanData]);
+  }, [currentPlanData, t]);
 
   return (
     <View style={styles.container}>
-      <AppBar title="Select Plan" />
+      <AppBar title={t('publish.title')} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <PromoBanner />
@@ -83,11 +82,11 @@ export default function App() {
           ))}
         </View>
 
-        <Text style={styles.listHeader}>WHAT'S INCLUDED</Text>
+        <Text style={styles.listHeader}>{t('publish.whats_included')}</Text>
         <View style={styles.featureBox}>
-          <FeatureItem icon="visibility" label="Visible to 5000+ local farmers" />
-          <FeatureItem icon="verified" label="Verified Seller Badge" />
-          <FeatureItem icon="notifications-active" label="Instant Buyer Alerts" />
+          <FeatureItem icon="visibility" label={t('publish.visible_to')} />
+          <FeatureItem icon="verified" label={t('publish.verified_badge')} />
+          <FeatureItem icon="notifications-active" label={t('publish.buyer_alerts')} />
         </View>
 
         <TrustRow />
@@ -96,7 +95,7 @@ export default function App() {
       </ScrollView>
 
       <Button
-        label="Proceed to Pay"
+        label={t('publish.proceed_to_pay')}
         onPress={handlePayment}
         icon="arrow-forward"
       />
@@ -108,49 +107,57 @@ export default function App() {
 /*                              SUB COMPONENTS                                */
 /* -------------------------------------------------------------------------- */
 
-const PromoBanner = memo(() => (
-  <View style={styles.promoBanner}>
-    <View style={styles.promoIconCircle}>
-      <MaterialCommunityIcons
-        name="party-popper"
+const PromoBanner = memo(() => {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.promoBanner}>
+      <View style={styles.promoIconCircle}>
+        <MaterialCommunityIcons
+          name="party-popper"
+          size={20}
+          color={COLORS.brand.primary}
+        />
+      </View>
+      <View style={{ flex: 1 }}>
+        <Text style={styles.promoTitle}>{t('publish.first_listing_free')}</Text>
+        <Text style={styles.promoSubText}>
+          {t('publish.welcome_gift')}
+        </Text>
+      </View>
+    </View>
+  );
+});
+
+const SectionHeader = memo(() => {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.sectionHeadingRow}>
+      <MaterialIcons
+        name="payments"
         size={20}
         color={COLORS.brand.primary}
       />
+      <Text style={styles.sectionHeadingText}>{t('publish.choose_duration')}</Text>
     </View>
-    <View style={{ flex: 1 }}>
-      <Text style={styles.promoTitle}>First Listing Free!</Text>
-      <Text style={styles.promoSubText}>
-        As a welcome gift, your first machine listing is completely free.
-        No payment required.
+  );
+});
+
+const TrustRow = memo(() => {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.trustRow}>
+      <MaterialIcons name="lock" size={14} color={COLORS.textSecondary} />
+      <Text style={styles.trustText}>
+        {t('publish.secure_payment')}
       </Text>
     </View>
-  </View>
-));
+  );
+});
 
-const SectionHeader = memo(() => (
-  <View style={styles.sectionHeadingRow}>
-    <MaterialIcons
-      name="payments"
-      size={20}
-      color={COLORS.brand.primary}
-    />
-    <Text style={styles.sectionHeadingText}>Choose Duration</Text>
-  </View>
-));
-
-const TrustRow = memo(() => (
-  <View style={styles.trustRow}>
-    <MaterialIcons name="lock" size={14} color={COLORS.textSecondary} />
-    <Text style={styles.trustText}>
-      Secure Payment & Instant Activation
-    </Text>
-  </View>
-));
-
-const FeatureItem = memo(({ icon, label }: any) => (
+const FeatureItem = memo(({ icon, label }: IFeatureItemProps) => (
   <View style={styles.featureItem}>
     <MaterialIcons
-      name={icon}
+      name={icon as any}
       size={22}
       color={COLORS.brand.primary}
       style={{ marginRight: 12 }}
@@ -159,88 +166,91 @@ const FeatureItem = memo(({ icon, label }: any) => (
   </View>
 ));
 
-const PlanCard = memo(({ plan, selected, onSelect }: any) => (
-  <TouchableOpacity
-    activeOpacity={0.8}
-    onPress={() => onSelect(plan.id)}
-    style={[
-      styles.planCard,
-      selected && styles.planCardSelected,
-      plan.recommended && { marginTop: 10 },
-    ]}
-  >
-    {plan.recommended && (
-      <View style={styles.recommendedFloatingBadge}>
-        <MaterialIcons name="stars" size={14} color={COLORS.black} />
-        <Text style={styles.recommendedFloatingText}>Recommended</Text>
-      </View>
-    )}
-
-    <View style={styles.planCardContent}>
-      <View style={styles.planCardLeft}>
-        <View
-          style={[
-            styles.customRadio,
-            selected && styles.customRadioActive,
-          ]}
-        >
-          {selected && <View style={styles.customRadioInner} />}
+const PlanCard = memo(({ plan, selected, onSelect }: IPlanCardProps) => {
+  const { t } = useTranslation();
+  return (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => onSelect(plan.id)}
+      style={[
+        styles.planCard,
+        selected && styles.planCardSelected,
+        plan.recommended && { marginTop: 10 },
+      ]}
+    >
+      {plan.recommended && (
+        <View style={styles.recommendedFloatingBadge}>
+          <MaterialIcons name="stars" size={14} color={COLORS.black} />
+          <Text style={styles.recommendedFloatingText}>{t('publish.recommended')}</Text>
         </View>
+      )}
 
-        <View>
-          <View style={styles.planTitleRow}>
-            <Text
-              style={[
-                styles.planTitleText,
-                plan.id === '30days' && { fontSize: 18 },
-              ]}
-            >
-              {plan.title}
-            </Text>
-
-            {plan.badge && (
-              <View style={styles.trialBadge}>
-                <Text style={styles.trialBadgeText}>{plan.badge}</Text>
-              </View>
-            )}
-          </View>
-
-          <Text style={styles.planDurationText}>{plan.duration}</Text>
-        </View>
-      </View>
-
-      <View style={styles.planCardRight}>
-        <Text
-          style={[
-            styles.planPriceText,
-            plan.id === 'free' && { color: COLORS.brand.primary },
-            plan.id === '30days' && { fontSize: 24 },
-          ]}
-        >
-          {plan.price}
-        </Text>
-
-        {plan.oldPrice && (
-          <Text style={styles.oldPriceText}>{plan.oldPrice}</Text>
-        )}
-
-        {plan.valueLabel && (
-          <Text
+      <View style={styles.planCardContent}>
+        <View style={styles.planCardLeft}>
+          <View
             style={[
-              styles.valueLabelText,
-              plan.id === '30days' && {
-                color: COLORS.success,
-                fontWeight: '600',
-              },
+              styles.customRadio,
+              selected && styles.customRadioActive,
             ]}
           >
-            {plan.valueLabel}
+            {selected && <View style={styles.customRadioInner} />}
+          </View>
+
+          <View>
+            <View style={styles.planTitleRow}>
+              <Text
+                style={[
+                  styles.planTitleText,
+                  plan.id === '30days' && { fontSize: 18 },
+                ]}
+              >
+                {plan.title}
+              </Text>
+
+              {plan.badge && (
+                <View style={styles.trialBadge}>
+                  <Text style={styles.trialBadgeText}>{plan.badge}</Text>
+                </View>
+              )}
+            </View>
+
+            <Text style={styles.planDurationText}>{plan.duration}</Text>
+          </View>
+        </View>
+
+        <View style={styles.planCardRight}>
+          <Text
+            style={[
+              styles.planPriceText,
+              plan.id === 'free' && { color: COLORS.brand.primary },
+              plan.id === '30days' && { fontSize: 24 },
+            ]}
+          >
+            {plan.price}
           </Text>
-        )}
+
+          {plan.oldPrice && (
+            <Text style={styles.oldPriceText}>{plan.oldPrice}</Text>
+          )}
+
+          {plan.valueLabel && (
+            <Text
+              style={[
+                styles.valueLabelText,
+                plan.id === '30days' && {
+                  color: COLORS.success,
+                  fontWeight: '600',
+                },
+              ]}
+            >
+              {plan.valueLabel}
+            </Text>
+          )}
+        </View>
       </View>
-    </View>
-  </TouchableOpacity>
-));
+    </TouchableOpacity>
+  );
+});
 
 /* -------------------------------------------------------------------------- */
 /*                                   STYLES                                   */

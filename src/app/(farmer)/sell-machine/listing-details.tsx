@@ -1,17 +1,19 @@
+import { IListing } from '@/src/types/sell-machine/listing-details';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 /* ---------------- MOCK DATA ---------------- */
 
-const LISTING = {
+const LISTING: IListing = {
   title: 'Mahindra Tractor 575 DI',
   location: 'Nashik',
   distance: '12 km',
@@ -25,7 +27,7 @@ const LISTING = {
   analytics: {
     views: 128,
     calls: 14,
-  },  media: [
+  }, media: [
     { uri: 'https://images.unsplash.com/photo-1606813908981-dc4dc9b16f33', type: 'image' },
     { uri: 'https://images.unsplash.com/photo-1598514982205-f0b3b0b1b0b4', type: 'image' },
     {
@@ -44,23 +46,33 @@ const LISTING = {
 };
 
 /* ---------------- SCREEN ---------------- */
-import { FlatList, Dimensions } from 'react-native';
-import { Video } from 'expo-av';
+import { ResizeMode, Video } from 'expo-av';
+import { Dimensions, FlatList } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
+import { useTranslation } from 'react-i18next';
+
 export default function ListingDetailsScreen() {
-    const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useTranslation();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const localizedSpecs = [
+    { icon: 'settings', label: t('sell_machine.specs.model'), value: LISTING.specs[0].value },
+    { icon: 'calendar-today', label: t('sell_machine.specs.year'), value: LISTING.specs[1].value },
+    { icon: 'build', label: t('sell_machine.specs.condition'), value: LISTING.specs[2].value },
+    { icon: 'agriculture', label: t('sell_machine.specs.usage'), value: LISTING.specs[3].value },
+  ];
 
   return (
     <View style={styles.root}>
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.headerBtn}>
+        <TouchableOpacity style={styles.headerBtn} onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} />
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>Listing Details</Text>
+        <Text style={styles.headerTitle}>{t('sell_machine.listing_details')}</Text>
 
         <TouchableOpacity style={styles.headerBtn}>
           <Ionicons name="ellipsis-vertical" size={22} />
@@ -70,91 +82,68 @@ export default function ListingDetailsScreen() {
       {/* SCROLLABLE CONTENT */}
       <ScrollView contentContainerStyle={styles.content}>
 
-        {/* HERO IMAGE */}
-        {/* <View style={styles.hero}>
-          <Image
-            source={{ uri: LISTING.imageUrl }}
-            style={styles.heroImage}
+        {/* HERO CAROUSEL */}
+        <View style={styles.hero}>
+          <FlatList
+            data={LISTING.media}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(_, i) => i.toString()}
+            onMomentumScrollEnd={e => {
+              const index = Math.round(
+                e.nativeEvent.contentOffset.x / width
+              );
+              setActiveIndex(index);
+            }}
+            renderItem={({ item }) => (
+              <View style={{ width }}>
+                {item.type === 'video' ? (
+                  <Video
+                    source={{ uri: item.uri }}
+                    style={styles.heroImage}
+                    resizeMode={ResizeMode.COVER}
+                    useNativeControls
+                    shouldPlay={false}
+                  />
+                ) : (
+                  <Image
+                    source={{ uri: item.uri }}
+                    style={styles.heroImage}
+                  />
+                )}
+
+                {item.type === 'video' && (
+                  <View style={styles.videoOverlay}>
+                    <MaterialIcons
+                      name="play-circle-fill"
+                      size={64}
+                      color="#FFFFFF"
+                    />
+                  </View>
+                )}
+              </View>
+            )}
           />
 
+          {/* LIVE BADGE */}
           {LISTING.isLive && (
             <View style={styles.liveBadge}>
               <View style={styles.liveDotOuter}>
                 <View style={styles.liveDot} />
               </View>
-              <Text style={styles.liveText}>LIVE LISTING</Text>
+              <Text style={styles.liveText}>{t('sell_machine.live_listing')}</Text>
             </View>
           )}
 
+          {/* COUNTER */}
           <View style={styles.photoCounter}>
             <MaterialIcons name="photo-camera" size={14} color="#fff" />
             <Text style={styles.photoText}>
-              1/{LISTING.totalImages}
+              {activeIndex + 1}/{LISTING.media.length}
             </Text>
           </View>
-        </View> */}
-{/* HERO CAROUSEL */}
-<View style={styles.hero}>
-  <FlatList
-    data={LISTING.media}
-    horizontal
-    pagingEnabled
-    showsHorizontalScrollIndicator={false}
-    keyExtractor={(_, i) => i.toString()}
-    onMomentumScrollEnd={e => {
-      const index = Math.round(
-        e.nativeEvent.contentOffset.x / width
-      );
-      setActiveIndex(index);
-    }}
-    renderItem={({ item }) => (
-      <View style={{ width }}>
-        {item.type === 'video' ? (
-          <Video
-            source={{ uri: item.uri }}
-            style={styles.heroImage}
-            resizeMode="cover"
-            useNativeControls
-            shouldPlay={false}
-          />
-        ) : (
-          <Image
-            source={{ uri: item.uri }}
-            style={styles.heroImage}
-          />
-        )}
-
-        {item.type === 'video' && (
-          <View style={styles.videoOverlay}>
-            <MaterialIcons
-              name="play-circle-fill"
-              size={64}
-              color="#FFFFFF"
-            />
-          </View>
-        )}
-      </View>
-    )}
-  />
-
-  {/* LIVE BADGE */}
-  {LISTING.isLive && (
-    <View style={styles.liveBadge}>
-      <View style={styles.liveDotOuter}>
-        <View style={styles.liveDot} />
-      </View>
-      <Text style={styles.liveText}>LIVE LISTING</Text>
-    </View>
-  )}
-
-  {/* COUNTER */}
-  <View style={styles.photoCounter}>
-    <MaterialIcons name="photo-camera" size={14} color="#fff" />
-    <Text style={styles.photoText}>
-      {activeIndex + 1}/{LISTING.media.length}
-    </Text>
-  </View>
-</View>
+        </View>
 
         {/* INFO */}
         <View style={styles.infoWrap}>
@@ -171,7 +160,7 @@ export default function ListingDetailsScreen() {
         {/* RATE CARD */}
         <View style={styles.rateCard}>
           <View>
-            <Text style={styles.rateLabel}>Rate</Text>
+            <Text style={styles.rateLabel}>{t('sell_payment.success.total_paid')}</Text>
             <View style={styles.rateRow}>
               <Text style={styles.rateValue}>₹{LISTING.rate}</Text>
               <Text style={styles.rateUnit}>{LISTING.rateUnit}</Text>
@@ -186,7 +175,7 @@ export default function ListingDetailsScreen() {
         {/* ANALYTICS */}
         <View style={styles.analyticsWrap}>
           <Text style={styles.sectionTitle}>
-            Performance (Last 7 days)
+            {t('sell_machine.performance_7_days')}
           </Text>
 
           <View style={styles.analyticsGrid}>
@@ -197,7 +186,7 @@ export default function ListingDetailsScreen() {
               <Text style={styles.analyticsValue}>
                 {LISTING.analytics.views}
               </Text>
-              <Text style={styles.analyticsLabel}>Total Views</Text>
+              <Text style={styles.analyticsLabel}>{t('sell_machine.total_views')}</Text>
             </View>
 
             <View style={styles.analyticsCard}>
@@ -207,17 +196,17 @@ export default function ListingDetailsScreen() {
               <Text style={styles.analyticsValue}>
                 {LISTING.analytics.calls}
               </Text>
-              <Text style={styles.analyticsLabel}>Calls Received</Text>
+              <Text style={styles.analyticsLabel}>{t('sell_machine.calls_received')}</Text>
             </View>
           </View>
         </View>
 
         {/* SPECS */}
         <View style={styles.specsWrap}>
-          <Text style={styles.sectionTitle}>Machine Specifications</Text>
+          <Text style={styles.sectionTitle}>{t('sell_machine.machine_specs')}</Text>
 
           <View style={styles.specsGrid}>
-            {LISTING.specs.map((s, i) => (
+            {localizedSpecs.map((s, i) => (
               <View key={i} style={styles.specCard}>
                 <View style={styles.specIcon}>
                   <MaterialIcons name={s.icon as any} size={20} />
@@ -233,7 +222,7 @@ export default function ListingDetailsScreen() {
 
         {/* DESCRIPTION */}
         <View style={styles.descWrap}>
-          <Text style={styles.sectionTitle}>Description</Text>
+          <Text style={styles.sectionTitle}>{t('sell_machine.description')}</Text>
           <Text style={styles.descText}>{LISTING.description}</Text>
         </View>
       </ScrollView>
@@ -243,17 +232,17 @@ export default function ListingDetailsScreen() {
         <View style={styles.bottomRow}>
           <TouchableOpacity style={styles.iconAction}>
             <MaterialIcons name="edit" size={22} />
-            <Text style={styles.iconLabel}>Edit</Text>
+            <Text style={styles.iconLabel}>{t('sell_machine.edit')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.iconAction}>
             <MaterialIcons name="bar-chart" size={22} />
-            <Text style={styles.iconLabel}>Analytics</Text>
+            <Text style={styles.iconLabel}>{t('sell_machine.analytics')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.primaryAction}>
             <MaterialIcons name="check-circle" size={20} />
-            <Text style={styles.primaryText}>Mark as Sold</Text>
+            <Text style={styles.primaryText}>{t('sell_machine.mark_as_sold')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -303,15 +292,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5E7EB',
   },
   videoOverlay: {
-  position: 'absolute',
-  top: 0,
-  bottom: 0,
-  left: 0,
-  right: 0,
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'rgba(0,0,0,0.25)',
-},
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.25)',
+  },
 
   heroImage: {
     width: '100%',

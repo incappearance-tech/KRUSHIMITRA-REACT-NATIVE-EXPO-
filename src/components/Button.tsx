@@ -1,45 +1,24 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { COLORS } from '../constants/colors';
 
-/* =======================
-   Types
-   ======================= */
-
-type ButtonType = 'primary' | 'secondary' | 'danger';
-
-type ButtonProps = {
-  label: string;
-  onPress: () => void;
-
-  type?: ButtonType;
-  icon?: keyof typeof MaterialIcons.glyphMap;
-
-  loading?: boolean;
-  disabled?: boolean;
-
-  backgroundColor?: string;
-  textColor?: string;
-  borderColor?: string;
-
-  sticky?: boolean;
-};
+import { IButtonProps, IButtonType } from '@/src/types/components/Button';
 
 /* =======================
    Component
    ======================= */
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<IButtonProps> = ({
   label,
   onPress,
-  type = 'primary',
+  type = 'primary' as IButtonType,
   icon,
 
   loading = false,
@@ -58,8 +37,8 @@ const Button: React.FC<ButtonProps> = ({
     (type === 'danger'
       ? COLORS.danger
       : type === 'secondary'
-      ? COLORS.gray[50]
-      : COLORS.primary[600]);
+        ? COLORS.gray[50]
+        : COLORS.primary[600]);
 
   const txtColor =
     textColor ??
@@ -125,13 +104,13 @@ const styles = StyleSheet.create({
 
   button: {
     height: 56,
-   borderRadius: 14,
+    borderRadius: 14,
     borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    
+
   },
 
   text: {

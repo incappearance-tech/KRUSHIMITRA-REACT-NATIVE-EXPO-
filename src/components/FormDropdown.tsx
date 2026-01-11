@@ -1,10 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  Control,
   Controller,
-  FieldValues,
-  Path,
+  FieldValues
 } from 'react-hook-form';
 import {
   FlatList,
@@ -16,17 +14,7 @@ import {
 } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-type FormDropdownProps<TForm extends FieldValues, TValue extends string> = {
-  control: Control<TForm>;
-  name: Path<TForm>;
-
-  label?: string;
-  placeholder?: string;
-
-  options: TValue[];
-  disabled?: boolean;
-  required?:boolean
-};
+import { IFormDropdownProps } from '@/src/types/components/FormDropdown';
 
 function FormDropdown<TForm extends FieldValues, TValue extends string>({
   control,
@@ -36,7 +24,7 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
   options,
   disabled = false,
   required
-}: FormDropdownProps<TForm, TValue>) {
+}: IFormDropdownProps<TForm, TValue>) {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -47,9 +35,9 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
         <View style={styles.field}>
           {/* Label */}
           {label && <Text style={styles.label}>{label}
-                        {required && <Text style={styles.required}> *</Text>}
-            
-            </Text>}
+            {required && <Text style={styles.required}> *</Text>}
+
+          </Text>}
 
           {/* Input */}
           <TouchableOpacity
@@ -150,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
- label: {
+  label: {
     fontSize: 16,
     marginBottom: 8,
     color: COLORS.text,

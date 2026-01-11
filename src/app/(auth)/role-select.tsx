@@ -1,14 +1,15 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { COLORS } from '../../constants/colors';
-import Button from '@/src/components/Button';
 import BackButton from '@/src/components/BackButton';
+import Button from '@/src/components/Button';
+import { COLORS } from '../../constants/colors';
 
-type Role = 'farmer' | 'labour' | 'transporter';
-type RoleCardProps = {
+type IRole = 'farmer' | 'labour' | 'transporter';
+type IRoleCardProps = {
   data: {
     title: string;
     desc: string;
@@ -23,8 +24,6 @@ type RoleCardProps = {
 const ROLES = [
   {
     key: 'farmer',
-    title: 'Farmer',
-    desc: 'Manage crops, track harvest, and connect with markets.',
     icon: 'agriculture',
     iconBg: COLORS.primary[100],
     iconColor: COLORS.primary[800],
@@ -32,8 +31,6 @@ const ROLES = [
   },
   {
     key: 'labour',
-    title: 'Labour',
-    desc: 'Find daily work, manage schedule, and receive payments.',
     icon: 'engineering',
     iconBg: '#FEF9C3',
     iconColor: '#A16207',
@@ -41,8 +38,6 @@ const ROLES = [
   },
   {
     key: 'transporter',
-    title: 'Transporter',
-    desc: 'Logistics, route planning, and delivery tracking.',
     icon: 'local-shipping',
     iconBg: '#DBEAFE',
     iconColor: '#1D4ED8',
@@ -51,8 +46,9 @@ const ROLES = [
 ] as const;
 
 export default function RoleSelectScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
-  const [role, setRole] = useState<Role>('farmer');
+  const [role, setRole] = useState<IRole>('farmer');
 
   const selectedRole = ROLES.find(r => r.key === role);
 
@@ -60,26 +56,27 @@ export default function RoleSelectScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-      
-<BackButton/>
+        <BackButton />
         <View style={styles.languagePill}>
           <MaterialIcons name="language" size={16} color={COLORS.borderFocus} />
-          <Text style={styles.languageText}>English</Text>
+          <Text style={styles.languageText}>{t('language.english')}</Text>
           <Ionicons name="chevron-down" size={16} color={COLORS.borderFocus} />
         </View>
       </View>
 
       {/* Content */}
       <View style={styles.content}>
-        <Text style={styles.title}>Who are you?</Text>
-        <Text style={styles.subtitle}>
-          Choose your account type to get started with the tailored experience.
-        </Text>
+        <Text style={styles.title}>{t('roles.who_are_you')}</Text>
+        <Text style={styles.subtitle}>{t('roles.role_subtitle')}</Text>
 
         {ROLES.map(item => (
           <RoleCard
             key={item.key}
-            data={item}
+            data={{
+              ...item,
+              title: t(`roles.${item.key}`),
+              desc: t(`roles.${item.key}_desc`),
+            }}
             selected={role === item.key}
             onPress={() => setRole(item.key)}
           />
@@ -87,24 +84,22 @@ export default function RoleSelectScreen() {
       </View>
 
       {/* Footer */}
-      {/* <View> */}
-        <Button
-          label="Continue"
-          icon="arrow-forward"
-          onPress={() => selectedRole && router.push(selectedRole.route)}
-        />
+      <Button
+        label={t('common.continue')}
+        icon="arrow-forward"
+        onPress={() => selectedRole && router.push(selectedRole.route)}
+      />
 
-        <Text style={styles.terms}>
-          By continuing, you agree to our{' '}
-          <Text style={styles.link}>Terms of Service</Text> &{' '}
-          <Text style={styles.link}>Privacy Policy</Text>.
-        </Text>
-      {/* </View> */}
+      <Text style={styles.terms}>
+        {t('roles.agree_terms')}{' '}
+        <Text style={styles.link}>{t('common.terms_service')}</Text> &{' '}
+        <Text style={styles.link}>{t('common.privacy_policy')}</Text>.
+      </Text>
     </View>
   );
 }
 
-function RoleCard({ data, selected, onPress }: RoleCardProps) {
+function RoleCard({ data, selected, onPress }: IRoleCardProps) {
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -131,15 +126,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
+    padding: 24,
   },
-
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // padding: 24,
-    marginBottom:24
+    marginBottom: 24,
   },
-
   languagePill: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -151,45 +144,38 @@ const styles = StyleSheet.create({
     borderColor: COLORS.borderFocus,
     backgroundColor: COLORS.brand.muted,
   },
-
   languageText: {
     fontSize: 13,
     fontWeight: '500',
     color: COLORS.borderFocus,
   },
-
   content: {
     flex: 1,
   },
-
   title: {
     fontSize: 24,
     fontWeight: '700',
     color: COLORS.text,
     marginBottom: 8,
   },
-
   subtitle: {
     fontSize: 14,
     color: COLORS.textSecondary,
     marginBottom: 24,
   },
-
   card: {
     flexDirection: 'row',
-    padding:16,
+    padding: 16,
     borderRadius: 16,
     borderWidth: 2,
     borderColor: COLORS.border,
     backgroundColor: COLORS.white,
     marginBottom: 16,
   },
-
   cardSelected: {
     borderColor: COLORS.brand.primary,
     backgroundColor: COLORS.brand.muted,
   },
-
   iconCircle: {
     height: 48,
     width: 48,
@@ -198,24 +184,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 12,
   },
-
   cardText: {
     flex: 1,
   },
-
   cardTitle: {
     fontSize: 16,
     fontWeight: '700',
     color: COLORS.text,
     marginBottom: 4,
   },
-
   cardDesc: {
     fontSize: 12,
     color: COLORS.textSecondary,
     lineHeight: 16,
   },
-
   radioOuter: {
     height: 22,
     width: 22,
@@ -226,18 +208,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 4,
   },
-
   radioActive: {
     borderColor: COLORS.brand.primary,
   },
-
   radioInner: {
     height: 10,
     width: 10,
     borderRadius: 5,
     backgroundColor: COLORS.brand.primary,
   },
-
   terms: {
     fontSize: 12,
     color: COLORS.textSecondary,
@@ -245,7 +224,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
     lineHeight: 16,
   },
-
   link: {
     color: COLORS.brand.primary,
     fontWeight: '600',

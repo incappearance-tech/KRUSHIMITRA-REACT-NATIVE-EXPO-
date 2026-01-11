@@ -1,6 +1,8 @@
-import Button from '@/src/components/Button';
 import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+import { IBadgeProps, IDetailRowProps } from '@/src/types/sell-machine/payment-success';
 import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { useEffect, useRef } from 'react';
 import {
   Animated,
@@ -13,13 +15,15 @@ import {
   View,
 } from 'react-native';
 import { COLORS } from '../../../constants/colors';
-import { navigate } from 'expo-router/build/global-state/routing';
 
 /* -------------------------------------------------------------------------- */
 /*                                  SCREEN                                    */
 /* -------------------------------------------------------------------------- */
 
+import { useTranslation } from 'react-i18next';
+
 export default function PaymentSuccessScreen() {
+  const { t } = useTranslation();
   // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(20)).current;
@@ -53,12 +57,12 @@ export default function PaymentSuccessScreen() {
         }),
       ])
     ).start();
-  }, []);
+  }, [fadeAnim, slideAnim, pingAnim]);
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <AppBar title="Confirmation" />
+      <AppBar title={t('sell_payment.success.confirmation')} />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -93,24 +97,24 @@ export default function PaymentSuccessScreen() {
             </View>
           </View>
 
-          <Text style={styles.successTitle}>Payment Successful!</Text>
+          <Text style={styles.successTitle}>{t('sell_payment.success.title')}</Text>
           <Text style={styles.successSubtitle}>
-            Thank you! Your payment has been processed successfully.
+            {t('sell_payment.success.subtitle')}
           </Text>
         </Animated.View>
 
         {/* Receipt */}
         <View style={styles.receiptCard}>
           <View style={styles.receiptHeader}>
-            <Text style={styles.receiptLabel}>Total Amount Paid</Text>
+            <Text style={styles.receiptLabel}>{t('sell_payment.success.total_paid')}</Text>
             <Text style={styles.receiptAmount}>₹ 499.00</Text>
           </View>
 
           <View style={styles.receiptBody}>
-            <DetailRow label="Transaction ID" value="#TRX-8923492" mono />
-            <DetailRow label="Date" value="Oct 24, 2024, 10:30 AM" />
+            <DetailRow label={t('sell_payment.success.transaction_id')} value="#TRX-8923492" mono />
+            <DetailRow label={t('dashboard.activity.date')} value="Oct 24, 2024, 10:30 AM" />
             <DetailRow
-              label="Payment Method"
+              label={t('sell_payment.methods.card.title')}
               value="HDFC **** 4582"
               icon="credit-card"
             />
@@ -125,7 +129,7 @@ export default function PaymentSuccessScreen() {
 
         {/* Benefit */}
         <View style={styles.benefitSection}>
-          <Text style={styles.sectionHeader}>UNLOCKED BENEFIT</Text>
+          <Text style={styles.sectionHeader}>{t('sell_payment.success.unlocked_benefit')}</Text>
 
           <View style={styles.benefitCard}>
             <Image
@@ -140,19 +144,19 @@ export default function PaymentSuccessScreen() {
                 John Deere Tractor 5050D
               </Text>
               <Text style={styles.benefitStatus}>
-                Premium Listing - Live for 30 days
+                {t('sell_machine.publish.premium_plan')} - {t('sell_payment.success.status_live')}
               </Text>
 
               <View style={styles.badgeRow}>
                 <Badge
                   icon="calendar-today"
-                  text="Expires Nov 23"
+                  text={t('sell_payment.success.expires_on', { date: 'Nov 23' })}
                   bg="#dcfce7"
                   color="#15803d"
                 />
                 <Badge
                   icon="check-circle"
-                  text="Active"
+                  text={t('sell_payment.success.status_active')}
                   bg={COLORS.brand.muted}
                   color="#051103"
                 />
@@ -164,11 +168,11 @@ export default function PaymentSuccessScreen() {
 
       {/* Footer */}
       <View style={styles.footer}>
-        <Button label="View My Listing" icon="arrow-forward" onPress={() => {}} />
+        <Button label={t('sell_machine.listing_details')} icon="arrow-forward" onPress={() => router.push('/(farmer)/sell-machine/listing-details')} />
         <Button
-          label="Back to Dashboard"
+          label={t('sell_payment.success.back_to_dashboard')}
           type="secondary"
-          onPress={() => navigate("/(farmer)/dashboard")}
+          onPress={() => router.replace("/(farmer)/dashboard")}
         />
       </View>
     </View>
@@ -179,14 +183,8 @@ export default function PaymentSuccessScreen() {
 /*                               HELPERS                                      */
 /* -------------------------------------------------------------------------- */
 
-interface DetailRowProps {
-  label: string;
-  value: string;
-  mono?: boolean;
-  icon?: keyof typeof MaterialIcons.glyphMap;
-}
 
-const DetailRow = ({ label, value, mono, icon }: DetailRowProps) => (
+const DetailRow = ({ label, value, mono, icon }: IDetailRowProps) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
     <View style={styles.detailValueContainer}>
@@ -210,12 +208,7 @@ const Badge = ({
   text,
   bg,
   color,
-}: {
-  icon: keyof typeof MaterialIcons.glyphMap;
-  text: string;
-  bg: string;
-  color: string;
-}) => (
+}: IBadgeProps) => (
   <View style={[styles.badge, { backgroundColor: bg }]}>
     <MaterialIcons name={icon} size={12} color={color} />
     <Text style={[styles.badgeText, { color }]}>{text}</Text>

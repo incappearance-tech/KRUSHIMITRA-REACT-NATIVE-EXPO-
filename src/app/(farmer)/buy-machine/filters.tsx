@@ -2,6 +2,7 @@ import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider'; // IMPT: Requires npx expo install @react-native-community/slider
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
   StyleSheet,
@@ -17,130 +18,83 @@ import { COLORS } from '../../../constants/colors';
 // --- Theme Constants ---
 
 
-// --- TYPES ---
-interface Category {
-  id: string;
-  label: string;
-  icon: keyof typeof MaterialIcons.glyphMap;
-}
+import { ICategory, ICategoryPillsProps, ICondition, IConditionListProps, IDistanceSliderProps, IPriceRangeProps, ISectionTitleProps } from '@/src/types/buy-machine/filters';
 
-interface Condition {
-  id: string;
-  label: string;
-  subLabel: string;
-  icon: keyof typeof MaterialIcons.glyphMap;
-  colorBg: string;
-  colorText: string;
-}
-
-// --- Mock Data ---
-const CATEGORIES: Category[] = [
-  { id: 'tractor', label: 'Tractor', icon: 'agriculture' },
-  { id: 'harvester', label: 'Harvester', icon: 'local-shipping' },
-  { id: 'plow', label: 'Plow', icon: 'grass' },
-  { id: 'seeder', label: 'Seeder', icon: 'spa' },
-  { id: 'trailer', label: 'Trailer', icon: 'rv-hookup' },
-  { id: 'tiller', label: 'Tiller', icon: 'handyman' },
-];
-
-const CONDITIONS: Condition[] = [
-  {
-    id: 'good',
-    label: 'Good',
-    subLabel: 'Minimal wear, ready to work',
-    icon: 'thumb-up',
-    colorBg: COLORS.successLight,
-    colorText: COLORS.successDark,
-  },
-  {
-    id: 'average',
-    label: 'Average',
-    subLabel: 'Normal wear, needs minor fixes',
-    icon: 'handyman',
-    colorBg: COLORS.warningLight,
-    colorText: COLORS.warningDark,
-  },
-  {
-    id: 'poor',
-    label: 'Poor',
-    subLabel: 'Significant repairs required',
-    icon: 'build-circle',
-    colorBg: COLORS.dangerLight,
-    colorText: COLORS.dangerDark,
-  },
-];
 
 // --- Sub-Components ---
 
-const Header = () => (
-  <View style={styles.headerContainer}>
-    <Text style={styles.headerTitle}>Filters</Text>
-    <TouchableOpacity activeOpacity={0.7}>
-      <Text style={styles.resetText}>Reset</Text>
-    </TouchableOpacity>
-  </View>
-);
+const Header = () => {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerTitle}>{t('filters.title')}</Text>
+      <TouchableOpacity activeOpacity={0.7}>
+        <Text style={styles.resetText}>{t('filters.reset')}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
-interface SectionTitleProps {
-  title: string;
-}
 
-const SectionTitle = ({ title }: SectionTitleProps) => (
+const SectionTitle = ({ title }: ISectionTitleProps) => (
   <Text style={styles.sectionTitle}>{title}</Text>
 );
 
-interface CategoryPillsProps {
-  selected: string;
-  onSelect: (id: string) => void;
-}
 
-const CategoryPills = ({ selected, onSelect }: CategoryPillsProps) => (
-  <View style={styles.categoryContainer}>
-    {CATEGORIES.map((cat) => {
-      const isSelected = selected === cat.id;
-      return (
-        <TouchableOpacity
-          key={cat.id}
-          activeOpacity={0.8}
-          onPress={() => onSelect(cat.id)}
-          style={[
-            styles.categoryPill,
-            isSelected ? styles.categoryPillActive : styles.categoryPillInactive,
-          ]}
-        >
-          {isSelected && (
-            <MaterialIcons name={cat.icon} size={20} color={COLORS.black} style={{ marginRight: 6 }} />
-          )}
-          <Text
+const CategoryPills = ({ selected, onSelect }: ICategoryPillsProps) => {
+  const { t } = useTranslation();
+
+  const CATEGORIES: ICategory[] = [
+    { id: 'tractor', label: t('machine_list.tractors'), icon: 'agriculture' },
+    { id: 'harvester', label: t('machine_list.harvesters'), icon: 'local-shipping' },
+    { id: 'plow', label: t('machine_list.plow' as any), icon: 'grass' },
+    { id: 'seeder', label: t('machine_list.seeder' as any), icon: 'spa' },
+    { id: 'trailer', label: t('machine_list.trailer' as any), icon: 'rv-hookup' },
+    { id: 'tiller', label: t('machine_list.tiller' as any), icon: 'handyman' },
+  ];
+
+  return (
+    <View style={styles.categoryContainer}>
+      {CATEGORIES.map((cat) => {
+        const isSelected = selected === cat.id;
+        return (
+          <TouchableOpacity
+            key={cat.id}
+            activeOpacity={0.8}
+            onPress={() => onSelect(cat.id)}
             style={[
-              styles.categoryText,
-              isSelected ? styles.categoryTextActive : styles.categoryTextInactive,
+              styles.categoryPill,
+              isSelected ? styles.categoryPillActive : styles.categoryPillInactive,
             ]}
           >
-            {cat.label}
-          </Text>
-        </TouchableOpacity>
-      );
-    })}
-  </View>
-);
+            {isSelected && (
+              <MaterialIcons name={cat.icon} size={20} color={COLORS.black} style={{ marginLeft: 6 }} />
+            )}
+            <Text
+              style={[
+                styles.categoryText,
+                isSelected ? styles.categoryTextActive : styles.categoryTextInactive,
+              ]}
+            >
+              {cat.label}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </View>
+  );
+};
 
-interface DistanceSliderProps {
-  value: number;
-  onValueChange: (val: number) => void;
-}
 
-const FunctionalDistanceSlider = ({ value, onValueChange }: DistanceSliderProps) => {
+const FunctionalDistanceSlider = ({ value, onValueChange }: IDistanceSliderProps) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.sectionPadding}>
       <View style={styles.flexRowBetween}>
-        <SectionTitle title="Distance" />
-        <Text style={styles.sliderValueText}>Within {Math.round(value)} km</Text>
+        <SectionTitle title={t('filters.distance')} />
+        <Text style={styles.sliderValueText}>{t('filters.within', { distance: Math.round(value) })}</Text>
       </View>
 
-      {/* This is the Functional Slider 
-        Requires: npx expo install @react-native-community/slider
-      */}
       <View style={styles.sliderContainer}>
         <Slider
           style={{ width: '100%', height: 40 }}
@@ -164,17 +118,12 @@ const FunctionalDistanceSlider = ({ value, onValueChange }: DistanceSliderProps)
   );
 };
 
-interface PriceRangeProps {
-  min: string;
-  max: string;
-  setMin: (val: string) => void;
-  setMax: (val: string) => void;
-}
 
-const PriceRange = ({ min, max, setMin, setMax }: PriceRangeProps) => {
+const PriceRange = ({ min, max, setMin, setMax }: IPriceRangeProps) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.sectionPadding}>
-      <SectionTitle title="Price Range" />
+      <SectionTitle title={t('filters.price_range')} />
 
       <View style={styles.priceInputRow}>
         <View style={styles.priceInputWrapper}>
@@ -186,7 +135,7 @@ const PriceRange = ({ min, max, setMin, setMax }: PriceRangeProps) => {
             keyboardType="numeric"
           />
           <View style={styles.floatingLabelContainer}>
-            <Text style={styles.floatingLabel}>MIN</Text>
+            <Text style={styles.floatingLabel}>{t('filters.min' as any)}</Text>
           </View>
         </View>
 
@@ -201,7 +150,7 @@ const PriceRange = ({ min, max, setMin, setMax }: PriceRangeProps) => {
             keyboardType="numeric"
           />
           <View style={styles.floatingLabelContainer}>
-            <Text style={styles.floatingLabel}>MAX</Text>
+            <Text style={styles.floatingLabel}>{t('filters.max' as any)}</Text>
           </View>
         </View>
       </View>
@@ -209,46 +158,73 @@ const PriceRange = ({ min, max, setMin, setMax }: PriceRangeProps) => {
   );
 };
 
-interface ConditionListProps {
-  selected: string;
-  onSelect: (id: string) => void;
-}
 
-const ConditionList = ({ selected, onSelect }: ConditionListProps) => (
-  <View style={styles.sectionPadding}>
-    <SectionTitle title="Condition" />
-    <View style={styles.conditionContainer}>
-      {CONDITIONS.map((item) => {
-        const isSelected = selected === item.id;
-        return (
-          <TouchableOpacity
-            key={item.id}
-            activeOpacity={0.9}
-            onPress={() => onSelect(item.id)}
-            style={[
-              styles.conditionCard,
-              isSelected && styles.conditionCardActive
-            ]}
-          >
-            <View style={styles.conditionContent}>
-              <View style={[styles.iconCircle, { backgroundColor: item.colorBg }]}>
-                <MaterialIcons name={item.icon} size={20} color={item.colorText} />
-              </View>
-              <View style={styles.conditionTextContainer}>
-                <Text style={styles.conditionLabel}>{item.label}</Text>
-                <Text style={styles.conditionSubLabel}>{item.subLabel}</Text>
-              </View>
-            </View>
+const ConditionList = ({ selected, onSelect }: IConditionListProps) => {
+  const { t } = useTranslation();
 
-            <View style={styles.radioOuter}>
-              {isSelected && <View style={styles.radioInner} />}
-            </View>
-          </TouchableOpacity>
-        )
-      })}
+  const CONDITIONS: ICondition[] = [
+    {
+      id: 'good',
+      label: t('filters.good'),
+      subLabel: t('filters.good_desc'),
+      icon: 'thumb-up',
+      colorBg: COLORS.successLight,
+      colorText: COLORS.successDark,
+    },
+    {
+      id: 'average',
+      label: t('filters.average'),
+      subLabel: t('filters.average_desc'),
+      icon: 'handyman',
+      colorBg: COLORS.warningLight,
+      colorText: COLORS.warningDark,
+    },
+    {
+      id: 'poor',
+      label: t('filters.poor'),
+      subLabel: t('filters.poor_desc'),
+      icon: 'build-circle',
+      colorBg: COLORS.dangerLight,
+      colorText: COLORS.dangerDark,
+    },
+  ];
+
+  return (
+    <View style={styles.sectionPadding}>
+      <SectionTitle title={t('filters.condition')} />
+      <View style={styles.conditionContainer}>
+        {CONDITIONS.map((item) => {
+          const isSelected = selected === item.id;
+          return (
+            <TouchableOpacity
+              key={item.id}
+              activeOpacity={0.9}
+              onPress={() => onSelect(item.id)}
+              style={[
+                styles.conditionCard,
+                isSelected && styles.conditionCardActive
+              ]}
+            >
+              <View style={styles.conditionContent}>
+                <View style={[styles.iconCircle, { backgroundColor: item.colorBg }]}>
+                  <MaterialIcons name={item.icon} size={20} color={item.colorText} />
+                </View>
+                <View style={styles.conditionTextContainer}>
+                  <Text style={styles.conditionLabel}>{item.label}</Text>
+                  <Text style={styles.conditionSubLabel}>{item.subLabel}</Text>
+                </View>
+              </View>
+
+              <View style={styles.radioOuter}>
+                {isSelected && <View style={styles.radioInner} />}
+              </View>
+            </TouchableOpacity>
+          )
+        })}
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 const Divider = () => <View style={styles.divider} />;
 
@@ -256,6 +232,7 @@ const Divider = () => <View style={styles.divider} />;
 export default function MachineFiltersScreen() {
   const insets = useSafeAreaInsets();
 
+  const { t } = useTranslation();
   // State
   const [selectedCategory, setSelectedCategory] = useState('tractor');
   const [distance, setDistance] = useState(50); // Default 50km
@@ -281,7 +258,7 @@ export default function MachineFiltersScreen() {
       >
         {/* Category Section */}
         <View style={styles.topSection}>
-          <SectionTitle title="Category" />
+          <SectionTitle title={t('filters.category')} />
           <CategoryPills selected={selectedCategory} onSelect={setSelectedCategory} />
         </View>
 
@@ -308,8 +285,8 @@ export default function MachineFiltersScreen() {
         {/* Negotiable Section */}
         <View style={[styles.sectionPadding, styles.flexRowBetween]}>
           <View>
-            <Text style={styles.sectionTitle}>Negotiable only</Text>
-            <Text style={styles.sectionSubtitle}>Show prices that can be bargained</Text>
+            <Text style={styles.sectionTitle}>{t('filters.negotiable_only')}</Text>
+            <Text style={styles.sectionSubtitle}>{t('filters.negotiable_desc')}</Text>
           </View>
           <Switch
             trackColor={{ false: COLORS.gray[200], true: COLORS.brand.primary }}
@@ -330,7 +307,7 @@ export default function MachineFiltersScreen() {
 
       {/* Fixed Footer */}
       <Button
-        label="Show 24 Machines"
+        label={t('filters.show_machines', { count: 24 })}
         onPress={() => { }}
         icon="arrow-forward"
       />

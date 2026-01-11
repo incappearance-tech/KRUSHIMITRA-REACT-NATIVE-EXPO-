@@ -53,7 +53,7 @@ export default function LanguageScreen() {
       <View style={styles.titleWrap}>
         <Text style={styles.title}>{t('language.title')}</Text>
         <Text style={styles.subtitle}>
-          Choose the language you are most comfortable with.
+          {t('language.select')}
         </Text>
       </View>
 
@@ -103,7 +103,7 @@ export default function LanguageScreen() {
         </TouchableOpacity>
       </View> */}
       <Button
-        label='Continue'
+        label={t('common.continue')}
         onPress={handleContinue}
         icon='arrow-forward'
       />

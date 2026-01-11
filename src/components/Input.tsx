@@ -1,13 +1,7 @@
 import { StyleSheet, TextInput } from 'react-native';
 import { COLORS } from '../constants/colors';
 
-interface InputProps {
-  placeholder: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
-  secureTextEntry?: boolean;
-}
+import { IInputProps } from '@/src/types/components/Input';
 
 export default function Input({
   placeholder,
@@ -15,7 +9,7 @@ export default function Input({
   onChangeText,
   keyboardType = 'default',
   secureTextEntry = false,
-}: InputProps) {
+}: IInputProps) {
   return (
     <TextInput
       style={styles.input}

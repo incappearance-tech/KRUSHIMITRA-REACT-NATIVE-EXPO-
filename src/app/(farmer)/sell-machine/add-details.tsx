@@ -7,13 +7,13 @@ import FormInput from '@/src/components/FormInput';
 import FormSwitch from '@/src/components/FormSwitch';
 import MediaUploader from '@/src/components/MediaUploader';
 import RadioGroup from '@/src/components/RadioGroup';
+import { IMediaItem } from '@/src/types/components/media';
 import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 
 import {
   Alert,
@@ -28,68 +28,13 @@ import {
 import AppBar from '@/src/components/AppBar';
 import { COLORS } from '../../../constants/colors';
 
-/* -------------------------------------------------------------------------- */
-/*                               ZOD SCHEMA                                   */
-/* -------------------------------------------------------------------------- */
-
-const machineSchema = z
-  .object({
-    category: z.string().min(1, 'Category is required'),
-    subCategory: z.string().min(1, 'Sub-category is required'),
-
-    brand: z.string().min(2, 'Brand is required'),
-    model: z.string().min(1, 'Model is required'),
-
-    year: z.string().min(1, 'Year is required'),
-
-    serialNo: z
-      .string()
-      .min(4, 'Enter last 4 digits')
-      .max(4, 'Enter last 4 digits'),
-
-    condition: z.string().min(1, 'Condition is required'),
-
-    sellingReason: z.string().min(1, 'Selling reason is required'),
-
-    usageLevel: z.enum(['light', 'medium', 'heavy']),
-    askingPrice: z.string().min(1, 'Asking price is required'),
-    isNegotiable: z.boolean(),
-    hasRepair: z.boolean(),
-    repairDetails: z.string().optional(),
-
-    availability: z.object({
-      key: z.string(),
-    }),
-
-    selectedDate: z.date().optional(),
-
-    ownershipConfirmed: z.literal(true, {
-      errorMap: () => ({ message: 'You must confirm ownership' }),
-    }),
-  })
-  .superRefine((data, ctx) => {
-    if (data.hasRepair && !data.repairDetails) {
-      ctx.addIssue({
-        path: ['repairDetails'],
-        message: 'Repair details are required',
-        code: z.ZodIssueCode.custom,
-      });
-    }
-  });
-
-/* -------------------------------------------------------------------------- */
-/*                                  SCREEN                                    */
-/* -------------------------------------------------------------------------- */
-
-interface AvailabilityOption {
-  key: string;
-  type?: string;
-  label?: string;
-}
+import { IAvailabilityOption, ISectionHeaderProps, machineSchema } from '@/src/types/sell-machine/add-details';
+import { useState } from 'react';
 
 export default function App() {
-  const [media, setMedia] = useState<string[]>([]);
-  const [availability, setAvailability] = useState<AvailabilityOption>({ key: 'immediately' });
+  const { t } = useTranslation();
+  const [media, setMedia] = useState<IMediaItem[]>([]);
+  const [availability, setAvailability] = useState<IAvailabilityOption>({ key: 'immediately' });
 
   const {
     control,
@@ -113,7 +58,6 @@ export default function App() {
       hasRepair: false,
       repairDetails: '',
       availability: { key: 'immediately' },
-      selectedDate: new Date(),
       ownershipConfirmed: false,
       askingPrice: '',
     },
@@ -123,7 +67,7 @@ export default function App() {
 
   const handleNextStep = handleSubmit((data) => {
     if (media.length < 2) {
-      Alert.alert('Upload Photos', 'Please upload at least 2 photos');
+      Alert.alert(t('sell_machine.photo_alert_title'), t('sell_machine.photo_alert_msg'));
       return;
     }
 
@@ -136,7 +80,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* -------------------- HEADER -------------------- */}
-      <AppBar title="Add Machine Details" />
+      <AppBar title={t('sell_machine.title')} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -148,7 +92,7 @@ export default function App() {
         >
           {/* -------------------- MEDIA -------------------- */}
           <MediaUploader
-            title="Upload Photos"
+            title={t('sell_machine.upload_photos')}
             min={2}
             max={5}
             onChange={setMedia}
@@ -156,57 +100,57 @@ export default function App() {
 
           {/* -------------------- CATEGORY -------------------- */}
           <Card>
-            <SectionHeader icon="category" title="Category" />
+            <SectionHeader icon="category" title={t('sell_machine.category')} />
 
             <FormDropdown
               control={control}
               name="category"
-              label="Category"
-              placeholder="Select Category"
+              label={t('sell_machine.category')}
+              placeholder={t('sell_machine.select_category')}
               options={['Tractor', 'Harvester', 'Implements', 'Seeds']}
             />
 
             <FormDropdown
               control={control}
               name="subCategory"
-              label="Sub-Category"
-              placeholder="Select Sub-Category"
+              label={t('sell_machine.sub_category')}
+              placeholder={t('sell_machine.select_sub_category')}
               options={['4WD', 'Mini Tractor', 'Utility', 'Row Crop']}
             />
           </Card>
 
           {/* -------------------- IDENTITY -------------------- */}
           <Card>
-            <SectionHeader icon="fingerprint" title="Machine Identity" />
+            <SectionHeader icon="fingerprint" title={t('sell_machine.identity_title')} />
 
             <FormInput
               control={control}
               name="brand"
-              label="Brand"
-              placeholder="e.g. Mahindra"
+              label={t('sell_machine.brand')}
+              placeholder={t('sell_machine.brand_placeholder')}
             />
 
             <FormInput
               control={control}
               name="model"
-              label="Model"
-              placeholder="e.g. 575 DI"
+              label={t('sell_machine.model')}
+              placeholder={t('sell_machine.model_placeholder')}
             />
 
             <View>
               <FormDropdown
                 control={control}
                 name="year"
-                label="Year"
-                placeholder="Select"
+                label={t('sell_machine.year')}
+                placeholder={t('sell_machine.select')}
                 options={['2024', '2023', '2022', '2021']}
               />
 
               <FormInput
                 control={control}
                 name="serialNo"
-                label="Serial No (Last 4)"
-                placeholder="XXXX"
+                label={t('sell_machine.serial_no')}
+                placeholder={t('sell_machine.serial_placeholder')}
                 maxLength={4}
               />
             </View>
@@ -214,23 +158,23 @@ export default function App() {
 
           {/* -------------------- USAGE -------------------- */}
           <Card>
-            <SectionHeader icon="build" title="Usage & Condition" />
+            <SectionHeader icon="build" title={t('sell_machine.condition_title')} />
 
             <RadioGroup
-              label="Usage Level"
+              label={t('sell_machine.usage_level')}
               value={watch('usageLevel')}
               onChange={(val) =>
                 setValue('usageLevel', val)
               }
               options={[
-                { label: 'Light', value: 'light' },
-                { label: 'Medium', value: 'medium' },
-                { label: 'Heavy', value: 'heavy' },
+                { label: t('sell_machine.light'), value: 'light' },
+                { label: t('sell_machine.medium'), value: 'medium' },
+                { label: t('sell_machine.heavy'), value: 'heavy' },
               ]}
             />
 
             <View style={styles.rowBetween}>
-              <Text style={styles.labelDark}>Any major repair?</Text>
+              <Text style={styles.labelDark}>{t('sell_machine.any_repair')}</Text>
               <FormSwitch control={control} name="hasRepair" />
             </View>
 
@@ -238,61 +182,61 @@ export default function App() {
               <FormInput
                 control={control}
                 name="repairDetails"
-                label="Repair Details"
-                placeholder="Enter repair details"
+                label={t('sell_machine.repair_details')}
+                placeholder={t('sell_machine.enter_repair_details')}
               />
             )}
 
             <FormDropdown
               control={control}
               name="condition"
-              label="Overall Condition"
-              placeholder="Select"
+              label={t('sell_machine.overall_condition')}
+              placeholder={t('sell_machine.select')}
               options={[
-                'Excellent',
-                'Good - Minor wear',
-                'Fair',
-                'Needs Repair',
+                t('sell_machine.excellent'),
+                t('sell_machine.good_minor_wear'),
+                t('sell_machine.fair'),
+                t('sell_machine.needs_repair'),
               ]}
             />
           </Card>
 
           {/* -------------------- SALES -------------------- */}
           <Card>
-            <SectionHeader icon="sell" title="Sales Details" />
+            <SectionHeader icon="sell" title={t('sell_machine.sales_details')} />
 
             <FormDropdown
               control={control}
               name="sellingReason"
-              label="Reason for Selling"
-              placeholder="Select"
+              label={t('sell_machine.selling_reason')}
+              placeholder={t('sell_machine.select')}
               options={[
-                'Upgrading to new machine',
-                'Need Cash',
-                'Not using anymore',
+                t('sell_machine.upgrading'),
+                t('sell_machine.need_cash'),
+                t('sell_machine.not_using'),
               ]}
             />
             <FormInput
               control={control}
               name="askingPrice"
-              label="Asking Price"
+              label={t('sell_machine.asking_price')}
               placeholder="0"
               keyboardType="numeric"
               leftIcon={<FontAwesome name="rupee" size={18} color="black" />}
             />
 
             <View style={styles.rowBetween}>
-              <Text style={styles.labelDark}>Price negotiable?</Text>
+              <Text style={styles.labelDark}>{t('sell_machine.price_negotiable')}</Text>
               <FormSwitch control={control} name="isNegotiable" />
             </View>
 
             <AvailabilityPicker
-              label="Available From"
+              label={t('sell_machine.available_from')}
               value={availability}
               onChange={setAvailability}
               options={[
-                { type: 'static', key: 'immediately', label: 'Immediately' },
-                { type: 'date', key: 'select_date', label: 'Select Date' },
+                { type: 'static', key: 'immediately', label: t('sell_machine.immediately') },
+                { type: 'date', key: 'select_date', label: t('sell_machine.select_date') },
               ]}
             />
           </Card>
@@ -301,13 +245,13 @@ export default function App() {
           <FormCheckbox
             control={control}
             name="ownershipConfirmed"
-            label="I confirm this machine belongs to me and details are correct."
+            label={t('sell_machine.ownership_confirm')}
           />
         </ScrollView>
       </KeyboardAvoidingView>
 
       {/* -------------------- FOOTER -------------------- */}
-      <Button label="Next Step" onPress={handleNextStep} sticky />
+      <Button label={t('sell_machine.next_step')} onPress={handleNextStep} sticky />
     </View>
   );
 }
@@ -316,12 +260,7 @@ export default function App() {
 /*                               HELPERS                                      */
 /* -------------------------------------------------------------------------- */
 
-interface SectionHeaderProps {
-  icon: keyof typeof MaterialIcons.glyphMap;
-  title: string;
-}
-
-const SectionHeader = ({ icon, title }: SectionHeaderProps) => (
+const SectionHeader = ({ icon, title }: ISectionHeaderProps) => (
   <View style={styles.sectionHeader}>
     <MaterialIcons
       name={icon}

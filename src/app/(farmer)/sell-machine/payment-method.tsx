@@ -1,88 +1,46 @@
-import Button from '@/src/components/Button';
 import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
 import Card from '@/src/components/Card';
 
 import { MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
-import React, { useCallback, useRef, useState } from 'react';
+import { router } from 'expo-router';
+import React, { useCallback, useState } from 'react';
 import {
-  Animated,
   Platform,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { COLORS } from '../../../constants/colors';
 
-/* -------------------------------------------------------------------------- */
-/*                                   TYPES                                    */
-/* -------------------------------------------------------------------------- */
-
-type PaymentMethod = 'upi' | 'card' | 'netbanking';
-
-interface PaymentOptionProps {
-  id: PaymentMethod;
-  icon: keyof typeof MaterialIcons.glyphMap;
-  title: string;
-  subtitle: string;
-  selected: PaymentMethod;
-  onSelect: (id: PaymentMethod) => void;
-}
+import { IPaymentOptionProps, PaymentMethod } from '@/src/types/sell-machine/payment-method';
 
 /* -------------------------------------------------------------------------- */
 /*                                  SCREEN                                    */
 /* -------------------------------------------------------------------------- */
 
+import { useTranslation } from 'react-i18next';
+
 export default function CheckoutScreen() {
+  const { t } = useTranslation();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('upi');
   const [loading, setLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  const scaleAnim = useRef(new Animated.Value(0)).current;
 
   const handlePay = useCallback(() => {
     setLoading(true);
-    navigate('/sell-machine/payment-success');
 
     setTimeout(() => {
       setLoading(false);
-      setIsSuccess(true);
-
-      Animated.spring(scaleAnim, {
-        toValue: 1,
-        tension: 50,
-        friction: 7,
-        useNativeDriver: true,
-      }).start();
+      router.push('/(farmer)/sell-machine/payment-success');
     }, 2000);
   }, []);
 
-  if (isSuccess) {
-    return (
-      <View style={styles.successOverlay}>
-        <StatusBar barStyle="dark-content" />
-        <Animated.View
-          style={[styles.successCircle, { transform: [{ scale: scaleAnim }] }]}
-        >
-          <MaterialIcons
-            name="check-circle"
-            size={100}
-            color={COLORS.brand.primary}
-          />
-        </Animated.View>
-        <Text style={styles.successTitle}>Payment Successful!</Text>
-        <Text style={styles.successSub}>Your listing is now live.</Text>
-        <Button label="Back to Dashboard" onPress={() => setIsSuccess(false)} />
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
-      <AppBar title="Payment Method" />
+      <AppBar title={t('sell_payment.title')} />
 
       <ScrollView
         contentContainerStyle={styles.scrollBody}
@@ -99,32 +57,32 @@ export default function CheckoutScreen() {
           </View>
 
           <View style={styles.summaryContent}>
-            <Text style={styles.summaryLabel}>Total Payable</Text>
+            <Text style={styles.summaryLabel}>{t('sell_payment.total_payable')}</Text>
             <Text style={styles.summaryAmount}>₹ 499.00</Text>
 
             <View style={styles.dashedLine} />
 
             <View style={styles.summaryRow}>
-              <Text style={styles.rowLabel}>Order ID</Text>
+              <Text style={styles.rowLabel}>{t('sell_payment.order_id')}</Text>
               <Text style={styles.rowValue}>#TRAC-882</Text>
             </View>
 
             <View style={styles.summaryRow}>
-              <Text style={styles.rowLabel}>Item</Text>
-              <Text style={styles.rowValue}>Listing Fee (Tractor)</Text>
+              <Text style={styles.rowLabel}>{t('sell_payment.item')}</Text>
+              <Text style={styles.rowValue}>{t('sell_payment.listing_fee_tractor')}</Text>
             </View>
           </View>
         </Card>
 
         {/* Payment Methods */}
-        <Text style={styles.sectionTitle}>Select Payment Method</Text>
+        <Text style={styles.sectionTitle}>{t('sell_payment.select_method')}</Text>
 
         <View style={styles.methodsList}>
           <PaymentOption
             id="upi"
             icon="account-balance-wallet"
-            title="UPI Apps"
-            subtitle="GPay, PhonePe, Paytm"
+            title={t('sell_payment.methods.upi.title')}
+            subtitle={t('sell_payment.methods.upi.subtitle')}
             selected={selectedMethod}
             onSelect={setSelectedMethod}
           />
@@ -132,8 +90,8 @@ export default function CheckoutScreen() {
           <PaymentOption
             id="card"
             icon="credit-card"
-            title="Debit / Credit Card"
-            subtitle="Visa, MasterCard, Rupay"
+            title={t('sell_payment.methods.card.title')}
+            subtitle={t('sell_payment.methods.card.subtitle')}
             selected={selectedMethod}
             onSelect={setSelectedMethod}
           />
@@ -141,8 +99,8 @@ export default function CheckoutScreen() {
           <PaymentOption
             id="netbanking"
             icon="account-balance"
-            title="Net Banking"
-            subtitle="All Indian banks"
+            title={t('sell_payment.methods.netbanking.title')}
+            subtitle={t('sell_payment.methods.netbanking.subtitle')}
             selected={selectedMethod}
             onSelect={setSelectedMethod}
           />
@@ -154,12 +112,12 @@ export default function CheckoutScreen() {
         <View style={styles.securityBadge}>
           <MaterialIcons name="lock" size={14} color={COLORS.success} />
           <Text style={styles.securityText}>
-            100% Secure 256-bit encryption
+            {t('sell_payment.secure_payment')}
           </Text>
         </View>
 
         <Button
-          label="Pay ₹ 499.00"
+          label={t('sell_payment.pay_amount', { amount: '₹ 499.00' })}
           onPress={handlePay}
           loading={loading}
           icon="arrow-forward"
@@ -180,7 +138,7 @@ const PaymentOption = ({
   subtitle,
   selected,
   onSelect,
-}: PaymentOptionProps) => {
+}: IPaymentOptionProps) => {
   const isSelected = selected === id;
 
   return (
@@ -357,27 +315,4 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
 
-  successOverlay: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 40,
-  },
-
-  successCircle: { marginBottom: 20 },
-
-  successTitle: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: COLORS.text,
-    marginBottom: 10,
-  },
-
-  successSub: {
-    fontSize: 16,
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    marginBottom: 40,
-  },
 });

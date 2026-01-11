@@ -2,6 +2,7 @@ import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   FlatList,
   Image,
@@ -14,41 +15,12 @@ import {
 } from 'react-native';
 import { COLORS } from '../../../constants/colors';
 
-/* ---------------------------------------------------------------- */
-/* TYPES */
-/* ---------------------------------------------------------------- */
-interface Category {
-  id: string;
-  label: string;
-  icon: keyof typeof MaterialIcons.glyphMap;
-}
-
-interface Machine {
-  id: string;
-  type: string;
-  title: string;
-  postedTime: string;
-  image: string;
-  condition: string;
-  hours: string;
-  price: string;
-  negotiable: boolean;
-}
+import { ICategory, IFilterTabsProps, IHeaderProps, IMachine, IMachineCardProps } from '@/src/types/buy-machine/list';
 
 /* ---------------------------------------------------------------- */
-/* FILTER CATEGORIES */
+/* MACHINE LIST DATA */
 /* ---------------------------------------------------------------- */
-const CATEGORIES: Category[] = [
-  { id: 'all', label: 'All', icon: 'grid-view' },
-  { id: 'tractor', label: 'Tractors', icon: 'agriculture' },
-  { id: 'harvester', label: 'Harvesters', icon: 'local-shipping' },
-  { id: 'implement', label: 'Implements', icon: 'handyman' },
-];
-
-/* ---------------------------------------------------------------- */
-/* MACHINE LIST */
-/* ---------------------------------------------------------------- */
-const MACHINES: Machine[] = [
+const MACHINES: IMachine[] = [
   {
     id: '1',
     type: 'tractor',
@@ -88,181 +60,168 @@ const MACHINES: Machine[] = [
 ];
 
 /* ---------------------------------------------------------------- */
-/* HEADER */
-/* ---------------------------------------------------------------- */
-interface HeaderProps {
-  search: string;
-  setSearch: (text: string) => void;
-}
-
-const Header = ({ search, setSearch }: HeaderProps) => (
-  <View style={styles.headerContainer}>
-    <View style={styles.headerTop}>
-      <View>
-        <Text style={styles.headerTitle}>Browse Machines</Text>
-        <View style={styles.locationContainer}>
-          <MaterialIcons
-            name="location-on"
-            size={14}
-            color={COLORS.textSecondary}
-          />
-          <Text style={styles.locationText}>
-            Near Rampur Village
-          </Text>
-        </View>
-      </View>
-
-      <TouchableOpacity style={styles.notificationBtn}>
-        <MaterialIcons
-          name="notifications"
-          size={24}
-          color={COLORS.text}
-        />
-        <View style={styles.notificationBadge} />
-      </TouchableOpacity>
-    </View>
-
-    <View style={styles.searchRow}>
-      <View style={styles.searchBarContainer}>
-        <MaterialIcons
-          name="search"
-          size={20}
-          color={COLORS.textSecondary}
-        />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search machines..."
-          placeholderTextColor={COLORS.textSecondary}
-          value={search}
-          onChangeText={setSearch}
-        />
-      </View>
-
-      <TouchableOpacity
-        style={styles.filterBtn}
-        onPress={() => router.push('/buy-machine/filters')}
-      >
-        <MaterialIcons name="tune" size={24} />
-      </TouchableOpacity>
-    </View>
-  </View>
-);
-
-/* ---------------------------------------------------------------- */
-/* FILTER TABS */
-/* ---------------------------------------------------------------- */
-interface FilterTabsProps {
-  activeTab: string;
-  setActiveTab: (id: string) => void;
-}
-
-const FilterTabs = ({ activeTab, setActiveTab }: FilterTabsProps) => (
-  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-    {CATEGORIES.map((cat) => {
-      const active = activeTab === cat.id;
-      return (
-        <TouchableOpacity
-          key={cat.id}
-          onPress={() => setActiveTab(cat.id)}
-          style={[
-            styles.filterChip,
-            active && styles.filterChipActive,
-          ]}
-        >
-          <MaterialIcons
-            name={cat.icon}
-            size={18}
-            color={active ? COLORS.black : COLORS.textSecondary}
-          />
-          <Text
-            style={[
-              styles.filterChipText,
-              active && styles.filterChipTextActive,
-            ]}
-          >
-            {cat.label}
-          </Text>
-        </TouchableOpacity>
-      );
-    })}
-  </ScrollView>
-);
-
-/* ---------------------------------------------------------------- */
-/* MACHINE CARD */
-/* ---------------------------------------------------------------- */
-interface MachineCardProps {
-  item: Machine;
-}
-
-const MachineCard = ({ item }: MachineCardProps) => (
-  <TouchableOpacity
-    style={styles.card}
-    onPress={() => router.push('/buy-machine/details')}
-  >
-    <View style={styles.imageContainer}>
-      <Image source={{ uri: item.image }} style={styles.cardImage} />
-
-      <View style={styles.typeBadge}>
-        <Text style={styles.typeBadgeText}>
-          {item.type}
-        </Text>
-      </View>
-
-      <TouchableOpacity style={styles.heartBtn}>
-        <MaterialIcons
-          name="favorite"
-          size={20}
-          color={COLORS.white}
-        />
-      </TouchableOpacity>
-    </View>
-
-    <View style={styles.cardContent}>
-      <Text style={styles.machineTitle}>
-        {item.title}
-      </Text>
-      <Text style={styles.postedTime}>
-        {item.postedTime}
-      </Text>
-
-      <View style={styles.specsGrid}>
-        <Text style={styles.specText}>
-          {item.condition}
-        </Text>
-        <Text style={styles.specText}>
-          {item.hours}
-        </Text>
-      </View>
-
-      <View style={styles.priceRow}>
-        <Text style={styles.priceText}>
-          {item.price}
-        </Text>
-        {item.negotiable && (
-          <Text style={styles.negotiableText}>
-            NEGOTIABLE
-          </Text>
-        )}
-      </View>
-
-      <Button
-        label="Contact Seller"
-        icon="call"
-        onPress={() => { }}
-        backgroundColor={COLORS.brand.primary}
-        textColor={COLORS.black}
-      />
-    </View>
-  </TouchableOpacity>
-);
-
-/* ---------------------------------------------------------------- */
 /* MAIN SCREEN */
 /* ---------------------------------------------------------------- */
 export default function BrowseMachinesScreen() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<string>('all');
   const [search, setSearch] = useState<string>('');
+
+  const CATEGORIES: ICategory[] = [
+    { id: 'all', label: t('machine_list.all'), icon: 'grid-view' },
+    { id: 'tractor', label: t('machine_list.tractors'), icon: 'agriculture' },
+    { id: 'harvester', label: t('machine_list.harvesters'), icon: 'local-shipping' },
+    { id: 'implement', label: t('machine_list.implements'), icon: 'handyman' },
+  ];
+
+  const Header = ({ search, setSearch }: IHeaderProps) => (
+    <View style={styles.headerContainer}>
+      <View style={styles.headerTop}>
+        <View>
+          <Text style={styles.headerTitle}>{t('machine_list.title')}</Text>
+          <View style={styles.locationContainer}>
+            <MaterialIcons
+              name="location-on"
+              size={14}
+              color={COLORS.textSecondary}
+            />
+            <Text style={styles.locationText}>
+              {t('machine_list.nearby')} Rampur Village
+            </Text>
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.notificationBtn}>
+          <MaterialIcons
+            name="notifications"
+            size={24}
+            color={COLORS.text}
+          />
+          <View style={styles.notificationBadge} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.searchRow}>
+        <View style={styles.searchBarContainer}>
+          <MaterialIcons
+            name="search"
+            size={20}
+            color={COLORS.textSecondary}
+          />
+          <TextInput
+            style={styles.searchInput}
+            placeholder={t('machine_list.search_placeholder')}
+            placeholderTextColor={COLORS.textSecondary}
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={search}
+            onChangeText={setSearch}
+          />
+        </View>
+
+        <TouchableOpacity
+          style={styles.filterBtn}
+          onPress={() => router.push('/buy-machine/filters')}
+        >
+          <MaterialIcons name="tune" size={24} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const FilterTabs = ({ activeTab, setActiveTab }: IFilterTabsProps) => (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {CATEGORIES.map((cat) => {
+        const active = activeTab === cat.id;
+        return (
+          <TouchableOpacity
+            key={cat.id}
+            onPress={() => setActiveTab(cat.id)}
+            style={[
+              styles.filterChip,
+              active && styles.filterChipActive,
+            ]}
+          >
+            <MaterialIcons
+              name={cat.icon}
+              size={18}
+              color={active ? COLORS.black : COLORS.textSecondary}
+            />
+            <Text
+              style={[
+                styles.filterChipText,
+                active && styles.filterChipTextActive,
+              ]}
+            >
+              {cat.label}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </ScrollView>
+  );
+
+  const MachineCard = ({ item }: IMachineCardProps) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => router.push('/buy-machine/details')}
+    >
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: item.image }} style={styles.cardImage} />
+
+        <View style={styles.typeBadge}>
+          <Text style={styles.typeBadgeText}>
+            {CATEGORIES.find(c => c.id === item.type)?.label || item.type}
+          </Text>
+        </View>
+
+        <TouchableOpacity style={styles.heartBtn}>
+          <MaterialIcons
+            name="favorite"
+            size={20}
+            color={COLORS.white}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.cardContent}>
+        <Text style={styles.machineTitle}>
+          {item.title}
+        </Text>
+        <Text style={styles.postedTime}>
+          {item.postedTime}
+        </Text>
+
+        <View style={styles.specsGrid}>
+          <Text style={styles.specText}>
+            {t(`machine_list.${item.condition.toLowerCase().replace(/ /g, '_')}`)}
+          </Text>
+          <Text style={styles.specText}>
+            {item.hours}
+          </Text>
+        </View>
+
+        <View style={styles.priceRow}>
+          <Text style={styles.priceText}>
+            {item.price}
+          </Text>
+          {item.negotiable && (
+            <Text style={styles.negotiableText}>
+              {t('common.negotiable')}
+            </Text>
+          )}
+        </View>
+
+        <Button
+          label={t('common.contact_seller')}
+          icon="call"
+          onPress={() => { }}
+          backgroundColor={COLORS.brand.primary}
+          textColor={COLORS.black}
+        />
+      </View>
+    </TouchableOpacity>
+  );
 
   const filteredData = MACHINES.filter((item) => {
     const matchTab =

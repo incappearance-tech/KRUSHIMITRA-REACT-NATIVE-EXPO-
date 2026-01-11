@@ -1,33 +1,19 @@
+import Button from '@/src/components/Button';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
 import { COLORS } from '../../../constants/colors';
-import Button from '@/src/components/Button';
 
-/* ------------------ DATA ------------------ */
+import { IPlan } from '@/src/types/sell-machine/select-plan';
 
-type Plan = {
-  id: string;
-  title: string;
-  subtitle: string;
-  price: string;
-  recommended?: boolean;
-  featuredIcon?: string;
-  features: {
-    icon: string;
-    text: string;
-    highlight?: boolean;
-  }[];
-};
-
-const PLANS: Plan[] = [
+const PLANS: IPlan[] = [
   {
     id: 'basic',
     title: 'Basic Listing',
@@ -65,18 +51,57 @@ const PLANS: Plan[] = [
 
 /* ------------------ SCREEN ------------------ */
 
+import { useTranslation } from 'react-i18next';
+
 export default function SelectPlanScreen() {
+  const { t } = useTranslation();
   const [selectedPlanId, setSelectedPlanId] = useState('premium');
+
+  const localizedPlans = [
+    {
+      id: 'basic',
+      title: t('publish.plans.basic.title'),
+      subtitle: t('publish.plans.basic.subtitle'),
+      price: 'FREE',
+      features: [
+        { icon: 'check-circle', text: t('publish.plans.basic.features.listing'), highlight: false },
+        { icon: 'calendar-today', text: t('publish.plans.basic.features.validity'), highlight: false },
+      ],
+    },
+    {
+      id: 'standard',
+      title: t('publish.plans.standard.title'),
+      subtitle: t('publish.plans.standard.subtitle'),
+      price: '₹49',
+      features: [
+        { icon: 'visibility', text: t('publish.plans.standard.features.visibility'), highlight: false },
+        { icon: 'calendar-today', text: t('publish.plans.standard.features.validity'), highlight: false },
+      ],
+    },
+    {
+      id: 'premium',
+      title: t('publish.plans.premium.title'),
+      subtitle: t('publish.plans.premium.subtitle'),
+      price: '₹99',
+      recommended: true,
+      featuredIcon: 'stars',
+      features: [
+        { icon: 'verified', text: t('publish.plans.premium.features.featured'), highlight: true },
+        { icon: 'trending-up', text: t('publish.plans.premium.features.priority'), highlight: false },
+        { icon: 'calendar-today', text: t('publish.plans.premium.features.validity'), highlight: false },
+      ],
+    },
+  ];
 
   return (
     <View style={styles.root}>
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.iconBtn}>
+        <TouchableOpacity style={styles.iconBtn} onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#111812" />
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>Select Plan</Text>
+        <Text style={styles.headerTitle}>{t('publish.title')}</Text>
 
         <View style={{ width: 48 }} />
       </View>
@@ -85,15 +110,15 @@ export default function SelectPlanScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         {/* TITLE */}
         <Text style={styles.title}>
-          Choose a plan for your machine listing
+          {t('publish.choose_plan')}
         </Text>
         <Text style={styles.subtitle}>
-          Select how long your machine stays listed on the marketplace.
+          {t('publish.select_duration')}
         </Text>
 
         {/* PLAN CARDS */}
         <View style={styles.planList}>
-          {PLANS.map(plan => {
+          {localizedPlans.map(plan => {
             const selected = selectedPlanId === plan.id;
 
             return (
@@ -110,7 +135,7 @@ export default function SelectPlanScreen() {
                 {/* Recommended badge */}
                 {plan.recommended && (
                   <View style={styles.recommendedBadge}>
-                    <Text style={styles.recommendedText}>Recommended</Text>
+                    <Text style={styles.recommendedText}>{t('publish.recommended')}</Text>
                   </View>
                 )}
 
@@ -173,18 +198,17 @@ export default function SelectPlanScreen() {
         <View style={styles.infoBox}>
           <MaterialIcons name="info-outline" size={20} color="#618968" />
           <Text style={styles.infoText}>
-            By proceeding, you agree to our terms of service. Listings are reviewed
-            within 24 hours. Premium listings get 3x more views on average.
+            {t('publish.terms_info')}
           </Text>
         </View>
       </ScrollView>
 
       {/* FOOTER */}
       <View style={styles.footer}>
-        <View style={styles.footer}>
+        <View style={styles.footerInner}>
           <Button
-            label="Proceed to Payment"
-            onPress={() => navigate("/(farmer)/sell-machine/payment-success")}
+            label={t('publish.proceed_to_pay')}
+            onPress={() => router.push("/(farmer)/sell-machine/payment-method")}
             icon="arrow-forward"
             textColor={COLORS.black}
             backgroundColor={COLORS.brand.primary}
@@ -343,80 +367,84 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-    radioSelected: {
-      backgroundColor: COLORS.brand.primary,
-      borderColor: COLORS.brand.primary,
-    },
+  radioSelected: {
+    backgroundColor: COLORS.brand.primary,
+    borderColor: COLORS.brand.primary,
+  },
 
-    radioDot: {
-      width: 8,
-      height: 8,
-      borderRadius: 4,
-      backgroundColor: '#FFFFFF',
-    },
+  radioDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#FFFFFF',
+  },
 
-    divider: {
-      height: 1,
-      backgroundColor: '#DBE6DD',
-      marginVertical: 12,
-    },
+  divider: {
+    height: 1,
+    backgroundColor: '#DBE6DD',
+    marginVertical: 12,
+  },
 
-    featureRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-      marginBottom: 8,
-    },
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
 
-    featureText: {
-      fontSize: 13,
-      color: '#111812',
-    },
+  featureText: {
+    fontSize: 13,
+    color: '#111812',
+  },
 
-    /* INFO */
-    infoBox: {
-      marginTop: 32,
-      padding: 16,
-      borderRadius: 12,
-      backgroundColor: '#F3F4F6',
-      borderWidth: 1,
-      borderColor: '#E5E7EB',
-      flexDirection: 'row',
-      gap: 12,
-    },
+  /* INFO */
+  infoBox: {
+    marginTop: 32,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: '#F3F4F6',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    flexDirection: 'row',
+    gap: 12,
+  },
 
-    infoText: {
-      fontSize: 12,
-      color: '#618968',
-      lineHeight: 18,
-      flex: 1,
-    },
+  infoText: {
+    fontSize: 12,
+    color: '#618968',
+    lineHeight: 18,
+    flex: 1,
+  },
 
-    /* FOOTER */
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: '#FFFFFF',
-      padding: 16,
-      borderTopWidth: 1,
-      borderColor: '#DBE6DD',
-    },
+  /* FOOTER */
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    borderTopWidth: 1,
+    borderColor: '#DBE6DD',
+  },
 
-    cta: {
-      height: 56,
-      borderRadius: 12,
-      backgroundColor: COLORS.brand.primary,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexDirection: 'row',
-      gap: 10,
-    },
+  footerInner: {
+    paddingBottom: 8,
+  },
 
-    ctaText: {
-      fontSize: 18,
-      fontWeight: '700',
-      color: '#111812',
-    },
-  })
+  cta: {
+    height: 56,
+    borderRadius: 12,
+    backgroundColor: COLORS.brand.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 10,
+  },
+
+  ctaText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#111812',
+  },
+})

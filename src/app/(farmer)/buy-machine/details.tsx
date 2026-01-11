@@ -1,8 +1,9 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
   Image,
@@ -30,6 +31,7 @@ export default function MachineDetailsScreen() {
 
 function MachineDetailsContent() {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -37,7 +39,7 @@ function MachineDetailsContent() {
 
       {/* Floating Header Buttons */}
       <View style={[styles.headerActions, { top: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.iconButton}>
+        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back-ios" size={20} color={COLORS.white} style={{ marginLeft: 5 }} />
         </TouchableOpacity>
         <View style={styles.headerRight}>
@@ -62,7 +64,7 @@ function MachineDetailsContent() {
           />
           <View style={styles.photoCount}>
             <MaterialIcons name="grid-view" size={14} color={COLORS.white} />
-            <Text style={styles.photoCountText}>See All 5 Photos</Text>
+            <Text style={styles.photoCountText}>{t('buy_machine_details.see_photos', { count: 5 })}</Text>
           </View>
         </View>
 
@@ -87,48 +89,48 @@ function MachineDetailsContent() {
           <View style={styles.badgeRow}>
             <View style={styles.verifiedBadge}>
               <MaterialIcons name="verified" size={14} color={COLORS.success} />
-              <Text style={styles.verifiedText}>Verified Listing</Text>
+              <Text style={styles.verifiedText}>{t('buy_machine_details.verified_listing')}</Text>
             </View>
             <Text style={styles.listingId}>ID: #TR-4059</Text>
           </View>
 
           <Text style={styles.title}>John Deere 5050 D</Text>
-          <Text style={styles.location}>Located in Fresno, CA</Text>
+          <Text style={styles.location}>{t('buy_machine_details.located_in', { location: 'Fresno, CA' })}</Text>
           <Text style={styles.price}>$12,500</Text>
 
           {/* Safety Box */}
           <View style={styles.safetyBox}>
             <MaterialIcons name="warning" size={20} color={COLORS.warningDark} />
             <View style={{ flex: 1 }}>
-              <Text style={styles.safetyTitle}>Safety First</Text>
-              <Text style={styles.safetyDesc}>Always inspect the machine physically before making any payment.</Text>
+              <Text style={styles.safetyTitle}>{t('buy_machine_details.safety_first')}</Text>
+              <Text style={styles.safetyDesc}>{t('buy_machine_details.safety_desc')}</Text>
             </View>
           </View>
 
           {/* Specs Grid */}
-          <Text style={styles.sectionHeading}>Machine Details</Text>
+          <Text style={styles.sectionHeading}>{t('buy_machine_details.machine_details')}</Text>
           <View style={styles.specsGrid}>
-            <SpecItem label="Make Year" value="2018" />
-            <SpecItem label="Engine Power" value="50 HP" />
-            <SpecItem label="Hours Used" value="2,500 Hrs" />
-            <SpecItem label="Tyre Condition" value="80% New" />
+            <SpecItem label={t('buy_machine_details.make_year')} value="2018" />
+            <SpecItem label={t('buy_machine_details.engine_power')} value="50 HP" />
+            <SpecItem label={t('buy_machine_details.hours_used')} value="2,500 Hrs" />
+            <SpecItem label={t('buy_machine_details.tyre_condition')} value="80% New" />
           </View>
 
           {/* List Details */}
           <View style={styles.listDetails}>
-            <DetailRow label="Availability" value="Immediate" isGreen />
-            <DetailRow label="RC Available" value="Yes" />
-            <DetailRow label="Insurance" value="Valid till Dec 2024" />
+            <DetailRow label={t('buy_machine_details.availability')} value={t('sell_machine.immediately')} isGreen />
+            <DetailRow label={t('buy_machine_details.rc_available')} value={t('common.success')} />
+            <DetailRow label={t('buy_machine_details.insurance')} value="Valid till Dec 2024" />
           </View>
 
           {/* Selling Reason */}
-          <Text style={styles.subHeading}>Reason for Selling</Text>
+          <Text style={styles.subHeading}>{t('buy_machine_details.selling_reason')}</Text>
           <View style={styles.quoteBox}>
             <Text style={styles.quoteText}>"Upgrading to a higher HP model for new farming equipment."</Text>
           </View>
 
           {/* Seller Profile */}
-          <Text style={styles.sectionHeading}>Seller Profile</Text>
+          <Text style={styles.sectionHeading}>{t('buy_machine_details.seller_profile')}</Text>
           <TouchableOpacity style={styles.sellerCard}>
             <View style={styles.sellerInfo}>
               <Image
@@ -137,7 +139,7 @@ function MachineDetailsContent() {
               />
               <View>
                 <Text style={styles.sellerName}>Robert Miller</Text>
-                <Text style={styles.sellerVillage}>Village: Oakdale</Text>
+                <Text style={styles.sellerVillage}>{t('buy_machine_details.village', { name: 'Oakdale' })}</Text>
                 <View style={styles.ratingBadge}>
                   <MaterialIcons name="star" size={14} color={COLORS.warning} />
                   <Text style={styles.ratingText}>4.8</Text>
@@ -148,7 +150,7 @@ function MachineDetailsContent() {
           </TouchableOpacity>
 
           {/* Location Map Placeholder */}
-          <Text style={styles.sectionHeading}>Location</Text>
+          <Text style={styles.sectionHeading}>{t('buy_machine_details.location_title')}</Text>
           <View style={styles.mapContainer}>
             <View style={styles.mapPlaceholder}>
               <View style={styles.mapMarker}>
@@ -156,22 +158,22 @@ function MachineDetailsContent() {
               </View>
             </View>
           </View>
-          <Text style={styles.mapDisclaimer}>Approximate location shown for safety</Text>
+          <Text style={styles.mapDisclaimer}>{t('buy_machine_details.map_disclaimer')}</Text>
         </View>
       </ScrollView>
 
       {/* Sticky Bottom Footer */}
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
         <View style={styles.footerInfo}>
-          <Text style={styles.contactHidden}>Contact hidden for privacy</Text>
+          <Text style={styles.contactHidden}>{t('buy_machine_details.contact_hidden')}</Text>
           <View style={styles.footerVerified}>
             <MaterialIcons name="shield" size={12} color={COLORS.success} />
-            <Text style={styles.footerVerifiedText}>Verified Seller</Text>
+            <Text style={styles.footerVerifiedText}>{t('buy_machine_details.verified_seller')}</Text>
           </View>
         </View>
         <Button
-          label="Unlock Seller Contact"
-          onPress={() => navigate("/buy-machine/intent")}
+          label={t('buy_machine_details.unlock_contact')}
+          onPress={() => router.push("/buy-machine/intent" as any)}
           icon="lock-open"
           textColor={COLORS.text}
           backgroundColor={COLORS.brand.primary}
@@ -181,16 +183,18 @@ function MachineDetailsContent() {
   );
 }
 
+import { IDetailRowProps, ISpecItemProps } from '@/src/types/buy-machine/details';
+
 // --- Sub-components ---
 
-const SpecItem = ({ label, value }) => (
+const SpecItem = ({ label, value }: ISpecItemProps) => (
   <View style={styles.specBox}>
     <Text style={styles.specLabel}>{label}</Text>
     <Text style={styles.specValue}>{value}</Text>
   </View>
 );
 
-const DetailRow = ({ label, value, isGreen = false }: { label: string, value: string, isGreen?: boolean }) => (
+const DetailRow = ({ label, value, isGreen = false }: IDetailRowProps) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
     <View style={isGreen ? styles.statusBadge : null}>
