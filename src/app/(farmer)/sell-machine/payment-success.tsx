@@ -172,7 +172,7 @@ export default function PaymentSuccessScreen() {
         <Button
           label={t('sell_payment.success.back_to_dashboard')}
           type="secondary"
-          onPress={() => router.replace("/(farmer)/dashboard")}
+          onPress={() => router.replace("/(farmer)/")}
         />
       </View>
     </View>
@@ -220,9 +220,9 @@ const Badge = ({
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal: 16},
 
-  scrollContent: { paddingBottom: 40 },
+  scrollContent: { paddingBottom: 40,  },
 
   successSection: {
     alignItems: 'center',

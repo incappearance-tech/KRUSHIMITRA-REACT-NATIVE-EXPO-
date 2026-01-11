@@ -10,48 +10,8 @@ import {
   View,
 } from 'react-native';
 import { COLORS } from '../../../constants/colors';
-
-import { IPlan } from '@/src/types/sell-machine/select-plan';
-
-const PLANS: IPlan[] = [
-  {
-    id: 'basic',
-    title: 'Basic Listing',
-    subtitle: 'For quick sales',
-    price: 'Free',
-    features: [
-      { icon: 'check-circle', text: '1 machine listing only' },
-      { icon: 'calendar-today', text: 'Valid for 7 days' },
-    ],
-  },
-  {
-    id: 'standard',
-    title: 'Standard Visibility',
-    subtitle: 'Better reach',
-    price: '₹49',
-    features: [
-      { icon: 'visibility', text: 'Standard visibility on search' },
-      { icon: 'calendar-today', text: 'Valid for 15 days' },
-    ],
-  },
-  {
-    id: 'premium',
-    title: 'Maximum Reach',
-    subtitle: 'Best value for money',
-    price: '₹99',
-    recommended: true,
-    featuredIcon: 'stars',
-    features: [
-      { icon: 'verified', text: 'Featured on home page', highlight: true },
-      { icon: 'trending-up', text: 'High priority in search results' },
-      { icon: 'calendar-today', text: 'Valid for 30 days' },
-    ],
-  },
-];
-
-/* ------------------ SCREEN ------------------ */
-
 import { useTranslation } from 'react-i18next';
+import AppBar from '@/src/components/AppBar';
 
 export default function SelectPlanScreen() {
   const { t } = useTranslation();
@@ -96,15 +56,7 @@ export default function SelectPlanScreen() {
   return (
     <View style={styles.root}>
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.iconBtn} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="#111812" />
-        </TouchableOpacity>
-
-        <Text style={styles.headerTitle}>{t('publish.title')}</Text>
-
-        <View style={{ width: 48 }} />
-      </View>
+      <AppBar title={t('publish.title')} />
 
       {/* CONTENT */}
       <ScrollView contentContainerStyle={styles.content}>
@@ -204,17 +156,13 @@ export default function SelectPlanScreen() {
       </ScrollView>
 
       {/* FOOTER */}
-      <View style={styles.footer}>
-        <View style={styles.footerInner}>
+     
           <Button
             label={t('publish.proceed_to_pay')}
             onPress={() => router.push("/(farmer)/sell-machine/payment-method")}
             icon="arrow-forward"
-            textColor={COLORS.black}
-            backgroundColor={COLORS.brand.primary}
           />
-        </View>
-      </View>
+       
     </View>
   );
 }
@@ -224,7 +172,8 @@ export default function SelectPlanScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#F6F8F6',
+    backgroundColor: COLORS.background,
+    paddingHorizontal:16
   },
 
   /* HEADER */
@@ -232,7 +181,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 8,
     backgroundColor: 'rgba(246,248,246,0.95)',
@@ -256,7 +204,6 @@ const styles = StyleSheet.create({
 
   /* CONTENT */
   content: {
-    padding: 16,
     paddingBottom: 140,
   },
 
@@ -417,21 +364,7 @@ const styles = StyleSheet.create({
   },
 
   /* FOOTER */
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderTopWidth: 1,
-    borderColor: '#DBE6DD',
-  },
-
-  footerInner: {
-    paddingBottom: 8,
-  },
-
+ 
   cta: {
     height: 56,
     borderRadius: 12,

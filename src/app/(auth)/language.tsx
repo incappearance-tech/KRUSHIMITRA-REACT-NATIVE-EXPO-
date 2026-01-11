@@ -96,12 +96,6 @@ export default function LanguageScreen() {
       </View>
 
       {/* Sticky Footer Button */}
-      {/* <View style={styles.footer}>
-        <TouchableOpacity style={styles.continueBtn} onPress={handleContinue}>
-          <Text style={styles.continueText}>Continue</Text>
-          <Ionicons name="arrow-forward" size={20} color="#111812" />
-        </TouchableOpacity>
-      </View> */}
       <Button
         label={t('common.continue')}
         onPress={handleContinue}
@@ -112,7 +106,7 @@ export default function LanguageScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal: 16},
 
   headerImage: {
     height: 240,

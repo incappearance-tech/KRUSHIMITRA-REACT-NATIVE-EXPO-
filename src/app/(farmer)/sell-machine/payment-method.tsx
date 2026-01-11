@@ -108,7 +108,7 @@ export default function CheckoutScreen() {
       </ScrollView>
 
       {/* Footer */}
-      <View style={styles.footer}>
+      <View >
         <View style={styles.securityBadge}>
           <MaterialIcons name="lock" size={14} color={COLORS.success} />
           <Text style={styles.securityText}>
@@ -185,9 +185,9 @@ const PaymentOption = ({
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background,paddingHorizontal: 16 },
 
-  scrollBody: { paddingBottom: 150 },
+  scrollBody: { paddingBottom: 150,  },
 
   summaryWatermark: {
     position: 'absolute',
@@ -293,13 +293,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
 
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    backgroundColor: COLORS.background,
-    paddingBottom: Platform.OS === 'ios' ? 40 : 20,
-  },
 
   securityBadge: {
     flexDirection: 'row',

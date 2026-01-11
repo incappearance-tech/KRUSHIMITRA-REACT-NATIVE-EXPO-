@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
+    paddingHorizontal:16
   },
   hiddenInput: {
     position: 'absolute',
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
     gap: 8,
     backgroundColor: COLORS.brand.primary,
     paddingVertical: 16,
-    borderRadius: 18,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },

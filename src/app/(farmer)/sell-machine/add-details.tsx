@@ -251,7 +251,7 @@ export default function App() {
       </KeyboardAvoidingView>
 
       {/* -------------------- FOOTER -------------------- */}
-      <Button label={t('sell_machine.next_step')} onPress={handleNextStep} sticky />
+      <Button label={t('sell_machine.next_step')} onPress={handleNextStep} />
     </View>
   );
 }
@@ -277,7 +277,9 @@ const SectionHeader = ({ icon, title }: ISectionHeaderProps) => (
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background,
+    paddingHorizontal:16
+   },
 
   sectionHeader: {
     flexDirection: 'row',

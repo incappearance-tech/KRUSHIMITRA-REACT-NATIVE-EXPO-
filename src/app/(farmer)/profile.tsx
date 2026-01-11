@@ -48,7 +48,7 @@ export default function FarmerProfileScreen() {
 
   const onSubmit = (data: IFarmerProfileForm) => {
     console.log('VALID DATA', data);
-    router.push('/(farmer)/dashboard');
+    router.replace('/(farmer)/');
   };
 
   const pickImage = async () => {
@@ -142,13 +142,11 @@ export default function FarmerProfileScreen() {
       </KeyboardAwareScrollView>
 
       {/* Fixed Bottom Button */}
-      <View style={styles.footer}>
         <Button
           label={t('common.save_continue')}
           onPress={handleSubmit(onSubmit)}
           icon="arrow-forward"
         />
-      </View>
     </View>
   );
 }
@@ -157,6 +155,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
   },
 
   scrollContent: {
@@ -209,10 +208,4 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#6B7280',
   },
-  footer: {
-    backgroundColor: COLORS.background,
-    padding: 16,
-    borderTopWidth: 1,
-    borderColor: COLORS.border
-  }
 });

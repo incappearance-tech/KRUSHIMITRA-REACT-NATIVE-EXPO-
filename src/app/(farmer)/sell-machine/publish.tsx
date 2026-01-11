@@ -257,7 +257,7 @@ const PlanCard = memo(({ plan, selected, onSelect }: IPlanCardProps) => {
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background, paddingHorizontal:16 },
 
   promoBanner: {
     backgroundColor: COLORS.successLight,

@@ -48,7 +48,7 @@ export default function App() {
       </View>
 
       {/* CONTENT */}
-      <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
         {/* HERO */}
         <View>
           <ImageBackground
@@ -92,15 +92,12 @@ export default function App() {
       </ScrollView>
 
       {/* STICKY FOOTER BUTTON */}
-      <View style={styles.footer}>
         <Button
           label={t('welcome.get_started')}
           onPress={() => router.push('/(auth)/language')}
           sticky
           icon="arrow-forward"
         />
-      </View>
-
     </View>
   );
 }
@@ -111,7 +108,8 @@ const styles = StyleSheet.create({
     maxWidth: 420,
     alignSelf: 'center',
     width: '100%',
-    backgroundColor: COLORS.background
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
   },
   header: {
     flexDirection: 'row',
@@ -192,14 +190,5 @@ const styles = StyleSheet.create({
   benefitDesc: {
     fontSize: 12,
     color: '#6b7280',
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    padding: 16,
-    // backgroundColor: '#f6f8f6',
-    // borderTopWidth: 1,
-    borderColor: '#e5e7eb',
   },
 });
