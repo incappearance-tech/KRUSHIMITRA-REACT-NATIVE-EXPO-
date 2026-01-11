@@ -99,11 +99,11 @@ const styles = StyleSheet.create({
   radioText: {
     fontSize: 14,
     fontWeight: '500',
-    color: COLORS.textSecondary,
+    color: COLORS.black,
   },
 
   radioTextActive: {
-    color: COLORS.black,
+    color: COLORS.white,
     fontWeight: '600',
   },
 });

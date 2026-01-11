@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { COLORS } from '../../constants/colors';
+import BackButton from '@/src/components/BackButton';
 
 const OTP_LENGTH = 4;
 
@@ -86,12 +87,12 @@ export default function OtpScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.backWrap}>
+      {/* <View style={styles.backWrap}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color={COLORS.black} />
         </TouchableOpacity>
-      </View>
-
+      </View> */}
+<BackButton/>
       <View style={styles.main}>
         <View style={styles.iconWrap}>
           <Ionicons name="lock-closed" size={36} color={COLORS.brand.primary} />

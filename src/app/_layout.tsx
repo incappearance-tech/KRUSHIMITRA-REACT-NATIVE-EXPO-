@@ -36,7 +36,7 @@ export default function RootLayout() {
     <LanguageProvider>
       <SafeAreaView style={{ flex: 1,backgroundColor:COLORS.background,paddingLeft:16,paddingRight:16 }}>
         {/* Default system status bar (no overlap) */}
-        <StatusBar style="light" />
+      <StatusBar style="dark" backgroundColor={COLORS.background} />
 
         <Stack
           screenOptions={{

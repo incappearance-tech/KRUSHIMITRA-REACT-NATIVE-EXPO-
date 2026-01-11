@@ -1,12 +1,11 @@
+import AppBar from '@/src/components/AppBar';
 import Button from '@/src/components/Button';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { navigate } from 'expo-router/build/global-state/routing';
 import React, { useState } from 'react';
 import {
   Alert,
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -69,31 +68,9 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
-
+    <View style={styles.container}>
       {/* --- Sticky Header --- */}
-      <View style={styles.appBar}>
-        <View style={styles.appBarTop}>
-          <TouchableOpacity onPress={handleBack} style={styles.iconBtn}>
-            <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
-          </TouchableOpacity>
-          <Text style={styles.appBarTitle}>Select Plan</Text>
-          <TouchableOpacity onPress={handleHelp} style={styles.iconBtn}>
-            <MaterialIcons name="help-outline" size={24} color={COLORS.textSecondary} />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.progressContainer}>
-          <View style={styles.progressLabels}>
-            <Text style={styles.stepText}>Step 3 of 3</Text>
-            <Text style={styles.percentText}>Almost Done</Text>
-          </View>
-          <View style={styles.progressBarBg}>
-            <View style={[styles.progressBarFill, { width: '95%' }]} />
-          </View>
-        </View>
-      </View>
+      <AppBar title="Select Plan" />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -217,7 +194,7 @@ export default function App() {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -230,11 +207,9 @@ const FeatureItem = ({ icon, label }) => (
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
-  appBar: { backgroundColor: 'rgba(246, 248, 246, 0.95)', borderBottomWidth: 1, borderBottomColor: COLORS.border },
   appBarTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 12, paddingTop: 8 },
   iconBtn: { padding: 8, borderRadius: 20 },
-  appBarTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text, textAlign: 'center', flex: 1 },
-  progressContainer: { paddingHorizontal: 16, paddingBottom: 16, marginTop: 4 },
+  progressContainer: { paddingBottom: 16, marginTop: 4 },
   progressLabels: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 },
   stepText: { fontSize: 13, color: COLORS.textSecondary, fontWeight: '500' },
   percentText: { fontSize: 12, color: COLORS.brand.primary, fontWeight: '600' },

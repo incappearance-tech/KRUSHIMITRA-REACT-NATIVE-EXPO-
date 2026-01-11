@@ -5,6 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { COLORS } from '../../constants/colors';
 import Button from '@/src/components/Button';
+import BackButton from '@/src/components/BackButton';
 
 type Role = 'farmer' | 'labour' | 'transporter';
 type RoleCardProps = {
@@ -59,10 +60,8 @@ export default function RoleSelectScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={router.back}>
-          <Ionicons name="arrow-back" size={22} color={COLORS.borderFocus} />
-        </TouchableOpacity>
-
+      
+<BackButton/>
         <View style={styles.languagePill}>
           <MaterialIcons name="language" size={16} color={COLORS.borderFocus} />
           <Text style={styles.languageText}>English</Text>
@@ -139,17 +138,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     // padding: 24,
     marginBottom:24
-  },
-
-  backBtn: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: COLORS.borderFocus,
-    backgroundColor: COLORS.brand.muted,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   languagePill: {
