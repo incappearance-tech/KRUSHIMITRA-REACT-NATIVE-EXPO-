@@ -1,8 +1,9 @@
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ResizeMode, Video } from 'expo-av';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Dimensions,
@@ -18,8 +19,14 @@ import { COLORS } from '../../../constants/colors';
 
 const { width } = Dimensions.get('window');
 
-// --- Theme Constants ---
-
+// --- Mock Data ---
+const MACHINE_MEDIA = [
+  { id: '1', type: 'image', uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=1000' },
+  { id: '2', type: 'video', uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' },
+  { id: '3', type: 'image', uri: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000' },
+  { id: '4', type: 'image', uri: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?q=80&w=1000' },
+  { id: '5', type: 'image', uri: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=1000' },
+];
 
 export default function MachineDetailsScreen() {
   return (
@@ -32,6 +39,10 @@ export default function MachineDetailsScreen() {
 function MachineDetailsContent() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
+  const videoRef = useRef(null);
+  
+  // State for the currently displayed media
+  const [activeMedia, setActiveMedia] = useState(MACHINE_MEDIA[0]);
 
   return (
     <View style={styles.container}>
@@ -56,15 +67,31 @@ function MachineDetailsContent() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 140 }}
       >
-        {/* Main Image & Gallery Label */}
+        {/* Main Media Display */}
         <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=1000' }}
-            style={styles.mainImage}
-          />
+          {activeMedia.type === 'video' ? (
+            <Video
+              ref={videoRef}
+              source={{ uri: activeMedia.uri }}
+              style={styles.mainImage}
+              useNativeControls
+              resizeMode={ResizeMode.COVER}
+              isLooping
+              shouldPlay
+            />
+          ) : (
+            <Image
+              source={{ uri: activeMedia.uri }}
+              style={styles.mainImage}
+            />
+          )}
+          
           <View style={styles.photoCount}>
             <MaterialIcons name="grid-view" size={14} color={COLORS.white} />
-            <Text style={styles.photoCountText}>{t('buy_machine_details.see_photos', { count: 5 })}</Text>
+            <Text style={styles.photoCountText}>
+              {/* This dynamically shows "See all 5 photos" */}
+              {t('buy_machine_details.see_photos', { count: MACHINE_MEDIA.length })}
+            </Text>
           </View>
         </View>
 
@@ -74,13 +101,23 @@ function MachineDetailsContent() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.thumbStrip}
         >
-          <View style={[styles.thumb, styles.thumbActive]}>
-            <Image source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=200' }} style={styles.thumbImg} />
-          </View>
-          {[1, 2, 3, 4].map((i) => (
-            <View key={i} style={styles.thumb}>
-              <View style={styles.thumbPlaceholder} />
-            </View>
+          {MACHINE_MEDIA.map((item) => (
+            <TouchableOpacity 
+              key={item.id} 
+              onPress={() => setActiveMedia(item)}
+              style={[
+                styles.thumb, 
+                activeMedia.id === item.id && styles.thumbActive
+              ]}
+            >
+              {item.type === 'video' ? (
+                <View style={styles.thumbVideoPlaceholder}>
+                  <MaterialIcons name="play-circle-outline" size={24} color={COLORS.white} />
+                </View>
+              ) : (
+                <Image source={{ uri: item.uri }} style={styles.thumbImg} />
+              )}
+            </TouchableOpacity>
           ))}
         </ScrollView>
 
@@ -175,26 +212,21 @@ function MachineDetailsContent() {
           label={t('buy_machine_details.unlock_contact')}
           onPress={() => router.push("/buy-machine/intent" as any)}
           icon="lock-open"
-          textColor={COLORS.text}
-          backgroundColor={COLORS.brand.primary}
         />
       </View>
     </View>
   );
 }
 
-import { IDetailRowProps, ISpecItemProps } from '@/src/types/buy-machine/details';
-
 // --- Sub-components ---
-
-const SpecItem = ({ label, value }: ISpecItemProps) => (
+const SpecItem = ({ label, value }: { label: string; value: string }) => (
   <View style={styles.specBox}>
     <Text style={styles.specLabel}>{label}</Text>
     <Text style={styles.specValue}>{value}</Text>
   </View>
 );
 
-const DetailRow = ({ label, value, isGreen = false }: IDetailRowProps) => (
+const DetailRow = ({ label, value, isGreen = false }: { label: string; value: string; isGreen?: boolean }) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
     <View style={isGreen ? styles.statusBadge : null}>
@@ -220,11 +252,11 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.25)',
+    backgroundColor: 'rgba(0,0,0,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  imageContainer: { width: '100%', height: width * 0.75, backgroundColor: '#ddd' },
+  imageContainer: { width: '100%', height: width * 0.75, backgroundColor: '#000' },
   mainImage: { width: '100%', height: '100%' },
   photoCount: {
     position: 'absolute',
@@ -243,7 +275,13 @@ const styles = StyleSheet.create({
   thumb: { width: 80, height: 64, borderRadius: 8, overflow: 'hidden', backgroundColor: COLORS.gray[200] },
   thumbActive: { borderWidth: 2, borderColor: COLORS.brand.primary },
   thumbImg: { width: '100%', height: '100%' },
-  thumbPlaceholder: { width: '100%', height: '100%', backgroundColor: COLORS.gray[300], opacity: 0.7 },
+  thumbVideoPlaceholder: { 
+    width: '100%', 
+    height: '100%', 
+    backgroundColor: '#333', 
+    alignItems: 'center', 
+    justifyContent: 'center' 
+  },
   contentPadding: { paddingHorizontal: 20 },
   badgeRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
   verifiedBadge: {
@@ -343,5 +381,4 @@ const styles = StyleSheet.create({
   contactHidden: { fontSize: 12, color: COLORS.textSecondary },
   footerVerified: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   footerVerifiedText: { fontSize: 12, fontWeight: '600', color: COLORS.successDark },
-
 });

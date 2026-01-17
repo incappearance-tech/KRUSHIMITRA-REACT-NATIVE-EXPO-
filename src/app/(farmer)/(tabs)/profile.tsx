@@ -4,181 +4,232 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import {
     Image,
+    Pressable,
     ScrollView,
     StyleSheet,
     Text,
-    View
+    View,
 } from "react-native";
 import { COLORS } from "../../../constants/colors";
+import { useLanguage } from "../../../context/LanguageContext";
 
 /**
- * PROFILE TAB
- * Identity, verification, support and settings.
+ * PROFILE TAB - Enhanced Design
+ * Identity verification, settings, wallet, and support.
  */
 
 const user = {
-    name: "Rajesh Kumar",
-    location: "Village Rampur, Dist. Lucknow",
-    farmerId: "XXXX-8921",
-    trustScore: 85,
-    profileImage:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuBoI1aexhIhVEdTBySd1Eh6_onePyb5eegkRmSHmmwVhsbN6BPl4xi2PRDz0oUbUPg03xu2EtiBIOL1U5ayQZe82uSJ0o4DlGVTfvBCsK8XqQ7a-MhBNB9r4PfP9Phl5n6-3-dbPyN0chEN2AW3R3Qa0tP_rKFtlPr7R0VXQJSXejYzDCaLOZksBncFh9HBAL_O9avRUyVNI78t5TaGOL3DsA_y78j6CTBrag9TnzqHIED4ZFiltfc6QG4s6J6yeK5Ok6okJ2tFw8Wv",
+    name: "Suresh Patil",
+    role: "Farmer",
+    farmerId: "****4321",
+    profileImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuASIiOZT_VVAtYP7KlgyW2mTWDQA9n2XQlwMU3pyDqQnGi1f5Yj9XlRDleIzOPz_05DQCISg5BbtrY1ncNrjXCkfYXtTeH9fJoASy7b-1e2flTkvyn_jg3p6BnTmZTzOp5cxmdMXRFDox6QhtNXHXZ7Do8Re50q8DWxfbOBjTYRxiMJ4z0EQcXXJmdDv4hHVCwatlTKDcXLLoPePoNyRn4P31TAUdtQJ7KT1EjCQJo-lSxcKF42ugo6HWiFKv4S5VfijcQSptO1VTop",
+    kycDate: "12 Oct 2023",
+    profileCompleteness: 85,
+    walletBalance: "₹2,450",
+};
+
+const LANGUAGE_NAMES: Record<string, string> = {
+    en: 'English',
+    hi: 'हिंदी',
+    mr: 'मराठी',
 };
 
 export default function ProfileTab() {
     const { t } = useTranslation();
     const router = useRouter();
+    const { currentLanguage } = useLanguage();
 
     return (
         <View style={styles.container}>
+            {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>{t('navigation.profile')}</Text>
-            </View>
+            </View> 
 
             <ScrollView
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
-                {/* PROFILE CARD */}
-                <View style={styles.card}>
-                    <View style={styles.profileRow}>
-                        <View style={styles.avatarWrap}>
-                            <Image source={{ uri: user.profileImage }} style={styles.avatar} />
-                            <View style={styles.verifiedIcon}>
-                                <MaterialIcons name="check" size={12} color={COLORS.white} />
-                            </View>
-                        </View>
-
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.nameRow}>
-                                <Text style={styles.name}>{user.name}</Text>
-                                <View style={styles.verifiedBadge}>
-                                    <Text style={styles.verifiedText}>{t('dashboard.verified')}</Text>
-                                </View>
-                            </View>
-
-                            <View style={styles.locationRow}>
-                                <MaterialIcons name="location-on" size={14} color={COLORS.textSecondary} />
-                                <Text style={styles.location}>{user.location}</Text>
-                            </View>
-
-                            <View style={styles.infoRow}>
-                                <View>
-                                    <Text style={styles.infoLabel}>{t('dashboard.farmer_id')}</Text>
-                                    <Text style={styles.infoMono}>{user.farmerId}</Text>
-                                </View>
-                                <View style={styles.divider} />
-                                <View style={{ alignItems: "flex-end" }}>
-                                    <Text style={styles.infoLabel}>{t('dashboard.trust_score')}</Text>
-                                    <Text style={styles.trustScore}>{user.trustScore}% {t('dashboard.complete')}</Text>
-                                </View>
-                            </View>
-                        </View>
+                {/* Profile Header */}
+                <View style={styles.profileHeader}>
+                    <View style={styles.avatarContainer}>
+                        <Image source={{ uri: user.profileImage }} style={styles.avatar} />
                     </View>
+                    <Text style={styles.userName}>{user.name}</Text>
+                    <Text style={styles.userRole}>{user.role}</Text>
+                    <Text style={styles.farmerId}>Farmer ID: {user.farmerId}</Text>
                 </View>
 
-                {/* SUPPORT & SETTINGS */}
-                <Text style={styles.sectionTitle}>{t('dashboard.support_settings').toUpperCase()}</Text>
+                {/* Section Header */}
+                <Text style={styles.sectionTitle}>Account Settings</Text>
 
-                <SupportItem icon="support-agent" label={t('dashboard.call_support')} />
-                <SupportItem icon="play-circle" label={t('dashboard.how_it_works')} />
-                <SupportItem icon="translate" label={t('dashboard.change_language')} right={t('language.english')} />
+                {/* Menu Items */}
+                <View style={styles.menuList}>
+                    <MenuItem icon="person-outline" label="Edit Profile" onPress={() => router.push('/(farmer)/profile')} />
+                    <MenuItem icon="inventory-2" label="My Listings / Jobs" onPress={() => { }} />
+                    <MenuItem icon="history" label="Transaction History" onPress={() => { }} />
+                    <MenuItem
+                        icon="language"
+                        label="Language Settings"
+                        rightText={LANGUAGE_NAMES[currentLanguage]}
+                        onPress={() => router.push('/(farmer)/language-settings')}
+                    />
+                    <MenuItem icon="help-center" label="Help & Support" onPress={() => { }} />
+                </View>
 
-                <View style={{ marginTop: 24 }}>
-                    <SupportItem icon="logout" label={t('common.logout')} color={COLORS.danger} />
+                {/* Logout Button */}
+                <Pressable style={styles.logoutBtn}>
+                    <MaterialIcons name="logout" size={20} color={COLORS.danger} />
+                    <Text style={styles.logoutText}>Logout</Text>
+                </Pressable>
+
+                {/* Footer */}
+                <View style={styles.footer}>
+                    <Text style={styles.footerVersion}>KrushiMitra App v2.4.1</Text>
+                    <Text style={styles.footerTagline}>Made with ❤️ for Indian Agriculture</Text>
                 </View>
             </ScrollView>
         </View>
     );
 }
 
-const SupportItem = ({ icon, label, right, color = COLORS.success }: any) => (
-    <View style={styles.supportItem}>
-        <View style={[styles.supportIconWrap, { backgroundColor: color + '10' }]}>
-            <MaterialIcons name={icon} size={20} color={color} />
+const MenuItem = ({ icon, label, rightText, onPress }: any) => (
+    <Pressable
+        style={({ pressed }) => [
+            styles.menuItem,
+            pressed && styles.menuItemPressed
+        ]}
+        onPress={onPress}
+    >
+        <View style={styles.menuLeft}>
+            <MaterialIcons name={icon} size={22} color={COLORS.brand.primary} />
+            <Text style={styles.menuLabel}>{label}</Text>
         </View>
-        <Text style={[styles.supportText, color === COLORS.danger && { color: COLORS.danger }]}>{label}</Text>
-        {right && <Text style={styles.supportRight}>{right}</Text>}
-        <MaterialIcons name="chevron-right" size={20} color={COLORS.gray[300]} />
-    </View>
+        <View style={styles.menuRight}>
+            {rightText && <Text style={styles.menuRightText}>{rightText}</Text>}
+            <MaterialIcons name="chevron-right" size={20} color={COLORS.gray[400]} />
+        </View>
+    </Pressable>
 );
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: COLORS.background },
-    scrollContent: { padding: 16, paddingBottom: 40 },
+    scrollContent: { paddingBottom: 30 },
 
+    // Header
     header: {
-        paddingHorizontal: 16,
-        paddingTop: 16,
-        paddingBottom: 8,
-        backgroundColor: COLORS.background,
-    },
-    headerTitle: { fontSize: 24, fontWeight: "800", color: COLORS.text },
-
-    card: {
-        backgroundColor: COLORS.white,
-        marginVertical: 16,
-        padding: 20,
-        borderRadius: 24,
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 15,
-    },
-    profileRow: { flexDirection: "row", gap: 16, alignItems: 'center' },
-    avatarWrap: { position: "relative" },
-    avatar: { width: 80, height: 80, borderRadius: 40, borderWidth: 3, borderColor: COLORS.brand.muted },
-    verifiedIcon: {
-        position: "absolute",
-        bottom: 4,
-        right: 0,
-        backgroundColor: COLORS.brand.primary,
-        padding: 4,
-        borderRadius: 12,
-        borderWidth: 2,
-        borderColor: COLORS.white,
-    },
-    nameRow: { flexDirection: "row", gap: 8, alignItems: 'center' },
-    name: { fontSize: 20, fontWeight: "800", color: COLORS.text },
-    verifiedBadge: {
-        backgroundColor: COLORS.brand.muted,
-        paddingHorizontal: 8,
-        paddingVertical: 2,
-        borderRadius: 8,
-    },
-    verifiedText: { fontSize: 10, fontWeight: "800", color: COLORS.brand.primary },
-    locationRow: { flexDirection: "row", gap: 4, marginTop: 4 },
-    location: { fontSize: 13, color: COLORS.textSecondary },
-    infoRow: {
-        marginTop: 16,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        backgroundColor: COLORS.gray[50],
-        padding: 12,
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: COLORS.gray[100],
-    },
-    infoLabel: { fontSize: 10, color: COLORS.textSecondary, fontWeight: '700' },
-    infoMono: { fontFamily: "monospace", fontSize: 13, fontWeight: '700', color: COLORS.text, marginTop: 2 },
-    trustScore: { color: COLORS.brand.primary, fontWeight: "800", fontSize: 13, marginTop: 2 },
-    divider: { width: 1, backgroundColor: COLORS.gray[200] },
-
-    sectionTitle: { fontSize: 12, fontWeight: "800", color: COLORS.gray[400], letterSpacing: 1, marginBottom: 16, marginTop: 8 },
-
-    supportItem: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 16,
+        justifyContent: "space-between",
+        paddingHorizontal: 16,
+        paddingTop: 16,
+        backgroundColor: COLORS.background,
+    },
+    backBtn: { width: 48, height: 48, justifyContent: 'center' },
+    headerTitle: { fontSize: 18, fontWeight: "700", color: COLORS.text, flex: 1, textAlign: 'center' },
+    settingsBtn: { width: 48, height: 48, justifyContent: 'center', alignItems: 'flex-end' },
+
+    // Profile Header
+    profileHeader: { alignItems: 'center', paddingVertical: 24, paddingHorizontal: 16 },
+    avatarContainer: {
+        width: 128,
+        height: 128,
+        borderRadius: 64,
+        borderWidth: 4,
+        borderColor: COLORS.brand.primary,
+        padding: 4,
+        backgroundColor: COLORS.background,
+        marginBottom: 16,
+    },
+    avatar: { width: '100%', height: '100%', borderRadius: 60 },
+    userName: { fontSize: 24, fontWeight: '800', color: COLORS.text, marginBottom: 4 },
+    userRole: { fontSize: 16, fontWeight: '600', color: COLORS.brand.primary, marginBottom: 2 },
+    farmerId: { fontSize: 13, color: COLORS.textSecondary },
+
+    // Verification Card
+    verificationCard: {
+        marginHorizontal: 16,
+        marginBottom: 24,
+        backgroundColor: COLORS.white,
+        borderRadius: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: COLORS.gray[100],
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 8,
+    },
+    verificationHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 },
+    verificationLeft: { flexDirection: 'row', alignItems: 'center', gap: 12, flex: 1 },
+    iconBadge: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: COLORS.brand.muted,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    verifiedTitle: { fontSize: 15, fontWeight: '700', color: COLORS.text },
+    verifiedSubtitle: { fontSize: 11, color: COLORS.textSecondary, marginTop: 2 },
+    divider: { height: 1, backgroundColor: COLORS.gray[100], marginBottom: 16 },
+
+    // Progress
+    progressSection: { gap: 8 },
+    progressHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+    progressLabel: { fontSize: 13, fontWeight: '500', color: COLORS.text },
+    progressValue: { fontSize: 13, fontWeight: '800', color: COLORS.text },
+    progressBarBg: { height: 8, backgroundColor: COLORS.brand.muted, borderRadius: 4, overflow: 'hidden' },
+    progressBarFill: { height: '100%', backgroundColor: COLORS.brand.primary, borderRadius: 4 },
+    progressHint: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 },
+    progressHintText: { fontSize: 11, fontWeight: '500', color: COLORS.brand.primary },
+
+    // Section
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: '800',
+        color: COLORS.text,
+        paddingHorizontal: 16,
+        marginBottom: 12,
+        marginTop: 8,
+    },
+
+    // Menu
+    menuList: { paddingHorizontal: 16, gap: 8 },
+    menuItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         backgroundColor: COLORS.white,
         padding: 16,
-        borderRadius: 16,
-        marginBottom: 12,
+        borderRadius: 12,
         borderWidth: 1,
         borderColor: COLORS.gray[100],
     },
-    supportIconWrap: { width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-    supportText: { flex: 1, fontWeight: "700", color: COLORS.text, fontSize: 15 },
-    supportRight: { fontSize: 13, color: COLORS.textSecondary, marginRight: 4 },
+    menuItemPressed: { backgroundColor: COLORS.gray[50] },
+    menuLeft: { flexDirection: 'row', alignItems: 'center', gap: 12, flex: 1 },
+    menuLabel: { fontSize: 15, fontWeight: '600', color: COLORS.text },
+    menuRight: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+    menuRightText: { fontSize: 12, fontWeight: '700', color: COLORS.textSecondary },
+
+    // Logout
+    logoutBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        marginHorizontal: 16,
+        marginTop: 32,
+        marginBottom: 24,
+        paddingVertical: 16,
+        borderRadius: 12,
+        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    },
+    logoutText: { fontSize: 16, fontWeight: '700', color: COLORS.danger },
+
+    // Footer
+    footer: { alignItems: 'center', paddingVertical: 16, gap: 4 },
+    footerVersion: { fontSize: 11, fontWeight: '500', color: COLORS.gray[400] },
+    footerTagline: { fontSize: 10, color: COLORS.gray[300] },
 });

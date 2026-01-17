@@ -321,6 +321,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
+    paddingHorizontal:16
   },
   stickyHeader: {
     backgroundColor: 'rgba(246, 248, 246, 0.95)',

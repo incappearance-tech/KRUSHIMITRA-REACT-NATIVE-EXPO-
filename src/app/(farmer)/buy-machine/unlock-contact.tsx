@@ -38,25 +38,17 @@ function ContactContent() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
-
       {/* Top App Bar */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>
-          <MaterialIcons name="arrow-back" size={28} color={COLORS.text} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('contact_success.title')}</Text>
-        <View style={{ width: 48 }} />
-      </View>
+      <AppBar title={t('contact_success.title')}/>
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 40 }]}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 40 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Success Header */}
         <View style={styles.successHeader}>
           <View style={styles.checkCircle}>
-            <MaterialIcons name="check-circle" size={48} color="#15803d" />
+            <MaterialIcons name="check-circle" size={48} color={COLORS.brand.primary} />
           </View>
           <Text style={styles.successTitle}>{t('contact_success.unlocked')}</Text>
           <Text style={styles.successSubtitle}>{t('contact_success.subtitle')}</Text>
@@ -105,16 +97,14 @@ function ContactContent() {
                 label={t('contact_success.call_now')}
                 onPress={handleCall}
                 icon="call"
-                backgroundColor={COLORS.brand.primary}
-                textColor={COLORS.black}
               />
 
               <Button
                 label={t('contact_success.whatsapp')}
                 onPress={handleWhatsApp}
                 backgroundColor="white"
-                borderColor="#25D366"
-                textColor="#25D366"
+                borderColor={COLORS.brand.primary}
+                textColor={COLORS.brand.primary}
                 icon="chat"
               />
             </View>
@@ -154,6 +144,7 @@ function ContactContent() {
 
 // --- Helpers ---
 import { ISafetyItemProps } from '@/src/types/buy-machine/unlock-contact';
+import AppBar from '@/src/components/AppBar';
 
 const SafetyItem = ({ icon, color, text }: ISafetyItemProps) => (
   <View style={styles.safetyItem}>
@@ -164,7 +155,7 @@ const SafetyItem = ({ icon, color, text }: ISafetyItemProps) => (
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal:16},
   header: {
     flexDirection: 'row',
     alignItems: 'center',

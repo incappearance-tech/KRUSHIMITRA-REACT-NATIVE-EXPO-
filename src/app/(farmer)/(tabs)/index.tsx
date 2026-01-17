@@ -22,7 +22,7 @@ export default function HomeTab() {
     const actions = [
         { title: t('farmer.sell_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "sell", link: "/(farmer)/sell-machine/add-details" },
         { title: t('farmer.buy_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "shopping-cart", link: "/(farmer)/buy-machine/list" },
-        { title: t('farmer.rent_out'), subtitle: t('dashboard.quick_actions_sub'), icon: "output", link: "" },
+        { title: t('farmer.rent_out'), subtitle: t('dashboard.quick_actions_sub'), icon: "output", link: "/(farmer)/rent-out/add-machine" },
         { title: t('farmer.rent_in'), subtitle: t('dashboard.quick_actions_sub'), icon: "schedule", link: "" },
         { title: t('farmer.labour'), subtitle: t('dashboard.quick_actions_sub'), icon: "engineering", link: "" },
         { title: t('farmer.transport'), subtitle: t('dashboard.quick_actions_sub'), icon: "local-shipping", link: "" },

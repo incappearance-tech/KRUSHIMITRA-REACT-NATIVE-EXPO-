@@ -75,7 +75,7 @@ export default function BrowseMachinesScreen() {
   ];
 
   const Header = ({ search, setSearch }: IHeaderProps) => (
-    <View style={styles.headerContainer}>
+    <View>
       <View style={styles.headerTop}>
         <View>
           <Text style={styles.headerTitle}>{t('machine_list.title')}</Text>
@@ -246,6 +246,7 @@ export default function BrowseMachinesScreen() {
         data={filteredData}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <MachineCard item={item} />
         )}
@@ -258,14 +259,13 @@ export default function BrowseMachinesScreen() {
 /* STYLES */
 /* ---------------------------------------------------------------- */
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal:16},
 
   stickyHeader: {
     backgroundColor: 'rgba(246,248,246,0.95)',
     zIndex: 10,
   },
 
-  headerContainer: { padding: 16 },
   headerTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '../../../constants/colors';
+import AppBar from '@/src/components/AppBar';
 
 // --- Theme Constants ---
 
@@ -35,28 +36,10 @@ function BuyerIntentContent() {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
-
       {/* Header */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <Text style={styles.headerTitle}>Buyer Intent</Text>
-        <TouchableOpacity style={styles.closeButton}>
-          <MaterialIcons name="close" size={24} color={COLORS.text} />
-        </TouchableOpacity>
-      </View>
-
-      {/* Progress Bar Area */}
-      <View style={styles.progressSection}>
-        <View style={styles.progressTextRow}>
-          <Text style={styles.progressStep}>Final Step</Text>
-          <Text style={styles.progressStatus}>Almost there</Text>
-        </View>
-        <View style={styles.progressBarBg}>
-          <View style={[styles.progressBarFill, { width: '90%' }]} />
-        </View>
-      </View>
+      <AppBar title='Buyer Intent'/>
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 120 }]}
         showsVerticalScrollIndicator={false}
       >
         {/* Question 1: Purpose Grid */}
@@ -121,8 +104,6 @@ function BuyerIntentContent() {
           label="Reveal Seller Contact"
           onPress={() => navigate("/buy-machine/payment")}
           icon="visibility"
-          textColor={COLORS.black}
-          backgroundColor={COLORS.brand.primary}
         />
         <Text style={styles.footerNote}>
           Your response helps sellers respond faster.
@@ -171,7 +152,7 @@ const TimelineOption = ({ id, label, icon, iconColor, iconBg, selected, onSelect
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background,paddingHorizontal:16 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -189,7 +170,6 @@ const styles = StyleSheet.create({
   progressBarBg: { height: 8, width: '100%', backgroundColor: COLORS.border, borderRadius: 4, overflow: 'hidden' },
   progressBarFill: { height: '100%', backgroundColor: COLORS.brand.primary, borderRadius: 4 },
 
-  scrollContent: { padding: 24 },
   section: { marginBottom: 32 },
   mainHeading: { fontSize: 24, fontWeight: '700', color: COLORS.text, marginBottom: 16, lineHeight: 30 },
   subHeading: { fontSize: 18, fontWeight: '700', color: COLORS.text, marginBottom: 16 },

@@ -33,19 +33,12 @@ function UnlockContactContent() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
 
       {/* Top App Bar */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>{t('payment_unlock.title')}</Text>
-        <View style={{ width: 40 }} />
-      </View>
+      <AppBar title={t('payment_unlock.title')}/>
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 120 }]}
+        contentContainerStyle={ { paddingBottom: insets.bottom + 120 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Machine Info Card */}
@@ -73,7 +66,7 @@ function UnlockContactContent() {
           <Text style={styles.priceLabel}>{t('payment_unlock.unlock_fee')}</Text>
           <Text style={styles.priceAmount}>₹29</Text>
           <View style={styles.oneTimeBadge}>
-            <MaterialIcons name="verified" size={14} color="#16a34a" />
+            <MaterialIcons name="verified" size={14} color={COLORS.brand.primary} />
             <Text style={styles.oneTimeText}>{t('payment_unlock.one_time')}</Text>
           </View>
         </View>
@@ -104,23 +97,10 @@ function UnlockContactContent() {
             icon="verified-user"
             title={t('payment_unlock.verified_seller')}
             desc={t('payment_unlock.verified_desc', { name: 'Ramesh Kumar' })}
-            color="#16a34a"
+            color={COLORS.brand.primary}
             bg={COLORS.brand.muted}
           />
-        </View>
-
-        {/* Payment Method Selector */}
-        <Text style={styles.sectionLabel}>{t('payment_unlock.payment_method')}</Text>
-        <TouchableOpacity style={styles.paymentMethod} activeOpacity={0.9}>
-          <View style={styles.row}>
-            <MaterialIcons name="account-balance-wallet" size={22} color={COLORS.brand.primary} />
-            <Text style={styles.paymentMethodText}>{t('payment_unlock.upi_wallet')}</Text>
-          </View>
-          <View style={styles.radioSelectedOuter}>
-            <View style={styles.radioSelectedInner} />
-          </View>
-        </TouchableOpacity>
-
+        </View> 
       </ScrollView>
 
       {/* Sticky Bottom Footer */}
@@ -129,8 +109,6 @@ function UnlockContactContent() {
           label={t('payment_unlock.pay_unlock', { price: '₹29' })}
           onPress={() => router.push("/buy-machine/unlock-contact")}
           icon="lock-open"
-          backgroundColor={COLORS.brand.primary}
-          textColor={COLORS.black}
         />
         <View style={styles.secureRow}>
           <MaterialIcons name="lock" size={14} color={COLORS.textSecondary} />
@@ -143,6 +121,7 @@ function UnlockContactContent() {
 
 // --- Helper Components ---
 import { IRuleItemProps } from '@/src/types/buy-machine/payment';
+import AppBar from '@/src/components/AppBar';
 
 const RuleItem = ({ icon, title, desc, color, bg }: IRuleItemProps) => (
   <View style={styles.ruleItem}>
@@ -158,7 +137,7 @@ const RuleItem = ({ icon, title, desc, color, bg }: IRuleItemProps) => (
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal:16},
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -172,7 +151,6 @@ const styles = StyleSheet.create({
   backButton: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
   headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },
 
-  scrollContent: { padding: 16 },
   sectionLabel: {
     fontSize: 12,
     fontWeight: '700',
@@ -207,13 +185,15 @@ const styles = StyleSheet.create({
   oneTimeBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0fdf4',
+    backgroundColor: COLORS.brand.muted,
+    borderColor: COLORS.brand.primary,
+    borderWidth: 1,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 20,
     gap: 4
   },
-  oneTimeText: { fontSize: 12, fontWeight: '700', color: '#16a34a' },
+  oneTimeText: { fontSize: 12, fontWeight: '700', color: COLORS.brand.primary },
 
   warningBox: {
     backgroundColor: COLORS.warningLight,
