@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
+import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+import FormInput from '@/src/components/FormInput';
+import { ProgressStep } from '@/src/components/ProgressStep';
+import { COLORS } from '@/src/constants/colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import { router, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  StatusBar,
-  TextInput,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { ProgressStep } from '@/src/components/ProgressStep';
-import { navigate } from 'expo-router/build/global-state/routing';
-import App from '../..';
-import AppBar from '@/src/components/AppBar';
-import { COLORS } from '@/src/constants/colors';
-import Button from '@/src/components/Button';
-import { Form, useForm } from 'react-hook-form';
-import FormInput from '@/src/components/FormInput';
+import { MOCK_RENTAL_MACHINES } from './data';
 
 const PreferencesScreen = ({ navigation }: any) => {
   const [availabilityType, setAvailabilityType] = useState('machine-only');
@@ -28,24 +25,38 @@ const PreferencesScreen = ({ navigation }: any) => {
   const [minReq, setMinReq] = useState('');
 
   const estimatedEarnings = rentAmount ? (parseFloat(rentAmount) * 8).toFixed(2) : '0.00';
-const { control } = useForm({
-  defaultValues: {
-    rentAmount: '',
-    minRequirement: '',
-  }
-});
+  const { id } = useLocalSearchParams();
+  const isEditMode = !!id;
+
+  const { control, setValue } = useForm({
+    defaultValues: {
+      rentAmount: '',
+      minRequirement: '',
+    }
+  });
+
+  useEffect(() => {
+    if (isEditMode && id) {
+      const machine = MOCK_RENTAL_MACHINES.find(m => m.id === id);
+      if (machine) {
+        if (machine.price) setValue('rentAmount', machine.price);
+        if (machine.period === 'Day') setPriceType('per_day');
+        if (machine.period === 'Hour') setPriceType('per_hour');
+      }
+    }
+  }, [id, isEditMode, setValue]);
   return (
     <View style={styles.safeArea}>
-      
-      {/* Header */}
-     <AppBar title="Rental Preferences" />
 
-      <KeyboardAvoidingView 
+      {/* Header */}
+      <AppBar title="Rental Preferences" />
+
+      <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-          
+
           <ProgressStep currentStep={2} totalSteps={3} label="Rental Preferences" />
 
           {/* Availability Type Section */}
@@ -55,11 +66,11 @@ const { control } = useForm({
             </Text>
 
             {/* Machine Only Option */}
-            <TouchableOpacity 
+            <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => setAvailabilityType('machine-only')}
               style={[
-                styles.optionCard, 
+                styles.optionCard,
                 availabilityType === 'machine-only' && styles.optionCardActive
               ]}
             >
@@ -76,11 +87,11 @@ const { control } = useForm({
             </TouchableOpacity>
 
             {/* Machine + Operator Option */}
-            <TouchableOpacity 
+            <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => setAvailabilityType('with-operator')}
               style={[
-                styles.optionCard, 
+                styles.optionCard,
                 availabilityType === 'with-operator' && styles.optionCardActive
               ]}
             >
@@ -90,7 +101,7 @@ const { control } = useForm({
               <View style={styles.optionTextContainer}>
                 <Text style={styles.optionLabel}>Machine + Operator</Text>
                 <Text style={styles.optionSubLabel}>You provide the machine along with an operator.</Text>
-                
+
                 <View style={styles.infoBox}>
                   <MaterialIcons name="info" size={16} color="#15803d" />
                   <Text style={styles.infoText}>
@@ -115,13 +126,13 @@ const { control } = useForm({
 
             {/* Price Type Switcher */}
             <View style={styles.toggleContainer}>
-              <TouchableOpacity 
+              <TouchableOpacity
                 onPress={() => setPriceType('per_hour')}
                 style={[styles.toggleBtn, priceType === 'per_hour' && styles.toggleBtnActive]}
               >
                 <Text style={[styles.toggleText, priceType === 'per_hour' && styles.toggleTextActive]}>Per Hour</Text>
               </TouchableOpacity>
-              <TouchableOpacity 
+              <TouchableOpacity
                 onPress={() => setPriceType('per_day')}
                 style={[styles.toggleBtn, priceType === 'per_day' && styles.toggleBtnActive]}
               >
@@ -154,14 +165,14 @@ const { control } = useForm({
               keyboardType="decimal-pad"
             />
 
-          
+
             {/* Earnings Calculation */}
             <View style={styles.earningsCard}>
               <MaterialIcons name="info" size={20} color="#37ec13" />
               <View style={{ flex: 1 }}>
                 <Text style={styles.earningsTitle}>Estimated Earnings</Text>
                 <Text style={styles.earningsSub}>
-                  Based on an 8-hour shift, you could earn roughly 
+                  Based on an 8-hour shift, you could earn roughly
                   <Text style={{ fontWeight: 'bold', color: '#0f172a' }}> ${estimatedEarnings}</Text> per day.
                 </Text>
               </View>
@@ -171,25 +182,25 @@ const { control } = useForm({
       </KeyboardAvoidingView>
 
       {/* Footer */}
-      
+
       <Button
-      label='Next'
-      onPress={() => navigate('/rent-out/availability')}
+        label='Next'
+        onPress={() => router.push({ pathname: '/(farmer)/rent-out/availability', params: { id: id as string } })}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal: 16,},
+  safeArea: { flex: 1, backgroundColor: COLORS.background, paddingHorizontal: 16, },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#f1f5f9' },
   headerTitle: { fontSize: 18, fontWeight: '700', color: '#0f172a' },
   iconButton: { padding: 4 },
   scrollContent: { paddingBottom: 120 },
-  section: {  marginTop: 16 },
+  section: { marginTop: 16 },
   sectionTitle: { fontSize: 18, fontWeight: '700', color: '#0f172a', marginBottom: 16 },
   divider: { height: 1, backgroundColor: '#e2e8f0', marginHorizontal: 16, marginTop: 24 },
-  
+
   // Option Cards
   optionCard: { flexDirection: 'row', gap: 12, padding: 16, backgroundColor: '#fff', borderRadius: 16, borderWidth: 2, borderColor: '#f1f5f9', marginBottom: 12 },
   optionCardActive: { borderColor: '#37ec13', backgroundColor: 'rgba(55, 236, 19, 0.05)' },
@@ -197,7 +208,7 @@ const styles = StyleSheet.create({
   optionTextContainer: { flex: 1 },
   optionLabel: { fontSize: 16, fontWeight: '700', color: '#0f172a' },
   optionSubLabel: { fontSize: 13, color: '#64748b', marginTop: 4, lineHeight: 18 },
-  
+
   radio: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, borderColor: '#cbd5e1', alignItems: 'center', justifyContent: 'center' },
   radioActive: { borderColor: '#37ec13', backgroundColor: '#37ec13' },
   radioInner: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#fff' },

@@ -11,7 +11,7 @@ import { IMediaItem } from '@/src/types/components/media';
 import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -29,19 +29,24 @@ import AppBar from '@/src/components/AppBar';
 import { COLORS } from '../../../constants/colors';
 
 import { IAvailabilityOption, ISectionHeaderProps, machineSchema } from '@/src/types/sell-machine/add-details';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { MOCK_MACHINES } from './data';
 
 export default function App() {
   const { t } = useTranslation();
   const [media, setMedia] = useState<IMediaItem[]>([]);
   const [availability, setAvailability] = useState<IAvailabilityOption>({ key: 'immediately' });
 
+  const { id } = useLocalSearchParams();
+  const isEditMode = !!id;
+
   const {
     control,
     watch,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
+    reset
   } = useForm({
     resolver: zodResolver(machineSchema),
     defaultValues: {
@@ -63,6 +68,40 @@ export default function App() {
     },
   });
 
+  useEffect(() => {
+    if (isEditMode && id) {
+      const machine = MOCK_MACHINES.find(m => m.id === id);
+      if (machine) {
+        // Populating form fields
+        reset({
+          category: machine.category,
+          subCategory: machine.subCategory,
+          brand: machine.brand,
+          model: machine.model,
+          year: machine.year,
+          serialNo: machine.serialNo,
+          condition: machine.condition,
+          sellingReason: machine.sellingReason,
+          usageLevel: machine.usageLevel as 'light' | 'medium' | 'heavy',
+          isNegotiable: machine.isNegotiable,
+          hasRepair: machine.hasRepair,
+          repairDetails: machine.repairDetails,
+          availability: machine.availability as { key: string }, // Schema expects { key: string }
+          ownershipConfirmed: machine.ownershipConfirmed,
+          askingPrice: machine.askingPrice,
+        });
+
+        // Updating local state (media & availability)
+        if (machine.media) {
+          setMedia(machine.media as IMediaItem[]);
+        }
+        if (machine.availability) {
+          setAvailability(machine.availability as IAvailabilityOption);
+        }
+      }
+    }
+  }, [id, isEditMode, reset]);
+
   /* ------------------------------- SUBMIT -------------------------------- */
 
   const handleNextStep = handleSubmit((data) => {
@@ -80,7 +119,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* -------------------- HEADER -------------------- */}
-      <AppBar title={t('sell_machine.title')} />
+      <AppBar title={isEditMode ? t('sell_machine.edit_title', 'Edit Machine') : t('sell_machine.title')} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -251,7 +290,7 @@ export default function App() {
       </KeyboardAvoidingView>
 
       {/* -------------------- FOOTER -------------------- */}
-      <Button label={t('sell_machine.next_step')} onPress={handleNextStep} />
+      <Button label={isEditMode ? t('sell_machine.update', 'Update Machine') : t('sell_machine.next_step')} onPress={handleNextStep} />
     </View>
   );
 }
@@ -277,9 +316,10 @@ const SectionHeader = ({ icon, title }: ISectionHeaderProps) => (
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background,
-    paddingHorizontal:16
-   },
+  container: {
+    flex: 1, backgroundColor: COLORS.background,
+    paddingHorizontal: 16
+  },
 
   sectionHeader: {
     flexDirection: 'row',

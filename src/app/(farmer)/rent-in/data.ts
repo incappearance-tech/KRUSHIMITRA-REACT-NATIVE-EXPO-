@@ -1,0 +1,53 @@
+export const RENTAL_MACHINES = [
+    {
+        id: '1',
+        name: 'John Deere 5050D',
+        type: 'Tractor',
+        owner: 'Rajesh Kumar',
+        location: 'Rampur',
+        distance: '2.5 km',
+        rating: 4.8,
+        pricePerHour: 15,
+        pricePerDay: 120,
+        availability: 'Available Now',
+        minDuration: 'Min. 4 Hours',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBOksPzLzg-ceRutUIWdIQYalaJAutem25bcQHUthK-1_M6NcwIz9L00xNxHaxrYyREK_TsS8MZvyoGxUfmN_aCLNEpGm0kDQkpR8PZoIDBLq9iXRJAnztHdSY1BjLEKFegyo2hN7HHXD5W7sN6EL9AVTNBxRPyj0N0ePBWgdncqo0YF2yF9E2-Vay_TyltuuiERKcapN6bHcRt2s-0GLWNP5r90p-GiTtEkZDp3BqUiT2v6FNcBM3QbA5wLhmdUE-LzX9tNq_KQ1PP',
+        category: 'Tractor',
+        addons: [],
+        operator: true // Assuming default or not specified explicitly in card but implied by price/context
+    },
+    {
+        id: '2',
+        name: 'Kubota DC-70G',
+        type: 'Harvester',
+        owner: 'Amit Singh',
+        location: 'Kherli',
+        distance: '12 km',
+        rating: 4.5,
+        pricePerHour: 45,
+        pricePerDay: null, // Card only showed /hour
+        availability: 'Oct 15 - Nov 20',
+        minDuration: 'Min. 1 Day',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCh9v7vbRf5oVqKkIfxyd0JKxIdSQ32bK3jDO09EoLtDt4ETX6UNtjNDUguXPGQlPJ_DiYtnbUMPHrRrOf-PORCs7lKytwE5a203ub33b9_NNkvpO2nVRSoij_VvJ0vypsWoT_v1maB8_q5MdfDlw10ZiOufEzE9yLEq3I7ht7TYlWCU2bHC5BBOOhmXTmouH2lPL5AeXs-VpQ-y6HhxKcqNN-U7gaee4OYn7SyZpLHEmqZxY2adEcrMDwHtj0m85tFbJuCcve3Pc7J',
+        category: 'Harvester',
+        addons: ['With operator'],
+        operator: true
+    },
+    {
+        id: '3',
+        name: 'Mahindra Rotavator',
+        type: 'Implement',
+        owner: 'Vikram Jat',
+        location: 'Sonipat',
+        distance: '8 km',
+        rating: 5.0,
+        pricePerHour: 5,
+        pricePerDay: null,
+        availability: 'Avail. Tomorrow',
+        minDuration: 'Min. 2 Hours',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDJRbMQRDDsBCFYUKI6qZt2q6kN3gpg6o2gxy1501B6JXThSFlRU47S4AGGAfsJHn8vMQ_dkl64KOw-0lFMtTA9xfMv4lLwjLrbhTPodApV_kjHyIFyxhGVBoZTcsA_1GIGA9TVjg4LLn959ZhGtYPMHwfnlHzg7AEr1uNg1WSva1tlr1v2Ymb79phHkn6rbZMQlLkB2OfgrRmW0lxBdZ5Kc8lyTIv0Gldo_AawYQKhr0YTJDH93sUAD7i34jV890qRrZSVUPdlQNfR',
+        category: 'Implement',
+        addons: ['Add-on rental'],
+        operator: false
+    }
+];

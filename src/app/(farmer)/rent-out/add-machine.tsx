@@ -1,17 +1,23 @@
-import React, { use, useState } from 'react';
-import {
-  View, Text, StyleSheet, TouchableOpacity, ScrollView,
-  TextInput, Dimensions, SafeAreaView, StatusBar, Modal, Image
-} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker'; // Required: npx expo install expo-image-picker
-import { ProgressStep } from '@/src/components/ProgressStep';
-import { navigate } from 'expo-router/build/global-state/routing';
 import AppBar from '@/src/components/AppBar';
-import { COLORS } from '@/src/constants/colors';
 import Button from '@/src/components/Button';
 import FormInput from '@/src/components/FormInput';
-import { Form, useForm } from 'react-hook-form';
+import { ProgressStep } from '@/src/components/ProgressStep';
+import { COLORS } from '@/src/constants/colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker'; // Required: npx expo install expo-image-picker
+import { router, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import { MOCK_RENTAL_MACHINES } from './data';
 
 const { width } = Dimensions.get('window');
 
@@ -19,9 +25,12 @@ export default function AddMachineScreen() {
   const [category, setCategory] = useState('Tractor');
   const [condition, setCondition] = useState('Good');
   const [showConfirm, setShowConfirm] = useState(false);
-  
+
+  const { id } = useLocalSearchParams();
+  const isEditMode = !!id;
+
   // Media State
-  const [mediaItems, setMediaItems] = useState<{uri: string, type: string}[]>([]);
+  const [mediaItems, setMediaItems] = useState<{ uri: string, type: string }[]>([]);
 
   const pickMedia = async () => {
     if (mediaItems.length >= 5) return;
@@ -46,20 +55,40 @@ export default function AddMachineScreen() {
     setMediaItems(filtered);
   };
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, setValue } = useForm({
     defaultValues: {
       brand: '',
       model: '',
       taluka: '',
-      district: '', 
+      district: '',
       village: '',
     }
   });
+
+  useEffect(() => {
+    if (isEditMode && id) {
+      const machine = MOCK_RENTAL_MACHINES.find(m => m.id === id);
+      if (machine) {
+        setCategory(machine.type || 'Tractor'); // Fallback if type missing
+        if (machine.brand) setValue('brand', machine.brand);
+        if (machine.model) setValue('model', machine.model);
+
+        // Mock location data if missing
+        setValue('village', 'Demo Village');
+        setValue('taluka', 'Demo Taluka');
+        setValue('district', 'Demo District');
+
+        if (machine.image) {
+          setMediaItems([{ uri: machine.image, type: 'image' }]);
+        }
+      }
+    }
+  }, [id, isEditMode, setValue]);
   return (
     <View style={screenStyles.safeArea}>
-      
+
       {/* Header */}
-      <AppBar title="Add Rental Machine" />
+      <AppBar title={isEditMode ? "Edit Rental Machine" : "Add Rental Machine"} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <ProgressStep currentStep={1} totalSteps={3} label="Machine Details" />
@@ -119,24 +148,24 @@ export default function AddMachineScreen() {
             <Text style={screenStyles.locationBtnText}>Use Current Location</Text>
           </TouchableOpacity>
           <FormInput
-          label="Village"
-          name='village'
-          placeholder="Village"
-          control={control}
-        />
+            label="Village"
+            name='village'
+            placeholder="Village"
+            control={control}
+          />
           <View>
-<FormInput
-  label="Taluka"
-  name='taluka'
-  placeholder="Taluka"
-  control={control}
-/>
-<FormInput
-  label="District"
-  name='district'
-  placeholder="District"
-  control={control}
-/>
+            <FormInput
+              label="Taluka"
+              name='taluka'
+              placeholder="Taluka"
+              control={control}
+            />
+            <FormInput
+              label="District"
+              name='district'
+              placeholder="District"
+              control={control}
+            />
 
           </View>
         </View>
@@ -147,7 +176,7 @@ export default function AddMachineScreen() {
             <Text style={screenStyles.sectionTitle}>Photos & Videos</Text>
             <Text style={screenStyles.photoCount}>{mediaItems.length}/5 added</Text>
           </View>
-          
+
           <View style={screenStyles.photoGrid}>
             {/* Add Button */}
             {mediaItems.length < 5 && (
@@ -177,15 +206,15 @@ export default function AddMachineScreen() {
 
       {/* Footer */}
       <Button
-      label='Next'
-      onPress={() => navigate('/(farmer)/rent-out/preferences')}
+        label='Next'
+        onPress={() => router.push({ pathname: '/(farmer)/rent-out/preferences', params: { id: id as string } })}
       />
     </View>
   );
 }
 
 const screenStyles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: COLORS.background , paddingHorizontal: 16},
+  safeArea: { flex: 1, backgroundColor: COLORS.background, paddingHorizontal: 16 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#f1f5f9' },
   headerTitle: { fontSize: 18, fontWeight: '700' },
   iconButton: { padding: 4 },

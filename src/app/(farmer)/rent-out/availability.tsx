@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
+import AppBar from '@/src/components/AppBar';
+import { ProgressStep } from '@/src/components/ProgressStep';
+import { COLORS } from '@/src/constants/colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import { router, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
+  Dimensions,
   ScrollView,
   StyleSheet,
-  SafeAreaView,
-  Dimensions,
-  Alert,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import App from '../..';
-import AppBar from '@/src/components/AppBar';
-import { COLORS } from '@/src/constants/colors';
-import { ProgressStep } from '@/src/components/ProgressStep';
 
 const { width } = Dimensions.get('window');
 
 const AvailabilityScreen: React.FC = () => {
-  const router = useRouter();
+
 
   // State for selections
   const [selectedStart, setSelectedStart] = useState<number | null>(5);
@@ -27,8 +24,20 @@ const AvailabilityScreen: React.FC = () => {
   const [pickupTime, setPickupTime] = useState<'Morning' | 'Afternoon' | 'Evening'>('Morning');
   const [returnTime, setReturnTime] = useState<'Same Day' | 'Next Day'>('Next Day');
 
+  const { id } = useLocalSearchParams();
+  const isEditMode = !!id;
+
   const bookedDays = [13, 14];
   const daysInMonth = Array.from({ length: 31 }, (_, i) => i + 1);
+
+  useEffect(() => {
+    if (isEditMode && id) {
+      // In real app, we would parse actual date ranges from machine data
+      // For now, let's just simulate selecting a range if editing
+      setSelectedStart(10);
+      setSelectedEnd(15);
+    }
+  }, [id, isEditMode]);
 
   const handleDateClick = (dayNum: number) => {
     if (bookedDays.includes(dayNum)) return;
@@ -63,15 +72,15 @@ const AvailabilityScreen: React.FC = () => {
     return `Oct ${day.toString().padStart(2, '0')}, 2023`;
   };
 
-  const duration = selectedStart && selectedEnd 
-    ? (selectedEnd - selectedStart + 1) 
+  const duration = selectedStart && selectedEnd
+    ? (selectedEnd - selectedStart + 1)
     : (selectedStart ? 1 : 0);
 
   return (
     <View style={styles.safeArea}>
       {/* Header */}
 
-<AppBar title="Availability"/>
+      <AppBar title="Availability" />
       <ScrollView contentContainerStyle={styles.scrollPadding} showsVerticalScrollIndicator={false}>
         {/* Progress Bar */}
         <ProgressStep currentStep={3} totalSteps={3} label="Availability" />
@@ -98,16 +107,16 @@ const AvailabilityScreen: React.FC = () => {
             <Text style={styles.monthText}>October 2023</Text>
             <MaterialIcons name="chevron-right" size={24} color="#64748b" />
           </View>
-          
+
           <View style={styles.grid}>
-            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day,index) => (
+            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
               <Text key={index} style={styles.dayOfWeek}>{day}</Text>
             ))}
-            {daysInMonth.map((day,index) => {
+            {daysInMonth.map((day, index) => {
               const status = getDayStatus(day);
               return (
-                <TouchableOpacity 
-                  key={index} 
+                <TouchableOpacity
+                  key={index}
                   onPress={() => handleDateClick(day)}
                   style={[
                     styles.dayCell,
@@ -137,8 +146,8 @@ const AvailabilityScreen: React.FC = () => {
           <Text style={styles.prefTitle}>PREFERRED PICKUP</Text>
           <View style={styles.buttonGroup}>
             {(['Morning', 'Afternoon', 'Evening'] as const).map((time) => (
-              <TouchableOpacity 
-                key={time} 
+              <TouchableOpacity
+                key={time}
                 onPress={() => setPickupTime(time)}
                 style={[styles.prefButton, pickupTime === time && styles.activePrefButton]}
               >
@@ -155,11 +164,11 @@ const AvailabilityScreen: React.FC = () => {
           <Text style={styles.footerLabel}>SELECTION</Text>
           <Text style={styles.footerValue}>{duration} Days</Text>
         </View>
-        <TouchableOpacity 
-          onPress={() => Alert.alert("Success", "Machine Listed Successfully!")}
+        <TouchableOpacity
+          onPress={() => router.push({ pathname: '/(farmer)/rent-out/publish', params: { id: id as string } })}
           style={styles.submitButton}
         >
-          <Text style={styles.submitButtonText}>List Machine</Text>
+          <Text style={styles.submitButtonText}>Review Listing</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -167,7 +176,7 @@ const AvailabilityScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: COLORS.background , paddingHorizontal: 16},
+  safeArea: { flex: 1, backgroundColor: COLORS.background, paddingHorizontal: 16 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: '#f1f5f9' },
   iconButton: { padding: 8 },
   headerTitle: { fontSize: 18, fontWeight: 'bold' },
@@ -194,7 +203,7 @@ const styles = StyleSheet.create({
   dayCell: { width: `${100 / 7}%`, aspectRatio: 1, justifyContent: 'center', alignItems: 'center' },
   dayInner: { width: 36, height: 36, justifyContent: 'center', alignItems: 'center', borderRadius: 18 },
   selectedDayCircle: { backgroundColor: COLORS.brand.primary },
-  selectedRangeBg: { backgroundColor:COLORS.brand.muted },
+  selectedRangeBg: { backgroundColor: COLORS.brand.muted },
   dayText: { fontSize: 14, color: '#334155' },
   whiteText: { color: '#fff', fontWeight: 'bold' },
   bookedText: { color: '#cbd5e1', textDecorationLine: 'line-through' },
@@ -208,7 +217,7 @@ const styles = StyleSheet.create({
   footer: { position: 'absolute', bottom: 0, width: '100%', padding: 20, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', gap: 16, borderTopWidth: 1, borderTopColor: '#f1f5f9' },
   footerLabel: { fontSize: 10, color: '#64748b', fontWeight: 'bold' },
   footerValue: { fontSize: 18, fontWeight: 'bold' },
-  submitButton: { flex: 1, backgroundColor: COLORS.brand.primary , height: 50, borderRadius: 12, justifyContent: 'center', alignItems: 'center' },
+  submitButton: { flex: 1, backgroundColor: COLORS.brand.primary, height: 50, borderRadius: 12, justifyContent: 'center', alignItems: 'center' },
   submitButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
 });
 
