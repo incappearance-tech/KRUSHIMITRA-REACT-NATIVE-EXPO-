@@ -1,4 +1,5 @@
 import { COLORS } from '@/src/constants/colors';
+import { useRentalStore } from '@/src/store/rental.store';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -20,7 +21,7 @@ const { width } = Dimensions.get('window');
 const CATEGORIES = [
     { id: 'all', label: 'All', icon: 'grid-view' },
     { id: 'tractor', label: 'Tractors', icon: 'agriculture' },
-    { id: 'harvester', label: 'Harvesters', icon: 'local-shipping' }, // mapping truck icon to local-shipping roughly
+    { id: 'harvester', label: 'Harvesters', icon: 'local-shipping' },
     { id: 'implement', label: 'Implements', icon: 'handyman' },
 ];
 
@@ -28,8 +29,33 @@ export default function RentInBrowseScreen() {
     const router = useRouter();
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
+    const { rentals: globalRentals } = useRentalStore();
 
-    const filteredMachines = RENTAL_MACHINES.filter(machine => {
+    // Merge mock data with dynamic global rentals
+    const allRentals: any[] = [
+        ...RENTAL_MACHINES,
+        ...globalRentals
+            .filter(r => r.visible && !r.expired)
+            .map(r => ({
+                id: r.id,
+                name: r.name,
+                type: r.type,
+                owner: r.ownerName,
+                location: r.location,
+                distance: r.distance,
+                rating: r.rating,
+                pricePerHour: r.period === 'hr' ? r.price : (Number(r.price) / 8).toFixed(0),
+                pricePerDay: r.period === 'day' ? r.price : (Number(r.price) * 8).toFixed(0),
+                availability: r.expiry,
+                minDuration: 'Min. 4 Hours',
+                image: r.image,
+                category: r.category,
+                addons: ['Verified Machine'],
+                operator: true
+            }))
+    ];
+
+    const filteredMachines = allRentals.filter(machine => {
         const matchesCategory = selectedCategory === 'all' || machine.category.toLowerCase() === selectedCategory;
         const matchesSearch = machine.name.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesCategory && matchesSearch;

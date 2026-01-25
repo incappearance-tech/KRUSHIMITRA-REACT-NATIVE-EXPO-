@@ -29,24 +29,29 @@ const Button: React.FC<IButtonProps> = ({
   borderColor,
 
   sticky = false,
+  style,
+  variant,
 }) => {
   const isDisabled = disabled || loading;
 
   const bg =
     backgroundColor ??
-    (type === 'danger'
-      ? COLORS.danger
-      : type === 'secondary'
-        ? COLORS.gray[50]
-        : COLORS.primary[600]);
+    (variant === 'outline' || variant === 'ghost' ? 'transparent' :
+      (type === 'danger'
+        ? COLORS.danger
+        : type === 'secondary'
+          ? COLORS.gray[50]
+          : COLORS.primary[600]));
 
   const txtColor =
     textColor ??
-    (type === 'secondary' ? '#374151' : COLORS.gray[200]);
+    (variant === 'outline' || variant === 'ghost' ? COLORS.brand.primary :
+      (type === 'secondary' ? '#374151' : COLORS.gray[200]));
 
   const brColor =
     borderColor ??
-    (type === 'secondary' ? '#E5E7EB' : 'transparent');
+    (variant === 'outline' ? COLORS.brand.primary :
+      (type === 'secondary' ? '#E5E7EB' : 'transparent'));
 
   return (
     <View style={[sticky && styles.sticky]}>
@@ -60,6 +65,7 @@ const Button: React.FC<IButtonProps> = ({
             backgroundColor: bg,
             borderColor: brColor,
           },
+          style,
           isDisabled && styles.disabled,
         ]}
       >

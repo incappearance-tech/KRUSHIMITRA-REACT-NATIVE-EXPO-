@@ -40,7 +40,7 @@ function MachineDetailsContent() {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const videoRef = useRef(null);
-  
+
   // State for the currently displayed media
   const [activeMedia, setActiveMedia] = useState(MACHINE_MEDIA[0]);
 
@@ -85,7 +85,7 @@ function MachineDetailsContent() {
               style={styles.mainImage}
             />
           )}
-          
+
           <View style={styles.photoCount}>
             <MaterialIcons name="grid-view" size={14} color={COLORS.white} />
             <Text style={styles.photoCountText}>
@@ -102,11 +102,11 @@ function MachineDetailsContent() {
           contentContainerStyle={styles.thumbStrip}
         >
           {MACHINE_MEDIA.map((item) => (
-            <TouchableOpacity 
-              key={item.id} 
+            <TouchableOpacity
+              key={item.id}
               onPress={() => setActiveMedia(item)}
               style={[
-                styles.thumb, 
+                styles.thumb,
                 activeMedia.id === item.id && styles.thumbActive
               ]}
             >
@@ -166,9 +166,34 @@ function MachineDetailsContent() {
             <Text style={styles.quoteText}>"Upgrading to a higher HP model for new farming equipment."</Text>
           </View>
 
+          {/* Machine Health Report (Premium Addition) */}
+          <View style={styles.healthCard}>
+            <View style={styles.healthHeader}>
+              <View style={styles.healthScoreWrap}>
+                <Text style={styles.healthScore}>88</Text>
+                <Text style={styles.healthScoreBase}>/100</Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.healthTitle}>Machine Health Report</Text>
+                <Text style={styles.healthSub}>Verified by 100-point inspection</Text>
+              </View>
+              <MaterialIcons name="verified-user" size={24} color={COLORS.success} />
+            </View>
+            <View style={styles.healthStats}>
+              <View style={styles.healthStatItem}>
+                <MaterialIcons name="settings" size={16} color={COLORS.textSecondary} />
+                <Text style={styles.healthStatText}>Engine: Good</Text>
+              </View>
+              <View style={styles.healthStatItem}>
+                <MaterialIcons name="tire-repair" size={16} color={COLORS.textSecondary} />
+                <Text style={styles.healthStatText}>Tires: Fair</Text>
+              </View>
+            </View>
+          </View>
+
           {/* Seller Profile */}
           <Text style={styles.sectionHeading}>{t('buy_machine_details.seller_profile')}</Text>
-          <TouchableOpacity style={styles.sellerCard}>
+          <TouchableOpacity style={styles.sellerCard} activeOpacity={0.7}>
             <View style={styles.sellerInfo}>
               <Image
                 source={{ uri: 'https://i.pravatar.cc/150?u=miller' }}
@@ -186,15 +211,20 @@ function MachineDetailsContent() {
             <MaterialIcons name="chevron-right" size={24} color={COLORS.textSecondary} />
           </TouchableOpacity>
 
-          {/* Location Map Placeholder */}
+          {/* Premium Location Card */}
           <Text style={styles.sectionHeading}>{t('buy_machine_details.location_title')}</Text>
-          <View style={styles.mapContainer}>
-            <View style={styles.mapPlaceholder}>
-              <View style={styles.mapMarker}>
-                <MaterialIcons name="location-on" size={24} color={COLORS.brand.primary} />
+          <TouchableOpacity style={styles.mapCard} activeOpacity={0.9}>
+            <Image
+              source={{ uri: 'https://maps.googleapis.com/maps/api/staticmap?center=Fresno,CA&zoom=13&size=600x300&maptype=roadmap&markers=color:green%7Clabel:S%7CFresno,CA&key=YOUR_API_KEY_MOCK' }}
+              style={styles.mapImg}
+            />
+            <View style={styles.mapOverlay}>
+              <View style={styles.mapButton}>
+                <MaterialIcons name="directions" size={18} color={COLORS.white} />
+                <Text style={styles.mapButtonText}>Get Directions</Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
           <Text style={styles.mapDisclaimer}>{t('buy_machine_details.map_disclaimer')}</Text>
         </View>
       </ScrollView>
@@ -212,6 +242,7 @@ function MachineDetailsContent() {
           label={t('buy_machine_details.unlock_contact')}
           onPress={() => router.push("/buy-machine/intent" as any)}
           icon="lock-open"
+          style={styles.actionButton}
         />
       </View>
     </View>
@@ -249,136 +280,171 @@ const styles = StyleSheet.create({
   },
   headerRight: { flexDirection: 'row', gap: 12 },
   iconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: 'rgba(0,0,0,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  imageContainer: { width: '100%', height: width * 0.75, backgroundColor: '#000' },
+  imageContainer: { width: '100%', height: width * 0.85, backgroundColor: COLORS.black },
   mainImage: { width: '100%', height: '100%' },
   photoCount: {
     position: 'absolute',
-    bottom: 16,
-    right: 16,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+    bottom: 20,
+    right: 20,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: 6,
   },
-  photoCountText: { color: COLORS.white, fontSize: 10, fontWeight: '600' },
-  thumbStrip: { paddingHorizontal: 20, paddingVertical: 12, gap: 8 },
-  thumb: { width: 80, height: 64, borderRadius: 8, overflow: 'hidden', backgroundColor: COLORS.gray[200] },
+  photoCountText: { color: COLORS.white, fontSize: 11, fontWeight: '700' },
+  thumbStrip: { paddingHorizontal: 20, paddingVertical: 16, gap: 10 },
+  thumb: { width: 84, height: 68, borderRadius: 12, overflow: 'hidden', backgroundColor: COLORS.gray[100], borderWidth: 1, borderColor: COLORS.gray[100] },
   thumbActive: { borderWidth: 2, borderColor: COLORS.brand.primary },
   thumbImg: { width: '100%', height: '100%' },
-  thumbVideoPlaceholder: { 
-    width: '100%', 
-    height: '100%', 
-    backgroundColor: '#333', 
-    alignItems: 'center', 
-    justifyContent: 'center' 
+  thumbVideoPlaceholder: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#1e293b',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   contentPadding: { paddingHorizontal: 20 },
-  badgeRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 },
+  badgeRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
   verifiedBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.successLight,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 6,
     gap: 4
   },
-  verifiedText: { color: COLORS.successDark, fontSize: 10, fontWeight: '700', textTransform: 'uppercase' },
-  listingId: { color: COLORS.textSecondary, fontSize: 12 },
-  title: { fontSize: 24, fontWeight: '700', color: COLORS.text, marginBottom: 4 },
-  location: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 8 },
-  price: { fontSize: 32, fontWeight: '800', color: COLORS.brand.primary, marginBottom: 16 },
+  verifiedText: { color: COLORS.successDark, fontSize: 11, fontWeight: '800', textTransform: 'uppercase' },
+  listingId: { color: COLORS.textSecondary, fontSize: 12, fontWeight: '500' },
+  title: { fontSize: 28, fontWeight: '900', color: COLORS.text, marginBottom: 6, letterSpacing: -0.5 },
+  location: { fontSize: 15, color: COLORS.textSecondary, marginBottom: 10, fontWeight: '500' },
+  price: { fontSize: 36, fontWeight: '900', color: COLORS.brand.primary, marginBottom: 20 },
   safetyBox: {
     backgroundColor: COLORS.warningLight,
-    borderColor: '#fef08a',
+    borderColor: 'rgba(234, 179, 8, 0.2)',
     borderWidth: 1,
-    borderRadius: 12,
-    padding: 12,
+    borderRadius: 16,
+    padding: 16,
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 24,
+    gap: 14,
+    marginBottom: 28,
   },
-  safetyTitle: { fontSize: 12, fontWeight: '800', color: COLORS.warningDark, textTransform: 'uppercase', marginBottom: 2 },
-  safetyDesc: { fontSize: 12, color: COLORS.warningDark, opacity: 0.8 },
-  sectionHeading: { fontSize: 12, fontWeight: '700', color: COLORS.text, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12, marginTop: 8 },
-  specsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 16 },
+  safetyTitle: { fontSize: 13, fontWeight: '900', color: COLORS.warningDark, textTransform: 'uppercase', marginBottom: 4 },
+  safetyDesc: { fontSize: 13, color: COLORS.warningDark, opacity: 0.9, lineHeight: 18 },
+  sectionHeading: { fontSize: 13, fontWeight: '800', color: COLORS.text, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16, marginTop: 12 },
+  specsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 20 },
   specBox: {
-    width: (width - 50) / 2,
+    width: (width - 52) / 2,
     backgroundColor: COLORS.white,
-    padding: 12,
-    borderRadius: 12,
+    padding: 16,
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: COLORS.gray[100]
+    borderColor: COLORS.gray[100],
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.02,
+    shadowRadius: 5,
+    elevation: 2,
   },
-  specLabel: { fontSize: 10, color: COLORS.textSecondary, textTransform: 'uppercase', marginBottom: 4 },
-  specValue: { fontSize: 16, fontWeight: '700', color: COLORS.text },
-  listDetails: { marginBottom: 24 },
-  detailRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: COLORS.gray[100] },
-  detailLabel: { color: COLORS.textSecondary, fontSize: 14 },
-  detailValue: { fontWeight: '600', color: COLORS.text, fontSize: 14 },
-  statusBadge: { backgroundColor: COLORS.successLight, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 4 },
-  statusText: { color: COLORS.successDark },
-  subHeading: { fontSize: 10, color: COLORS.textSecondary, textTransform: 'uppercase', marginBottom: 8 },
-  quoteBox: { borderLeftWidth: 3, borderLeftColor: COLORS.brand.primary, paddingLeft: 12, paddingVertical: 8, backgroundColor: COLORS.white, borderRadius: 4 },
-  quoteText: { fontStyle: 'italic', color: COLORS.text, fontSize: 14 },
+  specLabel: { fontSize: 11, color: COLORS.textSecondary, textTransform: 'uppercase', marginBottom: 6, fontWeight: '700' },
+  specValue: { fontSize: 17, fontWeight: '800', color: COLORS.text },
+  listDetails: { marginBottom: 28, backgroundColor: COLORS.white, borderRadius: 16, paddingHorizontal: 16, borderWidth: 1, borderColor: COLORS.gray[100] },
+  detailRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: COLORS.gray[50] },
+  detailLabel: { color: COLORS.textSecondary, fontSize: 15, fontWeight: '500' },
+  detailValue: { fontWeight: '700', color: COLORS.text, fontSize: 15 },
+  statusBadge: { backgroundColor: COLORS.successLight, paddingHorizontal: 10, paddingVertical: 3, borderRadius: 6 },
+  statusText: { color: COLORS.successDark, fontSize: 12, fontWeight: '800' },
+  subHeading: { fontSize: 11, color: COLORS.textSecondary, textTransform: 'uppercase', marginBottom: 10, fontWeight: '800', letterSpacing: 1 },
+  quoteBox: { borderLeftWidth: 4, borderLeftColor: COLORS.brand.primary, paddingLeft: 16, paddingVertical: 12, backgroundColor: COLORS.white, borderRadius: 8, marginBottom: 28, borderWidth: 1, borderColor: COLORS.gray[100] },
+  quoteText: { fontStyle: 'italic', color: COLORS.text, fontSize: 15, lineHeight: 22 },
+
+  healthCard: {
+    backgroundColor: COLORS.white,
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 28,
+    borderWidth: 1,
+    borderColor: COLORS.gray[100],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 3
+  },
+  healthHeader: { flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 16 },
+  healthScoreWrap: { width: 52, height: 52, borderRadius: 26, backgroundColor: COLORS.successLight, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: COLORS.success },
+  healthScore: { fontSize: 18, fontWeight: '900', color: COLORS.successDark },
+  healthScoreBase: { fontSize: 10, color: COLORS.successDark, fontWeight: '700' },
+  healthTitle: { fontSize: 16, fontWeight: '800', color: COLORS.text },
+  healthSub: { fontSize: 12, color: COLORS.textSecondary, fontWeight: '500' },
+  healthStats: { flexDirection: 'row', gap: 16, borderTopWidth: 1, borderTopColor: COLORS.gray[50], paddingTop: 16 },
+  healthStatItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  healthStatText: { fontSize: 13, color: COLORS.text, fontWeight: '600' },
+
   sellerCard: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 16,
+    padding: 18,
     backgroundColor: COLORS.white,
-    borderRadius: 16,
-    marginBottom: 24,
+    borderRadius: 20,
+    marginBottom: 32,
     borderWidth: 1,
-    borderColor: COLORS.gray[100]
+    borderColor: COLORS.gray[100],
+    elevation: 2,
   },
-  sellerInfo: { flexDirection: 'row', gap: 12, alignItems: 'center' },
-  sellerAvatar: { width: 56, height: 56, borderRadius: 28 },
-  sellerName: { fontSize: 16, fontWeight: '700', color: COLORS.text },
-  sellerVillage: { fontSize: 12, color: COLORS.textSecondary, marginBottom: 4 },
+  sellerInfo: { flexDirection: 'row', gap: 16, alignItems: 'center' },
+  sellerAvatar: { width: 60, height: 60, borderRadius: 30, borderWidth: 2, borderColor: COLORS.gray[50] },
+  sellerName: { fontSize: 18, fontWeight: '800', color: COLORS.text },
+  sellerVillage: { fontSize: 13, color: COLORS.textSecondary, marginBottom: 6, fontWeight: '500' },
   ratingBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.gray[50],
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
     borderWidth: 1,
     borderColor: COLORS.border,
-    width: 45
+    width: 52
   },
-  ratingText: { fontSize: 12, fontWeight: '700', marginLeft: 2 },
-  mapContainer: { width: '100%', height: 128, borderRadius: 16, overflow: 'hidden', backgroundColor: COLORS.gray[200] },
-  mapPlaceholder: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: COLORS.gray[300] },
-  mapMarker: { backgroundColor: COLORS.white, padding: 8, borderRadius: 20, elevation: 4 },
-  mapDisclaimer: { textAlign: 'center', fontSize: 11, color: COLORS.textSecondary, marginTop: 8 },
+  ratingText: { fontSize: 13, fontWeight: '800', marginLeft: 3 },
+
+  mapCard: { width: '100%', height: 160, borderRadius: 20, overflow: 'hidden', backgroundColor: COLORS.gray[100], position: 'relative' },
+  mapImg: { width: '100%', height: '100%' },
+  mapOverlay: { position: 'absolute', bottom: 16, right: 16 },
+  mapButton: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: COLORS.brand.primary, paddingHorizontal: 16, paddingVertical: 10, borderRadius: 100, elevation: 4 },
+  mapButtonText: { color: COLORS.black, fontSize: 13, fontWeight: '800' },
+  mapDisclaimer: { textAlign: 'center', fontSize: 12, color: COLORS.textSecondary, marginTop: 12, fontWeight: '500' },
+
   footer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     backgroundColor: COLORS.white,
-    padding: 16,
+    padding: 20,
     borderTopWidth: 1,
     borderTopColor: COLORS.gray[100],
-    elevation: 20,
+    elevation: 25,
     shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
+    shadowOffset: { width: 0, height: -10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
   },
-  footerInfo: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12, paddingHorizontal: 4 },
-  contactHidden: { fontSize: 12, color: COLORS.textSecondary },
-  footerVerified: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  footerVerifiedText: { fontSize: 12, fontWeight: '600', color: COLORS.successDark },
+  footerInfo: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16, paddingHorizontal: 4 },
+  contactHidden: { fontSize: 13, color: COLORS.textSecondary, fontWeight: '600' },
+  footerVerified: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  footerVerifiedText: { fontSize: 13, fontWeight: '700', color: COLORS.successDark },
+  actionButton: { height: 56, borderRadius: 16 }
 });

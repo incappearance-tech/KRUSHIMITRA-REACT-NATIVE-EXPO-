@@ -1,7 +1,9 @@
+import { useSellingStore } from '@/src/store/selling.store';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Redirect, useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useState } from 'react';
+import { Redirect, useRouter } from 'expo-router';
+import React from 'react';
 import {
+    Alert,
     Image,
     ScrollView,
     StatusBar,
@@ -11,67 +13,33 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { MOCK_MACHINES } from './data';
 
-// Theme colors from user request
 const THEME = {
     primary: '#37ec13',
     backgroundLight: '#f6f8f6',
-    backgroundDark: '#132210',
     surfaceLight: '#ffffff',
-    surfaceDark: '#1a2c15',
     textMainLight: '#101b0d',
     textSecondaryLight: '#4b5563',
     borderLight: '#d3e7cf',
-    borderDark: '#2f452a',
 };
-
-
 
 export default function SellMachineInventory() {
     const router = useRouter();
-    const [machines, setMachines] = useState(MOCK_MACHINES);
-    const [loading, setLoading] = useState(true);
+    const { machines, toggleVisibility, removeMachine } = useSellingStore();
 
-    // Simulation of "First Time vs Returning" check
-    useFocusEffect(
-        useCallback(() => {
-            // In a real app, fetch data here. 
-            // If data is empty, setMachines([]) which might trigger redirect.
-            // For now, we assume if we are on this page, we might have machines or we want to show empty state.
-            // But per requirements: "If farmer add machine first time then show Add Deatils Form"
-            // Since we are simulating, let's just show the inventory if we have mock data.
-            // You can toggle this by commenting out the mock data in useState.
-
-            const checkMachines = async () => {
-                // Simulate API call
-                setLoading(false);
-            };
-
-            checkMachines();
-        }, [])
-    );
-
-    // If we decided to strictly follow "First time -> Add Details"
-    // We would check checking machines.length === 0 here.
-    // const hasMachines = machines.length > 0;
-    // if (!loading && !hasMachines) {
-    //   return <Redirect href="/(farmer)/sell-machine/add-details" />;
-    // }
-
-    // NOTE: For better UX during development, I'm keeping the inventory visible. 
-    // If the user truly has 0 machines, you would redirect.
-    // Uncomment below to test "Empty State Redirect" logic if you clear MOCK_LISTINGS
-
-    if (!loading && machines.length === 0) {
+    if (machines.length === 0) {
         return <Redirect href="/(farmer)/sell-machine/add-details" />;
     }
 
-
-    const toggleVisibility = (id: string) => {
-        setMachines(prev => prev.map(m =>
-            m.id === id ? { ...m, visible: !m.visible } : m
-        ));
+    const handleDelete = (id: string) => {
+        Alert.alert(
+            'Delete Machine',
+            'Are you sure you want to remove this listing? This action cannot be undone.',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Delete', style: 'destructive', onPress: () => removeMachine(id) },
+            ]
+        );
     };
 
     return (
@@ -95,18 +63,18 @@ export default function SellMachineInventory() {
                 <View style={styles.summaryCard}>
                     <View style={styles.summaryRow}>
                         <View>
-                            <Text style={styles.summaryLabel}>TOTAL SELLING VALUE</Text>
-                            <Text style={styles.summaryValue}>₹12,85,000</Text>
+                            <Text style={styles.summaryLabel}>ACTIVE LISTINGS</Text>
+                            <Text style={styles.summaryValue}>{machines.filter(m => m.visible).length}</Text>
                         </View>
                         <View style={styles.walletIconWrap}>
-                            <MaterialIcons name="account-balance-wallet" size={28} color={THEME.primary} />
+                            <MaterialIcons name="inventory" size={28} color={THEME.primary} />
                         </View>
                     </View>
                     <View style={styles.activeListingRow}>
                         <View style={styles.activeBadge}>
-                            <Text style={styles.activeBadgeText}>3</Text>
+                            <Text style={styles.activeBadgeText}>{machines.length}</Text>
                         </View>
-                        <Text style={styles.activeText}>Active Listings Currently Live</Text>
+                        <Text style={styles.activeText}>Machines listed in your inventory</Text>
                     </View>
                 </View>
 
@@ -173,7 +141,7 @@ export default function SellMachineInventory() {
                                         {machine.expired ? 'Relist' : 'Edit'}
                                     </Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.deleteBtn}>
+                                <TouchableOpacity style={styles.deleteBtn} onPress={() => handleDelete(machine.id)}>
                                     <MaterialIcons name="delete" size={20} color="#ef4444" />
                                 </TouchableOpacity>
                             </View>

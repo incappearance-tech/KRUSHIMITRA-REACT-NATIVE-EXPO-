@@ -32,20 +32,11 @@ export default function FarmerTabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="listings"
+                name="my-farm"
                 options={{
-                    title: t('dashboard.my_ads'),
+                    title: 'My Farm',
                     tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="campaign" size={24} color={color} />
-                    ),
-                }}
-            />
-            <Tabs.Screen
-                name="orders"
-                options={{
-                    title: t('dashboard.orders'),
-                    tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="receipt-long" size={24} color={color} />
+                        <MaterialIcons name="agriculture" size={24} color={color} />
                     ),
                 }}
             />

@@ -1,17 +1,19 @@
+import AppBar from '@/src/components/AppBar';
+import { COLORS } from '@/src/constants/colors';
+import { useRentalStore } from '@/src/store/rental.store';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Redirect, useFocusEffect, useRouter } from 'expo-router';
-import React, { useCallback, useState } from 'react';
+import { Redirect, useRouter } from 'expo-router';
+import React from 'react';
 import {
+    Alert,
     Image,
     ScrollView,
-    StatusBar,
     StyleSheet,
     Switch,
     Text,
     TouchableOpacity,
-    View,
+    View
 } from 'react-native';
-import { MOCK_RENTAL_MACHINES } from './data';
 
 const THEME = {
     primary: '#37ec13',
@@ -29,41 +31,44 @@ const THEME = {
 
 export default function RentOutInventory() {
     const router = useRouter();
-    const [machines, setMachines] = useState(MOCK_RENTAL_MACHINES);
-    const [loading, setLoading] = useState(true);
+    const { rentals, requests, removeRental, toggleRentalVisibility } = useRentalStore();
 
-    // Simulate loading / checking logic
-    useFocusEffect(
-        useCallback(() => {
-            setLoading(false);
-        }, [])
-    );
-
-    // If we wanted to enforce the "First time -> Add Form" rule:
-    if (!loading && machines.length === 0) {
+    if (rentals.length === 0) {
         return <Redirect href="/(farmer)/rent-out/add-machine" />;
     }
 
-    const toggleVisibility = (id: string) => {
-        setMachines(prev => prev.map(m =>
-            m.id === id ? { ...m, visible: !m.visible } : m
-        ));
+    const handleDelete = (id: string) => {
+        Alert.alert(
+            'Delete Rental',
+            'Are you sure you want to remove this rental listing?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Delete', style: 'destructive', onPress: () => removeRental(id) },
+            ]
+        );
     };
+
+    const getMachineStatus = (machine: any) => {
+        if (machine.expired) return { label: 'EXPIRED', color: 'gray' };
+        if (!machine.visible) return { label: 'HIDDEN', color: 'secondary' };
+
+        const machineRequests = requests.filter(r => r.machineId === machine.id);
+        const hasAccepted = machineRequests.some(r => r.status === 'ACCEPTED');
+        if (hasAccepted) return { label: 'BOOKED', color: 'blue' };
+
+        const hasPending = machineRequests.some(r => r.status === 'PENDING');
+        if (hasPending) return { label: 'REQUESTED', color: 'orange' };
+
+        return { label: 'AVAILABLE', color: 'green' };
+    };
+
+    const liveListingsCount = rentals.filter(r => r.visible && !r.expired).length;
+    const bookingCount = requests.filter(r => r.status === 'ACCEPTED').length;
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor={THEME.backgroundLight} />
-
             {/* HEADER */}
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.headerBtn}>
-                    <MaterialIcons name="arrow-back-ios" size={20} color={THEME.textMain} />
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>My Rental Inventory</Text>
-                <TouchableOpacity style={styles.headerBtn}>
-                    <MaterialIcons name="info-outline" size={24} color={THEME.primaryDark} />
-                </TouchableOpacity>
-            </View>
+            <AppBar title="My Rental Inventory" />
 
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
@@ -75,7 +80,7 @@ export default function RentOutInventory() {
                             <Text style={styles.dashboardSubtitle}>INVENTORY OVERVIEW</Text>
                         </View>
                         <View style={styles.dashboardIconWrap}>
-                            <MaterialIcons name="agriculture" size={28} color={THEME.textMain} />
+                            <MaterialIcons name="agriculture" size={28} color={COLORS.white} />
                         </View>
                     </View>
 
@@ -84,17 +89,17 @@ export default function RentOutInventory() {
                             style={styles.statBox}
                             onPress={() => router.push('/(farmer)/rent-out/requests')}
                         >
-                            <Text style={styles.statLabel}>ACTIVE RENTALS</Text>
+                            <Text style={styles.statLabel}>MARKET LIVE</Text>
                             <View style={styles.statValueRow}>
-                                <Text style={styles.statValue}>04</Text>
-                                <Text style={styles.statSub}>Live</Text>
+                                <Text style={styles.statValue}>{liveListingsCount < 10 ? `0${liveListingsCount}` : liveListingsCount}</Text>
+                                <Text style={styles.statSub}>Active</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={styles.statBox}>
-                            <Text style={styles.statLabel}>TOTAL MACHINES</Text>
+                            <Text style={styles.statLabel}>BOOKED NOW</Text>
                             <View style={styles.statValueRow}>
-                                <Text style={styles.statValue}>06</Text>
-                                <Text style={styles.statSub}>Fleet</Text>
+                                <Text style={styles.statValue}>{bookingCount < 10 ? `0${bookingCount}` : bookingCount}</Text>
+                                <Text style={styles.statSub}>Hired</Text>
                             </View>
                         </View>
                     </View>
@@ -103,80 +108,99 @@ export default function RentOutInventory() {
                 {/* LISTINGS SECTION */}
                 <View style={styles.listingsContainer}>
                     <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Listings</Text>
+                        <Text style={styles.sectionTitle}>Listings ({rentals.length})</Text>
                         <View style={styles.sortBadge}>
                             <Text style={styles.sortText}>Sort: Newest</Text>
                         </View>
                     </View>
 
-                    {machines.map((machine) => (
-                        <View key={machine.id} style={[styles.card, machine.expired && styles.cardExpired]}>
-                            <View style={styles.cardContent}>
-                                {/* IMAGE */}
-                                <View style={styles.imageContainer}>
-                                    <Image
-                                        source={{ uri: machine.image }}
-                                        style={[styles.machineImage, machine.expired && styles.grayscale]}
-                                    />
-                                </View>
-
-                                {/* DETAILS */}
-                                <View style={styles.detailsContainer}>
-                                    <View style={styles.cardRowBetween}>
-                                        <Text style={styles.machineName} numberOfLines={1}>{machine.name}</Text>
-                                        <View style={[styles.statusBadge, machine.expired ? styles.bgGray : styles.bgGreen]}>
-                                            <Text style={[styles.statusText, machine.expired ? styles.textGrayDark : styles.textGreenDark]}>
-                                                {machine.status}
-                                            </Text>
-                                        </View>
+                    {rentals.map((machine: any) => {
+                        const status = getMachineStatus(machine);
+                        return (
+                            <View key={machine.id} style={[styles.card, machine.expired && styles.cardExpired]}>
+                                <View style={styles.cardContent}>
+                                    {/* IMAGE */}
+                                    <View style={styles.imageContainer}>
+                                        <Image
+                                            source={{ uri: machine.image }}
+                                            style={[
+                                                styles.machineImage,
+                                                (machine.expired || !machine.visible) && styles.grayscale
+                                            ]}
+                                        />
                                     </View>
 
-                                    <View style={styles.infoBlock}>
-                                        <View style={styles.infoRow}>
-                                            <MaterialIcons name="sell" size={14} color={THEME.textSecondary} />
-                                            <Text style={styles.infoLabel}>Rent Price: </Text>
-                                            <Text style={styles.infoValue}>₹{machine.price}/{machine.period}</Text>
+                                    {/* DETAILS */}
+                                    <View style={styles.detailsContainer}>
+                                        <View style={styles.cardRowBetween}>
+                                            <Text style={styles.machineName} numberOfLines={1}>{machine.name}</Text>
+                                            <View style={[
+                                                styles.statusBadge,
+                                                status.color === 'green' && styles.bgGreen,
+                                                status.color === 'orange' && styles.bgOrange,
+                                                status.color === 'blue' && styles.bgBlue,
+                                                status.color === 'gray' && styles.bgGray,
+                                                status.color === 'secondary' && styles.bgGray,
+                                            ]}>
+                                                <Text style={[
+                                                    styles.statusText,
+                                                    status.color === 'green' && styles.textGreenDark,
+                                                    status.color === 'orange' && styles.textOrangeDark,
+                                                    status.color === 'blue' && styles.textBlueDark,
+                                                    status.color === 'gray' && styles.textGrayDark,
+                                                    status.color === 'secondary' && styles.textGrayDark,
+                                                ]}>
+                                                    {status.label}
+                                                </Text>
+                                            </View>
                                         </View>
-                                        <View style={styles.infoRow}>
-                                            <MaterialIcons name="event" size={14} color={THEME.textSecondary} />
-                                            <Text style={styles.infoLabel}>Expiry: </Text>
-                                            <Text style={styles.infoValue}>{machine.expiry}</Text>
+
+                                        <View style={styles.infoBlock}>
+                                            <View style={styles.infoRow}>
+                                                <MaterialIcons name="sell" size={14} color={THEME.textSecondary} />
+                                                <Text style={styles.infoLabel}>Rate: </Text>
+                                                <Text style={styles.infoValue}>₹{machine.price}/{machine.period}</Text>
+                                            </View>
+                                            <View style={styles.infoRow}>
+                                                <MaterialIcons name="event" size={14} color={THEME.textSecondary} />
+                                                <Text style={styles.infoLabel}>Expiry: </Text>
+                                                <Text style={styles.infoValue}>{machine.expiry}</Text>
+                                            </View>
                                         </View>
+                                    </View>
+                                </View>
+
+                                {/* ACTIONS */}
+                                <View style={styles.cardFooter}>
+                                    <View style={styles.visibilityRow}>
+                                        <Text style={styles.visibilityLabel}>Show on Market</Text>
+                                        <Switch
+                                            trackColor={{ false: '#e5e7eb', true: THEME.primary }}
+                                            thumbColor={'#ffffff'}
+                                            onValueChange={() => toggleRentalVisibility(machine.id)}
+                                            value={machine.visible}
+                                            disabled={machine.expired}
+                                            style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
+                                        />
+                                    </View>
+
+                                    <View style={styles.actionsRow}>
+                                        <TouchableOpacity
+                                            style={styles.editBtn}
+                                            onPress={() => router.push({ pathname: '/(farmer)/rent-out/add-machine', params: { id: machine.id } })}
+                                        >
+                                            <MaterialIcons name="edit" size={16} color={THEME.textMain} />
+                                            <Text style={styles.editBtnText}>Edit</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={styles.deleteBtn} onPress={() => handleDelete(machine.id)}>
+                                            <MaterialIcons name="delete" size={18} color={THEME.danger} />
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
-
-                            {/* ACTIONS */}
-                            <View style={styles.cardFooter}>
-                                <View style={styles.visibilityRow}>
-                                    <Text style={styles.visibilityLabel}>Visibility</Text>
-                                    <Switch
-                                        trackColor={{ false: '#e5e7eb', true: THEME.primary }}
-                                        thumbColor={'#ffffff'}
-                                        onValueChange={() => toggleVisibility(machine.id)}
-                                        value={machine.visible}
-                                        disabled={machine.expired}
-                                        style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
-                                    />
-                                </View>
-
-                                <View style={styles.actionsRow}>
-                                    <TouchableOpacity
-                                        style={styles.editBtn}
-                                        onPress={() => router.push({ pathname: '/(farmer)/rent-out/add-machine', params: { id: machine.id } })}
-                                    >
-                                        <MaterialIcons name="edit" size={16} color={THEME.textMain} />
-                                        <Text style={styles.editBtnText}>Edit</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.deleteBtn}>
-                                        <MaterialIcons name="delete" size={18} color={THEME.danger} />
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    ))}
+                        );
+                    })}
                 </View>
-
             </ScrollView>
 
             {/* FAB */}
@@ -186,7 +210,7 @@ export default function RentOutInventory() {
                     onPress={() => router.push('/(farmer)/rent-out/add-machine')}
                 >
                     <MaterialIcons name="add" size={24} color={THEME.textMain} />
-                    <Text style={styles.fabText}>Rent One More Machine</Text>
+                    <Text style={styles.fabText}>Rent More</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -196,47 +220,23 @@ export default function RentOutInventory() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: THEME.backgroundLight,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        backgroundColor: THEME.surfaceLight,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f3f4f6',
-    },
-    headerBtn: {
-        width: 40,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 20,
-        backgroundColor: '#fff',
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: THEME.textMain,
+        backgroundColor: COLORS.background,
+        paddingHorizontal: 16
     },
     scrollContent: {
-        padding: 16,
-        paddingBottom: 100,
+        paddingBottom: 120,
     },
-
-    // Dashboard Card
     dashboardCard: {
-        backgroundColor: THEME.primary, // Fallback if no gradient
+        backgroundColor: THEME.primary,
         borderRadius: 20,
         padding: 20,
         marginBottom: 24,
-        shadowColor: '#22c55e',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.2,
-        shadowRadius: 12,
+        marginTop: 16,
         elevation: 8,
+        shadowColor: THEME.primary,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
     },
     dashboardHeader: {
         flexDirection: 'row',
@@ -246,18 +246,16 @@ const styles = StyleSheet.create({
     dashboardTitle: {
         fontSize: 22,
         fontWeight: '800',
-        color: '#000',
-        letterSpacing: -0.5,
+        color: COLORS.white,
     },
     dashboardSubtitle: {
         fontSize: 10,
         fontWeight: '700',
-        color: 'rgba(0,0,0,0.6)',
-        marginTop: 4,
-        letterSpacing: 0.5,
+        color: COLORS.white,
+        letterSpacing: 1,
     },
     dashboardIconWrap: {
-        backgroundColor: 'rgba(255,255,255,0.3)',
+        backgroundColor: 'rgba(255,255,255,0.2)',
         borderRadius: 12,
         padding: 8,
     },
@@ -267,16 +265,16 @@ const styles = StyleSheet.create({
     },
     statBox: {
         flex: 1,
-        backgroundColor: 'rgba(255,255,255,0.2)',
+        backgroundColor: 'rgba(255,255,255,0.15)',
         borderRadius: 12,
         padding: 12,
         borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.2)',
+        borderColor: 'rgba(255,255,255,0.1)',
     },
     statLabel: {
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: '700',
-        color: 'rgba(0,0,0,0.6)',
+        color: COLORS.white,
         marginBottom: 4,
     },
     statValueRow: {
@@ -287,15 +285,13 @@ const styles = StyleSheet.create({
     statValue: {
         fontSize: 24,
         fontWeight: '900',
-        color: '#000',
+        color: COLORS.white,
     },
     statSub: {
         fontSize: 10,
         fontWeight: '600',
-        color: 'rgba(0,0,0,0.5)',
+        color: COLORS.white,
     },
-
-    // Listings
     listingsContainer: {
         gap: 16,
     },
@@ -303,7 +299,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 4,
+        marginBottom: 8,
     },
     sectionTitle: {
         fontSize: 18,
@@ -321,21 +317,17 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: THEME.textSecondary,
     },
-
     card: {
         backgroundColor: THEME.surfaceLight,
         borderRadius: 16,
         borderWidth: 1,
         borderColor: THEME.gray200,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
         elevation: 2,
         overflow: 'hidden',
+        marginBottom: 16,
     },
     cardExpired: {
-        opacity: 0.8,
+        opacity: 0.6,
     },
     cardContent: {
         padding: 16,
@@ -356,7 +348,6 @@ const styles = StyleSheet.create({
     },
     grayscale: {
         opacity: 0.5,
-        tintColor: 'gray',
     },
     detailsContainer: {
         flex: 1,
@@ -372,15 +363,16 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: THEME.textMain,
         flex: 1,
-        marginRight: 8,
     },
     statusBadge: {
         paddingHorizontal: 8,
         paddingVertical: 2,
         borderRadius: 100,
     },
-    bgGreen: { backgroundColor: '#dcfce7' }, // green-100
+    bgGreen: { backgroundColor: '#dcfce7' },
     bgGray: { backgroundColor: '#f3f4f6' },
+    bgOrange: { backgroundColor: '#ffedd5' },
+    bgBlue: { backgroundColor: '#dbeafe' },
     statusText: {
         fontSize: 10,
         fontWeight: '700',
@@ -388,7 +380,8 @@ const styles = StyleSheet.create({
     },
     textGreenDark: { color: '#15803d' },
     textGrayDark: { color: '#6b7280' },
-
+    textOrangeDark: { color: '#9a3412' },
+    textBlueDark: { color: '#1e40af' },
     infoBlock: {
         gap: 4,
     },
@@ -406,7 +399,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: THEME.textMain,
     },
-
     cardFooter: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -414,7 +406,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 12,
         borderTopWidth: 1,
-        borderTopColor: '#f9fafb', // gray-50
+        borderTopColor: '#f9fafb',
     },
     visibilityRow: {
         flexDirection: 'row',
@@ -450,10 +442,9 @@ const styles = StyleSheet.create({
         padding: 6,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: '#fee2e2', // red-100
-        backgroundColor: '#fef2f2', // red-50
+        borderColor: '#fee2e2',
+        backgroundColor: '#fef2f2',
     },
-
     fabContainer: {
         position: 'absolute',
         bottom: 32,
@@ -467,10 +458,6 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         paddingHorizontal: 20,
         borderRadius: 100,
-        shadowColor: THEME.primary,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
         elevation: 6,
     },
     fabText: {

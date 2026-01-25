@@ -17,4 +17,6 @@ export interface IButtonProps {
     borderColor?: string;
 
     sticky?: boolean;
+    style?: any;
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
 }

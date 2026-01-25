@@ -1,10 +1,10 @@
+import AppBar from '@/src/components/AppBar';
 import Button from '@/src/components/Button';
 import { MaterialIcons } from '@expo/vector-icons';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,10 +13,6 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '../../../constants/colors';
-import AppBar from '@/src/components/AppBar';
-
-// --- Theme Constants ---
-
 
 export default function BuyerIntentScreen() {
   return (
@@ -30,21 +26,32 @@ function BuyerIntentContent() {
   const insets = useSafeAreaInsets();
 
   // State for selections
-  const [purpose, setPurpose] = useState('personal'); // 'personal' or 'rent'
-  const [timeline, setTimeline] = useState('7days'); // 'immediate', '7days', 'checking'
+  const [purpose, setPurpose] = useState('personal');
+  const [timeline, setTimeline] = useState('7days');
 
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
-      {/* Header */}
-      <AppBar title='Buyer Intent'/>
+
+      <AppBar
+        title='Buyer Intent'
+        showBack
+        onBackPress={() => router.back()}
+      />
+
+      <View style={styles.statusBar}>
+        <View style={styles.statusFill} />
+      </View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
       >
         {/* Question 1: Purpose Grid */}
         <View style={styles.section}>
           <Text style={styles.mainHeading}>What do you plan to do with this machine?</Text>
+          <Text style={styles.subText}>This helps us tailor your experience.</Text>
+
           <View style={styles.grid}>
             <PurposeCard
               id="personal"
@@ -70,6 +77,7 @@ function BuyerIntentContent() {
             <TimelineOption
               id="immediate"
               label="Immediately"
+              desc="I need it for the current season"
               icon="bolt"
               iconColor={COLORS.dangerDark}
               iconBg={COLORS.dangerLight}
@@ -79,6 +87,7 @@ function BuyerIntentContent() {
             <TimelineOption
               id="7days"
               label="Within 7 days"
+              desc="Next week after inspection"
               icon="calendar-today"
               iconColor={COLORS.warningDark}
               iconBg={COLORS.warningLight}
@@ -88,6 +97,7 @@ function BuyerIntentContent() {
             <TimelineOption
               id="checking"
               label="Just checking"
+              desc="Exploring options for next year"
               icon="search"
               iconColor={COLORS.infoDark}
               iconBg={COLORS.infoLight}
@@ -102,13 +112,15 @@ function BuyerIntentContent() {
       <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
         <Button
           label="Reveal Seller Contact"
-          onPress={() => navigate("/buy-machine/payment")}
+          onPress={() => router.push("/buy-machine/payment")}
           icon="visibility"
         />
-        <Text style={styles.footerNote}>
-          Your response helps sellers respond faster.
-          <Text style={styles.skipLink}> Skip</Text>
-        </Text>
+        <TouchableOpacity onPress={() => router.push("/buy-machine/payment")}>
+          <Text style={styles.footerNote}>
+            Your response helps sellers respond faster.
+            <Text style={styles.skipLink}> Skip</Text>
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -116,34 +128,37 @@ function BuyerIntentContent() {
 
 // --- Sub-components ---
 
-const PurposeCard = ({ id, label, icon, selected, onSelect }: { id: string, label: string, icon: keyof typeof MaterialIcons.glyphMap, selected: boolean, onSelect: (id: string) => void }) => (
+const PurposeCard = ({ id, label, icon, selected, onSelect }: any) => (
   <TouchableOpacity
     style={[styles.card, selected && styles.cardSelected]}
     onPress={() => onSelect(id)}
-    activeOpacity={0.9}
+    activeOpacity={0.8}
   >
+    <View style={[styles.cardIconBg, selected && styles.cardIconBgSelected]}>
+      <MaterialIcons name={icon} size={32} color={selected ? COLORS.brand.primary : COLORS.gray[400]} />
+    </View>
+    <Text style={[styles.cardText, selected && styles.cardTextSelected]}>{label}</Text>
     {selected && (
       <View style={styles.checkIcon}>
-        <MaterialIcons name="check-circle" size={20} color={COLORS.brand.primary} />
+        <MaterialIcons name="check-circle" size={18} color={COLORS.brand.primary} />
       </View>
     )}
-    <View style={[styles.cardIconBg, selected && styles.cardIconBgSelected]}>
-      <MaterialIcons name={icon} size={32} color={selected ? COLORS.brand.primary : COLORS.text} />
-    </View>
-    <Text style={styles.cardText}>{label}</Text>
   </TouchableOpacity>
 );
 
-const TimelineOption = ({ id, label, icon, iconColor, iconBg, selected, onSelect }: { id: string, label: string, icon: keyof typeof MaterialIcons.glyphMap, iconColor: string, iconBg: string, selected: boolean, onSelect: (id: string) => void }) => (
+const TimelineOption = ({ id, label, desc, icon, iconColor, iconBg, selected, onSelect }: any) => (
   <TouchableOpacity
     style={[styles.listOption, selected && styles.listOptionSelected]}
     onPress={() => onSelect(id)}
-    activeOpacity={0.8}
+    activeOpacity={0.7}
   >
     <View style={[styles.listIconBg, { backgroundColor: iconBg }]}>
       <MaterialIcons name={icon} size={20} color={iconColor} />
     </View>
-    <Text style={styles.listLabel}>{label}</Text>
+    <View style={{ flex: 1 }}>
+      <Text style={styles.listLabel}>{label}</Text>
+      <Text style={styles.listDesc}>{desc}</Text>
+    </View>
     <View style={[styles.radioOuter, selected && styles.radioOuterSelected]}>
       {selected && <View style={styles.radioInner} />}
     </View>
@@ -152,80 +167,79 @@ const TimelineOption = ({ id, label, icon, iconColor, iconBg, selected, onSelect
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background,paddingHorizontal:16 },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingBottom: 12
-  },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text, marginLeft: 8 },
-  closeButton: { padding: 8, borderRadius: 20 },
+  container: { flex: 1, backgroundColor: COLORS.background },
+  scrollContent: { padding: 20, paddingBottom: 120 },
 
-  progressSection: { paddingHorizontal: 24, paddingBottom: 10 },
-  progressTextRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
-  progressStep: { fontSize: 14, fontWeight: '500', color: COLORS.text },
-  progressStatus: { fontSize: 12, fontWeight: '600', color: COLORS.brand.primary },
-  progressBarBg: { height: 8, width: '100%', backgroundColor: COLORS.border, borderRadius: 4, overflow: 'hidden' },
-  progressBarFill: { height: '100%', backgroundColor: COLORS.brand.primary, borderRadius: 4 },
+  statusBar: { height: 6, backgroundColor: COLORS.gray[50], width: '100%' },
+  statusFill: { height: '100%', backgroundColor: COLORS.brand.primary, width: '60%', borderTopRightRadius: 3, borderBottomRightRadius: 3 },
 
-  section: { marginBottom: 32 },
-  mainHeading: { fontSize: 24, fontWeight: '700', color: COLORS.text, marginBottom: 16, lineHeight: 30 },
-  subHeading: { fontSize: 18, fontWeight: '700', color: COLORS.text, marginBottom: 16 },
+  section: { marginBottom: 36 },
+  mainHeading: { fontSize: 26, fontWeight: '900', color: COLORS.text, marginBottom: 8, lineHeight: 32, letterSpacing: -0.5 },
+  subText: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 20, fontWeight: '500' },
+  subHeading: { fontSize: 18, fontWeight: '800', color: COLORS.text, marginBottom: 16 },
 
   grid: { flexDirection: 'row', gap: 16 },
   card: {
     flex: 1,
-    height: 120,
+    height: 140,
     backgroundColor: COLORS.white,
-    borderRadius: 16,
-    borderWidth: 2,
-    borderColor: 'transparent',
+    borderRadius: 24,
+    borderWidth: 1.5,
+    borderColor: COLORS.gray[50],
     alignItems: 'center',
     justifyContent: 'center',
     padding: 16,
-    ...Platform.select({ ios: { shadowColor: COLORS.black, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 4 }, android: { elevation: 2 } })
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.03,
+    shadowRadius: 10,
+    elevation: 2
   },
-  cardSelected: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.gray[50] }, // 10% primary approx
-  checkIcon: { position: 'absolute', top: 8, right: 8 },
-  cardIconBg: { padding: 12, borderRadius: 24, backgroundColor: COLORS.background, marginBottom: 8 },
-  cardIconBgSelected: { backgroundColor: COLORS.white },
-  cardText: { fontSize: 14, fontWeight: '600', textAlign: 'center' },
+  cardSelected: { borderColor: COLORS.brand.primary, backgroundColor: '#fafff7' },
+  checkIcon: { position: 'absolute', top: 12, right: 12 },
+  cardIconBg: { width: 64, height: 64, borderRadius: 32, backgroundColor: COLORS.gray[50], alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
+  cardIconBgSelected: { backgroundColor: 'white' },
+  cardText: { fontSize: 14, fontWeight: '700', color: COLORS.textSecondary, textAlign: 'center' },
+  cardTextSelected: { color: COLORS.text },
 
-  timelineList: { gap: 12 },
+  timelineList: { gap: 14 },
   listOption: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.white,
-    padding: 12,
-    borderRadius: 16,
-    borderWidth: 2,
-    borderColor: 'transparent',
+    padding: 18,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: COLORS.gray[50],
     shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.03,
+    shadowRadius: 5,
+    elevation: 2
   },
-  listOptionSelected: { borderColor: COLORS.brand.muted },
-  listIconBg: { width: 40, height: 40, borderRadius: 8, alignItems: 'center', justifyContent: 'center', marginRight: 16 },
-  listLabel: { flex: 1, fontSize: 16, fontWeight: '600', color: COLORS.text },
-  radioOuter: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, borderColor: COLORS.gray[300], alignItems: 'center', justifyContent: 'center' },
+  listOptionSelected: { borderColor: COLORS.brand.primary, backgroundColor: '#fafff7' },
+  listIconBg: { width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginRight: 16 },
+  listLabel: { fontSize: 16, fontWeight: '800', color: COLORS.text },
+  listDesc: { fontSize: 12, color: COLORS.textSecondary, marginTop: 2, fontWeight: '500' },
+
+  radioOuter: { width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: COLORS.gray[200], alignItems: 'center', justifyContent: 'center' },
   radioOuterSelected: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.brand.primary },
-  radioInner: { width: 8, height: 8, borderRadius: 4, backgroundColor: COLORS.black },
+  radioInner: { width: 10, height: 10, borderRadius: 5, backgroundColor: 'white' },
 
   footer: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    padding: 16,
+    bottom: 0, left: 0, right: 0,
+    backgroundColor: 'white',
+    padding: 20,
     borderTopWidth: 1,
-    borderTopColor: COLORS.border
+    borderTopColor: COLORS.gray[50],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -10 },
+    shadowOpacity: 0.05,
+    shadowRadius: 15,
+    elevation: 20
   },
 
-  footerNote: { textAlign: 'center', fontSize: 12, color: COLORS.textSecondary, marginTop: 12 },
-  skipLink: { textDecorationLine: 'underline', color: COLORS.text, fontWeight: '600' }
+  footerNote: { textAlign: 'center', fontSize: 13, color: COLORS.textSecondary, marginTop: 16, fontWeight: '500' },
+  skipLink: { color: COLORS.brand.primary, fontWeight: '800' }
 });

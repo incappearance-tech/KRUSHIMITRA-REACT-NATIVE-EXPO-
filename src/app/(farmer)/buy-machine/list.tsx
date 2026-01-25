@@ -1,4 +1,5 @@
 import Button from '@/src/components/Button';
+import { useSellingStore } from '@/src/store/selling.store';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
@@ -22,7 +23,7 @@ import { ICategory, IFilterTabsProps, IHeaderProps, IMachine, IMachineCardProps 
 /* ---------------------------------------------------------------- */
 const MACHINES: IMachine[] = [
   {
-    id: '1',
+    id: 'mock_1',
     type: 'tractor',
     title: 'John Deere 5050D',
     postedTime: 'Posted 2 hours ago',
@@ -34,7 +35,7 @@ const MACHINES: IMachine[] = [
     negotiable: true,
   },
   {
-    id: '2',
+    id: 'mock_2',
     type: 'harvester',
     title: 'Kubota DC-70G',
     postedTime: 'Posted yesterday',
@@ -46,7 +47,7 @@ const MACHINES: IMachine[] = [
     negotiable: false,
   },
   {
-    id: '3',
+    id: 'mock_3',
     type: 'implement',
     title: 'Mahindra Rotavator',
     postedTime: 'Posted 3 days ago',
@@ -66,6 +67,13 @@ export default function BrowseMachinesScreen() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<string>('all');
   const [search, setSearch] = useState<string>('');
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  const toggleFavorite = (id: string) => {
+    setFavorites(prev =>
+      prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]
+    );
+  };
 
   const CATEGORIES: ICategory[] = [
     { id: 'all', label: t('machine_list.all'), icon: 'grid-view' },
@@ -83,7 +91,7 @@ export default function BrowseMachinesScreen() {
             <MaterialIcons
               name="location-on"
               size={14}
-              color={COLORS.textSecondary}
+              color={COLORS.brand.primary}
             />
             <Text style={styles.locationText}>
               {t('machine_list.nearby')} Rampur Village
@@ -93,7 +101,7 @@ export default function BrowseMachinesScreen() {
 
         <TouchableOpacity style={styles.notificationBtn}>
           <MaterialIcons
-            name="notifications"
+            name="notifications-none"
             size={24}
             color={COLORS.text}
           />
@@ -123,14 +131,18 @@ export default function BrowseMachinesScreen() {
           style={styles.filterBtn}
           onPress={() => router.push('/buy-machine/filters')}
         >
-          <MaterialIcons name="tune" size={24} />
+          <MaterialIcons name="tune" size={24} color={COLORS.text} />
         </TouchableOpacity>
       </View>
     </View>
   );
 
   const FilterTabs = ({ activeTab, setActiveTab }: IFilterTabsProps) => (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.filterStrip}
+    >
       {CATEGORIES.map((cat) => {
         const active = activeTab === cat.id;
         return (
@@ -161,74 +173,104 @@ export default function BrowseMachinesScreen() {
     </ScrollView>
   );
 
-  const MachineCard = ({ item }: IMachineCardProps) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => router.push('/buy-machine/details')}
-    >
-      <View style={styles.imageContainer}>
-        <Image source={{ uri: item.image }} style={styles.cardImage} />
+  const MachineCard = ({ item }: IMachineCardProps) => {
+    const isFavorite = favorites.includes(item.id);
 
-        <View style={styles.typeBadge}>
-          <Text style={styles.typeBadgeText}>
-            {CATEGORIES.find(c => c.id === item.type)?.label || item.type}
-          </Text>
-        </View>
+    return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => router.push('/buy-machine/details')}
+        activeOpacity={0.9}
+      >
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: item.image }} style={styles.cardImage} />
 
-        <TouchableOpacity style={styles.heartBtn}>
-          <MaterialIcons
-            name="favorite"
-            size={20}
-            color={COLORS.white}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.cardContent}>
-        <Text style={styles.machineTitle}>
-          {item.title}
-        </Text>
-        <Text style={styles.postedTime}>
-          {item.postedTime}
-        </Text>
-
-        <View style={styles.specsGrid}>
-          <Text style={styles.specText}>
-            {t(`machine_list.${item.condition.toLowerCase().replace(/ /g, '_')}`)}
-          </Text>
-          <Text style={styles.specText}>
-            {item.hours}
-          </Text>
-        </View>
-
-        <View style={styles.priceRow}>
-          <Text style={styles.priceText}>
-            {item.price}
-          </Text>
-          {item.negotiable && (
-            <Text style={styles.negotiableText}>
-              {t('common.negotiable')}
+          <View style={styles.typeBadge}>
+            <Text style={styles.typeBadgeText}>
+              {CATEGORIES.find(c => c.id === item.type)?.label || item.type}
             </Text>
-          )}
+          </View>
+
+          <TouchableOpacity
+            style={styles.heartBtn}
+            onPress={() => toggleFavorite(item.id)}
+          >
+            <MaterialIcons
+              name={isFavorite ? "favorite" : "favorite-border"}
+              size={20}
+              color={isFavorite ? COLORS.danger : COLORS.white}
+            />
+          </TouchableOpacity>
         </View>
 
-        <Button
-          label={t('common.contact_seller')}
-          icon="call"
-          onPress={() => { }}
-          backgroundColor={COLORS.brand.primary}
-          textColor={COLORS.black}
-        />
-      </View>
-    </TouchableOpacity>
-  );
+        <View style={styles.cardContent}>
+          <View style={styles.titleRow}>
+            <Text style={styles.machineTitle} numberOfLines={1}>
+              {item.title}
+            </Text>
+            <View style={styles.conditionBadge}>
+              <Text style={styles.conditionText}>{t(`machine_list.${item.condition.toLowerCase().replace(/ /g, '_')}`)}</Text>
+            </View>
+          </View>
 
-  const filteredData = MACHINES.filter((item) => {
-    const matchTab =
-      activeTab === 'all' || item.type === activeTab;
-    const matchSearch = item.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
+          <Text style={styles.postedTime}>
+            {item.postedTime}
+          </Text>
+
+          <View style={styles.specsRow}>
+            <View style={styles.specItem}>
+              <MaterialIcons name="schedule" size={14} color={COLORS.textSecondary} />
+              <Text style={styles.specValueText}>{item.hours}</Text>
+            </View>
+            <View style={styles.specItem}>
+              <MaterialIcons name="location-on" size={14} color={COLORS.textSecondary} />
+              <Text style={styles.specValueText}>2.5 km</Text>
+            </View>
+          </View>
+
+          <View style={styles.priceRow}>
+            <View>
+              <Text style={styles.priceText}>{item.price}</Text>
+              {item.negotiable && (
+                <Text style={styles.negotiableText}>{t('common.negotiable')}</Text>
+              )}
+            </View>
+            <Button
+              label={t('common.contact_seller')}
+              onPress={() => router.push('/buy-machine/details')}
+              backgroundColor={COLORS.brand.primary}
+              textColor={COLORS.black}
+              style={styles.cardBtn}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const { machines: globalMachines } = useSellingStore();
+
+  // Merge mock data with dynamic global listings
+  const allMachines: IMachine[] = [
+    ...MACHINES,
+    ...globalMachines
+      .filter((m: any) => m.visible && !m.expired)
+      .map((m: any) => ({
+        id: m.id,
+        type: m.category.toLowerCase(),
+        title: `${m.brand} ${m.model}`,
+        postedTime: 'New Listing',
+        image: m.media[0]?.uri || 'https://images.unsplash.com/photo-1595246140625-573b715e11d3?q=80&w=600',
+        condition: 'Good', // Mock default
+        hours: m.year, // Use year as primary spec if hours not available
+        price: `₹${Number(m.askingPrice).toLocaleString()}`,
+        negotiable: true,
+      })),
+  ];
+
+  const filteredData = allMachines.filter((item) => {
+    const matchTab = activeTab === 'all' || item.type.includes(activeTab);
+    const matchSearch = item.title.toLowerCase().includes(search.toLowerCase());
     return matchTab && matchSearch;
   });
 
@@ -242,15 +284,29 @@ export default function BrowseMachinesScreen() {
         />
       </View>
 
-      <FlatList
-        data={filteredData}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <MachineCard item={item} />
-        )}
-      />
+      {filteredData.length > 0 ? (
+        <FlatList
+          data={filteredData}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <MachineCard item={item} />
+          )}
+        />
+      ) : (
+        <View style={styles.emptyState}>
+          <MaterialIcons name="search-off" size={64} color={COLORS.gray[200]} />
+          <Text style={styles.emptyTitle}>No Results Found</Text>
+          <Text style={styles.emptySub}>Try searching for something else or check your filters.</Text>
+          <Button
+            label="Clear All Filters"
+            onPress={() => { setSearch(''); setActiveTab('all'); }}
+            variant="outline"
+            style={{ marginTop: 20 }}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -259,18 +315,22 @@ export default function BrowseMachinesScreen() {
 /* STYLES */
 /* ---------------------------------------------------------------- */
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal:16},
+  container: { flex: 1, backgroundColor: COLORS.background },
 
   stickyHeader: {
-    backgroundColor: 'rgba(246,248,246,0.95)',
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 8,
     zIndex: 10,
   },
 
   headerTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 16,
   },
-  headerTitle: { fontSize: 24, fontWeight: '700' },
+  headerTitle: { fontSize: 28, fontWeight: '900', color: COLORS.text, letterSpacing: -0.5 },
 
   locationContainer: {
     flexDirection: 'row',
@@ -278,112 +338,147 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   locationText: {
-    fontSize: 12,
+    fontSize: 13,
     color: COLORS.textSecondary,
+    fontWeight: '500',
+    marginLeft: 2
   },
 
   notificationBtn: { padding: 8 },
   notificationBadge: {
     position: 'absolute',
-    top: 6,
-    right: 6,
+    top: 10,
+    right: 10,
     width: 8,
     height: 8,
     borderRadius: 4,
     backgroundColor: COLORS.brand.primary,
+    borderWidth: 1.5,
+    borderColor: COLORS.white
   },
 
   searchRow: {
     flexDirection: 'row',
-    marginTop: 12,
     gap: 12,
+    marginBottom: 8
   },
   searchBarContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.surface,
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    height: 48,
+    backgroundColor: COLORS.white,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    height: 52,
+    borderWidth: 1,
+    borderColor: COLORS.gray[100],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.03,
+    shadowRadius: 10,
+    elevation: 2,
   },
-  searchInput: { flex: 1, marginLeft: 8 },
+  searchInput: { flex: 1, marginLeft: 8, fontSize: 16, color: COLORS.text },
 
   filterBtn: {
-    width: 48,
-    height: 48,
-    borderRadius: 12,
-    backgroundColor: COLORS.surface,
+    width: 52,
+    height: 52,
+    borderRadius: 16,
+    backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.gray[100],
+    elevation: 2,
   },
 
+  filterStrip: { paddingVertical: 12 },
   filterChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    margin: 6,
-    borderRadius: 20,
-    backgroundColor: COLORS.surface,
+    gap: 8,
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    marginRight: 10,
+    borderRadius: 100,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.gray[100],
   },
   filterChipActive: {
     backgroundColor: COLORS.brand.primary,
+    borderColor: COLORS.brand.primary,
   },
-  filterChipText: { fontWeight: '600' },
+  filterChipText: { fontWeight: '700', color: COLORS.textSecondary, fontSize: 14 },
   filterChipTextActive: { color: COLORS.black },
 
-  listContent: { paddingBottom: 100, gap: 16 },
+  listContent: { padding: 16, paddingBottom: 100, gap: 20 },
 
   card: {
-    backgroundColor: COLORS.surface,
-    borderRadius: 16,
+    backgroundColor: COLORS.white,
+    borderRadius: 24,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 15,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: COLORS.gray[100],
   },
-  imageContainer: { height: 200 },
+  imageContainer: { height: 220, position: 'relative' },
   cardImage: { width: '100%', height: '100%' },
 
   typeBadge: {
     position: 'absolute',
-    top: 12,
-    left: 12,
-    backgroundColor: COLORS.white,
-    padding: 6,
-    borderRadius: 4,
+    top: 16,
+    left: 16,
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
   },
-  typeBadgeText: { fontSize: 10, fontWeight: '700' },
+  typeBadgeText: { fontSize: 11, fontWeight: '800', color: COLORS.text, textTransform: 'uppercase' },
 
   heartBtn: {
     position: 'absolute',
-    top: 12,
-    right: 12,
-    padding: 8,
+    top: 16,
+    right: 16,
+    padding: 10,
     backgroundColor: 'rgba(0,0,0,0.3)',
-    borderRadius: 20,
+    borderRadius: 24,
   },
 
-  cardContent: { padding: 16 },
-  machineTitle: { fontSize: 18, fontWeight: '700' },
+  cardContent: { padding: 20 },
+  titleRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10 },
+  machineTitle: { fontSize: 20, fontWeight: '800', color: COLORS.text, flex: 1 },
+  conditionBadge: { backgroundColor: COLORS.successLight, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 },
+  conditionText: { fontSize: 10, fontWeight: '700', color: COLORS.successDark, textTransform: 'uppercase' },
+
   postedTime: {
     fontSize: 12,
     color: COLORS.textSecondary,
-    marginBottom: 8,
+    marginTop: 4,
+    marginBottom: 12,
   },
 
-  specsGrid: { flexDirection: 'row', gap: 12 },
-  specText: { fontSize: 12 },
+  specsRow: { flexDirection: 'row', gap: 16, marginBottom: 16 },
+  specItem: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  specValueText: { fontSize: 13, color: COLORS.textSecondary, fontWeight: '600' },
 
   priceRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 8,
-    gap: 8,
+    justifyContent: 'space-between',
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.gray[50],
   },
-  priceText: { fontSize: 20, fontWeight: '700' },
-  negotiableText: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: COLORS.successDark,
-  },
+  priceText: { fontSize: 24, fontWeight: '900', color: COLORS.brand.primary },
+  negotiableText: { fontSize: 10, fontWeight: '700', color: COLORS.success, marginTop: 2, textTransform: 'uppercase' },
+  cardBtn: { paddingHorizontal: 20, height: 44 },
+
+  emptyState: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40, marginTop: 40 },
+  emptyTitle: { fontSize: 20, fontWeight: '800', color: COLORS.text, marginTop: 16 },
+  emptySub: { fontSize: 14, color: COLORS.textSecondary, textAlign: 'center', marginTop: 8 },
 });

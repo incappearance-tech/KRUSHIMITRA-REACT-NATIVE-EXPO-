@@ -1,250 +1,277 @@
 import AppBar from '@/src/components/AppBar';
 import Button from '@/src/components/Button';
 import FormInput from '@/src/components/FormInput';
+import FormSwitch from '@/src/components/FormSwitch';
+import MediaUploader from '@/src/components/MediaUploader';
 import { ProgressStep } from '@/src/components/ProgressStep';
+import RadioGroup from '@/src/components/RadioGroup';
 import { COLORS } from '@/src/constants/colors';
+import { IMediaItem } from '@/src/types/components/media';
 import { MaterialIcons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker'; // Required: npx expo install expo-image-picker
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Dimensions,
-  Image,
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
-import { MOCK_RENTAL_MACHINES } from './data';
 
 const { width } = Dimensions.get('window');
 
-export default function AddMachineScreen() {
-  const [category, setCategory] = useState('Tractor');
-  const [condition, setCondition] = useState('Good');
-  const [showConfirm, setShowConfirm] = useState(false);
+const STEPS = [
+  { id: 1, title: 'Machine Details' },
+  { id: 2, title: 'Location & Condition' },
+  { id: 3, title: 'Pricing & Photos' },
+];
 
+import { useRentalStore } from '@/src/store/rental.store';
+
+export default function AddMachineScreen() {
   const { id } = useLocalSearchParams();
   const isEditMode = !!id;
+  const { rentals, setDraftRental } = useRentalStore();
 
-  // Media State
-  const [mediaItems, setMediaItems] = useState<{ uri: string, type: string }[]>([]);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [media, setMedia] = useState<IMediaItem[]>([]);
+  const [category, setCategory] = useState('Tractor');
 
-  const pickMedia = async () => {
-    if (mediaItems.length >= 5) return;
-
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All, // Allows both Photos and Videos
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const newItem = {
-        uri: result.assets[0].uri,
-        type: result.assets[0].type || 'image'
-      };
-      setMediaItems([...mediaItems, newItem]);
-    }
-  };
-
-  const removeMedia = (index: number) => {
-    const filtered = mediaItems.filter((_, i) => i !== index);
-    setMediaItems(filtered);
-  };
-
-  const { control, handleSubmit, setValue } = useForm({
+  const { control, handleSubmit, setValue, reset, watch } = useForm({
     defaultValues: {
       brand: '',
       model: '',
+      village: '',
       taluka: '',
       district: '',
-      village: '',
+      condition: 'Good',
+      hourlyRate: '',
+      dailyRate: '',
+      minDuration: '1 Hour',
+      isAvailable: true,
     }
   });
 
   useEffect(() => {
     if (isEditMode && id) {
-      const machine = MOCK_RENTAL_MACHINES.find(m => m.id === id);
+      const machine = rentals.find(m => m.id === id);
       if (machine) {
-        setCategory(machine.type || 'Tractor'); // Fallback if type missing
-        if (machine.brand) setValue('brand', machine.brand);
-        if (machine.model) setValue('model', machine.model);
-
-        // Mock location data if missing
-        setValue('village', 'Demo Village');
-        setValue('taluka', 'Demo Taluka');
-        setValue('district', 'Demo District');
-
+        setCategory(machine.type || 'Tractor');
+        reset({
+          brand: machine.brand || '',
+          model: machine.model || '',
+          village: 'Demo Village', // Mock
+          taluka: 'Demo Taluka',
+          district: 'Demo Dist',
+          condition: 'Good',
+          hourlyRate: machine.price ? String(machine.price) : '',
+          isAvailable: !machine.expired
+        });
         if (machine.image) {
-          setMediaItems([{ uri: machine.image, type: 'image' }]);
+          setMedia([{ uri: machine.image, type: 'image' } as any]);
         }
       }
     }
-  }, [id, isEditMode, setValue]);
+  }, [id, isEditMode, reset, rentals]);
+
+  const handleNext = () => {
+    if (currentStep < 3) setCurrentStep(prev => prev + 1);
+    else handleSubmit(onSubmit)();
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) setCurrentStep(prev => prev - 1);
+    else router.back();
+  };
+
+  const onSubmit = (data: any) => {
+    setDraftRental({
+      name: `${data.brand} ${data.model}`,
+      brand: data.brand,
+      model: data.model,
+      category: category.toLowerCase(),
+      type: category,
+      price: data.hourlyRate,
+      period: 'hr',
+      image: media[0]?.uri || '',
+      location: data.village,
+      status: 'AVAILABLE',
+      visible: true,
+      expired: false,
+      expiry: '30 Days',
+      ownerName: 'Rahul Kumar',
+      distance: '2.0 km',
+      rating: 4.8
+    });
+    router.push({ pathname: '/(farmer)/rent-out/preferences', params: { id: id as string } });
+  };
+
   return (
-    <View style={screenStyles.safeArea}>
+    <View style={styles.container}>
+      <AppBar
+        title={isEditMode ? "Edit Rental" : "Rent Out Machine"}
+        showBack
+        onBackPress={handleBack}
+      />
 
-      {/* Header */}
-      <AppBar title={isEditMode ? "Edit Rental Machine" : "Add Rental Machine"} />
+      <View style={styles.content}>
+        <ProgressStep currentStep={currentStep} totalSteps={3} label={STEPS[currentStep - 1].title} />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <ProgressStep currentStep={1} totalSteps={3} label="Machine Details" />
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+          <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
-        {/* Category */}
-        <View style={screenStyles.section}>
-          <Text style={screenStyles.sectionTitle}>Category</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={screenStyles.horizontalScroll}>
-            {['Tractor', 'Harvester', 'Tiller', 'Seeder'].map((item) => (
-              <TouchableOpacity
-                key={item}
-                onPress={() => setCategory(item)}
-                style={[screenStyles.categoryChip, category === item && screenStyles.activeChip]}
-              >
-                <Text style={[screenStyles.chipText, category === item && screenStyles.activeChipText]}>{item}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
+            {/* STEP 1: CATEGORY & ID */}
+            {currentStep === 1 && (
+              <View style={styles.stepGroup}>
+                <Text style={styles.label}>Select Category</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.catScroll}>
+                  {['Tractor', 'Harvester', 'Tiller', 'Seeder', 'Sprayer'].map((item) => (
+                    <TouchableOpacity
+                      key={item}
+                      onPress={() => setCategory(item)}
+                      style={[styles.catChip, category === item && styles.catChipActive]}
+                    >
+                      <Text style={[styles.catText, category === item && styles.catTextActive]}>{item}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
 
-        {/* Brand & Model */}
-        <FormInput
-          label="Brand"
-          name='brand'
-          placeholder="Brand Name (e.g. Mahindra)"
-          control={control}
-        />
+                <FormInput
+                  label="Brand"
+                  name="brand"
+                  placeholder="e.g. Mahindra, Kubota"
+                  control={control}
+                />
 
-        <FormInput
-          label="Model"
-          name='model'
-          control={control}
-          placeholder="Model Number"
-        />
-
-        {/* Condition */}
-        <View style={screenStyles.section}>
-          <Text style={screenStyles.sectionTitle}>Condition</Text>
-          <View style={screenStyles.conditionRow}>
-            {['Excellent', 'Good', 'Average'].map((item) => (
-              <TouchableOpacity
-                key={item}
-                onPress={() => setCondition(item)}
-                style={[screenStyles.conditionCard, condition === item && screenStyles.activeConditionCard]}
-              >
-                <Text style={[screenStyles.conditionText, condition === item && screenStyles.activeConditionText]}>{item}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-
-        {/* Location (Preserved) */}
-        <View style={screenStyles.section}>
-          <Text style={screenStyles.sectionTitle}>Location</Text>
-          <TouchableOpacity style={screenStyles.locationBtn}>
-            <MaterialIcons name="my-location" size={18} color="#15803d" />
-            <Text style={screenStyles.locationBtnText}>Use Current Location</Text>
-          </TouchableOpacity>
-          <FormInput
-            label="Village"
-            name='village'
-            placeholder="Village"
-            control={control}
-          />
-          <View>
-            <FormInput
-              label="Taluka"
-              name='taluka'
-              placeholder="Taluka"
-              control={control}
-            />
-            <FormInput
-              label="District"
-              name='district'
-              placeholder="District"
-              control={control}
-            />
-
-          </View>
-        </View>
-
-        {/* Media Upload (Photos & Videos) */}
-        <View style={screenStyles.section}>
-          <View style={screenStyles.photoHeader}>
-            <Text style={screenStyles.sectionTitle}>Photos & Videos</Text>
-            <Text style={screenStyles.photoCount}>{mediaItems.length}/5 added</Text>
-          </View>
-
-          <View style={screenStyles.photoGrid}>
-            {/* Add Button */}
-            {mediaItems.length < 5 && (
-              <TouchableOpacity style={screenStyles.addMediaBtn} onPress={pickMedia}>
-                <MaterialIcons name="add-a-photo" size={24} color="#15803d" />
-                <Text style={screenStyles.addMediaText}>Add</Text>
-              </TouchableOpacity>
+                <FormInput
+                  label="Model Number"
+                  name="model"
+                  placeholder="e.g. 5050 D"
+                  control={control}
+                />
+              </View>
             )}
 
-            {/* Uploaded Items */}
-            {mediaItems.map((item, index) => (
-              <View key={index} style={screenStyles.mediaWrapper}>
-                <Image source={{ uri: item.uri }} style={screenStyles.mediaThumbnail} />
-                {item.type === 'video' && (
-                  <View style={screenStyles.videoIconBadge}>
-                    <MaterialIcons name="play-circle-fill" size={20} color="#fff" />
-                  </View>
-                )}
-                <TouchableOpacity style={screenStyles.removeBtn} onPress={() => removeMedia(index)}>
-                  <MaterialIcons name="cancel" size={20} color="#ef4444" />
+            {/* STEP 2: LOCATION & CONDITION */}
+            {currentStep === 2 && (
+              <View style={styles.stepGroup}>
+                <TouchableOpacity style={styles.locBtn}>
+                  <MaterialIcons name="my-location" size={18} color="#15803d" />
+                  <Text style={styles.locBtnText}>Use Current Location</Text>
                 </TouchableOpacity>
-              </View>
-            ))}
-          </View>
-        </View>
-      </ScrollView>
 
-      {/* Footer */}
-      <Button
-        label='Next'
-        onPress={() => router.push({ pathname: '/(farmer)/rent-out/preferences', params: { id: id as string } })}
-      />
+                <FormInput
+                  label="Village / Pind"
+                  name="village"
+                  placeholder="Village"
+                  control={control}
+                />
+
+                <View style={styles.row}>
+                  <View style={{ flex: 1 }}>
+                    <FormInput label="Taluka" name="taluka" placeholder="Taluka" control={control} />
+                  </View>
+                  <View style={{ width: 12 }} />
+                  <View style={{ flex: 1 }}>
+                    <FormInput label="District" name="district" placeholder="District" control={control} />
+                  </View>
+                </View>
+
+                <RadioGroup
+                  label="Machine Condition"
+                  value={watch('condition')}
+                  onChange={(val) => setValue('condition', val)}
+                  options={[
+                    { label: 'Excellent', value: 'Excellent' },
+                    { label: 'Good', value: 'Good' },
+                    { label: 'Average', value: 'Average' }
+                  ]}
+                />
+              </View>
+            )}
+
+            {/* STEP 3: PRICE & MEDIA */}
+            {currentStep === 3 && (
+              <View style={styles.stepGroup}>
+                <MediaUploader
+                  title="Machine Photos"
+                  onChange={setMedia}
+                  min={1}
+                  max={5}
+                  initialMedia={media}
+                />
+
+                <View style={styles.spacer} />
+
+                <Text style={styles.sectionTitle}>Rental Rates</Text>
+                <View style={styles.row}>
+                  <View style={{ flex: 1 }}>
+                    <FormInput
+                      label="Hourly Rate (₹)"
+                      name="hourlyRate"
+                      placeholder="0"
+                      keyboardType="numeric"
+                      control={control}
+                    />
+                  </View>
+                  <View style={{ width: 12 }} />
+                  <View style={{ flex: 1 }}>
+                    <FormInput
+                      label="Daily Rate (₹)"
+                      name="dailyRate"
+                      placeholder="0"
+                      keyboardType="numeric"
+                      control={control}
+                    />
+                  </View>
+                </View>
+
+                <View style={[styles.row, { justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }]}>
+                  <Text style={styles.label}>Available for Rent?</Text>
+                  <FormSwitch control={control} name="isAvailable" />
+                </View>
+              </View>
+            )}
+
+          </ScrollView>
+        </KeyboardAvoidingView>
+
+        <View style={styles.footer}>
+          <Button
+            label={currentStep === 3 ? "Save Machine" : "Next Step"}
+            onPress={handleNext}
+            backgroundColor={COLORS.brand.primary}
+            textColor='#000'
+          />
+        </View>
+      </View>
     </View>
   );
 }
 
-const screenStyles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: COLORS.background, paddingHorizontal: 16 },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#f1f5f9' },
-  headerTitle: { fontSize: 18, fontWeight: '700' },
-  iconButton: { padding: 4 },
-  helpButton: { padding: 4 },
-  helpText: { color: '#15803d', fontWeight: '700' },
-  section: { marginTop: 24 },
-  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#0f172a', marginBottom: 12 },
-  horizontalScroll: { gap: 10 },
-  categoryChip: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 8, borderWidth: 1, borderColor: '#e2e8f0', backgroundColor: '#fff' },
-  activeChip: { backgroundColor: '#37ec13', borderColor: '#37ec13' },
-  chipText: { fontWeight: '600', color: '#64748b' },
-  activeChipText: { color: '#0f172a' },
-  input: { backgroundColor: '#fff', borderWidth: 1, borderColor: '#e2e8f0', borderRadius: 12, padding: 12, fontSize: 16 },
-  conditionRow: { flexDirection: 'row', gap: 10 },
-  conditionCard: { flex: 1, alignItems: 'center', padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#e2e8f0', backgroundColor: '#fff' },
-  activeConditionCard: { borderColor: '#37ec13', backgroundColor: 'rgba(55, 236, 19, 0.1)' },
-  conditionText: { fontWeight: '500', color: '#64748b' },
-  activeConditionText: { color: '#15803d' },
-  locationBtn: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: 'rgba(55, 236, 19, 0.1)', padding: 12, borderRadius: 12, marginBottom: 12 },
-  locationBtnText: { color: '#15803d', fontWeight: '700' },
-  photoHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  photoCount: { color: '#64748b', fontSize: 12 },
-  photoGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 10 },
-  addMediaBtn: { width: (width - 52) / 3, aspectRatio: 1, borderRadius: 12, borderWidth: 2, borderStyle: 'dashed', borderColor: '#37ec13', backgroundColor: 'rgba(55, 236, 19, 0.05)', alignItems: 'center', justifyContent: 'center' },
-  addMediaText: { fontSize: 12, fontWeight: '700', color: '#15803d', marginTop: 4 },
-  mediaWrapper: { width: (width - 52) / 3, aspectRatio: 1, position: 'relative' },
-  mediaThumbnail: { width: '100%', height: '100%', borderRadius: 12 },
-  videoIconBadge: { position: 'absolute', top: '35%', left: '35%' },
-  removeBtn: { position: 'absolute', top: -5, right: -5, backgroundColor: '#fff', borderRadius: 10 },
-  footer: { position: 'absolute', bottom: 0, width: '100%', backgroundColor: '#fff', padding: 16, borderTopWidth: 1, borderTopColor: '#f1f5f9' },
-  continueButton: { backgroundColor: '#37ec13', paddingVertical: 16, borderRadius: 12, alignItems: 'center' },
-  continueButtonText: { fontWeight: '700', fontSize: 16 },
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: COLORS.background },
+  content: { flex: 1, paddingHorizontal: 16 },
+  scrollContent: { paddingVertical: 16 },
+  stepGroup: { gap: 16 },
+
+  label: { fontSize: 14, fontWeight: '600', color: COLORS.text, marginBottom: 8 },
+  catScroll: { gap: 10, paddingBottom: 4 },
+  catChip: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 100, borderWidth: 1, borderColor: COLORS.border, backgroundColor: '#fff' },
+  catChipActive: { backgroundColor: COLORS.brand.primary, borderColor: COLORS.brand.primary },
+  catText: { fontSize: 13, fontWeight: '600', color: COLORS.textSecondary },
+  catTextActive: { color: '#000' },
+
+  locBtn: { flexDirection: 'row', alignItems: 'center', gap: 8, padding: 12, borderRadius: 12, backgroundColor: '#dcfce7', alignSelf: 'flex-start' },
+  locBtnText: { color: '#15803d', fontWeight: '700', fontSize: 13 },
+
+  row: { flexDirection: 'row' },
+  spacer: { height: 16 },
+  sectionTitle: { fontSize: 16, fontWeight: '700', color: COLORS.text },
+
+  footer: { paddingVertical: 16, borderTopWidth: 1, borderTopColor: COLORS.border },
 });

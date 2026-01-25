@@ -1,59 +1,42 @@
+import AppBar from '@/src/components/AppBar';
 import { COLORS } from '@/src/constants/colors';
+import { RentalRequest, useRentalStore } from '@/src/store/rental.store';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   Image,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import { MOCK_REQUESTS } from './requests_data';
 
 export default function RentalRequestsScreen() {
   const router = useRouter();
-
-  // Using a single list identifying status for demo purposes, managing state locally
-  const [allRequests, setAllRequests] = useState(MOCK_REQUESTS);
+  const { requests, updateRequestStatus } = useRentalStore();
   const [filter, setFilter] = useState<'pending' | 'accepted' | 'rejected'>('pending');
 
-  const pendingRequests = allRequests.filter(r => r.status === 'New' || r.status === 'Pending' || r.status === 'pending');
-  const acceptedRequests = allRequests.filter(r => r.status === 'accepted');
-  const rejectedRequests = allRequests.filter(r => r.status === 'rejected');
+  const pendingRequests = requests.filter(r => r.status === 'PENDING');
+  const acceptedRequests = requests.filter(r => r.status === 'ACCEPTED');
+  const rejectedRequests = requests.filter(r => r.status === 'REJECTED');
 
-  const displayedRequests = allRequests.filter(r => {
-    if (filter === 'pending') return r.status === 'New' || r.status === 'Pending' || r.status === 'pending';
-    return r.status === filter;
+  const displayedRequests = requests.filter(r => {
+    if (filter === 'pending') return r.status === 'PENDING';
+    if (filter === 'accepted') return r.status === 'ACCEPTED';
+    return r.status === 'REJECTED';
   });
-  const [acceptedCount, setAcceptedCount] = useState(12);
-  const [rejectedCount, setRejectedCount] = useState(5);
 
   const handleAction = (id: string, action: 'accept' | 'reject' | 'restore') => {
-    const newStatus = action === 'accept' ? 'accepted' : action === 'restore' ? 'pending' : 'rejected';
-    setAllRequests(prev => prev.map(req =>
-      req.id === id ? { ...req, status: newStatus } : req
-    ));
+    const newStatus = action === 'accept' ? 'ACCEPTED' : action === 'restore' ? 'PENDING' : 'REJECTED';
+    updateRequestStatus(id, newStatus as any);
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="rgba(255,255,255,0.9)" />
-
       {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerTitleRow}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-            <MaterialIcons name="arrow-back-ios" size={20} color={COLORS.text} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Rental Requests</Text>
-        </View>
-        <TouchableOpacity style={styles.filterBtn}>
-          <MaterialIcons name="filter-list" size={24} color={COLORS.text} />
-        </TouchableOpacity>
-      </View>
+      <AppBar title="Rental Requests" />
 
       {/* Stats Section */}
       <View style={styles.statsContainer}>
@@ -62,60 +45,65 @@ export default function RentalRequestsScreen() {
             style={[styles.statBox, filter === 'pending' && styles.statPending]}
             onPress={() => setFilter('pending')}
           >
-            <Text style={styles.statNumber}>{pendingRequests.length}</Text>
-            <Text style={styles.statLabel}>Pending</Text>
+            <Text style={[styles.statNumber, filter === 'pending' && styles.statTextActive]}>{pendingRequests.length}</Text>
+            <Text style={[styles.statLabel, filter === 'pending' && styles.statTextActive]}>Pending</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.statBox, filter === 'accepted' && styles.statPending]}
             onPress={() => setFilter('accepted')}
           >
-            <Text style={styles.statNumber}>{acceptedRequests.length}</Text>
-            <Text style={styles.statLabel}>Accepted</Text>
+            <Text style={[styles.statNumber, filter === 'accepted' && styles.statTextActive]}>{acceptedRequests.length}</Text>
+            <Text style={[styles.statLabel, filter === 'accepted' && styles.statTextActive]}>Accepted</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.statBox, filter === 'rejected' && styles.statPending]}
             onPress={() => setFilter('rejected')}
           >
-            <Text style={styles.statNumber}>{rejectedRequests.length}</Text>
-            <Text style={styles.statLabel}>Rejected</Text>
+            <Text style={[styles.statNumber, filter === 'rejected' && styles.statTextActive]}>{rejectedRequests.length}</Text>
+            <Text style={[styles.statLabel, filter === 'rejected' && styles.statTextActive]}>Rejected</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Requests List */}
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {displayedRequests.map((request) => (
+        {displayedRequests.length === 0 ? (
+          <View style={styles.emptyContainer}>
+            <MaterialIcons name="event-note" size={64} color="#e5e7eb" />
+            <Text style={styles.emptyText}>No {filter} requests found</Text>
+          </View>
+        ) : displayedRequests.map((request: RentalRequest) => (
           <View key={request.id} style={styles.card}>
             {/* Card Header */}
             <View style={styles.cardHeader}>
               <View style={styles.avatarContainer}>
-                <Image source={{ uri: request.image }} style={styles.avatar} />
+                <Image source={{ uri: request.machineImage }} style={styles.avatar} />
                 <View style={styles.onlineBadge}>
                   <View style={styles.onlineDot} />
                 </View>
               </View>
               <View style={styles.userInfo}>
                 <View style={styles.userTopRow}>
-                  <Text style={styles.userName}>{request.name}</Text>
-                  {request.status === 'New' ? (
+                  <Text style={styles.userName}>{request.borrowerName}</Text>
+                  {request.status === 'PENDING' ? (
                     <View style={styles.newBadge}>
                       <Text style={styles.newBadgeText}>NEW</Text>
                     </View>
                   ) : (
                     <View style={styles.timeBadge}>
-                      <Text style={styles.timeBadgeText}>{request.timeAgo}</Text>
+                      <Text style={styles.timeBadgeText}>{request.requestDate}</Text>
                     </View>
                   )}
                 </View>
-                {request.status === 'accepted' ? (
+                {request.status === 'ACCEPTED' ? (
                   <View style={styles.unlockedBadge}>
                     <MaterialIcons name="lock-open" size={12} color="#15803d" />
                     <Text style={styles.unlockedText}>CONTACT UNLOCKED</Text>
                   </View>
                 ) : (
-                  <Text style={styles.userVillage}>{request.village}</Text>
+                  <Text style={styles.userVillage}>{request.machineName}</Text>
                 )}
-                {request.status === 'rejected' && (
+                {request.status === 'REJECTED' && (
                   <View style={styles.declinedBadge}>
                     <Text style={styles.declinedText}>Declined</Text>
                   </View>
@@ -128,48 +116,37 @@ export default function RentalRequestsScreen() {
               <View style={styles.detailItem}>
                 <View style={styles.detailIconRow}>
                   <MaterialIcons name="calendar-today" size={18} color={COLORS.brand.primary} />
-                  <Text style={styles.detailLabel}>Dates</Text>
+                  <Text style={styles.detailLabel}>Start Date</Text>
                 </View>
-                <Text style={styles.detailValue}>{request.days}</Text>
+                <Text style={styles.detailValue}>{request.startDate}</Text>
               </View>
               <View style={styles.detailItem}>
                 <View style={styles.detailIconRow}>
-                  <MaterialIcons name="schedule" size={18} color={COLORS.brand.primary} />
-                  <Text style={styles.detailLabel}>Duration</Text>
+                  <MaterialIcons name="payments" size={18} color={COLORS.brand.primary} />
+                  <Text style={styles.detailLabel}>Total Price</Text>
                 </View>
-                <Text style={styles.detailValue}>{request.duration}</Text>
+                <Text style={styles.detailValue}>₹{request.totalPrice}</Text>
               </View>
               <View style={[styles.detailItem, { width: '100%' }]}>
                 <View style={styles.detailIconRow}>
-                  <MaterialIcons name="agriculture" size={18} color={COLORS.brand.primary} />
-                  <Text style={styles.detailLabel}>Availability Type</Text>
+                  <MaterialIcons name="info" size={18} color={COLORS.brand.primary} />
+                  <Text style={styles.detailLabel}>Status</Text>
                 </View>
                 <View style={styles.typeBadgeContainer}>
                   <View style={[
                     styles.typeBadge,
-                    request.type === 'Machine Only' ? styles.typeBadgeBlue : styles.typeBadgeGreen
+                    request.status === 'ACCEPTED' ? styles.typeBadgeGreen : styles.typeBadgeBlue
                   ]}>
                     <Text style={[
-                      request.type === 'Machine Only' ? styles.typeTextBlue : styles.typeTextGreen
-                    ]}>{request.type}</Text>
+                      request.status === 'ACCEPTED' ? styles.typeTextGreen : styles.typeTextBlue
+                    ]}>{request.status}</Text>
                   </View>
                 </View>
               </View>
             </View>
 
-
-            {/* Reason for Rejection (Only for Rejected) */}
-            {filter === 'rejected' && request.note && (
-              <View style={styles.reasonContainer}>
-                <Text style={styles.reasonText}>
-                  <Text style={styles.reasonLabel}>Reason: </Text>
-                  {request.note || "Machine already booked."}
-                </Text>
-              </View>
-            )}
-
             {/* Actions */}
-            {filter === 'pending' && (
+            {request.status === 'PENDING' && (
               <View style={styles.actionsRow}>
                 <TouchableOpacity
                   style={styles.rejectBtn}
@@ -186,11 +163,11 @@ export default function RentalRequestsScreen() {
               </View>
             )}
 
-            {filter === 'accepted' && (
+            {request.status === 'ACCEPTED' && (
               <View style={styles.acceptedActionsContainer}>
                 <TouchableOpacity style={styles.callBtn}>
                   <MaterialIcons name="call" size={20} color="#000" />
-                  <Text style={styles.callBtnText}>Call Renter</Text>
+                  <Text style={styles.callBtnText}>Call Borrower</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.whatsappBtn}>
                   <MaterialIcons name="chat" size={20} color="#25D366" />
@@ -199,14 +176,14 @@ export default function RentalRequestsScreen() {
                 <Text style={styles.handoverText}>Machine ready for handover</Text>
               </View>
             )}
-            {filter === 'rejected' && (
+            {request.status === 'REJECTED' && (
               <View style={styles.rejectedActionsRow}>
                 <TouchableOpacity style={styles.archiveBtn}>
                   <Text style={styles.archiveBtnText}>Move to Archive</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.restoreBtn}
-                  onPress={() => handleAction(request.id, 'restore' as any)}
+                  onPress={() => handleAction(request.id, 'restore')}
                 >
                   <Text style={styles.restoreBtnText}>Restore</Text>
                 </TouchableOpacity>
@@ -214,9 +191,7 @@ export default function RentalRequestsScreen() {
             )}
           </View>
         ))}
-        {/* Empty State could go here if requests.length === 0 */}
       </ScrollView>
-
     </View>
   );
 }
@@ -224,50 +199,12 @@ export default function RentalRequestsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background, // Using simplified background for now, can be sophisticated
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    backgroundColor: COLORS.background,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 20,
-    paddingTop: StatusBar.currentHeight ? StatusBar.currentHeight + 10 : 40,
   },
-  headerTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  backBtn: {
-    padding: 4,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#101b0d',
-  },
-  filterBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    // backgroundColor: 'rgba(0,0,0,0.05)', // hover style simulation
-  },
-
-  // Stats
   statsContainer: {
-    padding: 16,
-    marginTop: StatusBar.currentHeight ? StatusBar.currentHeight + 60 : 80,
+    marginBottom: 16,
+    marginTop: 8
   },
   statsGrid: {
     flexDirection: 'row',
@@ -281,15 +218,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#f3f4f6',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
     elevation: 1,
   },
   statPending: {
-    backgroundColor: 'rgba(55, 236, 19, 0.2)',
-    borderColor: 'rgba(55, 236, 19, 0.4)',
+    backgroundColor: COLORS.brand.primary,
+    borderColor: COLORS.brand.primary,
   },
   statNumber: {
     fontSize: 24,
@@ -303,24 +236,18 @@ const styles = StyleSheet.create({
     color: '#4b5563',
     marginTop: 2,
   },
-
-  // Scroll Content
+  statTextActive: {
+    color: '#000'
+  },
   scrollContent: {
-    paddingHorizontal: 16,
     paddingBottom: 100,
   },
-
-  // Card
   card: {
     backgroundColor: '#fff',
     borderRadius: 16,
     borderWidth: 1,
     borderColor: '#f3f4f6',
     marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
     elevation: 2,
     overflow: 'hidden',
   },
@@ -373,7 +300,7 @@ const styles = StyleSheet.create({
     color: '#111827',
   },
   newBadge: {
-    backgroundColor: '#ffedd5', // orange-100
+    backgroundColor: COLORS.brand.muted,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 100,
@@ -381,11 +308,11 @@ const styles = StyleSheet.create({
   newBadgeText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#c2410c', // orange-700
+    color: COLORS.brand.primary,
     textTransform: 'uppercase',
   },
   timeBadge: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: COLORS.brand.muted,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 100,
@@ -393,7 +320,7 @@ const styles = StyleSheet.create({
   timeBadgeText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#4b5563',
+    color: COLORS.black,
     textTransform: 'uppercase',
   },
   userVillage: {
@@ -401,8 +328,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#6b7280',
   },
-
-  // Details
   detailsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -412,7 +337,6 @@ const styles = StyleSheet.create({
   detailItem: {
     width: '45%',
     gap: 4,
-
   },
   detailIconRow: {
     flexDirection: 'row',
@@ -456,28 +380,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#1d4ed8',
   },
-
-  // Note
-  noteContainer: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-    padding: 12,
-    backgroundColor: '#f9fafb',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#f3f4f6',
-  },
-  noteText: {
-    fontSize: 14,
-    color: '#374151',
-    lineHeight: 20,
-  },
-  noteLabel: {
-    fontWeight: '600',
-    color: '#111827',
-  },
-
-  // Actions
   actionsRow: {
     flexDirection: 'row',
     padding: 16,
@@ -491,13 +393,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#d1d5db',
-    backgroundColor: '#fff',
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.white,
   },
   rejectBtnText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#374151',
+    color: COLORS.brand.primary,
   },
   acceptBtn: {
     flex: 1,
@@ -506,23 +408,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
     backgroundColor: COLORS.brand.primary,
-    shadowColor: '#bbf7d0',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
   },
   acceptBtnText: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#000',
   },
-
-  // Accepted State Styles
   unlockedBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: '#dcfce7', // green-100
+    backgroundColor: '#dcfce7',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
@@ -532,7 +428,7 @@ const styles = StyleSheet.create({
   unlockedText: {
     fontSize: 9,
     fontWeight: '700',
-    color: '#15803d', // green-700
+    color: '#15803d',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
@@ -550,11 +446,6 @@ const styles = StyleSheet.create({
     gap: 8,
     backgroundColor: COLORS.brand.primary,
     borderRadius: 8,
-    shadowColor: '#bbf7d0',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
-    elevation: 2,
   },
   callBtnText: {
     fontSize: 16,
@@ -587,10 +478,8 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginTop: 4,
   },
-
-  // Rejected State Styles
   declinedBadge: {
-    backgroundColor: '#fee2e2', // red-100
+    backgroundColor: '#fee2e2',
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 100,
@@ -600,27 +489,9 @@ const styles = StyleSheet.create({
   declinedText: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#b91c1c', // red-700
+    color: '#b91c1c',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
-  },
-  reasonContainer: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-    padding: 12,
-    backgroundColor: 'rgba(254, 226, 226, 0.5)', // red-50/50
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#fee2e2',
-  },
-  reasonText: {
-    fontSize: 14,
-    color: '#b91c1c', // red-700
-    lineHeight: 20,
-  },
-  reasonLabel: {
-    fontWeight: '700',
-    color: '#b91c1c',
   },
   rejectedActionsRow: {
     flexDirection: 'row',
@@ -649,4 +520,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.brand.primary,
   },
+  emptyContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 80,
+    gap: 16
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#9ca3af',
+    fontWeight: '600'
+  }
 });

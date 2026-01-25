@@ -1,6 +1,6 @@
 export const RENTAL_MACHINES = [
     {
-        id: '1',
+        id: 'rent_mock_101',
         name: 'John Deere 5050D',
         type: 'Tractor',
         owner: 'Rajesh Kumar',
@@ -14,10 +14,10 @@ export const RENTAL_MACHINES = [
         image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBOksPzLzg-ceRutUIWdIQYalaJAutem25bcQHUthK-1_M6NcwIz9L00xNxHaxrYyREK_TsS8MZvyoGxUfmN_aCLNEpGm0kDQkpR8PZoIDBLq9iXRJAnztHdSY1BjLEKFegyo2hN7HHXD5W7sN6EL9AVTNBxRPyj0N0ePBWgdncqo0YF2yF9E2-Vay_TyltuuiERKcapN6bHcRt2s-0GLWNP5r90p-GiTtEkZDp3BqUiT2v6FNcBM3QbA5wLhmdUE-LzX9tNq_KQ1PP',
         category: 'Tractor',
         addons: [],
-        operator: true // Assuming default or not specified explicitly in card but implied by price/context
+        operator: true
     },
     {
-        id: '2',
+        id: 'rent_mock_102',
         name: 'Kubota DC-70G',
         type: 'Harvester',
         owner: 'Amit Singh',
@@ -25,7 +25,7 @@ export const RENTAL_MACHINES = [
         distance: '12 km',
         rating: 4.5,
         pricePerHour: 45,
-        pricePerDay: null, // Card only showed /hour
+        pricePerDay: null,
         availability: 'Oct 15 - Nov 20',
         minDuration: 'Min. 1 Day',
         image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCh9v7vbRf5oVqKkIfxyd0JKxIdSQ32bK3jDO09EoLtDt4ETX6UNtjNDUguXPGQlPJ_DiYtnbUMPHrRrOf-PORCs7lKytwE5a203ub33b9_NNkvpO2nVRSoij_VvJ0vypsWoT_v1maB8_q5MdfDlw10ZiOufEzE9yLEq3I7ht7TYlWCU2bHC5BBOOhmXTmouH2lPL5AeXs-VpQ-y6HhxKcqNN-U7gaee4OYn7SyZpLHEmqZxY2adEcrMDwHtj0m85tFbJuCcve3Pc7J',
@@ -34,7 +34,7 @@ export const RENTAL_MACHINES = [
         operator: true
     },
     {
-        id: '3',
+        id: 'rent_mock_103',
         name: 'Mahindra Rotavator',
         type: 'Implement',
         owner: 'Vikram Jat',

@@ -1,8 +1,10 @@
 import { COLORS } from '@/src/constants/colors';
+import { RentalRequest, useRentalStore } from '@/src/store/rental.store';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
+    Alert,
     Image,
     ScrollView,
     StatusBar,
@@ -12,7 +14,6 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { RENTAL_MACHINES } from './data';
 
 const DAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const DATES = Array.from({ length: 11 }, (_, i) => i + 1); // Mock 1-11 dates
@@ -20,24 +21,43 @@ const DATES = Array.from({ length: 11 }, (_, i) => i + 1); // Mock 1-11 dates
 export default function RentInRequestScreen() {
     const router = useRouter();
     const { id } = useLocalSearchParams<{ id: string }>();
+    const { rentals, addRequest } = useRentalStore();
+
     const [selectedDate, setSelectedDate] = useState(5);
     const [durationUnit, setDurationUnit] = useState<'Hours' | 'Days'>('Hours');
     const [durationValue, setDurationValue] = useState(4);
     const [note, setNote] = useState('');
 
-    const machine = RENTAL_MACHINES.find(m => m.id === id) || RENTAL_MACHINES[0]; // Fallback to first
-
-    const toggleDuration = () => {
-        setDurationUnit(prev => prev === 'Hours' ? 'Days' : 'Hours');
-    };
+    const machine = rentals.find(m => m.id === id) || rentals[0];
 
     const incrementDuration = () => setDurationValue(prev => prev + 1);
     const decrementDuration = () => setDurationValue(prev => Math.max(1, prev - 1));
 
-    // Mock calculation
+    // Calculation logic
     const totalCost = durationUnit === 'Hours'
-        ? (durationValue * (machine.pricePerHour || 0))
-        : (durationValue * (machine.pricePerDay || machine.pricePerHour * 8 || 0));
+        ? (durationValue * (Number(machine.price) || 0))
+        : (durationValue * (Number(machine.price) * 8 || 0));
+
+    const handleSendRequest = () => {
+        const newRequest: RentalRequest = {
+            id: Math.random().toString(36).substring(7),
+            machineId: machine.id,
+            machineName: machine.name,
+            machineImage: machine.image,
+            borrowerName: 'Sopan Phadtare', // Mock borrower
+            requestDate: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+            startDate: `Oct ${selectedDate < 10 ? '0' + selectedDate : selectedDate}, 2023`,
+            endDate: `Oct ${selectedDate + (durationUnit === 'Days' ? durationValue : 0)}, 2023`,
+            totalPrice: totalCost.toFixed(0),
+            status: 'PENDING',
+            paymentStatus: 'UNPAID'
+        };
+
+        addRequest(newRequest);
+        Alert.alert('Success', 'Booking Request Sent Successfully!', [
+            { text: 'OK', onPress: () => router.push('/(farmer)/rent-in/') }
+        ]);
+    };
 
     return (
         <View style={styles.container}>
@@ -52,7 +72,7 @@ export default function RentInRequestScreen() {
                 <View style={{ width: 40 }} />
             </View>
 
-            <ScrollView contentContainerStyle={styles.scrollContent}>
+            <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
                 {/* Machine Summary Card */}
                 <View style={styles.section}>
                     <View style={styles.summaryCard}>
@@ -62,12 +82,12 @@ export default function RentInRequestScreen() {
                                 <View style={styles.titleRow}>
                                     <Text style={styles.summaryTitle}>{machine.name}</Text>
                                 </View>
-                                <Text style={styles.summaryOwner}>Owner: {machine.owner}</Text>
+                                <Text style={styles.summaryOwner}>Owner: {machine.ownerName}</Text>
                                 <View style={styles.summaryMetaRow}>
                                     <View style={styles.availBadge}>
                                         <Text style={styles.availText}>Available</Text>
                                     </View>
-                                    <Text style={styles.summaryPrice}>${machine.pricePerHour}/hr</Text>
+                                    <Text style={styles.summaryPrice}>₹{machine.price}/hr</Text>
                                 </View>
                             </View>
                         </View>
@@ -92,7 +112,7 @@ export default function RentInRequestScreen() {
                             {DAYS.map((day, i) => (
                                 <Text key={i} style={styles.dayLabel}>{day}</Text>
                             ))}
-                            {/* Empty placeholders for alignment if needed, skipping for mock */}
+                            {/* Empty placeholders for alignment mockup */}
                             <View style={styles.dateCell} />
                             <View style={styles.dateCell} />
                             <View style={styles.dateCell} />
@@ -147,7 +167,7 @@ export default function RentInRequestScreen() {
                             </View>
                             <View style={styles.costColumn}>
                                 <Text style={styles.estLabel}>EST. TOTAL</Text>
-                                <Text style={styles.estValue}>${totalCost}</Text>
+                                <Text style={styles.estValue}>₹{totalCost.toFixed(0)}</Text>
                             </View>
                         </View>
                     </View>
@@ -168,20 +188,16 @@ export default function RentInRequestScreen() {
                     />
                 </View>
 
-                <View style={{ height: 100 }} />
+                <View style={{ height: 160 }} />
             </ScrollView>
 
             {/* Footer */}
             <View style={styles.footer}>
                 <View style={styles.footerRow}>
                     <Text style={styles.totalLabel}>Total payable</Text>
-                    <Text style={styles.totalValue}>${totalCost.toFixed(2)}</Text>
+                    <Text style={styles.totalValue}>₹{totalCost.toFixed(2)}</Text>
                 </View>
-                <TouchableOpacity style={styles.sendBtn} onPress={() => {
-                    // Simulate Sending
-                    alert('Request Sent!');
-                    router.back();
-                }}>
+                <TouchableOpacity style={styles.sendBtn} onPress={handleSendRequest}>
                     <Text style={styles.sendBtnText}>Send Request</Text>
                     <MaterialIcons name="send" size={20} color="#000" />
                 </TouchableOpacity>
@@ -211,7 +227,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 20,
-        backgroundColor: 'transparent',
     },
     appBarTitle: {
         fontSize: 18,
@@ -231,10 +246,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         borderWidth: 1,
         borderColor: '#f3f4f6',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
         elevation: 2,
     },
     summaryRow: {
@@ -264,7 +275,7 @@ const styles = StyleSheet.create({
     summaryOwner: {
         fontSize: 14,
         fontWeight: '500',
-        color: '#4b5563', // green-700/ gray mix
+        color: '#4b5563',
     },
     summaryMetaRow: {
         flexDirection: 'row',
@@ -290,7 +301,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: '#0f172a',
     },
-
     sectionTitle: {
         fontSize: 18,
         fontWeight: '700',
@@ -304,10 +314,6 @@ const styles = StyleSheet.create({
         padding: 16,
         borderWidth: 1,
         borderColor: '#f3f4f6',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
         elevation: 2,
     },
     calendarHeader: {
@@ -347,10 +353,6 @@ const styles = StyleSheet.create({
     },
     dateCellSelected: {
         backgroundColor: COLORS.brand.primary,
-        shadowColor: COLORS.brand.primary,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3,
         elevation: 3,
     },
     dateText: {
@@ -361,8 +363,6 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: '#000',
     },
-
-    // Toggle
     toggleRow: {
         flexDirection: 'row',
         backgroundColor: '#f3f4f6',
@@ -378,10 +378,6 @@ const styles = StyleSheet.create({
     },
     toggleBtnActive: {
         backgroundColor: '#fff',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 1,
         elevation: 1,
     },
     toggleText: {
@@ -393,7 +389,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#000',
     },
-
     stepperRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -420,10 +415,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.brand.primary,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: COLORS.brand.primary,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
         elevation: 4,
     },
     stepperValue: {
@@ -445,9 +436,8 @@ const styles = StyleSheet.create({
     estValue: {
         fontSize: 24,
         fontWeight: '700',
-        color: '#4b5563', // green tone logic from design: sub-dark
+        color: COLORS.brand.primary,
     },
-
     optionalText: {
         fontSize: 14,
         fontWeight: '400',
@@ -463,13 +453,12 @@ const styles = StyleSheet.create({
         color: '#0f172a',
         minHeight: 120,
     },
-
     footer: {
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: 'rgba(255,255,255,0.95)',
+        backgroundColor: 'rgba(255,255,255,0.98)',
         padding: 16,
         borderTopWidth: 1,
         borderTopColor: '#f3f4f6',
@@ -500,10 +489,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.brand.primary,
         height: 56,
         borderRadius: 16,
-        shadowColor: '#bbf7d0',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
         elevation: 4,
     },
     sendBtnText: {

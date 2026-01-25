@@ -27,21 +27,21 @@ const ROLES = [
     icon: 'agriculture',
     iconBg: COLORS.primary[100],
     iconColor: COLORS.primary[800],
-    route: '(farmer)/profile',
+    route: '/(farmer)/profile',
   },
   {
     key: 'labour',
     icon: 'engineering',
     iconBg: '#FEF9C3',
     iconColor: '#A16207',
-    route: '(labour)/profile',
+    route: '/(labour)/register',
   },
   {
     key: 'transporter',
     icon: 'local-shipping',
     iconBg: '#DBEAFE',
     iconColor: '#1D4ED8',
-    route: '(transporter)/profile',
+    route: '/(transporter)/register',
   },
 ] as const;
 
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingHorizontal:16
+    paddingHorizontal: 16
   },
   header: {
     flexDirection: 'row',

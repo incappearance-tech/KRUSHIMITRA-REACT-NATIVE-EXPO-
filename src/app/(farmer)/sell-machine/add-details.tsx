@@ -1,20 +1,23 @@
+import AppBar from '@/src/components/AppBar';
 import AvailabilityPicker from '@/src/components/AvailabilityPicker';
 import Button from '@/src/components/Button';
-import Card from '@/src/components/Card';
 import FormCheckbox from '@/src/components/FormCheckbox';
 import FormDropdown from '@/src/components/FormDropdown';
 import FormInput from '@/src/components/FormInput';
 import FormSwitch from '@/src/components/FormSwitch';
 import MediaUploader from '@/src/components/MediaUploader';
+import { ProgressStep } from '@/src/components/ProgressStep';
 import RadioGroup from '@/src/components/RadioGroup';
+import { COLORS } from '@/src/constants/colors';
+import { useSellingStore } from '@/src/store/selling.store';
 import { IMediaItem } from '@/src/types/components/media';
-import { MaterialIcons } from '@expo/vector-icons';
+import { IAvailabilityOption, machineSchema } from '@/src/types/sell-machine/add-details';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-
 import {
   Alert,
   KeyboardAvoidingView,
@@ -22,31 +25,39 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View,
+  View
 } from 'react-native';
 
-import AppBar from '@/src/components/AppBar';
-import { COLORS } from '../../../constants/colors';
+interface IWizardStep {
+  id: number;
+  title: string;
+  fields: string[];
+}
 
-import { IAvailabilityOption, ISectionHeaderProps, machineSchema } from '@/src/types/sell-machine/add-details';
-import { useEffect, useState } from 'react';
-import { MOCK_MACHINES } from './data';
+const STEPS: IWizardStep[] = [
+  { id: 1, title: 'Basics', fields: ['category', 'subCategory', 'brand', 'model', 'year'] },
+  { id: 2, title: 'Condition', fields: ['condition', 'usageLevel', 'hasRepair', 'repairDetails'] },
+  { id: 3, title: 'Pricing & Media', fields: ['askingPrice', 'isNegotiable', 'availability', 'media'] },
+];
 
-export default function App() {
+export default function SellMachineWizard() {
   const { t } = useTranslation();
+  const { id } = useLocalSearchParams();
+  const isEditMode = !!id;
+
+  const [currentStep, setCurrentStep] = useState(1);
   const [media, setMedia] = useState<IMediaItem[]>([]);
   const [availability, setAvailability] = useState<IAvailabilityOption>({ key: 'immediately' });
 
-  const { id } = useLocalSearchParams();
-  const isEditMode = !!id;
+  const { machines, addMachine, updateMachine } = useSellingStore();
 
   const {
     control,
     watch,
     handleSubmit,
-    formState: { errors },
     setValue,
-    reset
+    reset,
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(machineSchema),
     defaultValues: {
@@ -70,309 +81,208 @@ export default function App() {
 
   useEffect(() => {
     if (isEditMode && id) {
-      const machine = MOCK_MACHINES.find(m => m.id === id);
+      const machine = machines.find(m => m.id === id);
       if (machine) {
-        // Populating form fields
         reset({
-          category: machine.category,
-          subCategory: machine.subCategory,
-          brand: machine.brand,
-          model: machine.model,
-          year: machine.year,
-          serialNo: machine.serialNo,
-          condition: machine.condition,
-          sellingReason: machine.sellingReason,
-          usageLevel: machine.usageLevel as 'light' | 'medium' | 'heavy',
-          isNegotiable: machine.isNegotiable,
-          hasRepair: machine.hasRepair,
-          repairDetails: machine.repairDetails,
-          availability: machine.availability as { key: string }, // Schema expects { key: string }
-          ownershipConfirmed: machine.ownershipConfirmed,
-          askingPrice: machine.askingPrice,
+          ...machine,
+          usageLevel: machine.usageLevel as any,
+          availability: machine.availability as any,
         });
-
-        // Updating local state (media & availability)
-        if (machine.media) {
-          setMedia(machine.media as IMediaItem[]);
-        }
-        if (machine.availability) {
-          setAvailability(machine.availability as IAvailabilityOption);
-        }
+        if (machine.media) setMedia(machine.media as IMediaItem[]);
+        if (machine.availability) setAvailability(machine.availability as IAvailabilityOption);
       }
     }
-  }, [id, isEditMode, reset]);
+  }, [id, isEditMode, reset, machines]);
 
-  /* ------------------------------- SUBMIT -------------------------------- */
-
-  const handleNextStep = handleSubmit((data) => {
-    if (media.length < 2) {
-      Alert.alert(t('sell_machine.photo_alert_title'), t('sell_machine.photo_alert_msg'));
-      return;
+  const handleNext = async () => {
+    if (currentStep < 3) {
+      setCurrentStep(prev => prev + 1);
+    } else {
+      handleFinalSubmit();
     }
+  };
 
-    console.log('FINAL DATA ✅', { ...data, media });
-    router.push('/sell-machine/publish');
-  });
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(prev => prev - 1);
+    } else {
+      router.back();
+    }
+  };
 
-  /* ----------------------------------------------------------------------- */
+  const handleFinalSubmit = handleSubmit(
+    async (data) => {
+      if (media.length < 1) {
+        Alert.alert('Photos Required', 'Please add at least 1 photo of your machine.');
+        return;
+      }
+
+      if (isEditMode) {
+        updateMachine(id as string, {
+          ...data,
+          media,
+          availability,
+        } as any);
+        Alert.alert('Success', 'Listing updated successfully!');
+      } else {
+        const newMachine = {
+          id: Math.random().toString(36).substring(7),
+          ...data,
+          media,
+          availability,
+          status: 'LIVE',
+          visible: true,
+          expired: false,
+          expiry: '30 Days',
+        };
+        addMachine(newMachine as any);
+        Alert.alert('Listing Created', 'Your machine is now live on KrushiMitra market!');
+      }
+
+      router.replace('/(farmer)/sell-machine/');
+    },
+    (err) => {
+      console.log('Validation Errors:', err);
+      const firstErr = Object.values(err)[0];
+      if (firstErr) {
+        Alert.alert('Required Information', (firstErr as any).message || 'Please fill all mandatory fields.');
+      }
+    }
+  );
 
   return (
     <View style={styles.container}>
-      {/* -------------------- HEADER -------------------- */}
-      <AppBar title={isEditMode ? t('sell_machine.edit_title', 'Edit Machine') : t('sell_machine.title')} />
+      <AppBar
+        title={isEditMode ? "Edit Listing" : "Sell Machine"}
+        showBack
+        onBackPress={handleBack}
+      />
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 120 }}
-        >
-          {/* -------------------- MEDIA -------------------- */}
-          <MediaUploader
-            title={t('sell_machine.upload_photos')}
-            min={2}
-            max={5}
-            onChange={setMedia}
-          />
+      <View style={styles.content}>
+        <ProgressStep currentStep={currentStep} totalSteps={3} label={STEPS[currentStep - 1].title} />
 
-          {/* -------------------- CATEGORY -------------------- */}
-          <Card>
-            <SectionHeader icon="category" title={t('sell_machine.category')} />
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+          <ScrollView contentContainerStyle={styles.scrollForm} showsVerticalScrollIndicator={false}>
 
-            <FormDropdown
-              control={control}
-              name="category"
-              label={t('sell_machine.category')}
-              placeholder={t('sell_machine.select_category')}
-              options={['Tractor', 'Harvester', 'Implements', 'Seeds']}
-            />
-
-            <FormDropdown
-              control={control}
-              name="subCategory"
-              label={t('sell_machine.sub_category')}
-              placeholder={t('sell_machine.select_sub_category')}
-              options={['4WD', 'Mini Tractor', 'Utility', 'Row Crop']}
-            />
-          </Card>
-
-          {/* -------------------- IDENTITY -------------------- */}
-          <Card>
-            <SectionHeader icon="fingerprint" title={t('sell_machine.identity_title')} />
-
-            <FormInput
-              control={control}
-              name="brand"
-              label={t('sell_machine.brand')}
-              placeholder={t('sell_machine.brand_placeholder')}
-            />
-
-            <FormInput
-              control={control}
-              name="model"
-              label={t('sell_machine.model')}
-              placeholder={t('sell_machine.model_placeholder')}
-            />
-
-            <View>
-              <FormDropdown
-                control={control}
-                name="year"
-                label={t('sell_machine.year')}
-                placeholder={t('sell_machine.select')}
-                options={['2024', '2023', '2022', '2021']}
-              />
-
-              <FormInput
-                control={control}
-                name="serialNo"
-                label={t('sell_machine.serial_no')}
-                placeholder={t('sell_machine.serial_placeholder')}
-                maxLength={4}
-              />
-            </View>
-          </Card>
-
-          {/* -------------------- USAGE -------------------- */}
-          <Card>
-            <SectionHeader icon="build" title={t('sell_machine.condition_title')} />
-
-            <RadioGroup
-              label={t('sell_machine.usage_level')}
-              value={watch('usageLevel')}
-              onChange={(val) =>
-                setValue('usageLevel', val)
-              }
-              options={[
-                { label: t('sell_machine.light'), value: 'light' },
-                { label: t('sell_machine.medium'), value: 'medium' },
-                { label: t('sell_machine.heavy'), value: 'heavy' },
-              ]}
-            />
-
-            <View style={styles.rowBetween}>
-              <Text style={styles.labelDark}>{t('sell_machine.any_repair')}</Text>
-              <FormSwitch control={control} name="hasRepair" />
-            </View>
-
-            {watch('hasRepair') && (
-              <FormInput
-                control={control}
-                name="repairDetails"
-                label={t('sell_machine.repair_details')}
-                placeholder={t('sell_machine.enter_repair_details')}
-              />
+            {currentStep === 1 && (
+              <View style={styles.stepContainer}>
+                <Text style={styles.stepTitle}>Let's start with the basics</Text>
+                <FormDropdown control={control} name="category" label="Category" placeholder="Select Category" options={['Tractor', 'Harvester', 'Implements']} />
+                <FormDropdown control={control} name="subCategory" label="Type" placeholder="Select Type" options={['4WD', 'Mini', 'Utility']} />
+                <FormInput control={control} name="brand" label="Brand" placeholder="e.g. Mahindra" />
+                <View style={styles.row}>
+                  <View style={{ flex: 1 }}>
+                    <FormInput control={control} name="model" label="Model" placeholder="e.g. 575 DI" />
+                  </View>
+                  <View style={{ width: 12 }} />
+                  <View style={{ flex: 1 }}>
+                    <FormDropdown control={control} name="year" label="Mfg Year" placeholder="Year" options={['2024', '2023', '2022', '2021', '2020']} />
+                  </View>
+                </View>
+                <FormInput
+                  control={control}
+                  name="serialNo"
+                  label="Serial Number (Last 4 digits)"
+                  placeholder="e.g. 1234"
+                  keyboardType="numeric"
+                  maxLength={4}
+                />
+              </View>
             )}
 
-            <FormDropdown
-              control={control}
-              name="condition"
-              label={t('sell_machine.overall_condition')}
-              placeholder={t('sell_machine.select')}
-              options={[
-                t('sell_machine.excellent'),
-                t('sell_machine.good_minor_wear'),
-                t('sell_machine.fair'),
-                t('sell_machine.needs_repair'),
-              ]}
-            />
-          </Card>
+            {currentStep === 2 && (
+              <View style={styles.stepContainer}>
+                <Text style={styles.stepTitle}>Machine Condition</Text>
+                <FormDropdown control={control} name="condition" label="Condition" placeholder="Select Condition" options={['Excellent', 'Good', 'Fair']} />
 
-          {/* -------------------- SALES -------------------- */}
-          <Card>
-            <SectionHeader icon="sell" title={t('sell_machine.sales_details')} />
+                <FormInput
+                  control={control}
+                  name="sellingReason"
+                  label="Reason for Selling"
+                  placeholder="e.g. Upgrading to new model"
+                  multiline
+                />
 
-            <FormDropdown
-              control={control}
-              name="sellingReason"
-              label={t('sell_machine.selling_reason')}
-              placeholder={t('sell_machine.select')}
-              options={[
-                t('sell_machine.upgrading'),
-                t('sell_machine.need_cash'),
-                t('sell_machine.not_using'),
-              ]}
-            />
-            <FormInput
-              control={control}
-              name="askingPrice"
-              label={t('sell_machine.asking_price')}
-              placeholder="0"
-              keyboardType="numeric"
-              leftIcon={<FontAwesome name="rupee" size={18} color="black" />}
-            />
+                <View style={styles.spacer} />
+                <RadioGroup
+                  label="Usage Level"
+                  value={watch('usageLevel')}
+                  onChange={(val) => setValue('usageLevel', val)}
+                  options={[
+                    { label: 'Low', value: 'light' },
+                    { label: 'Medium', value: 'medium' },
+                    { label: 'High', value: 'heavy' },
+                  ]}
+                />
+                <View style={styles.divider} />
+                <View style={[styles.row, { justifyContent: 'space-between' }]}>
+                  <Text style={styles.label}>Does it need repairs?</Text>
+                  <FormSwitch control={control} name="hasRepair" />
+                </View>
+                {watch('hasRepair') && (
+                  <View style={styles.repairBox}>
+                    <FormInput control={control} name="repairDetails" label="Repair Details" placeholder="Describe..." multiline numberOfLines={3} />
+                  </View>
+                )}
+              </View>
+            )}
 
-            <View style={styles.rowBetween}>
-              <Text style={styles.labelDark}>{t('sell_machine.price_negotiable')}</Text>
-              <FormSwitch control={control} name="isNegotiable" />
-            </View>
+            {currentStep === 3 && (
+              <View style={styles.stepContainer}>
+                <Text style={styles.stepTitle}>Price & Photos</Text>
+                <MediaUploader title="Upload Photos" min={1} max={5} onChange={setMedia} initialMedia={media} />
+                <View style={styles.spacer} />
+                <FormInput
+                  control={control}
+                  name="askingPrice"
+                  label="Selling Price (₹)"
+                  placeholder="e.g. 5,50,000"
+                  keyboardType="numeric"
+                  leftIcon={<FontAwesome name="rupee" size={16} color={COLORS.textSecondary} />}
+                />
+                <View style={[styles.row, { justifyContent: 'space-between', marginTop: 8 }]}>
+                  <Text style={styles.label}>Price Negotiable?</Text>
+                  <FormSwitch control={control} name="isNegotiable" />
+                </View>
+                <AvailabilityPicker
+                  label="Available From"
+                  value={availability}
+                  onChange={setAvailability}
+                  options={[
+                    { type: 'static', key: 'immediately', label: 'Immediately' },
+                    { type: 'date', key: 'select_date', label: 'Specific Date' },
+                  ]}
+                />
+                <View style={styles.spacer} />
+                <FormCheckbox control={control} name="ownershipConfirmed" label="I confirm I am the owner." />
+              </View>
+            )}
+          </ScrollView>
+        </KeyboardAvoidingView>
 
-            <AvailabilityPicker
-              label={t('sell_machine.available_from')}
-              value={availability}
-              onChange={setAvailability}
-              options={[
-                { type: 'static', key: 'immediately', label: t('sell_machine.immediately') },
-                { type: 'date', key: 'select_date', label: t('sell_machine.select_date') },
-              ]}
-            />
-          </Card>
-
-          {/* -------------------- OWNERSHIP -------------------- */}
-          <FormCheckbox
-            control={control}
-            name="ownershipConfirmed"
-            label={t('sell_machine.ownership_confirm')}
+        <View style={styles.footer}>
+          <Button
+            label={currentStep === 3 ? "Publish Listing" : "Next Step"}
+            onPress={handleNext}
+            backgroundColor={COLORS.brand.primary}
+            textColor="#000"
           />
-        </ScrollView>
-      </KeyboardAvoidingView>
-
-      {/* -------------------- FOOTER -------------------- */}
-      <Button label={isEditMode ? t('sell_machine.update', 'Update Machine') : t('sell_machine.next_step')} onPress={handleNextStep} />
+        </View>
+      </View>
     </View>
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                               HELPERS                                      */
-/* -------------------------------------------------------------------------- */
-
-const SectionHeader = ({ icon, title }: ISectionHeaderProps) => (
-  <View style={styles.sectionHeader}>
-    <MaterialIcons
-      name={icon}
-      size={20}
-      color={COLORS.brand.primary}
-      style={{ marginRight: 8 }}
-    />
-    <Text style={styles.sectionHeaderText}>{title}</Text>
-  </View>
-);
-
-/* -------------------------------------------------------------------------- */
-/*                                  STYLES                                    */
-/* -------------------------------------------------------------------------- */
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1, backgroundColor: COLORS.background,
-    paddingHorizontal: 16
-  },
-
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-
-  sectionHeaderText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: COLORS.text,
-  },
-
-  fieldGroup: { marginBottom: 16 },
-
-  label: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: COLORS.textSecondary,
-    marginBottom: 6,
-  },
-
-  labelDark: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: COLORS.text,
-  },
-
-  rowBetween: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 8,
-  },
-
-  inputContainer: {
-    height: 48,
-    backgroundColor: COLORS.background,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 8,
-    paddingHorizontal: 16,
-  },
-
-  inputWrapperRelative: {
-    justifyContent: 'center',
-  },
-
-  currencyPrefix: {
-    position: 'absolute',
-    left: 10,
-    fontSize: 16,
-    fontWeight: '600',
-    color: COLORS.textSecondary,
-  },
+  container: { flex: 1, backgroundColor: COLORS.background },
+  content: { flex: 1, paddingHorizontal: 16 },
+  scrollForm: { paddingBottom: 100, paddingTop: 16 },
+  stepContainer: { gap: 16 },
+  stepTitle: { fontSize: 20, fontWeight: '800', color: COLORS.text, marginBottom: 8 },
+  row: { flexDirection: 'row', alignItems: 'center' },
+  spacer: { height: 16 },
+  divider: { height: 1, backgroundColor: COLORS.border, marginVertical: 16 },
+  label: { fontSize: 14, fontWeight: '600', color: COLORS.text },
+  repairBox: { marginTop: 12, backgroundColor: '#fef2f2', padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#fee2e2' },
+  footer: { paddingVertical: 16, borderTopWidth: 1, borderTopColor: COLORS.border, backgroundColor: COLORS.background }
 });

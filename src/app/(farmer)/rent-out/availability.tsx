@@ -6,6 +6,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,10 +14,14 @@ import {
   View
 } from 'react-native';
 
+import { useRentalStore } from '@/src/store/rental.store';
+
 const { width } = Dimensions.get('window');
 
 const AvailabilityScreen: React.FC = () => {
-
+  const { id } = useLocalSearchParams();
+  const isEditMode = !!id;
+  const { rentals, draftRental, setDraftRental } = useRentalStore();
 
   // State for selections
   const [selectedStart, setSelectedStart] = useState<number | null>(5);
@@ -24,20 +29,26 @@ const AvailabilityScreen: React.FC = () => {
   const [pickupTime, setPickupTime] = useState<'Morning' | 'Afternoon' | 'Evening'>('Morning');
   const [returnTime, setReturnTime] = useState<'Same Day' | 'Next Day'>('Next Day');
 
-  const { id } = useLocalSearchParams();
-  const isEditMode = !!id;
-
   const bookedDays = [13, 14];
   const daysInMonth = Array.from({ length: 31 }, (_, i) => i + 1);
 
   useEffect(() => {
     if (isEditMode && id) {
-      // In real app, we would parse actual date ranges from machine data
-      // For now, let's just simulate selecting a range if editing
-      setSelectedStart(10);
-      setSelectedEnd(15);
+      const machine = rentals.find(m => m.id === id);
+      if (machine && machine.expiry) {
+        // Simple parser for "Oct DD, 2023 - Oct DD, 2023"
+        const parts = machine.expiry.split(' - ');
+        if (parts[0].includes('Oct')) {
+          const startDay = parseInt(parts[0].replace('Oct ', '').replace(', 2023', ''));
+          setSelectedStart(startDay || 5);
+          if (parts[1]) {
+            const endDay = parseInt(parts[1].replace('Oct ', '').replace(', 2023', ''));
+            setSelectedEnd(endDay || 12);
+          }
+        }
+      }
     }
-  }, [id, isEditMode]);
+  }, [id, isEditMode, rentals]);
 
   const handleDateClick = (dayNum: number) => {
     if (bookedDays.includes(dayNum)) return;
@@ -76,6 +87,13 @@ const AvailabilityScreen: React.FC = () => {
     ? (selectedEnd - selectedStart + 1)
     : (selectedStart ? 1 : 0);
 
+  const onNext = () => {
+    setDraftRental({
+      expiry: duration > 1 ? `${formatDate(selectedStart)} - ${formatDate(selectedEnd)}` : formatDate(selectedStart),
+    });
+    router.push({ pathname: '/(farmer)/rent-out/publish', params: { id: id as string } });
+  };
+
   return (
     <View style={styles.safeArea}>
       {/* Header */}
@@ -88,10 +106,12 @@ const AvailabilityScreen: React.FC = () => {
         {/* Machine Card */}
         <View style={styles.machineCard}>
           <View style={styles.machineInfo}>
-            <View style={styles.imagePlaceholder} />
+            <View style={styles.imagePlaceholder}>
+              {draftRental?.image && <Image source={{ uri: draftRental.image }} style={{ width: '100%', height: '100%', borderRadius: 8 }} />}
+            </View>
             <View>
-              <Text style={styles.machineTitle}>John Deere 5050D</Text>
-              <Text style={styles.machineSub}>Heavy Duty Rotavator</Text>
+              <Text style={styles.machineTitle}>{draftRental?.name || 'New Machine'}</Text>
+              <Text style={styles.machineSub}>{draftRental?.type || 'Category'}</Text>
             </View>
           </View>
           <MaterialIcons name="expand-more" size={24} color="#94a3b8" />
@@ -165,7 +185,7 @@ const AvailabilityScreen: React.FC = () => {
           <Text style={styles.footerValue}>{duration} Days</Text>
         </View>
         <TouchableOpacity
-          onPress={() => router.push({ pathname: '/(farmer)/rent-out/publish', params: { id: id as string } })}
+          onPress={onNext}
           style={styles.submitButton}
         >
           <Text style={styles.submitButtonText}>Review Listing</Text>
@@ -218,7 +238,7 @@ const styles = StyleSheet.create({
   footerLabel: { fontSize: 10, color: '#64748b', fontWeight: 'bold' },
   footerValue: { fontSize: 18, fontWeight: 'bold' },
   submitButton: { flex: 1, backgroundColor: COLORS.brand.primary, height: 50, borderRadius: 12, justifyContent: 'center', alignItems: 'center' },
-  submitButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  submitButtonText: { color: '#000', fontWeight: 'bold', fontSize: 16 },
 });
 
 export default AvailabilityScreen;

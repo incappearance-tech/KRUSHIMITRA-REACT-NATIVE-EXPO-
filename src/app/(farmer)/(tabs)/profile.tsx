@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import {
+    Alert,
     Image,
     Pressable,
     ScrollView,
@@ -18,15 +19,8 @@ import { useLanguage } from "../../../context/LanguageContext";
  * Identity verification, settings, wallet, and support.
  */
 
-const user = {
-    name: "Suresh Patil",
-    role: "Farmer",
-    farmerId: "****4321",
-    profileImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuASIiOZT_VVAtYP7KlgyW2mTWDQA9n2XQlwMU3pyDqQnGi1f5Yj9XlRDleIzOPz_05DQCISg5BbtrY1ncNrjXCkfYXtTeH9fJoASy7b-1e2flTkvyn_jg3p6BnTmZTzOp5cxmdMXRFDox6QhtNXHXZ7Do8Re50q8DWxfbOBjTYRxiMJ4z0EQcXXJmdDv4hHVCwatlTKDcXLLoPePoNyRn4P31TAUdtQJ7KT1EjCQJo-lSxcKF42ugo6HWiFKv4S5VfijcQSptO1VTop",
-    kycDate: "12 Oct 2023",
-    profileCompleteness: 85,
-    walletBalance: "₹2,450",
-};
+import { useAuthStore } from "@/src/store/auth.store";
+import { useFarmerStore } from "@/src/store/farmer.store";
 
 const LANGUAGE_NAMES: Record<string, string> = {
     en: 'English',
@@ -38,13 +32,36 @@ export default function ProfileTab() {
     const { t } = useTranslation();
     const router = useRouter();
     const { currentLanguage } = useLanguage();
+    const { user, logout } = useAuthStore();
+    const { farmer } = useFarmerStore();
+
+    const handleLogout = () => {
+        Alert.alert('Logout', 'Are you sure you want to logout?', [
+            { text: 'Cancel', style: 'cancel' },
+            {
+                text: 'Logout',
+                style: 'destructive',
+                onPress: () => {
+                    logout();
+                    router.replace('/');
+                }
+            },
+        ]);
+    };
+
+    const displayUser = {
+        name: farmer?.name || user?.name || "Guest Farmer",
+        role: "Farmer",
+        farmerId: farmer?.phone ? `+91 ${farmer.phone.slice(-4)}` : "****4321",
+        profileImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuASIiOZT_VVAtYP7KlgyW2mTWDQA9n2XQlwMU3pyDqQnGi1f5Yj9XlRDleIzOPz_05DQCISg5BbtrY1ncNrjXCkfYXtTeH9fJoASy7b-1e2flTkvyn_jg3p6BnTmZTzOp5cxmdMXRFDox6QhtNXHXZ7Do8Re50q8DWxfbOBjTYRxiMJ4z0EQcXXJmdDv4hHVCwatlTKDcXLLoPePoNyRn4P31TAUdtQJ7KT1EjCQJo-lSxcKF42ugo6HWiFKv4S5VfijcQSptO1VTop",
+    };
 
     return (
         <View style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>{t('navigation.profile')}</Text>
-            </View> 
+            </View>
 
             <ScrollView
                 contentContainerStyle={styles.scrollContent}
@@ -53,11 +70,11 @@ export default function ProfileTab() {
                 {/* Profile Header */}
                 <View style={styles.profileHeader}>
                     <View style={styles.avatarContainer}>
-                        <Image source={{ uri: user.profileImage }} style={styles.avatar} />
+                        <Image source={{ uri: displayUser.profileImage }} style={styles.avatar} />
                     </View>
-                    <Text style={styles.userName}>{user.name}</Text>
-                    <Text style={styles.userRole}>{user.role}</Text>
-                    <Text style={styles.farmerId}>Farmer ID: {user.farmerId}</Text>
+                    <Text style={styles.userName}>{displayUser.name}</Text>
+                    <Text style={styles.userRole}>{displayUser.role}</Text>
+                    <Text style={styles.farmerId}>Farmer ID: {displayUser.farmerId}</Text>
                 </View>
 
                 {/* Section Header */}
@@ -66,19 +83,22 @@ export default function ProfileTab() {
                 {/* Menu Items */}
                 <View style={styles.menuList}>
                     <MenuItem icon="person-outline" label="Edit Profile" onPress={() => router.push('/(farmer)/profile')} />
-                    <MenuItem icon="inventory-2" label="My Listings / Jobs" onPress={() => { }} />
-                    <MenuItem icon="history" label="Transaction History" onPress={() => { }} />
+                    <MenuItem icon="inventory-2" label="My Rental Inventory" onPress={() => router.push('/(farmer)/rent-out')} />
+                    <MenuItem icon="history" label="Transaction History" onPress={() => router.push('/(farmer)/transactions')} />
                     <MenuItem
                         icon="language"
                         label="Language Settings"
                         rightText={LANGUAGE_NAMES[currentLanguage]}
                         onPress={() => router.push('/(farmer)/language-settings')}
                     />
-                    <MenuItem icon="help-center" label="Help & Support" onPress={() => { }} />
+                    <MenuItem icon="help-center" label="Help & Support" onPress={() => router.push('/(farmer)/support')} />
                 </View>
 
                 {/* Logout Button */}
-                <Pressable style={styles.logoutBtn}>
+                <Pressable
+                    style={styles.logoutBtn}
+                    onPress={handleLogout}
+                >
                     <MaterialIcons name="logout" size={20} color={COLORS.danger} />
                     <Text style={styles.logoutText}>Logout</Text>
                 </Pressable>

@@ -60,9 +60,16 @@ const MediaUploader: React.FC<IMediaUploaderProps> = ({
   title = 'Photos & Videos',
   min = 0,
   max = 5,
+  initialMedia = [],
   onChange,
 }) => {
-  const [media, setMedia] = useState<IMediaItem[]>([]);
+  const [media, setMedia] = useState<IMediaItem[]>(initialMedia);
+
+  React.useEffect(() => {
+    if (initialMedia.length > 0 && media.length === 0) {
+      setMedia(initialMedia);
+    }
+  }, [initialMedia]);
 
   /* ---------- Derived State ---------- */
   const countText = useMemo(

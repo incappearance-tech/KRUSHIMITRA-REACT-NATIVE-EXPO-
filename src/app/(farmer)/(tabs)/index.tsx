@@ -20,12 +20,12 @@ export default function HomeTab() {
     const router = useRouter();
 
     const actions = [
-        { title: t('farmer.sell_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "sell", link: "/(farmer)/sell-machine" },
-        { title: t('farmer.buy_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "shopping-cart", link: "/(farmer)/buy-machine/list" },
-        { title: t('farmer.rent_out'), subtitle: t('dashboard.quick_actions_sub'), icon: "output", link: "/(farmer)/rent-out" },
-        { title: t('farmer.rent_in'), subtitle: t('dashboard.quick_actions_sub'), icon: "schedule", link: "/(farmer)/rent-in" },
-        { title: t('farmer.labour'), subtitle: t('dashboard.quick_actions_sub'), icon: "engineering", link: "/(farmer)/labour" },
-        { title: t('farmer.transport'), subtitle: t('dashboard.quick_actions_sub'), icon: "local-shipping", link: "" },
+        { title: t('farmer.sell_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "sell", link: "/sell-machine" },
+        { title: t('farmer.buy_machine'), subtitle: t('dashboard.quick_actions_sub'), icon: "shopping-cart", link: "/buy-machine/list" },
+        { title: t('farmer.rent_out'), subtitle: t('dashboard.quick_actions_sub'), icon: "output", link: "/rent-out" },
+        { title: t('farmer.rent_in'), subtitle: t('dashboard.quick_actions_sub'), icon: "schedule", link: "/rent-in" },
+        { title: t('farmer.labour'), subtitle: t('dashboard.quick_actions_sub'), icon: "engineering", link: "/labour" },
+        { title: t('farmer.transport'), subtitle: t('dashboard.quick_actions_sub'), icon: "local-shipping", link: "/transport/search" },
     ];
 
     return (

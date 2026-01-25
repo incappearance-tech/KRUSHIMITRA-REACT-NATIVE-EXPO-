@@ -3,6 +3,7 @@ import Button from '@/src/components/Button';
 import FormInput from '@/src/components/FormInput';
 import { ProgressStep } from '@/src/components/ProgressStep';
 import { COLORS } from '@/src/constants/colors';
+import { useRentalStore } from '@/src/store/rental.store';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -16,35 +17,51 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { MOCK_RENTAL_MACHINES } from './data';
 
 const PreferencesScreen = ({ navigation }: any) => {
-  const [availabilityType, setAvailabilityType] = useState('machine-only');
-  const [priceType, setPriceType] = useState('per_hour');
-  const [rentAmount, setRentAmount] = useState('');
-  const [minReq, setMinReq] = useState('');
-
-  const estimatedEarnings = rentAmount ? (parseFloat(rentAmount) * 8).toFixed(2) : '0.00';
   const { id } = useLocalSearchParams();
   const isEditMode = !!id;
+  const { rentals, setDraftRental } = useRentalStore();
 
-  const { control, setValue } = useForm({
+  const [availabilityType, setAvailabilityType] = useState('with-operator');
+  const [priceType, setPriceType] = useState('per_hour');
+  const [rentAmount, setRentAmount] = useState('');
+
+  const { control, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       rentAmount: '',
       minRequirement: '',
     }
   });
 
+  const watchAmount = watch('rentAmount');
+  const estimatedEarnings = watchAmount ? (parseFloat(watchAmount) * 8).toFixed(2) : '0.00';
+
   useEffect(() => {
     if (isEditMode && id) {
-      const machine = MOCK_RENTAL_MACHINES.find(m => m.id === id);
+      const machine = rentals.find(m => m.id === id);
       if (machine) {
-        if (machine.price) setValue('rentAmount', machine.price);
-        if (machine.period === 'Day') setPriceType('per_day');
-        if (machine.period === 'Hour') setPriceType('per_hour');
+        if (machine.price) {
+          setValue('rentAmount', machine.price);
+          setRentAmount(machine.price);
+        }
+        if (machine.period === 'day' || machine.period === 'Day' || machine.period === 'day') setPriceType('per_day');
+        else setPriceType('per_hour');
+
+        if (machine.type === 'Machine Only') setAvailabilityType('machine-only');
+        else setAvailabilityType('with-operator');
       }
     }
-  }, [id, isEditMode, setValue]);
+  }, [id, isEditMode, setValue, rentals]);
+
+  const onNext = handleSubmit((data) => {
+    setDraftRental({
+      price: data.rentAmount,
+      period: priceType === 'per_hour' ? 'hr' : 'day',
+      type: availabilityType === 'with-operator' ? 'With Operator' : 'Machine Only'
+    });
+    router.push({ pathname: '/(farmer)/rent-out/availability', params: { id: id as string } });
+  });
   return (
     <View style={styles.safeArea}>
 
@@ -185,7 +202,7 @@ const PreferencesScreen = ({ navigation }: any) => {
 
       <Button
         label='Next'
-        onPress={() => router.push({ pathname: '/(farmer)/rent-out/availability', params: { id: id as string } })}
+        onPress={onNext}
       />
     </View>
   );

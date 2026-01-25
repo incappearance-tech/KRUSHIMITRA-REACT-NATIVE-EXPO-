@@ -1,29 +1,25 @@
 import AppBar from '@/src/components/AppBar';
 import { COLORS } from '@/src/constants/colors';
+import { useRentalStore } from '@/src/store/rental.store';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
     Alert,
-    Dimensions,
     Image,
     ScrollView,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
+    View
 } from 'react-native';
-import { MOCK_RENTAL_MACHINES } from './data';
-
-const { width } = Dimensions.get('window');
 
 export default function PublishRentalScreen() {
     const router = useRouter();
     const { id } = useLocalSearchParams();
     const isEditMode = !!id;
+    const { rentals, draftRental, addRental, updateRental, clearDraftRental } = useRentalStore();
 
-    // Mock state to hold the data being reviewed
-    // In a real app, this would come from a global store or context
     const [machineData, setMachineData] = useState<any>({
         name: 'Tractor 575 DI',
         details: '575 DI Model • Good Condition',
@@ -36,26 +32,37 @@ export default function PublishRentalScreen() {
     });
 
     useEffect(() => {
-        if (isEditMode && id) {
-            const machine = MOCK_RENTAL_MACHINES.find(m => m.id === id);
-            if (machine) {
-                setMachineData({
-                    name: machine.name,
-                    details: `${machine.model} • ${machine.status}`,
-                    location: 'Satara, Maharashtra', // Mock
-                    price: machine.price,
-                    priceUnit: machine.period === 'Day' ? '/ day' : '/ hr',
-                    type: 'With Operator', // Mock
-                    dates: [machine.expiry], // Mock using expiry as date range
-                    image: machine.image
-                });
-            }
+        if (draftRental) {
+            setMachineData({
+                ...draftRental,
+                details: `${draftRental.model} • ${draftRental.brand}`,
+                priceUnit: draftRental.period === 'day' ? '/ day' : '/ hr',
+                dates: [draftRental.expiry || 'Open Dates']
+            });
         }
-    }, [id, isEditMode]);
+    }, [draftRental]);
 
     const handlePublish = () => {
-        Alert.alert("Success", "Your machine has been published!", [
-            { text: "OK", onPress: () => router.push('/(farmer)/rent-out') }
+        if (isEditMode) {
+            updateRental(id as string, draftRental as any);
+        } else {
+            addRental({
+                ...draftRental,
+                id: Math.random().toString(36).substring(7),
+                status: 'AVAILABLE',
+                visible: true,
+                expired: false,
+            } as any);
+        }
+
+        Alert.alert("Success", isEditMode ? "Listing updated!" : "Your machine has been published!", [
+            {
+                text: "OK",
+                onPress: () => {
+                    clearDraftRental();
+                    router.push('/(farmer)/rent-out');
+                }
+            }
         ]);
     };
 

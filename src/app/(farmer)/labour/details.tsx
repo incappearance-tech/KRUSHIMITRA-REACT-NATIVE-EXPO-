@@ -133,10 +133,10 @@ export default function LabourDetailsScreen() {
             <View style={styles.footer}>
                 <TouchableOpacity
                     style={styles.actionBtn}
-                    onPress={() => router.push({ pathname: '/(farmer)/labour/unlock', params: { id: labour.id } })}
+                    onPress={() => router.push({ pathname: '/(farmer)/labour/contact', params: { id: labour.id } })}
                 >
                     <MaterialIcons name="call" size={24} color="#000" />
-                    <Text style={styles.actionBtnText}>Call {labour.name.split(' ')[0]}</Text>
+                    <Text style={styles.actionBtnText}>View Contact Info</Text>
                 </TouchableOpacity>
             </View>
         </View>

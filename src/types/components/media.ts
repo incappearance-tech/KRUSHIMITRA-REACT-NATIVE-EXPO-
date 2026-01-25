@@ -16,5 +16,6 @@ export interface IMediaUploaderProps {
     title?: string;
     min?: number;
     max?: number;
+    initialMedia?: IMediaItem[];
     onChange: (media: IMediaItem[]) => void;
 }

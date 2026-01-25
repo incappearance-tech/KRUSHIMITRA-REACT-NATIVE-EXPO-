@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -21,34 +22,158 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { COLORS } from '../../constants/colors';
 
 
-const DISTRICT_TALUKA_MAP: Record<string, string[]> = {
-  Nasik: ['Niphad', 'Sinnar', 'Yeola'],
-  Pune: ['Haveli', 'Mulshi', 'Shirur'],
-  Nagpur: ['Kamptee', 'Umred'],
-};
+const cities = [
+  "Agra",
+  "Ahmedabad",
+  "Ajmer",
+  "Aligarh",
+  "Allahabad (Prayagraj)",
+  "Amravati",
+  "Amritsar",
+  "Asansol",
+  "Aurangabad",
+  "Bareilly",
+  "Bengaluru",
+  "Bhavnagar",
+  "Bhilai",
+  "Bhiwandi",
+  "Bhopal",
+  "Bhubaneswar",
+  "Bikaner",
+  "Bokaro Steel City",
+  "Chandigarh",
+  "Chennai",
+  "Coimbatore",
+  "Cuttack",
+  "Dehradun",
+  "Delhi",
+  "Dhanbad",
+  "Durgapur",
+  "Erode",
+  "Faridabad",
+  "Firozabad",
+  "Ghaziabad",
+  "Gorakhpur",
+  "Gulbarga",
+  "Guntur",
+  "Gurugram (Gurgaon)",
+  "Guwahati",
+  "Gwalior",
+  "Hubli-Dharwad",
+  "Hyderabad",
+  "Indore",
+  "Jabalpur",
+  "Jaipur",
+  "Jalandhar",
+  "Jammu",
+  "Jamnagar",
+  "Jamshedpur",
+  "Jhansi",
+  "Jodhpur",
+  "Kannur",
+  "Kanpur",
+  "Kochi",
+  "Kolhapur",
+  "Kolkata",
+  "Kollam",
+  "Kota",
+  "Kozhikode",
+  "Lucknow",
+  "Ludhiana",
+  "Madurai",
+  "Malappuram",
+  "Mangaluru (Mangalore)",
+  "Meerut",
+  "Moradabad",
+  "Mumbai",
+  "Mysuru (Mysore)",
+  "Nagpur",
+  "Nanded",
+  "Nashik",
+  "Nellore",
+  "Noida",
+  "Patna",
+  "Pondicherry",
+  "Pune",
+  "Raipur",
+  "Rajahmundry",
+  "Rajkot",
+  "Ranchi",
+  "Rourkela",
+  "Saharanpur",
+  "Salem",
+  "Sangli",
+  "Siliguri",
+  "Solapur",
+  "Srinagar",
+  "Surat",
+  "Thane",
+  "Thiruvananthapuram",
+  "Thrissur",
+  "Tiruchirappalli",
+  "Tirunelveli",
+  "Tiruppur",
+  "Ujjain",
+  "Vadodara",
+  "Varanasi",
+  "Vasai-Virar",
+  "Vellore",
+  "Vijayawada",
+  "Visakhapatnam",
+  "Warangal"
+];
+
+import { useAuthStore } from '@/src/store/auth.store';
+import { useFarmerStore } from '@/src/store/farmer.store';
+import { useEffect } from 'react';
 
 export default function FarmerProfileScreen() {
   const { t } = useTranslation();
   const [photoUri, setPhotoUri] = useState<string | null>(null);
+  const { user } = useAuthStore();
+  const { farmer, setFarmer } = useFarmerStore();
 
   const {
     control,
     handleSubmit,
+    setValue,
+    reset,
   } = useForm<IFarmerProfileForm>({
     resolver: zodResolver(farmerProfileSchema),
     defaultValues: {
-      fullName: '',
-      farmerId: '',
+      fullName: farmer?.name || user?.name || '',
+      farmerId: 'FK-9527',
       district: '',
       taluka: '',
       village: '',
-      pinCode: '',
+      pinCode: '415001',
     },
   });
 
+  useEffect(() => {
+    if (farmer) {
+      const parts = farmer.location.split(', ');
+      reset({
+        fullName: farmer.name,
+        farmerId: 'FK-9527',
+        village: parts[0] || '',
+        taluka: parts[1] || '',
+        district: parts[2] || '',
+        pinCode: '415001'
+      });
+    }
+  }, [farmer, reset]);
+
   const onSubmit = (data: IFarmerProfileForm) => {
-    console.log('VALID DATA', data);
-    router.replace('/(farmer)/');
+    setFarmer({
+      name: data.fullName,
+      phone: user?.phone || '9527189774',
+      location: `${data.village}, ${data.taluka}, ${data.district}`,
+      farmSize: 5.5,
+      crops: ['Wheat', 'Sugarcane']
+    });
+    Alert.alert("Success", "Profile updated successfully!");
+    router.replace('/(farmer)/(tabs)/profile');
   };
 
   const pickImage = async () => {
@@ -109,7 +234,7 @@ export default function FarmerProfileScreen() {
           name="district"
           label={t('profile.district')}
           placeholder={t('profile.select_district')}
-          options={Object.keys(DISTRICT_TALUKA_MAP)}
+          options={cities}
           required
         />
 
@@ -118,7 +243,7 @@ export default function FarmerProfileScreen() {
           name="taluka"
           label={t('profile.taluka')}
           placeholder={t('profile.select_taluka')}
-          options={Object.keys(DISTRICT_TALUKA_MAP)}
+          options={cities}
           required
         />
 
@@ -142,11 +267,11 @@ export default function FarmerProfileScreen() {
       </KeyboardAwareScrollView>
 
       {/* Fixed Bottom Button */}
-        <Button
-          label={t('common.save_continue')}
-          onPress={handleSubmit(onSubmit)}
-          icon="arrow-forward"
-        />
+      <Button
+        label={t('common.save_continue')}
+        onPress={handleSubmit(onSubmit)}
+        icon="arrow-forward"
+      />
     </View>
   );
 }

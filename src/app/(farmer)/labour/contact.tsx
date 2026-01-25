@@ -35,13 +35,10 @@ export default function LabourContactScreen() {
 
             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                {/* Success Header */}
+                {/* Header */}
                 <View style={styles.successHeader}>
-                    <View style={styles.successIcon}>
-                        <MaterialIcons name="check-circle" size={40} color={COLORS.brand.primary} />
-                    </View>
-                    <Text style={styles.successTitle}>Contact Unlocked!</Text>
-                    <Text style={styles.successDesc}>You can now connect directly with {labour.name}.</Text>
+                    <Text style={styles.successTitle}>Connect with Labour</Text>
+                    <Text style={styles.successDesc}>You can connect with {labour.name} for your farm work below.</Text>
                 </View>
 
                 {/* Profile Card */}
