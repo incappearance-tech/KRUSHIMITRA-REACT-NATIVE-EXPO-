@@ -1,8 +1,5 @@
-import Button from '@/src/components/Button';
-import { MaterialIcons } from '@expo/vector-icons';
-import Slider from '@react-native-community/slider'; // IMPT: Requires npx expo install @react-native-community/slider
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
+
 import {
   ScrollView,
   StyleSheet,
@@ -10,46 +7,58 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { COLORS } from '../../../constants/colors';
 
+import Slider from '@react-native-community/slider';
+
+// IMPT: Requires npx expo install @react-native-community/slider
+import { router } from 'expo-router';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import Button from '@/src/components/Button';
+import { useBuyMachineFiltersStore } from '@/src/store/buy-machine-filters.store';
 // --- Theme Constants ---
 
+import {
+  ICategory,
+  ICategoryPillsProps,
+  ICondition,
+  IConditionListProps,
+  IDistanceSliderProps,
+  IPriceRangeProps,
+  ISectionTitleProps,
+} from '@/src/types/buy-machine/filters';
 
-import { ICategory, ICategoryPillsProps, ICondition, IConditionListProps, IDistanceSliderProps, IPriceRangeProps, ISectionTitleProps } from '@/src/types/buy-machine/filters';
-
+import { COLORS } from '../../../constants/colors';
 
 // --- Sub-Components ---
-
-const Header = () => {
-  const { t } = useTranslation();
-  return (
-    <View style={styles.headerContainer}>
-      <Text style={styles.headerTitle}>{t('filters.title')}</Text>
-      <TouchableOpacity activeOpacity={0.7}>
-        <Text style={styles.resetText}>{t('filters.reset')}</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 
 const SectionTitle = ({ title }: ISectionTitleProps) => (
   <Text style={styles.sectionTitle}>{title}</Text>
 );
-
 
 const CategoryPills = ({ selected, onSelect }: ICategoryPillsProps) => {
   const { t } = useTranslation();
 
   const CATEGORIES: ICategory[] = [
     { id: 'tractor', label: t('machine_list.tractors'), icon: 'agriculture' },
-    { id: 'harvester', label: t('machine_list.harvesters'), icon: 'local-shipping' },
+    {
+      id: 'harvester',
+      label: t('machine_list.harvesters'),
+      icon: 'local-shipping',
+    },
     { id: 'plow', label: t('machine_list.plow' as any), icon: 'grass' },
     { id: 'seeder', label: t('machine_list.seeder' as any), icon: 'spa' },
-    { id: 'trailer', label: t('machine_list.trailer' as any), icon: 'rv-hookup' },
+    {
+      id: 'trailer',
+      label: t('machine_list.trailer' as any),
+      icon: 'rv-hookup',
+    },
     { id: 'tiller', label: t('machine_list.tiller' as any), icon: 'handyman' },
   ];
 
@@ -64,16 +73,25 @@ const CategoryPills = ({ selected, onSelect }: ICategoryPillsProps) => {
             onPress={() => onSelect(cat.id)}
             style={[
               styles.categoryPill,
-              isSelected ? styles.categoryPillActive : styles.categoryPillInactive,
+              isSelected
+                ? styles.categoryPillActive
+                : styles.categoryPillInactive,
             ]}
           >
             {isSelected && (
-              <MaterialIcons name={cat.icon} size={20} color={COLORS.black} style={{ marginLeft: 6 }} />
+              <MaterialIcons
+                name={cat.icon}
+                size={20}
+                color={COLORS.black}
+                style={{ marginLeft: 6 }}
+              />
             )}
             <Text
               style={[
                 styles.categoryText,
-                isSelected ? styles.categoryTextActive : styles.categoryTextInactive,
+                isSelected
+                  ? styles.categoryTextActive
+                  : styles.categoryTextInactive,
               ]}
             >
               {cat.label}
@@ -85,14 +103,18 @@ const CategoryPills = ({ selected, onSelect }: ICategoryPillsProps) => {
   );
 };
 
-
-const FunctionalDistanceSlider = ({ value, onValueChange }: IDistanceSliderProps) => {
+const FunctionalDistanceSlider = ({
+  value,
+  onValueChange,
+}: IDistanceSliderProps) => {
   const { t } = useTranslation();
   return (
     <View style={styles.sectionPadding}>
       <View style={styles.flexRowBetween}>
         <SectionTitle title={t('filters.distance')} />
-        <Text style={styles.sliderValueText}>{t('filters.within', { distance: Math.round(value) })}</Text>
+        <Text style={styles.sliderValueText}>
+          {t('filters.within', { distance: Math.round(value) })}
+        </Text>
       </View>
 
       <View style={styles.sliderContainer}>
@@ -117,7 +139,6 @@ const FunctionalDistanceSlider = ({ value, onValueChange }: IDistanceSliderProps
     </View>
   );
 };
-
 
 const PriceRange = ({ min, max, setMin, setMax }: IPriceRangeProps) => {
   const { t } = useTranslation();
@@ -157,7 +178,6 @@ const PriceRange = ({ min, max, setMin, setMax }: IPriceRangeProps) => {
     </View>
   );
 };
-
 
 const ConditionList = ({ selected, onSelect }: IConditionListProps) => {
   const { t } = useTranslation();
@@ -202,12 +222,18 @@ const ConditionList = ({ selected, onSelect }: IConditionListProps) => {
               onPress={() => onSelect(item.id)}
               style={[
                 styles.conditionCard,
-                isSelected && styles.conditionCardActive
+                isSelected && styles.conditionCardActive,
               ]}
             >
               <View style={styles.conditionContent}>
-                <View style={[styles.iconCircle, { backgroundColor: item.colorBg }]}>
-                  <MaterialIcons name={item.icon} size={20} color={item.colorText} />
+                <View
+                  style={[styles.iconCircle, { backgroundColor: item.colorBg }]}
+                >
+                  <MaterialIcons
+                    name={item.icon}
+                    size={20}
+                    color={item.colorText}
+                  />
                 </View>
                 <View style={styles.conditionTextContainer}>
                   <Text style={styles.conditionLabel}>{item.label}</Text>
@@ -219,7 +245,7 @@ const ConditionList = ({ selected, onSelect }: IConditionListProps) => {
                 {isSelected && <View style={styles.radioInner} />}
               </View>
             </TouchableOpacity>
-          )
+          );
         })}
       </View>
     </View>
@@ -231,18 +257,27 @@ const Divider = () => <View style={styles.divider} />;
 // --- Main Screen ---
 export default function MachineFiltersScreen() {
   const insets = useSafeAreaInsets();
-
   const { t } = useTranslation();
-  // State
-  const [selectedCategory, setSelectedCategory] = useState('tractor');
-  const [distance, setDistance] = useState(50); // Default 50km
-  const [minPrice, setMinPrice] = useState('1500');
-  const [maxPrice, setMaxPrice] = useState('12000');
-  const [isNegotiable, setIsNegotiable] = useState(false);
-  const [selectedCondition, setSelectedCondition] = useState('average');
+  const filters = useBuyMachineFiltersStore();
+
+  const handleReset = () => {
+    filters.reset();
+  };
+
+  const handleApply = () => {
+    router.back();
+  };
+
+  const Header = () => (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerTitle}>{t('filters.title')}</Text>
+      <TouchableOpacity activeOpacity={0.7} onPress={handleReset}>
+        <Text style={styles.resetText}>{t('filters.reset')}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
-
     <View style={[styles.container]}>
       {/* Sticky Header */}
       <View style={styles.stickyHeader}>
@@ -252,32 +287,35 @@ export default function MachineFiltersScreen() {
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom + 80 }
+          { paddingBottom: insets.bottom + 80 },
         ]}
         showsVerticalScrollIndicator={false}
       >
         {/* Category Section */}
         <View style={styles.topSection}>
           <SectionTitle title={t('filters.category')} />
-          <CategoryPills selected={selectedCategory} onSelect={setSelectedCategory} />
+          <CategoryPills
+            selected={filters.category}
+            onSelect={filters.setCategory}
+          />
         </View>
 
         <Divider />
 
         {/* Functional Distance Slider */}
         <FunctionalDistanceSlider
-          value={distance}
-          onValueChange={setDistance}
+          value={filters.distance}
+          onValueChange={filters.setDistance}
         />
 
         <Divider />
 
         {/* Price Section */}
         <PriceRange
-          min={minPrice}
-          max={maxPrice}
-          setMin={setMinPrice}
-          setMax={setMaxPrice}
+          min={filters.minPrice}
+          max={filters.maxPrice}
+          setMin={filters.setMinPrice}
+          setMax={filters.setMaxPrice}
         />
 
         <Divider />
@@ -285,15 +323,19 @@ export default function MachineFiltersScreen() {
         {/* Negotiable Section */}
         <View style={[styles.sectionPadding, styles.flexRowBetween]}>
           <View>
-            <Text style={styles.sectionTitle}>{t('filters.negotiable_only')}</Text>
-            <Text style={styles.sectionSubtitle}>{t('filters.negotiable_desc')}</Text>
+            <Text style={styles.sectionTitle}>
+              {t('filters.negotiable_only')}
+            </Text>
+            <Text style={styles.sectionSubtitle}>
+              {t('filters.negotiable_desc')}
+            </Text>
           </View>
           <Switch
             trackColor={{ false: COLORS.gray[200], true: COLORS.brand.primary }}
             thumbColor={COLORS.white}
             ios_backgroundColor={COLORS.gray[200]}
-            onValueChange={() => setIsNegotiable(!isNegotiable)}
-            value={isNegotiable}
+            onValueChange={filters.setIsNegotiable}
+            value={filters.isNegotiable}
             style={{ transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] }}
           />
         </View>
@@ -301,17 +343,14 @@ export default function MachineFiltersScreen() {
         <Divider />
 
         {/* Condition Section */}
-        <ConditionList selected={selectedCondition} onSelect={setSelectedCondition} />
-
+        <ConditionList
+          selected={filters.condition}
+          onSelect={filters.setCondition}
+        />
       </ScrollView>
 
       {/* Fixed Footer */}
-      <Button
-        label={t('filters.show_machines', { count: 24 })}
-        onPress={() => { }}
-        icon="arrow-forward"
-      />
-
+      <Button label={t('filters.apply')} onPress={handleApply} icon="check" />
     </View>
   );
 }
@@ -321,7 +360,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingHorizontal:16
+    paddingHorizontal: 16,
   },
   stickyHeader: {
     backgroundColor: 'rgba(246, 248, 246, 0.95)',
@@ -559,5 +598,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: COLORS.brand.primary,
   },
-
 });

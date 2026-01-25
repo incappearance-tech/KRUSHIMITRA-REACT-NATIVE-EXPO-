@@ -1,7 +1,5 @@
-import { COLORS } from '@/src/constants/colors';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
+
 import {
   ScrollView,
   StatusBar,
@@ -9,8 +7,14 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
+
+import { useRouter } from 'expo-router';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { COLORS } from '@/src/constants/colors';
 
 const MACHINE_TYPES = [
   { id: 'tractor', label: 'Tractor', icon: 'agriculture' },
@@ -24,13 +28,16 @@ const MACHINE_TYPES = [
 export default function RentInFiltersScreen() {
   const router = useRouter();
   const [selectedType, setSelectedType] = useState('tractor');
-  const [distance, setDistance] = useState(50);
+  const [distance] = useState(50);
   const [availType, setAvailType] = useState('Machine Only');
   const [rentType, setRentType] = useState('Hourly');
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="rgba(255,255,255,0.95)" />
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="rgba(255,255,255,0.95)"
+      />
 
       {/* Header */}
       <View style={styles.header}>
@@ -50,7 +57,9 @@ export default function RentInFiltersScreen() {
                 key={type.id}
                 style={[
                   styles.typeChip,
-                  selectedType === type.id ? styles.typeChipActive : styles.typeChipInactive
+                  selectedType === type.id
+                    ? styles.typeChipActive
+                    : styles.typeChipInactive,
                 ]}
                 onPress={() => setSelectedType(type.id)}
               >
@@ -61,10 +70,16 @@ export default function RentInFiltersScreen() {
                     color={selectedType === type.id ? '#000' : '#374151'}
                   />
                 )}
-                <Text style={[
-                  styles.typeText,
-                  selectedType === type.id ? styles.typeTextActive : styles.typeTextInactive
-                ]}>{type.label}</Text>
+                <Text
+                  style={[
+                    styles.typeText,
+                    selectedType === type.id
+                      ? styles.typeTextActive
+                      : styles.typeTextInactive,
+                  ]}
+                >
+                  {type.label}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -100,7 +115,12 @@ export default function RentInFiltersScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Required Date</Text>
           <View style={styles.dateInputContainer}>
-            <MaterialIcons name="calendar-today" size={20} color="#6b7280" style={styles.dateIcon} />
+            <MaterialIcons
+              name="calendar-today"
+              size={20}
+              color="#6b7280"
+              style={styles.dateIcon}
+            />
             <TextInput
               style={styles.dateInput}
               placeholder="Select Date" // Native date picker would be here
@@ -118,29 +138,57 @@ export default function RentInFiltersScreen() {
           <Text style={styles.sectionTitle}>Availability Type</Text>
           <View style={styles.grid2}>
             <TouchableOpacity
-              style={[styles.radioCard, availType === 'Machine Only' && styles.radioCardActive]}
+              style={[
+                styles.radioCard,
+                availType === 'Machine Only' && styles.radioCardActive,
+              ]}
               onPress={() => setAvailType('Machine Only')}
             >
               <MaterialIcons
                 name="agriculture"
                 size={32}
-                color={availType === 'Machine Only' ? COLORS.brand.primary : '#4b5563'}
+                color={
+                  availType === 'Machine Only'
+                    ? COLORS.brand.primary
+                    : '#4b5563'
+                }
                 style={{ marginBottom: 8 }}
               />
-              <Text style={[styles.radioText, availType === 'Machine Only' && styles.radioTextActive]}>Machine Only</Text>
+              <Text
+                style={[
+                  styles.radioText,
+                  availType === 'Machine Only' && styles.radioTextActive,
+                ]}
+              >
+                Machine Only
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.radioCard, availType === 'With Operator' && styles.radioCardActive]}
+              style={[
+                styles.radioCard,
+                availType === 'With Operator' && styles.radioCardActive,
+              ]}
               onPress={() => setAvailType('With Operator')}
             >
               <MaterialIcons
                 name="engineering"
                 size={32}
-                color={availType === 'With Operator' ? COLORS.brand.primary : '#4b5563'}
+                color={
+                  availType === 'With Operator'
+                    ? COLORS.brand.primary
+                    : '#4b5563'
+                }
                 style={{ marginBottom: 8 }}
               />
-              <Text style={[styles.radioText, availType === 'With Operator' && styles.radioTextActive]}>With Operator</Text>
+              <Text
+                style={[
+                  styles.radioText,
+                  availType === 'With Operator' && styles.radioTextActive,
+                ]}
+              >
+                With Operator
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -152,20 +200,39 @@ export default function RentInFiltersScreen() {
           <Text style={styles.sectionTitle}>Rent Type</Text>
           <View style={styles.segmentContainer}>
             <TouchableOpacity
-              style={[styles.segmentBtn, rentType === 'Hourly' && styles.segmentBtnActive]}
+              style={[
+                styles.segmentBtn,
+                rentType === 'Hourly' && styles.segmentBtnActive,
+              ]}
               onPress={() => setRentType('Hourly')}
             >
-              <Text style={[styles.segmentText, rentType === 'Hourly' && styles.segmentTextActive]}>Hourly</Text>
+              <Text
+                style={[
+                  styles.segmentText,
+                  rentType === 'Hourly' && styles.segmentTextActive,
+                ]}
+              >
+                Hourly
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.segmentBtn, rentType === 'Daily' && styles.segmentBtnActive]}
+              style={[
+                styles.segmentBtn,
+                rentType === 'Daily' && styles.segmentBtnActive,
+              ]}
               onPress={() => setRentType('Daily')}
             >
-              <Text style={[styles.segmentText, rentType === 'Daily' && styles.segmentTextActive]}>Daily</Text>
+              <Text
+                style={[
+                  styles.segmentText,
+                  rentType === 'Daily' && styles.segmentTextActive,
+                ]}
+              >
+                Daily
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
-
       </ScrollView>
 
       {/* Footer */}

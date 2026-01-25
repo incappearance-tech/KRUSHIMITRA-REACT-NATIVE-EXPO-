@@ -1,5 +1,6 @@
-import * as ImagePicker from 'expo-image-picker';
 import { Platform } from 'react-native';
+
+import * as ImagePicker from 'expo-image-picker';
 
 export const permissions = {
   async requestCamera() {

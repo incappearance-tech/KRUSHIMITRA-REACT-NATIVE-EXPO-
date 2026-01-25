@@ -1,10 +1,10 @@
 export interface ISpecItemProps {
-    label: string;
-    value: string;
+  label: string;
+  value: string;
 }
 
 export interface IDetailRowProps {
-    label: string;
-    value: string;
-    isGreen?: boolean;
+  label: string;
+  value: string;
+  isGreen?: boolean;
 }

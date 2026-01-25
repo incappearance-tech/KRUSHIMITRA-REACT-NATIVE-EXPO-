@@ -20,8 +20,20 @@ export default function ActionGrid({ actions }: IActionGridProps) {
 }
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' },
-  card: { width: '45%', aspectRatio: 1, backgroundColor: '#f5f5f5', borderRadius: 12, justifyContent: 'center', alignItems: 'center', marginVertical: 8 },
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  card: {
+    width: '45%',
+    aspectRatio: 1,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 8,
+  },
   icon: { fontSize: 32, marginBottom: 8 },
   label: { fontSize: 12, fontWeight: '600', textAlign: 'center' },
 });

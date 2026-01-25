@@ -1,7 +1,5 @@
-import Button from '@/src/components/Button';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import React, { useState } from 'react';
+
 import {
   ScrollView,
   StyleSheet,
@@ -9,9 +7,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { COLORS } from '../../../constants/colors';
+
+import { router } from 'expo-router';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
 import { useTranslation } from 'react-i18next';
+
 import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+
+import { COLORS } from '../../../constants/colors';
 
 export default function SelectPlanScreen() {
   const { t } = useTranslation();
@@ -24,8 +30,16 @@ export default function SelectPlanScreen() {
       subtitle: t('publish.plans.basic.subtitle'),
       price: 'FREE',
       features: [
-        { icon: 'check-circle', text: t('publish.plans.basic.features.listing'), highlight: false },
-        { icon: 'calendar-today', text: t('publish.plans.basic.features.validity'), highlight: false },
+        {
+          icon: 'check-circle',
+          text: t('publish.plans.basic.features.listing'),
+          highlight: false,
+        },
+        {
+          icon: 'calendar-today',
+          text: t('publish.plans.basic.features.validity'),
+          highlight: false,
+        },
       ],
     },
     {
@@ -34,8 +48,16 @@ export default function SelectPlanScreen() {
       subtitle: t('publish.plans.standard.subtitle'),
       price: '₹49',
       features: [
-        { icon: 'visibility', text: t('publish.plans.standard.features.visibility'), highlight: false },
-        { icon: 'calendar-today', text: t('publish.plans.standard.features.validity'), highlight: false },
+        {
+          icon: 'visibility',
+          text: t('publish.plans.standard.features.visibility'),
+          highlight: false,
+        },
+        {
+          icon: 'calendar-today',
+          text: t('publish.plans.standard.features.validity'),
+          highlight: false,
+        },
       ],
     },
     {
@@ -46,9 +68,21 @@ export default function SelectPlanScreen() {
       recommended: true,
       featuredIcon: 'stars',
       features: [
-        { icon: 'verified', text: t('publish.plans.premium.features.featured'), highlight: true },
-        { icon: 'trending-up', text: t('publish.plans.premium.features.priority'), highlight: false },
-        { icon: 'calendar-today', text: t('publish.plans.premium.features.validity'), highlight: false },
+        {
+          icon: 'verified',
+          text: t('publish.plans.premium.features.featured'),
+          highlight: true,
+        },
+        {
+          icon: 'trending-up',
+          text: t('publish.plans.premium.features.priority'),
+          highlight: false,
+        },
+        {
+          icon: 'calendar-today',
+          text: t('publish.plans.premium.features.validity'),
+          highlight: false,
+        },
       ],
     },
   ];
@@ -61,16 +95,12 @@ export default function SelectPlanScreen() {
       {/* CONTENT */}
       <ScrollView contentContainerStyle={styles.content}>
         {/* TITLE */}
-        <Text style={styles.title}>
-          {t('publish.choose_plan')}
-        </Text>
-        <Text style={styles.subtitle}>
-          {t('publish.select_duration')}
-        </Text>
+        <Text style={styles.title}>{t('publish.choose_plan')}</Text>
+        <Text style={styles.subtitle}>{t('publish.select_duration')}</Text>
 
         {/* PLAN CARDS */}
         <View style={styles.planList}>
-          {localizedPlans.map(plan => {
+          {localizedPlans.map((plan) => {
             const selected = selectedPlanId === plan.id;
 
             return (
@@ -87,7 +117,9 @@ export default function SelectPlanScreen() {
                 {/* Recommended badge */}
                 {plan.recommended && (
                   <View style={styles.recommendedBadge}>
-                    <Text style={styles.recommendedText}>{t('publish.recommended')}</Text>
+                    <Text style={styles.recommendedText}>
+                      {t('publish.recommended')}
+                    </Text>
                   </View>
                 )}
 
@@ -118,10 +150,7 @@ export default function SelectPlanScreen() {
                     </Text>
 
                     <View
-                      style={[
-                        styles.radio,
-                        selected && styles.radioSelected,
-                      ]}
+                      style={[styles.radio, selected && styles.radioSelected]}
                     >
                       {selected && <View style={styles.radioDot} />}
                     </View>
@@ -136,7 +165,11 @@ export default function SelectPlanScreen() {
                     <MaterialIcons
                       name={f.icon as any}
                       size={18}
-                      color={f.highlight ? COLORS.brand.primary : COLORS.textSecondary}
+                      color={
+                        f.highlight
+                          ? COLORS.brand.primary
+                          : COLORS.textSecondary
+                      }
                     />
                     <Text style={styles.featureText}>{f.text}</Text>
                   </View>
@@ -149,20 +182,17 @@ export default function SelectPlanScreen() {
         {/* INFO BOX */}
         <View style={styles.infoBox}>
           <MaterialIcons name="info-outline" size={20} color="#618968" />
-          <Text style={styles.infoText}>
-            {t('publish.terms_info')}
-          </Text>
+          <Text style={styles.infoText}>{t('publish.terms_info')}</Text>
         </View>
       </ScrollView>
 
       {/* FOOTER */}
-     
-          <Button
-            label={t('publish.proceed_to_pay')}
-            onPress={() => router.push("/(farmer)/sell-machine/payment-method")}
-            icon="arrow-forward"
-          />
-       
+
+      <Button
+        label={t('publish.proceed_to_pay')}
+        onPress={() => router.push('/(farmer)/sell-machine/payment-method')}
+        icon="arrow-forward"
+      />
     </View>
   );
 }
@@ -173,7 +203,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingHorizontal:16
+    paddingHorizontal: 16,
   },
 
   /* HEADER */
@@ -364,7 +394,7 @@ const styles = StyleSheet.create({
   },
 
   /* FOOTER */
- 
+
   cta: {
     height: 56,
     borderRadius: 12,
@@ -380,4 +410,4 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#111812',
   },
-})
+});

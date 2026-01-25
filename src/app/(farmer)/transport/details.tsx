@@ -1,12 +1,5 @@
-import BackButton from '@/src/components/BackButton';
-import Button from '@/src/components/Button';
-import { COLORS } from '@/src/constants/colors';
-import { TRANSPORTERS } from '@/src/data/transport.data';
-import { useAuthStore } from '@/src/store/auth.store';
-import { TransporterLead, useTransporterStore } from '@/src/store/transporter.store';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
+
 import {
   Alert,
   Image,
@@ -18,6 +11,20 @@ import {
   View,
 } from 'react-native';
 
+import { useLocalSearchParams, useRouter } from 'expo-router';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import BackButton from '@/src/components/BackButton';
+import Button from '@/src/components/Button';
+import { COLORS } from '@/src/constants/colors';
+import { TRANSPORTERS } from '@/src/data/transport.data';
+import { useAuthStore } from '@/src/store/auth.store';
+import {
+  TransporterLead,
+  useTransporterStore,
+} from '@/src/store/transporter.store';
+
 export default function TransportDetails() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
@@ -25,7 +32,9 @@ export default function TransportDetails() {
   const { addLead } = useTransporterStore();
   const transporter = TRANSPORTERS.find((t) => t.id === id);
 
-  const [selectedVehicleIndex, setSelectedVehicleIndex] = useState<number | null>(null);
+  const [selectedVehicleIndex, setSelectedVehicleIndex] = useState<
+    number | null
+  >(null);
 
   if (!transporter) {
     return (
@@ -41,7 +50,10 @@ export default function TransportDetails() {
 
   const handleBooking = () => {
     if (selectedVehicleIndex === null) {
-      Alert.alert('Selection Required', 'Please select a vehicle from the fleet to proceed.');
+      Alert.alert(
+        'Selection Required',
+        'Please select a vehicle from the fleet to proceed.',
+      );
       return;
     }
 
@@ -72,11 +84,11 @@ export default function TransportDetails() {
             Alert.alert(
               'Request Sent! 🚛',
               `Your request for ${selectedVehicle.type} has been sent successfully.`,
-              [{ text: 'OK', onPress: () => router.back() }]
+              [{ text: 'OK', onPress: () => router.back() }],
             );
           },
         },
-      ]
+      ],
     );
   };
 
@@ -98,16 +110,50 @@ export default function TransportDetails() {
         <View style={styles.contentWrap}>
           {/* Essential Info Card */}
           <View style={styles.mainCard}>
-            <View style={[styles.statusBadge, { backgroundColor: transporter.availability === 'Available' ? '#dcfce7' : '#fee2e2' }]}>
-              <View style={[styles.statusDot, { backgroundColor: transporter.availability === 'Available' ? '#16a34a' : '#ef4444' }]} />
-              <Text style={[styles.statusText, { color: transporter.availability === 'Available' ? '#15803d' : '#991b1b' }]}>{transporter.availability}</Text>
+            <View
+              style={[
+                styles.statusBadge,
+                {
+                  backgroundColor:
+                    transporter.availability === 'Available'
+                      ? '#dcfce7'
+                      : '#fee2e2',
+                },
+              ]}
+            >
+              <View
+                style={[
+                  styles.statusDot,
+                  {
+                    backgroundColor:
+                      transporter.availability === 'Available'
+                        ? '#16a34a'
+                        : '#ef4444',
+                  },
+                ]}
+              />
+              <Text
+                style={[
+                  styles.statusText,
+                  {
+                    color:
+                      transporter.availability === 'Available'
+                        ? '#15803d'
+                        : '#991b1b',
+                  },
+                ]}
+              >
+                {transporter.availability}
+              </Text>
             </View>
 
             <Text style={styles.bizName}>{transporter.name}</Text>
             <View style={styles.ratingRow}>
               <MaterialIcons name="star" size={20} color="#eab308" />
               <Text style={styles.ratingVal}>{transporter.rating}</Text>
-              <Text style={styles.revText}>({transporter.reviews} local reviews)</Text>
+              <Text style={styles.revText}>
+                ({transporter.reviews} local reviews)
+              </Text>
               <View style={styles.vDivider} />
               <MaterialIcons name="verified" size={18} color="#3b82f6" />
               <Text style={styles.verifiedText}>Verified</Text>
@@ -134,28 +180,55 @@ export default function TransportDetails() {
           {/* Vehicles Fleet - SELECTABLE */}
           <View style={styles.section}>
             <Text style={styles.secTitle}>Select from Fleet *</Text>
-            <Text style={styles.secSub}>Choose the vehicle you need for your transport</Text>
+            <Text style={styles.secSub}>
+              Choose the vehicle you need for your transport
+            </Text>
             <View style={styles.fleetList}>
               {transporter.vehicles.map((v, i) => (
                 <TouchableOpacity
                   key={i}
                   style={[
                     styles.vCard,
-                    selectedVehicleIndex === i && styles.vCardSelected
+                    selectedVehicleIndex === i && styles.vCardSelected,
                   ]}
                   onPress={() => setSelectedVehicleIndex(i)}
                   activeOpacity={0.7}
                 >
-                  <View style={[styles.vIcon, selectedVehicleIndex === i && { backgroundColor: COLORS.white }]}>
+                  <View
+                    style={[
+                      styles.vIcon,
+                      selectedVehicleIndex === i && {
+                        backgroundColor: COLORS.white,
+                      },
+                    ]}
+                  >
                     <MaterialIcons
                       name="local-shipping"
                       size={24}
-                      color={selectedVehicleIndex === i ? COLORS.brand.primary : COLORS.brand.primary}
+                      color={
+                        selectedVehicleIndex === i
+                          ? COLORS.brand.primary
+                          : COLORS.brand.primary
+                      }
                     />
                   </View>
                   <View style={styles.vInfo}>
-                    <Text style={[styles.vType, selectedVehicleIndex === i && styles.vTextSelected]}>{v.type}</Text>
-                    <Text style={[styles.vCap, selectedVehicleIndex === i && styles.vTextSelectedMuted]}>Capacity: {v.capacity}</Text>
+                    <Text
+                      style={[
+                        styles.vType,
+                        selectedVehicleIndex === i && styles.vTextSelected,
+                      ]}
+                    >
+                      {v.type}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.vCap,
+                        selectedVehicleIndex === i && styles.vTextSelectedMuted,
+                      ]}
+                    >
+                      Capacity: {v.capacity}
+                    </Text>
                   </View>
                   {selectedVehicleIndex === i ? (
                     <MaterialIcons name="check-circle" size={24} color="#fff" />
@@ -174,14 +247,19 @@ export default function TransportDetails() {
             <Text style={styles.secTitle}>Service Area</Text>
             <View style={styles.locCard}>
               <MaterialIcons name="location-pin" size={24} color="#64748b" />
-              <Text style={styles.locText}>{transporter.location}, Maharashtra</Text>
+              <Text style={styles.locText}>
+                {transporter.location}, Maharashtra
+              </Text>
             </View>
           </View>
 
           {/* Note Area */}
           <View style={styles.noteBox}>
             <MaterialIcons name="security" size={20} color="#15803d" />
-            <Text style={styles.noteText}>Farmer Safety First: Pay only after transport is completed and verified.</Text>
+            <Text style={styles.noteText}>
+              Farmer Safety First: Pay only after transport is completed and
+              verified.
+            </Text>
           </View>
         </View>
 
@@ -195,7 +273,11 @@ export default function TransportDetails() {
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
           <Button
-            label={transporter.availability === 'Available' ? "Reserve Transport" : "Transporter Busy"}
+            label={
+              transporter.availability === 'Available'
+                ? 'Reserve Transport'
+                : 'Transporter Busy'
+            }
             onPress={handleBooking}
             icon="arrow-forward"
             disabled={transporter.availability !== 'Available'}
@@ -210,43 +292,184 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8fafc' },
   topArea: { width: '100%', height: 280, position: 'relative' },
   coverImg: { width: '100%', height: '100%' },
-  overlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.3)' },
-  headerRow: { position: 'absolute', top: 16, left: 16, right: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  shareBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: 'rgba(255,255,255,0.2)', alignItems: 'center', justifyContent: 'center' },
-  contentWrap: { marginTop: -40, backgroundColor: '#f8fafc', borderTopLeftRadius: 40, borderTopRightRadius: 40, padding: 16 },
-  mainCard: { backgroundColor: '#fff', borderRadius: 24, padding: 20, elevation: 4, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 12 },
-  statusBadge: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingVertical: 6, borderRadius: 50, alignSelf: 'flex-start', marginBottom: 12 },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  headerRow: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    right: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  shareBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  contentWrap: {
+    marginTop: -40,
+    backgroundColor: '#f8fafc',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    padding: 16,
+  },
+  mainCard: {
+    backgroundColor: '#fff',
+    borderRadius: 24,
+    padding: 20,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+  },
+  statusBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 50,
+    alignSelf: 'flex-start',
+    marginBottom: 12,
+  },
   statusDot: { width: 8, height: 8, borderRadius: 4 },
   statusText: { fontSize: 12, fontWeight: '800' },
-  bizName: { fontSize: 26, fontWeight: '900', color: COLORS.text, marginBottom: 8 },
-  ratingRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 20 },
+  bizName: {
+    fontSize: 26,
+    fontWeight: '900',
+    color: COLORS.text,
+    marginBottom: 8,
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 20,
+  },
   ratingVal: { fontSize: 16, fontWeight: '800', color: COLORS.text },
   revText: { fontSize: 14, color: COLORS.textSecondary },
-  vDivider: { width: 1, height: 16, backgroundColor: '#e2e8f0', marginHorizontal: 4 },
+  vDivider: {
+    width: 1,
+    height: 16,
+    backgroundColor: '#e2e8f0',
+    marginHorizontal: 4,
+  },
   verifiedText: { fontSize: 14, fontWeight: '700', color: '#3b82f6' },
-  statsRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 16, paddingTop: 16, borderTopWidth: 1, borderTopColor: '#f1f5f9' },
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#f1f5f9',
+  },
   statItem: { flex: 1, alignItems: 'center' },
   statVal: { fontSize: 18, fontWeight: '800', color: COLORS.text },
-  statLab: { fontSize: 11, color: COLORS.textSecondary, marginTop: 4, textAlign: 'center' },
+  statLab: {
+    fontSize: 11,
+    color: COLORS.textSecondary,
+    marginTop: 4,
+    textAlign: 'center',
+  },
   verticalLine: { width: 1, backgroundColor: '#f1f5f9' },
   section: { marginTop: 32 },
-  secTitle: { fontSize: 18, fontWeight: '800', color: COLORS.text, marginBottom: 4 },
+  secTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: COLORS.text,
+    marginBottom: 4,
+  },
   secSub: { fontSize: 13, color: COLORS.textSecondary, marginBottom: 16 },
   fleetList: { gap: 12 },
-  vCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', padding: 16, borderRadius: 20, borderWidth: 1, borderColor: '#f1f5f9' },
-  vCardSelected: { backgroundColor: COLORS.brand.primary, borderColor: COLORS.brand.primary },
-  vIcon: { width: 48, height: 48, borderRadius: 14, backgroundColor: COLORS.brand.muted, alignItems: 'center', justifyContent: 'center', marginRight: 16 },
+  vCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#f1f5f9',
+  },
+  vCardSelected: {
+    backgroundColor: COLORS.brand.primary,
+    borderColor: COLORS.brand.primary,
+  },
+  vIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: COLORS.brand.muted,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
   vInfo: { flex: 1 },
   vType: { fontSize: 16, fontWeight: '700', color: COLORS.text },
   vCap: { fontSize: 13, color: COLORS.textSecondary, marginTop: 2 },
   vTextSelected: { color: '#fff' },
   vTextSelectedMuted: { color: 'rgba(255,255,255,0.7)' },
-  vCount: { backgroundColor: '#f8fafc', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 10 },
+  vCount: {
+    backgroundColor: '#f8fafc',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 10,
+  },
   vCountText: { fontSize: 12, fontWeight: '800', color: COLORS.brand.primary },
-  locCard: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: '#fff', padding: 16, borderRadius: 20, borderWidth: 1, borderColor: '#f1f5f9' },
+  locCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#f1f5f9',
+  },
   locText: { fontSize: 15, fontWeight: '600', color: COLORS.text },
-  noteBox: { marginTop: 24, padding: 16, borderRadius: 16, backgroundColor: '#f0fdf4', flexDirection: 'row', gap: 12, alignItems: 'center', borderWidth: 1, borderColor: '#dcfce7' },
-  noteText: { flex: 1, fontSize: 13, color: '#166534', fontWeight: '600', lineHeight: 20 },
-  actionBar: { position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: '#fff', padding: 16, flexDirection: 'row', gap: 12, borderTopWidth: 1, borderTopColor: '#f1f5f9' },
-  callFab: { width: 56, height: 56, borderRadius: 16, backgroundColor: '#10b981', alignItems: 'center', justifyContent: 'center' },
+  noteBox: {
+    marginTop: 24,
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: '#f0fdf4',
+    flexDirection: 'row',
+    gap: 12,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#dcfce7',
+  },
+  noteText: {
+    flex: 1,
+    fontSize: 13,
+    color: '#166534',
+    fontWeight: '600',
+    lineHeight: 20,
+  },
+  actionBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#fff',
+    padding: 16,
+    flexDirection: 'row',
+    gap: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#f1f5f9',
+  },
+  callFab: {
+    width: 56,
+    height: 56,
+    borderRadius: 16,
+    backgroundColor: '#10b981',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

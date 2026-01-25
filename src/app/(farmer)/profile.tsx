@@ -1,131 +1,137 @@
-import Button from '@/src/components/Button';
-import FormDropdown from '@/src/components/FormDropdown';
-import FormInput from '@/src/components/FormInput';
-import { IFarmerProfileForm, farmerProfileSchema } from '@/src/types/validators/farmerProfile.schema';
-import { Ionicons } from '@expo/vector-icons';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as ImagePicker from 'expo-image-picker';
-import { router } from 'expo-router';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+
 import {
   Alert,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
+
+import * as ImagePicker from 'expo-image-picker';
+import { router } from 'expo-router';
+
+import { Ionicons } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { COLORS } from '../../constants/colors';
 
-
-const cities = [
-  "Agra",
-  "Ahmedabad",
-  "Ajmer",
-  "Aligarh",
-  "Allahabad (Prayagraj)",
-  "Amravati",
-  "Amritsar",
-  "Asansol",
-  "Aurangabad",
-  "Bareilly",
-  "Bengaluru",
-  "Bhavnagar",
-  "Bhilai",
-  "Bhiwandi",
-  "Bhopal",
-  "Bhubaneswar",
-  "Bikaner",
-  "Bokaro Steel City",
-  "Chandigarh",
-  "Chennai",
-  "Coimbatore",
-  "Cuttack",
-  "Dehradun",
-  "Delhi",
-  "Dhanbad",
-  "Durgapur",
-  "Erode",
-  "Faridabad",
-  "Firozabad",
-  "Ghaziabad",
-  "Gorakhpur",
-  "Gulbarga",
-  "Guntur",
-  "Gurugram (Gurgaon)",
-  "Guwahati",
-  "Gwalior",
-  "Hubli-Dharwad",
-  "Hyderabad",
-  "Indore",
-  "Jabalpur",
-  "Jaipur",
-  "Jalandhar",
-  "Jammu",
-  "Jamnagar",
-  "Jamshedpur",
-  "Jhansi",
-  "Jodhpur",
-  "Kannur",
-  "Kanpur",
-  "Kochi",
-  "Kolhapur",
-  "Kolkata",
-  "Kollam",
-  "Kota",
-  "Kozhikode",
-  "Lucknow",
-  "Ludhiana",
-  "Madurai",
-  "Malappuram",
-  "Mangaluru (Mangalore)",
-  "Meerut",
-  "Moradabad",
-  "Mumbai",
-  "Mysuru (Mysore)",
-  "Nagpur",
-  "Nanded",
-  "Nashik",
-  "Nellore",
-  "Noida",
-  "Patna",
-  "Pondicherry",
-  "Pune",
-  "Raipur",
-  "Rajahmundry",
-  "Rajkot",
-  "Ranchi",
-  "Rourkela",
-  "Saharanpur",
-  "Salem",
-  "Sangli",
-  "Siliguri",
-  "Solapur",
-  "Srinagar",
-  "Surat",
-  "Thane",
-  "Thiruvananthapuram",
-  "Thrissur",
-  "Tiruchirappalli",
-  "Tirunelveli",
-  "Tiruppur",
-  "Ujjain",
-  "Vadodara",
-  "Varanasi",
-  "Vasai-Virar",
-  "Vellore",
-  "Vijayawada",
-  "Visakhapatnam",
-  "Warangal"
-];
-
+import Button from '@/src/components/Button';
+import FormDropdown from '@/src/components/FormDropdown';
+import FormInput from '@/src/components/FormInput';
 import { useAuthStore } from '@/src/store/auth.store';
 import { useFarmerStore } from '@/src/store/farmer.store';
-import { useEffect } from 'react';
+import {
+  IFarmerProfileForm,
+  farmerProfileSchema,
+} from '@/src/types/validators/farmerProfile.schema';
+
+import { COLORS } from '../../constants/colors';
+
+const cities = [
+  'Agra',
+  'Ahmedabad',
+  'Ajmer',
+  'Aligarh',
+  'Allahabad (Prayagraj)',
+  'Amravati',
+  'Amritsar',
+  'Asansol',
+  'Aurangabad',
+  'Bareilly',
+  'Bengaluru',
+  'Bhavnagar',
+  'Bhilai',
+  'Bhiwandi',
+  'Bhopal',
+  'Bhubaneswar',
+  'Bikaner',
+  'Bokaro Steel City',
+  'Chandigarh',
+  'Chennai',
+  'Coimbatore',
+  'Cuttack',
+  'Dehradun',
+  'Delhi',
+  'Dhanbad',
+  'Durgapur',
+  'Erode',
+  'Faridabad',
+  'Firozabad',
+  'Ghaziabad',
+  'Gorakhpur',
+  'Gulbarga',
+  'Guntur',
+  'Gurugram (Gurgaon)',
+  'Guwahati',
+  'Gwalior',
+  'Hubli-Dharwad',
+  'Hyderabad',
+  'Indore',
+  'Jabalpur',
+  'Jaipur',
+  'Jalandhar',
+  'Jammu',
+  'Jamnagar',
+  'Jamshedpur',
+  'Jhansi',
+  'Jodhpur',
+  'Kannur',
+  'Kanpur',
+  'Kochi',
+  'Kolhapur',
+  'Kolkata',
+  'Kollam',
+  'Kota',
+  'Kozhikode',
+  'Lucknow',
+  'Ludhiana',
+  'Madurai',
+  'Malappuram',
+  'Mangaluru (Mangalore)',
+  'Meerut',
+  'Moradabad',
+  'Mumbai',
+  'Mysuru (Mysore)',
+  'Nagpur',
+  'Nanded',
+  'Nashik',
+  'Nellore',
+  'Noida',
+  'Patna',
+  'Pondicherry',
+  'Pune',
+  'Raipur',
+  'Rajahmundry',
+  'Rajkot',
+  'Ranchi',
+  'Rourkela',
+  'Saharanpur',
+  'Salem',
+  'Sangli',
+  'Siliguri',
+  'Solapur',
+  'Srinagar',
+  'Surat',
+  'Thane',
+  'Thiruvananthapuram',
+  'Thrissur',
+  'Tiruchirappalli',
+  'Tirunelveli',
+  'Tiruppur',
+  'Ujjain',
+  'Vadodara',
+  'Varanasi',
+  'Vasai-Virar',
+  'Vellore',
+  'Vijayawada',
+  'Visakhapatnam',
+  'Warangal',
+];
 
 export default function FarmerProfileScreen() {
   const { t } = useTranslation();
@@ -133,12 +139,7 @@ export default function FarmerProfileScreen() {
   const { user } = useAuthStore();
   const { farmer, setFarmer } = useFarmerStore();
 
-  const {
-    control,
-    handleSubmit,
-    setValue,
-    reset,
-  } = useForm<IFarmerProfileForm>({
+  const { control, handleSubmit, reset } = useForm<IFarmerProfileForm>({
     resolver: zodResolver(farmerProfileSchema),
     defaultValues: {
       fullName: farmer?.name || user?.name || '',
@@ -159,7 +160,7 @@ export default function FarmerProfileScreen() {
         village: parts[0] || '',
         taluka: parts[1] || '',
         district: parts[2] || '',
-        pinCode: '415001'
+        pinCode: '415001',
       });
     }
   }, [farmer, reset]);
@@ -170,9 +171,9 @@ export default function FarmerProfileScreen() {
       phone: user?.phone || '9527189774',
       location: `${data.village}, ${data.taluka}, ${data.district}`,
       farmSize: 5.5,
-      crops: ['Wheat', 'Sugarcane']
+      crops: ['Wheat', 'Sugarcane'],
     });
-    Alert.alert("Success", "Profile updated successfully!");
+    Alert.alert('Success', 'Profile updated successfully!');
     router.replace('/(farmer)/(tabs)/profile');
   };
 
@@ -195,7 +196,6 @@ export default function FarmerProfileScreen() {
       setPhotoUri(result.assets[0].uri);
     }
   };
-
 
   return (
     <View style={styles.screen}>
@@ -220,14 +220,44 @@ export default function FarmerProfileScreen() {
           </TouchableOpacity>
           <Text style={styles.addPhotoText}>{t('common.upload_photo')}</Text>
 
-          <View style={{ marginTop: 16, flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: COLORS.brand.muted, padding: 8, borderRadius: 50, borderWidth: 1, borderColor: COLORS.brand.primary }}>
-            <FontAwesome name="check-circle" size={16} color={COLORS.brand.primary} />
-            <Text style={{ color: COLORS.brand.primary, fontWeight: '600' }}>9527189774 * {t('auth.verified')}</Text>
+          <View
+            style={{
+              marginTop: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+              backgroundColor: COLORS.brand.muted,
+              padding: 8,
+              borderRadius: 50,
+              borderWidth: 1,
+              borderColor: COLORS.brand.primary,
+            }}
+          >
+            <FontAwesome
+              name="check-circle"
+              size={16}
+              color={COLORS.brand.primary}
+            />
+            <Text style={{ color: COLORS.brand.primary, fontWeight: '600' }}>
+              9527189774 * {t('auth.verified')}
+            </Text>
           </View>
         </View>
 
-        <FormInput control={control} name="fullName" label={t('profile.full_name')} placeholder={t('profile.enter_full_name')} required />
-        <FormInput control={control} name="farmerId" label={t('profile.farmer_id')} placeholder={t('profile.enter_farmer_id')} required />
+        <FormInput
+          control={control}
+          name="fullName"
+          label={t('profile.full_name')}
+          placeholder={t('profile.enter_full_name')}
+          required
+        />
+        <FormInput
+          control={control}
+          name="farmerId"
+          label={t('profile.farmer_id')}
+          placeholder={t('profile.enter_farmer_id')}
+          required
+        />
 
         <FormDropdown
           control={control}
@@ -291,7 +321,7 @@ const styles = StyleSheet.create({
   photoSection: {
     alignItems: 'center',
     marginBottom: 24,
-    paddingTop: 20
+    paddingTop: 20,
   },
 
   avatar: {
@@ -331,6 +361,6 @@ const styles = StyleSheet.create({
 
   optionalText: {
     fontSize: 12,
-    color: '#6B7280',
+    color: COLORS.textSecondary,
   },
 });

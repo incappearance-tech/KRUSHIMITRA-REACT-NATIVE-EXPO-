@@ -1,8 +1,13 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { StyleSheet } from 'react-native';
+
+import { Tabs } from 'expo-router';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
 import { COLORS } from '../../../constants/colors';
 
 /**
@@ -10,65 +15,65 @@ import { COLORS } from '../../../constants/colors';
  * Consolidates Home, Listings, Orders, and Profile into a persistent bottom bar.
  */
 export default function FarmerTabLayout() {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    return (
-        <Tabs
-            screenOptions={{
-                headerShown: false,
-                tabBarStyle: styles.tabBar,
-                tabBarActiveTintColor: COLORS.brand.primary,
-                tabBarInactiveTintColor: COLORS.textSecondary,
-                tabBarLabelStyle: styles.tabBarLabel,
-            }}
-        >
-            <Tabs.Screen
-                name="index"
-                options={{
-                    title: t('navigation.home'),
-                    tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="home" size={24} color={color} />
-                    ),
-                }}
-            />
-            <Tabs.Screen
-                name="my-farm"
-                options={{
-                    title: 'My Farm',
-                    tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="agriculture" size={24} color={color} />
-                    ),
-                }}
-            />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: t('navigation.profile'),
-                    tabBarIcon: ({ color }) => (
-                        <MaterialIcons name="account-circle" size={24} color={color} />
-                    ),
-                }}
-            />
-        </Tabs>
-    );
+  return (
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: COLORS.brand.primary,
+        tabBarInactiveTintColor: COLORS.textSecondary,
+        tabBarLabelStyle: styles.tabBarLabel,
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: t('navigation.home'),
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="home" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="my-farm"
+        options={{
+          title: 'My Farm',
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="agriculture" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: t('navigation.profile'),
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="account-circle" size={24} color={color} />
+          ),
+        }}
+      />
+    </Tabs>
+  );
 }
 
 const styles = StyleSheet.create({
-    tabBar: {
-        backgroundColor: COLORS.background,
-        borderTopWidth: 1,
-        borderTopColor: COLORS.borderFocus,
-        height: 65,
-        paddingBottom: 10,
-        paddingTop: 10,
-        elevation: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: -2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-    },
-    tabBarLabel: {
-        fontSize: 10,
-        fontWeight: '700',
-    },
+  tabBar: {
+    backgroundColor: COLORS.background,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.borderFocus,
+    height: 65,
+    paddingBottom: 10,
+    paddingTop: 10,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  tabBarLabel: {
+    fontSize: 10,
+    fontWeight: '700',
+  },
 });

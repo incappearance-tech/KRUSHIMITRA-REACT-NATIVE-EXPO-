@@ -2,7 +2,10 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { IRatingStarsProps } from '@/src/types/components/RatingStars';
 
-export default function RatingStars({ rating, maxRating = 5 }: IRatingStarsProps) {
+export default function RatingStars({
+  rating,
+  maxRating = 5,
+}: IRatingStarsProps) {
   return (
     <View style={styles.container}>
       {Array.from({ length: maxRating }).map((_, index) => (

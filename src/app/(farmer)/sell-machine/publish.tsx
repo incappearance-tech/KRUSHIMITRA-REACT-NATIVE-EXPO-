@@ -1,10 +1,5 @@
-import AppBar from '@/src/components/AppBar';
-import Button from '@/src/components/Button';
-import { IFeatureItemProps, IPlan, IPlanCardProps } from '@/src/types/sell-machine/publish';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import {
   Alert,
   ScrollView,
@@ -13,6 +8,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import { router } from 'expo-router';
+
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
+import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+import {
+  IFeatureItemProps,
+  IPlan,
+  IPlanCardProps,
+} from '@/src/types/sell-machine/publish';
+
 import { COLORS } from '../../../constants/colors';
 
 /* -------------------------------------------------------------------------- */
@@ -23,42 +33,48 @@ export default function App() {
   const { t } = useTranslation();
   const [selectedPlan, setSelectedPlan] = useState('30days');
 
-  const PLANS: IPlan[] = [
-    {
-      id: 'free',
-      title: t('publish.trial_run'),
-      duration: t('publish.valid_7_days'),
-      price: 'FREE',
-      oldPrice: '₹29',
-      badge: t('publish.one_left'),
-    },
-    {
-      id: '15days',
-      title: t('publish.standard'),
-      duration: t('publish.valid_15_days'),
-      price: '₹49',
-      valueLabel: '₹3.2/day',
-    },
-    {
-      id: '30days',
-      title: t('publish.premium_reach'),
-      duration: t('publish.valid_30_days'),
-      price: '₹99',
-      valueLabel: t('publish.best_value'),
-      recommended: true,
-    },
-  ];
+  const PLANS: IPlan[] = useMemo(
+    () => [
+      {
+        id: 'free',
+        title: t('publish.trial_run'),
+        duration: t('publish.valid_7_days'),
+        price: 'FREE',
+        oldPrice: '₹29',
+        badge: t('publish.one_left'),
+      },
+      {
+        id: '15days',
+        title: t('publish.standard'),
+        duration: t('publish.valid_15_days'),
+        price: '₹49',
+        valueLabel: '₹3.2/day',
+      },
+      {
+        id: '30days',
+        title: t('publish.premium_reach'),
+        duration: t('publish.valid_30_days'),
+        price: '₹99',
+        valueLabel: t('publish.best_value'),
+        recommended: true,
+      },
+    ],
+    [t],
+  );
 
   const currentPlanData = useMemo(
-    () => PLANS.find(p => p.id === selectedPlan) ?? PLANS[0],
-    [selectedPlan]
+    () => PLANS.find((p) => p.id === selectedPlan) ?? PLANS[0],
+    [selectedPlan, PLANS],
   );
 
   const handlePayment = useCallback(() => {
     router.push('/(farmer)/sell-machine/select-plan');
     Alert.alert(
       t('publish.processing'),
-      t('publish.proceeding_to_pay', { price: currentPlanData.price, title: currentPlanData.title })
+      t('publish.proceeding_to_pay', {
+        price: currentPlanData.price,
+        title: currentPlanData.title,
+      }),
     );
   }, [currentPlanData, t]);
 
@@ -72,7 +88,7 @@ export default function App() {
         <SectionHeader />
 
         <View style={styles.plansContainer}>
-          {PLANS.map(plan => (
+          {PLANS.map((plan) => (
             <PlanCard
               key={plan.id}
               plan={plan}
@@ -86,7 +102,10 @@ export default function App() {
         <View style={styles.featureBox}>
           <FeatureItem icon="visibility" label={t('publish.visible_to')} />
           <FeatureItem icon="verified" label={t('publish.verified_badge')} />
-          <FeatureItem icon="notifications-active" label={t('publish.buyer_alerts')} />
+          <FeatureItem
+            icon="notifications-active"
+            label={t('publish.buyer_alerts')}
+          />
         </View>
 
         <TrustRow />
@@ -120,39 +139,36 @@ const PromoBanner = memo(() => {
       </View>
       <View style={{ flex: 1 }}>
         <Text style={styles.promoTitle}>{t('publish.first_listing_free')}</Text>
-        <Text style={styles.promoSubText}>
-          {t('publish.welcome_gift')}
-        </Text>
+        <Text style={styles.promoSubText}>{t('publish.welcome_gift')}</Text>
       </View>
     </View>
   );
 });
+PromoBanner.displayName = 'PromoBanner';
 
 const SectionHeader = memo(() => {
   const { t } = useTranslation();
   return (
     <View style={styles.sectionHeadingRow}>
-      <MaterialIcons
-        name="payments"
-        size={20}
-        color={COLORS.brand.primary}
-      />
-      <Text style={styles.sectionHeadingText}>{t('publish.choose_duration')}</Text>
+      <MaterialIcons name="payments" size={20} color={COLORS.brand.primary} />
+      <Text style={styles.sectionHeadingText}>
+        {t('publish.choose_duration')}
+      </Text>
     </View>
   );
 });
+SectionHeader.displayName = 'SectionHeader';
 
 const TrustRow = memo(() => {
   const { t } = useTranslation();
   return (
     <View style={styles.trustRow}>
       <MaterialIcons name="lock" size={14} color={COLORS.textSecondary} />
-      <Text style={styles.trustText}>
-        {t('publish.secure_payment')}
-      </Text>
+      <Text style={styles.trustText}>{t('publish.secure_payment')}</Text>
     </View>
   );
 });
+TrustRow.displayName = 'TrustRow';
 
 const FeatureItem = memo(({ icon, label }: IFeatureItemProps) => (
   <View style={styles.featureItem}>
@@ -165,6 +181,7 @@ const FeatureItem = memo(({ icon, label }: IFeatureItemProps) => (
     <Text style={styles.featureText}>{label}</Text>
   </View>
 ));
+FeatureItem.displayName = 'FeatureItem';
 
 const PlanCard = memo(({ plan, selected, onSelect }: IPlanCardProps) => {
   const { t } = useTranslation();
@@ -181,17 +198,16 @@ const PlanCard = memo(({ plan, selected, onSelect }: IPlanCardProps) => {
       {plan.recommended && (
         <View style={styles.recommendedFloatingBadge}>
           <MaterialIcons name="stars" size={14} color={COLORS.black} />
-          <Text style={styles.recommendedFloatingText}>{t('publish.recommended')}</Text>
+          <Text style={styles.recommendedFloatingText}>
+            {t('publish.recommended')}
+          </Text>
         </View>
       )}
 
       <View style={styles.planCardContent}>
         <View style={styles.planCardLeft}>
           <View
-            style={[
-              styles.customRadio,
-              selected && styles.customRadioActive,
-            ]}
+            style={[styles.customRadio, selected && styles.customRadioActive]}
           >
             {selected && <View style={styles.customRadioInner} />}
           </View>
@@ -251,13 +267,18 @@ const PlanCard = memo(({ plan, selected, onSelect }: IPlanCardProps) => {
     </TouchableOpacity>
   );
 });
+PlanCard.displayName = 'PlanCard';
 
 /* -------------------------------------------------------------------------- */
 /*                                   STYLES                                   */
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background, paddingHorizontal:16 },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
+  },
 
   promoBanner: {
     backgroundColor: COLORS.successLight,

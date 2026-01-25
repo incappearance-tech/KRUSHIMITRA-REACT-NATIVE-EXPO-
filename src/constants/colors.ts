@@ -8,7 +8,7 @@ export const COLORS = {
     300: '#80ddaa',
     400: '#55d18d',
     500: '#2ecc71', // Base
-    600: "#13ec37",
+    600: '#13ec37',
     700: '#25a35a',
     800: '#1c7a44',
     900: '#12522d',
@@ -87,5 +87,5 @@ export const COLORS = {
     primary: '#37ec13', // The bright neon green used in login
     secondary: '#052e00', // Dark green for text on primary button
     muted: 'rgba(147, 250, 126, 0.15)', // Light brand background
-  }
+  },
 };

@@ -6,7 +6,9 @@ export const useNetwork = () => {
   useEffect(() => {
     const checkConnection = async () => {
       try {
-        const response = await fetch('https://www.google.com', { method: 'HEAD' });
+        const response = await fetch('https://www.google.com', {
+          method: 'HEAD',
+        });
         setIsConnected(response.ok);
       } catch {
         setIsConnected(false);

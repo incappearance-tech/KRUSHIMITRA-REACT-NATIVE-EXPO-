@@ -1,10 +1,13 @@
+import { useEffect, useState } from 'react';
+
+import { ActivityIndicator, View } from 'react-native';
+
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { COLORS } from '../constants/colors';
-import { LanguageProvider } from '../context/LanguageContext';
 import { loadSavedLanguage } from '../services/i18n';
 
 export default function RootLayout() {
@@ -33,18 +36,16 @@ export default function RootLayout() {
   }
 
   return (
-    <LanguageProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
-        {/* Default system status bar (no overlap) */}
-        <StatusBar style="dark" backgroundColor={COLORS.background} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
+      {/* Default system status bar (no overlap) */}
+      <StatusBar style="dark" backgroundColor={COLORS.background} />
 
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            animation: 'fade',
-          }}
-        />
-      </SafeAreaView>
-    </LanguageProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: 'fade',
+        }}
+      />
+    </SafeAreaView>
   );
 }

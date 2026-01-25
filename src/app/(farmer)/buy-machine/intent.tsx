@@ -1,17 +1,26 @@
-import AppBar from '@/src/components/AppBar';
-import Button from '@/src/components/Button';
-import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+
 import {
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+
 import { COLORS } from '../../../constants/colors';
 
 export default function BuyerIntentScreen() {
@@ -33,11 +42,7 @@ function BuyerIntentContent() {
     <View style={styles.container}>
       <StatusBar style="dark" />
 
-      <AppBar
-        title='Buyer Intent'
-        showBack
-        onBackPress={() => router.back()}
-      />
+      <AppBar title="Buyer Intent" showBack onBackPress={() => router.back()} />
 
       <View style={styles.statusBar}>
         <View style={styles.statusFill} />
@@ -49,8 +54,12 @@ function BuyerIntentContent() {
       >
         {/* Question 1: Purpose Grid */}
         <View style={styles.section}>
-          <Text style={styles.mainHeading}>What do you plan to do with this machine?</Text>
-          <Text style={styles.subText}>This helps us tailor your experience.</Text>
+          <Text style={styles.mainHeading}>
+            What do you plan to do with this machine?
+          </Text>
+          <Text style={styles.subText}>
+            This helps us tailor your experience.
+          </Text>
 
           <View style={styles.grid}>
             <PurposeCard
@@ -109,13 +118,15 @@ function BuyerIntentContent() {
       </ScrollView>
 
       {/* Sticky Action Footer */}
-      <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
+      <View
+        style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}
+      >
         <Button
           label="Reveal Seller Contact"
-          onPress={() => router.push("/buy-machine/payment")}
+          onPress={() => router.push('/buy-machine/payment')}
           icon="visibility"
         />
-        <TouchableOpacity onPress={() => router.push("/buy-machine/payment")}>
+        <TouchableOpacity onPress={() => router.push('/buy-machine/payment')}>
           <Text style={styles.footerNote}>
             Your response helps sellers respond faster.
             <Text style={styles.skipLink}> Skip</Text>
@@ -135,18 +146,37 @@ const PurposeCard = ({ id, label, icon, selected, onSelect }: any) => (
     activeOpacity={0.8}
   >
     <View style={[styles.cardIconBg, selected && styles.cardIconBgSelected]}>
-      <MaterialIcons name={icon} size={32} color={selected ? COLORS.brand.primary : COLORS.gray[400]} />
+      <MaterialIcons
+        name={icon}
+        size={32}
+        color={selected ? COLORS.brand.primary : COLORS.gray[400]}
+      />
     </View>
-    <Text style={[styles.cardText, selected && styles.cardTextSelected]}>{label}</Text>
+    <Text style={[styles.cardText, selected && styles.cardTextSelected]}>
+      {label}
+    </Text>
     {selected && (
       <View style={styles.checkIcon}>
-        <MaterialIcons name="check-circle" size={18} color={COLORS.brand.primary} />
+        <MaterialIcons
+          name="check-circle"
+          size={18}
+          color={COLORS.brand.primary}
+        />
       </View>
     )}
   </TouchableOpacity>
 );
 
-const TimelineOption = ({ id, label, desc, icon, iconColor, iconBg, selected, onSelect }: any) => (
+const TimelineOption = ({
+  id,
+  label,
+  desc,
+  icon,
+  iconColor,
+  iconBg,
+  selected,
+  onSelect,
+}: any) => (
   <TouchableOpacity
     style={[styles.listOption, selected && styles.listOptionSelected]}
     onPress={() => onSelect(id)}
@@ -171,12 +201,35 @@ const styles = StyleSheet.create({
   scrollContent: { padding: 20, paddingBottom: 120 },
 
   statusBar: { height: 6, backgroundColor: COLORS.gray[50], width: '100%' },
-  statusFill: { height: '100%', backgroundColor: COLORS.brand.primary, width: '60%', borderTopRightRadius: 3, borderBottomRightRadius: 3 },
+  statusFill: {
+    height: '100%',
+    backgroundColor: COLORS.brand.primary,
+    width: '60%',
+    borderTopRightRadius: 3,
+    borderBottomRightRadius: 3,
+  },
 
   section: { marginBottom: 36 },
-  mainHeading: { fontSize: 26, fontWeight: '900', color: COLORS.text, marginBottom: 8, lineHeight: 32, letterSpacing: -0.5 },
-  subText: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 20, fontWeight: '500' },
-  subHeading: { fontSize: 18, fontWeight: '800', color: COLORS.text, marginBottom: 16 },
+  mainHeading: {
+    fontSize: 26,
+    fontWeight: '900',
+    color: COLORS.text,
+    marginBottom: 8,
+    lineHeight: 32,
+    letterSpacing: -0.5,
+  },
+  subText: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    marginBottom: 20,
+    fontWeight: '500',
+  },
+  subHeading: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: COLORS.text,
+    marginBottom: 16,
+  },
 
   grid: { flexDirection: 'row', gap: 16 },
   card: {
@@ -193,13 +246,29 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.03,
     shadowRadius: 10,
-    elevation: 2
+    elevation: 2,
   },
-  cardSelected: { borderColor: COLORS.brand.primary, backgroundColor: '#fafff7' },
+  cardSelected: {
+    borderColor: COLORS.brand.primary,
+    backgroundColor: '#fafff7',
+  },
   checkIcon: { position: 'absolute', top: 12, right: 12 },
-  cardIconBg: { width: 64, height: 64, borderRadius: 32, backgroundColor: COLORS.gray[50], alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
+  cardIconBg: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: COLORS.gray[50],
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
   cardIconBgSelected: { backgroundColor: 'white' },
-  cardText: { fontSize: 14, fontWeight: '700', color: COLORS.textSecondary, textAlign: 'center' },
+  cardText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+  },
   cardTextSelected: { color: COLORS.text },
 
   timelineList: { gap: 14 },
@@ -215,20 +284,53 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.03,
     shadowRadius: 5,
-    elevation: 2
+    elevation: 2,
   },
-  listOptionSelected: { borderColor: COLORS.brand.primary, backgroundColor: '#fafff7' },
-  listIconBg: { width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center', marginRight: 16 },
+  listOptionSelected: {
+    borderColor: COLORS.brand.primary,
+    backgroundColor: '#fafff7',
+  },
+  listIconBg: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
   listLabel: { fontSize: 16, fontWeight: '800', color: COLORS.text },
-  listDesc: { fontSize: 12, color: COLORS.textSecondary, marginTop: 2, fontWeight: '500' },
+  listDesc: {
+    fontSize: 12,
+    color: COLORS.textSecondary,
+    marginTop: 2,
+    fontWeight: '500',
+  },
 
-  radioOuter: { width: 22, height: 22, borderRadius: 11, borderWidth: 2, borderColor: COLORS.gray[200], alignItems: 'center', justifyContent: 'center' },
-  radioOuterSelected: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.brand.primary },
-  radioInner: { width: 10, height: 10, borderRadius: 5, backgroundColor: 'white' },
+  radioOuter: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 2,
+    borderColor: COLORS.gray[200],
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  radioOuterSelected: {
+    borderColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.primary,
+  },
+  radioInner: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: 'white',
+  },
 
   footer: {
     position: 'absolute',
-    bottom: 0, left: 0, right: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     backgroundColor: 'white',
     padding: 20,
     borderTopWidth: 1,
@@ -237,9 +339,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: -10 },
     shadowOpacity: 0.05,
     shadowRadius: 15,
-    elevation: 20
+    elevation: 20,
   },
 
-  footerNote: { textAlign: 'center', fontSize: 13, color: COLORS.textSecondary, marginTop: 16, fontWeight: '500' },
-  skipLink: { color: COLORS.brand.primary, fontWeight: '800' }
+  footerNote: {
+    textAlign: 'center',
+    fontSize: 13,
+    color: COLORS.textSecondary,
+    marginTop: 16,
+    fontWeight: '500',
+  },
+  skipLink: { color: COLORS.brand.primary, fontWeight: '800' },
 });

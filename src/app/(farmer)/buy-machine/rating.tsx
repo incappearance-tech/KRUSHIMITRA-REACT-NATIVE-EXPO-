@@ -1,8 +1,5 @@
-import Button from '@/src/components/Button';
-import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+
 import {
   Image,
   KeyboardAvoidingView,
@@ -14,12 +11,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { COLORS } from '../../../constants/colors';
 
+import { router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { useTranslation } from 'react-i18next';
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+import Button from '@/src/components/Button';
+
+import { COLORS } from '../../../constants/colors';
 
 export default function RatingScreen() {
   return (
@@ -43,12 +49,12 @@ function RatingContent() {
     t('rating.tags.polite'),
     t('rating.tags.hassle_free'),
     t('rating.tags.genuine'),
-    t('rating.tags.fair_price')
+    t('rating.tags.fair_price'),
   ];
 
   const toggleTag = (tag: string) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter(t => t !== tag));
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
@@ -67,7 +73,10 @@ function RatingContent() {
 
       {/* Top App Bar */}
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
-        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => router.back()}
+        >
           <MaterialIcons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{t('rating.title')}</Text>
@@ -79,41 +88,64 @@ function RatingContent() {
         style={{ flex: 1 }}
       >
         <ScrollView
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 120 }]}
+          contentContainerStyle={[
+            styles.scrollContent,
+            { paddingBottom: insets.bottom + 120 },
+          ]}
           showsVerticalScrollIndicator={false}
         >
           {/* Transaction Date */}
-          <Text style={styles.dateLabel}>{t('rating.completed_on', { date: 'DEC 12, 2025' })}</Text>
+          <Text style={styles.dateLabel}>
+            {t('rating.completed_on', { date: 'DEC 12, 2025' })}
+          </Text>
 
           {/* Summary Card */}
           <View style={styles.summaryCard}>
             <View style={styles.summaryRow}>
               <Image
-                source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=150' }}
+                source={{
+                  uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=150',
+                }}
                 style={styles.tractorThumb}
               />
               <View style={styles.summaryInfo}>
                 <Text style={styles.tractorName}>John Deere 5050D</Text>
-                <Text style={styles.soldTo}>{t('rating.sold_to', { name: 'Ramesh Kumar' })}</Text>
+                <Text style={styles.soldTo}>
+                  {t('rating.sold_to', { name: 'Ramesh Kumar' })}
+                </Text>
               </View>
               <View style={styles.checkBadge}>
-                <MaterialIcons name="check-circle" size={20} color={COLORS.brand.primary} />
+                <MaterialIcons
+                  name="check-circle"
+                  size={20}
+                  color={COLORS.brand.primary}
+                />
               </View>
             </View>
           </View>
 
           {/* Rating Logic */}
           <View style={styles.ratingSection}>
-            <Text style={styles.ratingPrompt}>{t('rating.experience_prompt')}</Text>
-            <Text style={styles.ratingSubPrompt}>{t('rating.rate_deal', { name: 'Ramesh' })}</Text>
+            <Text style={styles.ratingPrompt}>
+              {t('rating.experience_prompt')}
+            </Text>
+            <Text style={styles.ratingSubPrompt}>
+              {t('rating.rate_deal', { name: 'Ramesh' })}
+            </Text>
 
             <View style={styles.starsRow}>
               {[1, 2, 3, 4, 5].map((num) => (
-                <TouchableOpacity key={num} onPress={() => setRating(num)} activeOpacity={0.7}>
+                <TouchableOpacity
+                  key={num}
+                  onPress={() => setRating(num)}
+                  activeOpacity={0.7}
+                >
                   <MaterialIcons
-                    name={num <= rating ? "star" : "star-border"}
+                    name={num <= rating ? 'star' : 'star-border'}
                     size={48}
-                    color={num <= rating ? COLORS.brand.primary : COLORS.gray[300]}
+                    color={
+                      num <= rating ? COLORS.brand.primary : COLORS.gray[300]
+                    }
                   />
                 </TouchableOpacity>
               ))}
@@ -124,7 +156,7 @@ function RatingContent() {
 
           {/* Chips/Tags */}
           <View style={styles.tagsContainer}>
-            {FEEDBACK_TAGS.map(tag => {
+            {FEEDBACK_TAGS.map((tag) => {
               const isActive = selectedTags.includes(tag);
               return (
                 <TouchableOpacity
@@ -132,7 +164,11 @@ function RatingContent() {
                   onPress={() => toggleTag(tag)}
                   style={[styles.tagChip, isActive && styles.tagChipActive]}
                 >
-                  <Text style={[styles.tagText, isActive && styles.tagTextActive]}>{tag}</Text>
+                  <Text
+                    style={[styles.tagText, isActive && styles.tagTextActive]}
+                  >
+                    {tag}
+                  </Text>
                 </TouchableOpacity>
               );
             })}
@@ -148,20 +184,27 @@ function RatingContent() {
               value={comment}
               onChangeText={setComment}
             />
-            <MaterialIcons name="edit-note" size={24} color="#d1d5db" style={styles.inputIcon} />
+            <MaterialIcons
+              name="edit-note"
+              size={24}
+              color="#d1d5db"
+              style={styles.inputIcon}
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
 
       {/* Sticky Footer */}
-      <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
+      <View
+        style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}
+      >
         <View style={styles.trustRow}>
           <MaterialIcons name="shield" size={14} color={COLORS.success} />
           <Text style={styles.trustText}>{t('rating.trust_helper')}</Text>
         </View>
         <Button
           label={t('rating.submit')}
-          onPress={() => { }}
+          onPress={() => {}}
           icon="send"
           backgroundColor={COLORS.brand.primary}
           textColor={COLORS.black}
@@ -179,9 +222,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 8,
-    backgroundColor: COLORS.background
+    backgroundColor: COLORS.background,
   },
-  iconButton: { width: 48, height: 48, alignItems: 'center', justifyContent: 'center' },
+  iconButton: {
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   headerTitle: { fontSize: 17, fontWeight: '700', color: COLORS.text },
 
   scrollContent: { paddingHorizontal: 20 },
@@ -191,7 +239,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.success,
     letterSpacing: 1,
-    marginVertical: 12
+    marginVertical: 12,
   },
 
   summaryCard: {
@@ -201,31 +249,66 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#f1f5f9',
     marginBottom: 32,
-    ...Platform.select({ ios: { shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 }, android: { elevation: 2 } })
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 5,
+      },
+      android: { elevation: 2 },
+    }),
   },
   summaryRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   tractorThumb: { width: 60, height: 60, borderRadius: 12 },
   summaryInfo: { flex: 1 },
   tractorName: { fontSize: 16, fontWeight: '700', color: COLORS.text },
   soldTo: { fontSize: 14, color: COLORS.success, marginTop: 2 },
-  checkBadge: { width: 36, height: 36, borderRadius: 18, backgroundColor: '#f0fdf4', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(55,236,19,0.2)' },
+  checkBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#f0fdf4',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(55,236,19,0.2)',
+  },
 
   ratingSection: { alignItems: 'center', marginBottom: 24 },
   ratingPrompt: { fontSize: 22, fontWeight: '800', color: COLORS.text },
-  ratingSubPrompt: { fontSize: 14, color: COLORS.textSecondary, marginTop: 4, marginBottom: 20 },
+  ratingSubPrompt: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    marginTop: 4,
+    marginBottom: 20,
+  },
   starsRow: { flexDirection: 'row', gap: 8, marginBottom: 12 },
-  ratingStatusText: { fontSize: 18, fontWeight: '700', color: COLORS.brand.primary },
+  ratingStatusText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.brand.primary,
+  },
 
-  tagsContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 10, marginBottom: 20 },
+  tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 10,
+    marginBottom: 20,
+  },
   tagChip: {
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 25,
     borderWidth: 1,
     borderColor: '#e5e7eb',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
-  tagChipActive: { backgroundColor: COLORS.brand.muted, borderColor: COLORS.brand.primary },
+  tagChipActive: {
+    backgroundColor: COLORS.brand.muted,
+    borderColor: COLORS.brand.primary,
+  },
   tagText: { fontSize: 13, fontWeight: '600', color: '#4b5563' },
   tagTextActive: { color: COLORS.text },
 
@@ -240,7 +323,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: COLORS.text,
     minHeight: 120,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
   },
   inputIcon: { position: 'absolute', bottom: 12, right: 12 },
 
@@ -252,8 +335,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(246, 248, 246, 0.95)',
     padding: 16,
     borderTopWidth: 1,
-    borderTopColor: COLORS.border
+    borderTopColor: COLORS.border,
   },
-  trustRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginBottom: 12 },
+  trustRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginBottom: 12,
+  },
   trustText: { fontSize: 11, color: COLORS.success },
 });

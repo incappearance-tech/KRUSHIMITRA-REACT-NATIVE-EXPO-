@@ -1,35 +1,46 @@
-import AppBar from '@/src/components/AppBar';
-import { COLORS } from '@/src/constants/colors';
-import { RentalRequest, useRentalStore } from '@/src/store/rental.store';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
+
 import {
   Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
+import { MaterialIcons } from '@expo/vector-icons';
+
+import AppBar from '@/src/components/AppBar';
+import { COLORS } from '@/src/constants/colors';
+import { RentalRequest, useRentalStore } from '@/src/store/rental.store';
+
 export default function RentalRequestsScreen() {
-  const router = useRouter();
   const { requests, updateRequestStatus } = useRentalStore();
-  const [filter, setFilter] = useState<'pending' | 'accepted' | 'rejected'>('pending');
+  const [filter, setFilter] = useState<'pending' | 'accepted' | 'rejected'>(
+    'pending',
+  );
 
-  const pendingRequests = requests.filter(r => r.status === 'PENDING');
-  const acceptedRequests = requests.filter(r => r.status === 'ACCEPTED');
-  const rejectedRequests = requests.filter(r => r.status === 'REJECTED');
+  const pendingRequests = requests.filter((r) => r.status === 'PENDING');
+  const acceptedRequests = requests.filter((r) => r.status === 'ACCEPTED');
+  const rejectedRequests = requests.filter((r) => r.status === 'REJECTED');
 
-  const displayedRequests = requests.filter(r => {
+  const displayedRequests = requests.filter((r) => {
     if (filter === 'pending') return r.status === 'PENDING';
     if (filter === 'accepted') return r.status === 'ACCEPTED';
     return r.status === 'REJECTED';
   });
 
-  const handleAction = (id: string, action: 'accept' | 'reject' | 'restore') => {
-    const newStatus = action === 'accept' ? 'ACCEPTED' : action === 'restore' ? 'PENDING' : 'REJECTED';
+  const handleAction = (
+    id: string,
+    action: 'accept' | 'reject' | 'restore',
+  ) => {
+    const newStatus =
+      action === 'accept'
+        ? 'ACCEPTED'
+        : action === 'restore'
+          ? 'PENDING'
+          : 'REJECTED';
     updateRequestStatus(id, newStatus as any);
   };
 
@@ -45,152 +56,242 @@ export default function RentalRequestsScreen() {
             style={[styles.statBox, filter === 'pending' && styles.statPending]}
             onPress={() => setFilter('pending')}
           >
-            <Text style={[styles.statNumber, filter === 'pending' && styles.statTextActive]}>{pendingRequests.length}</Text>
-            <Text style={[styles.statLabel, filter === 'pending' && styles.statTextActive]}>Pending</Text>
+            <Text
+              style={[
+                styles.statNumber,
+                filter === 'pending' && styles.statTextActive,
+              ]}
+            >
+              {pendingRequests.length}
+            </Text>
+            <Text
+              style={[
+                styles.statLabel,
+                filter === 'pending' && styles.statTextActive,
+              ]}
+            >
+              Pending
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.statBox, filter === 'accepted' && styles.statPending]}
+            style={[
+              styles.statBox,
+              filter === 'accepted' && styles.statPending,
+            ]}
             onPress={() => setFilter('accepted')}
           >
-            <Text style={[styles.statNumber, filter === 'accepted' && styles.statTextActive]}>{acceptedRequests.length}</Text>
-            <Text style={[styles.statLabel, filter === 'accepted' && styles.statTextActive]}>Accepted</Text>
+            <Text
+              style={[
+                styles.statNumber,
+                filter === 'accepted' && styles.statTextActive,
+              ]}
+            >
+              {acceptedRequests.length}
+            </Text>
+            <Text
+              style={[
+                styles.statLabel,
+                filter === 'accepted' && styles.statTextActive,
+              ]}
+            >
+              Accepted
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.statBox, filter === 'rejected' && styles.statPending]}
+            style={[
+              styles.statBox,
+              filter === 'rejected' && styles.statPending,
+            ]}
             onPress={() => setFilter('rejected')}
           >
-            <Text style={[styles.statNumber, filter === 'rejected' && styles.statTextActive]}>{rejectedRequests.length}</Text>
-            <Text style={[styles.statLabel, filter === 'rejected' && styles.statTextActive]}>Rejected</Text>
+            <Text
+              style={[
+                styles.statNumber,
+                filter === 'rejected' && styles.statTextActive,
+              ]}
+            >
+              {rejectedRequests.length}
+            </Text>
+            <Text
+              style={[
+                styles.statLabel,
+                filter === 'rejected' && styles.statTextActive,
+              ]}
+            >
+              Rejected
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Requests List */}
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         {displayedRequests.length === 0 ? (
           <View style={styles.emptyContainer}>
             <MaterialIcons name="event-note" size={64} color="#e5e7eb" />
             <Text style={styles.emptyText}>No {filter} requests found</Text>
           </View>
-        ) : displayedRequests.map((request: RentalRequest) => (
-          <View key={request.id} style={styles.card}>
-            {/* Card Header */}
-            <View style={styles.cardHeader}>
-              <View style={styles.avatarContainer}>
-                <Image source={{ uri: request.machineImage }} style={styles.avatar} />
-                <View style={styles.onlineBadge}>
-                  <View style={styles.onlineDot} />
+        ) : (
+          displayedRequests.map((request: RentalRequest) => (
+            <View key={request.id} style={styles.card}>
+              {/* Card Header */}
+              <View style={styles.cardHeader}>
+                <View style={styles.avatarContainer}>
+                  <Image
+                    source={{ uri: request.machineImage }}
+                    style={styles.avatar}
+                  />
+                  <View style={styles.onlineBadge}>
+                    <View style={styles.onlineDot} />
+                  </View>
                 </View>
-              </View>
-              <View style={styles.userInfo}>
-                <View style={styles.userTopRow}>
-                  <Text style={styles.userName}>{request.borrowerName}</Text>
-                  {request.status === 'PENDING' ? (
-                    <View style={styles.newBadge}>
-                      <Text style={styles.newBadgeText}>NEW</Text>
+                <View style={styles.userInfo}>
+                  <View style={styles.userTopRow}>
+                    <Text style={styles.userName}>{request.borrowerName}</Text>
+                    {request.status === 'PENDING' ? (
+                      <View style={styles.newBadge}>
+                        <Text style={styles.newBadgeText}>NEW</Text>
+                      </View>
+                    ) : (
+                      <View style={styles.timeBadge}>
+                        <Text style={styles.timeBadgeText}>
+                          {request.requestDate}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  {request.status === 'ACCEPTED' ? (
+                    <View style={styles.unlockedBadge}>
+                      <MaterialIcons
+                        name="lock-open"
+                        size={12}
+                        color="#15803d"
+                      />
+                      <Text style={styles.unlockedText}>CONTACT UNLOCKED</Text>
                     </View>
                   ) : (
-                    <View style={styles.timeBadge}>
-                      <Text style={styles.timeBadgeText}>{request.requestDate}</Text>
+                    <Text style={styles.userVillage}>
+                      {request.machineName}
+                    </Text>
+                  )}
+                  {request.status === 'REJECTED' && (
+                    <View style={styles.declinedBadge}>
+                      <Text style={styles.declinedText}>Declined</Text>
                     </View>
                   )}
                 </View>
-                {request.status === 'ACCEPTED' ? (
-                  <View style={styles.unlockedBadge}>
-                    <MaterialIcons name="lock-open" size={12} color="#15803d" />
-                    <Text style={styles.unlockedText}>CONTACT UNLOCKED</Text>
-                  </View>
-                ) : (
-                  <Text style={styles.userVillage}>{request.machineName}</Text>
-                )}
-                {request.status === 'REJECTED' && (
-                  <View style={styles.declinedBadge}>
-                    <Text style={styles.declinedText}>Declined</Text>
-                  </View>
-                )}
               </View>
+
+              {/* Details Grid */}
+              <View style={styles.detailsGrid}>
+                <View style={styles.detailItem}>
+                  <View style={styles.detailIconRow}>
+                    <MaterialIcons
+                      name="calendar-today"
+                      size={18}
+                      color={COLORS.brand.primary}
+                    />
+                    <Text style={styles.detailLabel}>Start Date</Text>
+                  </View>
+                  <Text style={styles.detailValue}>{request.startDate}</Text>
+                </View>
+                <View style={styles.detailItem}>
+                  <View style={styles.detailIconRow}>
+                    <MaterialIcons
+                      name="payments"
+                      size={18}
+                      color={COLORS.brand.primary}
+                    />
+                    <Text style={styles.detailLabel}>Total Price</Text>
+                  </View>
+                  <Text style={styles.detailValue}>₹{request.totalPrice}</Text>
+                </View>
+                <View style={[styles.detailItem, { width: '100%' }]}>
+                  <View style={styles.detailIconRow}>
+                    <MaterialIcons
+                      name="info"
+                      size={18}
+                      color={COLORS.brand.primary}
+                    />
+                    <Text style={styles.detailLabel}>Status</Text>
+                  </View>
+                  <View style={styles.typeBadgeContainer}>
+                    <View
+                      style={[
+                        styles.typeBadge,
+                        request.status === 'ACCEPTED'
+                          ? styles.typeBadgeGreen
+                          : styles.typeBadgeBlue,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          request.status === 'ACCEPTED'
+                            ? styles.typeTextGreen
+                            : styles.typeTextBlue,
+                        ]}
+                      >
+                        {request.status}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              {/* Actions */}
+              {request.status === 'PENDING' && (
+                <View style={styles.actionsRow}>
+                  <TouchableOpacity
+                    style={styles.rejectBtn}
+                    onPress={() => handleAction(request.id, 'reject')}
+                  >
+                    <Text style={styles.rejectBtnText}>Reject</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.acceptBtn}
+                    onPress={() => handleAction(request.id, 'accept')}
+                  >
+                    <Text style={styles.acceptBtnText}>Accept Request</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+
+              {request.status === 'ACCEPTED' && (
+                <View style={styles.acceptedActionsContainer}>
+                  <TouchableOpacity style={styles.callBtn}>
+                    <MaterialIcons name="call" size={20} color="#000" />
+                    <Text style={styles.callBtnText}>Call Borrower</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.whatsappBtn}>
+                    <MaterialIcons name="chat" size={20} color="#25D366" />
+                    <Text style={styles.whatsappBtnText}>
+                      Message on WhatsApp
+                    </Text>
+                  </TouchableOpacity>
+                  <Text style={styles.handoverText}>
+                    Machine ready for handover
+                  </Text>
+                </View>
+              )}
+              {request.status === 'REJECTED' && (
+                <View style={styles.rejectedActionsRow}>
+                  <TouchableOpacity style={styles.archiveBtn}>
+                    <Text style={styles.archiveBtnText}>Move to Archive</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.restoreBtn}
+                    onPress={() => handleAction(request.id, 'restore')}
+                  >
+                    <Text style={styles.restoreBtnText}>Restore</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
-
-            {/* Details Grid */}
-            <View style={styles.detailsGrid}>
-              <View style={styles.detailItem}>
-                <View style={styles.detailIconRow}>
-                  <MaterialIcons name="calendar-today" size={18} color={COLORS.brand.primary} />
-                  <Text style={styles.detailLabel}>Start Date</Text>
-                </View>
-                <Text style={styles.detailValue}>{request.startDate}</Text>
-              </View>
-              <View style={styles.detailItem}>
-                <View style={styles.detailIconRow}>
-                  <MaterialIcons name="payments" size={18} color={COLORS.brand.primary} />
-                  <Text style={styles.detailLabel}>Total Price</Text>
-                </View>
-                <Text style={styles.detailValue}>₹{request.totalPrice}</Text>
-              </View>
-              <View style={[styles.detailItem, { width: '100%' }]}>
-                <View style={styles.detailIconRow}>
-                  <MaterialIcons name="info" size={18} color={COLORS.brand.primary} />
-                  <Text style={styles.detailLabel}>Status</Text>
-                </View>
-                <View style={styles.typeBadgeContainer}>
-                  <View style={[
-                    styles.typeBadge,
-                    request.status === 'ACCEPTED' ? styles.typeBadgeGreen : styles.typeBadgeBlue
-                  ]}>
-                    <Text style={[
-                      request.status === 'ACCEPTED' ? styles.typeTextGreen : styles.typeTextBlue
-                    ]}>{request.status}</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            {/* Actions */}
-            {request.status === 'PENDING' && (
-              <View style={styles.actionsRow}>
-                <TouchableOpacity
-                  style={styles.rejectBtn}
-                  onPress={() => handleAction(request.id, 'reject')}
-                >
-                  <Text style={styles.rejectBtnText}>Reject</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.acceptBtn}
-                  onPress={() => handleAction(request.id, 'accept')}
-                >
-                  <Text style={styles.acceptBtnText}>Accept Request</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-
-            {request.status === 'ACCEPTED' && (
-              <View style={styles.acceptedActionsContainer}>
-                <TouchableOpacity style={styles.callBtn}>
-                  <MaterialIcons name="call" size={20} color="#000" />
-                  <Text style={styles.callBtnText}>Call Borrower</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.whatsappBtn}>
-                  <MaterialIcons name="chat" size={20} color="#25D366" />
-                  <Text style={styles.whatsappBtnText}>Message on WhatsApp</Text>
-                </TouchableOpacity>
-                <Text style={styles.handoverText}>Machine ready for handover</Text>
-              </View>
-            )}
-            {request.status === 'REJECTED' && (
-              <View style={styles.rejectedActionsRow}>
-                <TouchableOpacity style={styles.archiveBtn}>
-                  <Text style={styles.archiveBtnText}>Move to Archive</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.restoreBtn}
-                  onPress={() => handleAction(request.id, 'restore')}
-                >
-                  <Text style={styles.restoreBtnText}>Restore</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </View>
-        ))}
+          ))
+        )}
       </ScrollView>
     </View>
   );
@@ -204,7 +305,7 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     marginBottom: 16,
-    marginTop: 8
+    marginTop: 8,
   },
   statsGrid: {
     flexDirection: 'row',
@@ -237,7 +338,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   statTextActive: {
-    color: '#000'
+    color: '#000',
   },
   scrollContent: {
     paddingBottom: 100,
@@ -524,11 +625,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 80,
-    gap: 16
+    gap: 16,
   },
   emptyText: {
     fontSize: 16,
     color: '#9ca3af',
-    fontWeight: '600'
-  }
+    fontWeight: '600',
+  },
 });

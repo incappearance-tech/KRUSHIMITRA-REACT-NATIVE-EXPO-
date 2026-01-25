@@ -1,8 +1,8 @@
-import { IListing } from '@/src/types/sell-machine/listing-details';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import React, { useState } from 'react';
+
 import {
+  Dimensions,
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -10,6 +10,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import { ResizeMode, Video } from 'expo-av';
+import { router } from 'expo-router';
+
+/* ---------------- SCREEN ---------------- */
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
+import { IListing } from '@/src/types/sell-machine/listing-details';
 
 /* ---------------- MOCK DATA ---------------- */
 
@@ -20,16 +30,22 @@ const LISTING: IListing = {
   rate: '1200',
   rateUnit: '/day',
   rateType: 'Negotiable',
-  imageUrl:
-    'https://images.unsplash.com/photo-1606813908981-dc4dc9b16f33',
+  imageUrl: 'https://images.unsplash.com/photo-1606813908981-dc4dc9b16f33',
   totalImages: 5,
   isLive: true,
   analytics: {
     views: 128,
     calls: 14,
-  }, media: [
-    { uri: 'https://images.unsplash.com/photo-1606813908981-dc4dc9b16f33', type: 'image' },
-    { uri: 'https://images.unsplash.com/photo-1598514982205-f0b3b0b1b0b4', type: 'image' },
+  },
+  media: [
+    {
+      uri: 'https://images.unsplash.com/photo-1606813908981-dc4dc9b16f33',
+      type: 'image',
+    },
+    {
+      uri: 'https://images.unsplash.com/photo-1598514982205-f0b3b0b1b0b4',
+      type: 'image',
+    },
     {
       uri: 'https://www.w3schools.com/html/mov_bbb.mp4',
       type: 'video',
@@ -45,34 +61,49 @@ const LISTING: IListing = {
     'Well maintained tractor, regularly serviced and in good working condition. Suitable for all farming activities.',
 };
 
-/* ---------------- SCREEN ---------------- */
-import { ResizeMode, Video } from 'expo-av';
-import { Dimensions, FlatList } from 'react-native';
-
 const { width } = Dimensions.get('window');
-
-import { useTranslation } from 'react-i18next';
 
 export default function ListingDetailsScreen() {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const localizedSpecs = [
-    { icon: 'settings', label: t('sell_machine.specs.model'), value: LISTING.specs[0].value },
-    { icon: 'calendar-today', label: t('sell_machine.specs.year'), value: LISTING.specs[1].value },
-    { icon: 'build', label: t('sell_machine.specs.condition'), value: LISTING.specs[2].value },
-    { icon: 'agriculture', label: t('sell_machine.specs.usage'), value: LISTING.specs[3].value },
+    {
+      icon: 'settings',
+      label: t('sell_machine.specs.model'),
+      value: LISTING.specs[0].value,
+    },
+    {
+      icon: 'calendar-today',
+      label: t('sell_machine.specs.year'),
+      value: LISTING.specs[1].value,
+    },
+    {
+      icon: 'build',
+      label: t('sell_machine.specs.condition'),
+      value: LISTING.specs[2].value,
+    },
+    {
+      icon: 'agriculture',
+      label: t('sell_machine.specs.usage'),
+      value: LISTING.specs[3].value,
+    },
   ];
 
   return (
     <View style={styles.root}>
       {/* HEADER */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.headerBtn} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.headerBtn}
+          onPress={() => router.back()}
+        >
           <Ionicons name="arrow-back" size={24} />
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>{t('sell_machine.listing_details')}</Text>
+        <Text style={styles.headerTitle}>
+          {t('sell_machine.listing_details')}
+        </Text>
 
         <TouchableOpacity style={styles.headerBtn}>
           <Ionicons name="ellipsis-vertical" size={22} />
@@ -81,7 +112,6 @@ export default function ListingDetailsScreen() {
 
       {/* SCROLLABLE CONTENT */}
       <ScrollView contentContainerStyle={styles.content}>
-
         {/* HERO CAROUSEL */}
         <View style={styles.hero}>
           <FlatList
@@ -90,10 +120,8 @@ export default function ListingDetailsScreen() {
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             keyExtractor={(_, i) => i.toString()}
-            onMomentumScrollEnd={e => {
-              const index = Math.round(
-                e.nativeEvent.contentOffset.x / width
-              );
+            onMomentumScrollEnd={(e) => {
+              const index = Math.round(e.nativeEvent.contentOffset.x / width);
               setActiveIndex(index);
             }}
             renderItem={({ item }) => (
@@ -107,10 +135,7 @@ export default function ListingDetailsScreen() {
                     shouldPlay={false}
                   />
                 ) : (
-                  <Image
-                    source={{ uri: item.uri }}
-                    style={styles.heroImage}
-                  />
+                  <Image source={{ uri: item.uri }} style={styles.heroImage} />
                 )}
 
                 {item.type === 'video' && (
@@ -132,7 +157,9 @@ export default function ListingDetailsScreen() {
               <View style={styles.liveDotOuter}>
                 <View style={styles.liveDot} />
               </View>
-              <Text style={styles.liveText}>{t('sell_machine.live_listing')}</Text>
+              <Text style={styles.liveText}>
+                {t('sell_machine.live_listing')}
+              </Text>
             </View>
           )}
 
@@ -160,7 +187,9 @@ export default function ListingDetailsScreen() {
         {/* RATE CARD */}
         <View style={styles.rateCard}>
           <View>
-            <Text style={styles.rateLabel}>{t('sell_payment.success.total_paid')}</Text>
+            <Text style={styles.rateLabel}>
+              {t('sell_payment.success.total_paid')}
+            </Text>
             <View style={styles.rateRow}>
               <Text style={styles.rateValue}>₹{LISTING.rate}</Text>
               <Text style={styles.rateUnit}>{LISTING.rateUnit}</Text>
@@ -180,30 +209,40 @@ export default function ListingDetailsScreen() {
 
           <View style={styles.analyticsGrid}>
             <View style={styles.analyticsCard}>
-              <View style={[styles.analyticsIcon, { backgroundColor: '#DBEAFE' }]}>
+              <View
+                style={[styles.analyticsIcon, { backgroundColor: '#DBEAFE' }]}
+              >
                 <MaterialIcons name="visibility" size={20} color="#2563EB" />
               </View>
               <Text style={styles.analyticsValue}>
                 {LISTING.analytics.views}
               </Text>
-              <Text style={styles.analyticsLabel}>{t('sell_machine.total_views')}</Text>
+              <Text style={styles.analyticsLabel}>
+                {t('sell_machine.total_views')}
+              </Text>
             </View>
 
             <View style={styles.analyticsCard}>
-              <View style={[styles.analyticsIcon, { backgroundColor: '#DCFCE7' }]}>
+              <View
+                style={[styles.analyticsIcon, { backgroundColor: '#DCFCE7' }]}
+              >
                 <MaterialIcons name="call" size={20} color="#15803D" />
               </View>
               <Text style={styles.analyticsValue}>
                 {LISTING.analytics.calls}
               </Text>
-              <Text style={styles.analyticsLabel}>{t('sell_machine.calls_received')}</Text>
+              <Text style={styles.analyticsLabel}>
+                {t('sell_machine.calls_received')}
+              </Text>
             </View>
           </View>
         </View>
 
         {/* SPECS */}
         <View style={styles.specsWrap}>
-          <Text style={styles.sectionTitle}>{t('sell_machine.machine_specs')}</Text>
+          <Text style={styles.sectionTitle}>
+            {t('sell_machine.machine_specs')}
+          </Text>
 
           <View style={styles.specsGrid}>
             {localizedSpecs.map((s, i) => (
@@ -222,7 +261,9 @@ export default function ListingDetailsScreen() {
 
         {/* DESCRIPTION */}
         <View style={styles.descWrap}>
-          <Text style={styles.sectionTitle}>{t('sell_machine.description')}</Text>
+          <Text style={styles.sectionTitle}>
+            {t('sell_machine.description')}
+          </Text>
           <Text style={styles.descText}>{LISTING.description}</Text>
         </View>
       </ScrollView>
@@ -242,7 +283,9 @@ export default function ListingDetailsScreen() {
 
           <TouchableOpacity style={styles.primaryAction}>
             <MaterialIcons name="check-circle" size={20} />
-            <Text style={styles.primaryText}>{t('sell_machine.mark_as_sold')}</Text>
+            <Text style={styles.primaryText}>
+              {t('sell_machine.mark_as_sold')}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

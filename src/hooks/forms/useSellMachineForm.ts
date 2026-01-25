@@ -1,7 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { ISellMachineForm, sellMachineSchema } from '../../types/validators/sellMachine.schema';
 
+import {
+  ISellMachineForm,
+  sellMachineSchema,
+} from '../../types/validators/sellMachine.schema';
 
 export const useSellMachineForm = () => {
   return useForm<ISellMachineForm>({

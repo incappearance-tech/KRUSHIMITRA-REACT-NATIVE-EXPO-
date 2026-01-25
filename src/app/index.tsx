@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Image,
   ImageBackground,
@@ -9,9 +10,12 @@ import {
   View,
 } from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+
+import { Ionicons } from '@expo/vector-icons';
+
 import { useTranslation } from 'react-i18next';
+
 import Button from '../components/Button';
 import { COLORS } from '../constants/colors';
 
@@ -42,13 +46,19 @@ export default function App() {
       <View style={styles.header}>
         <View style={styles.headerIcon} />
         <Text style={styles.headerTitle}>{t('common.app_name')}</Text>
-        <TouchableOpacity style={styles.headerIcon} onPress={() => router.push('/(auth)/language')}>
+        <TouchableOpacity
+          style={styles.headerIcon}
+          onPress={() => router.push('/(auth)/language')}
+        >
           <Ionicons name="language" size={24} color="#101b0d" />
         </TouchableOpacity>
       </View>
 
       {/* CONTENT */}
-      <ScrollView contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
+      >
         {/* HERO */}
         <View>
           <ImageBackground
@@ -67,12 +77,8 @@ export default function App() {
 
         {/* HEADLINE */}
         <View style={styles.headline}>
-          <Text style={styles.headlineTitle}>
-            {t('welcome.headline')}
-          </Text>
-          <Text style={styles.headlineSub}>
-            {t('welcome.subheadline')}
-          </Text>
+          <Text style={styles.headlineTitle}>{t('welcome.headline')}</Text>
+          <Text style={styles.headlineSub}>{t('welcome.subheadline')}</Text>
         </View>
 
         {/* BENEFITS */}
@@ -92,12 +98,12 @@ export default function App() {
       </ScrollView>
 
       {/* STICKY FOOTER BUTTON */}
-        <Button
-          label={t('welcome.get_started')}
-          onPress={() => router.push('/(auth)/language')}
-          sticky
-          icon="arrow-forward"
-        />
+      <Button
+        label={t('welcome.get_started')}
+        onPress={() => router.push('/(auth)/language')}
+        sticky
+        icon="arrow-forward"
+      />
     </View>
   );
 }
@@ -154,7 +160,7 @@ const styles = StyleSheet.create({
   betaText: {
     fontSize: 12,
     fontWeight: '700',
-    color: "#fff"
+    color: '#fff',
   },
   headline: {
     padding: 24,

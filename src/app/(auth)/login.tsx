@@ -1,7 +1,5 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import {
   Dimensions,
   ImageBackground,
@@ -10,8 +8,15 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
+
+import { router } from 'expo-router';
+
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
 import { COLORS } from '../../constants/colors';
 
 const { height } = Dimensions.get('window');
@@ -44,14 +49,20 @@ export default function LoginScreen() {
       {/* HERO */}
       <View style={styles.heroWrap}>
         <ImageBackground
-          source={{ uri: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000' }}
+          source={{
+            uri: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000',
+          }}
           style={styles.hero}
           imageStyle={styles.heroImage}
         >
           <View style={styles.heroOverlay} />
           <View style={styles.badge}>
             <View style={styles.badgeIcon}>
-              <MaterialIcons name="agriculture" size={18} color={COLORS.brand.primary} />
+              <MaterialIcons
+                name="agriculture"
+                size={18}
+                color={COLORS.brand.primary}
+              />
             </View>
             <Text style={styles.badgeText}>KrushiMitra</Text>
           </View>
@@ -62,30 +73,31 @@ export default function LoginScreen() {
       <View style={styles.cardWrap}>
         <View style={styles.card}>
           <Text style={styles.title}>{t('auth.welcome_back')}</Text>
-          <Text style={styles.subtitle}>
-            {t('auth.login_subtitle')}
-          </Text>
+          <Text style={styles.subtitle}>{t('auth.login_subtitle')}</Text>
 
           {/* IMPROVED INPUT BOX */}
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => inputRef.current?.focus()}
-            style={[
-              styles.inputBox,
-              focused && styles.inputFocused,
-            ]}
+            style={[styles.inputBox, focused && styles.inputFocused]}
           >
             <View style={styles.country}>
               <Text style={styles.flag}>🇮🇳</Text>
               <Text style={styles.code}>+91</Text>
-              <Ionicons name="chevron-down" size={14} color={COLORS.textSecondary} />
+              <Ionicons
+                name="chevron-down"
+                size={14}
+                color={COLORS.textSecondary}
+              />
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={[
-                styles.label,
-                (focused || mobile) && styles.labelActive
-              ]}>
+              <Text
+                style={[
+                  styles.label,
+                  (focused || mobile) && styles.labelActive,
+                ]}
+              >
                 {t('auth.mobile_number')}
               </Text>
               <TextInput
@@ -103,7 +115,11 @@ export default function LoginScreen() {
 
             {isValid && (
               <View style={styles.successIcon}>
-                <MaterialIcons name="check-circle" size={24} color={COLORS.brand.primary} />
+                <MaterialIcons
+                  name="check-circle"
+                  size={24}
+                  color={COLORS.brand.primary}
+                />
               </View>
             )}
           </TouchableOpacity>
@@ -111,7 +127,7 @@ export default function LoginScreen() {
           {/* IMPROVED CTA */}
           <TouchableOpacity
             style={[styles.cta, !isValid && { opacity: 0.7 }]}
-            onPress={() => isValid && router.push("/otp")}
+            onPress={() => isValid && router.push('/otp')}
             activeOpacity={0.8}
           >
             <View style={styles.ctaIcon}>
@@ -123,9 +139,10 @@ export default function LoginScreen() {
           </TouchableOpacity>
 
           {/* REGISTER */}
-          <TouchableOpacity onPress={() => { }} style={styles.registerBtn}>
+          <TouchableOpacity onPress={() => {}} style={styles.registerBtn}>
             <Text style={styles.register}>
-              {t('common.new_user')} <Text style={styles.registerLink}>{t('common.register')}</Text>
+              {t('common.new_user')}{' '}
+              <Text style={styles.registerLink}>{t('common.register')}</Text>
             </Text>
           </TouchableOpacity>
         </View>
@@ -137,10 +154,9 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: COLORS.background
+    backgroundColor: COLORS.background,
   },
   heroWrap: {
     height: height * 0.4,
@@ -299,7 +315,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
     letterSpacing: 1,
-    color: "#fff",
+    color: '#fff',
     textAlign: 'center',
   },
   registerBtn: {

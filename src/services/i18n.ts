@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import * as Localization from 'expo-localization';
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
@@ -25,26 +27,29 @@ const getSystemLanguage = () => {
 
 // Initialize i18n synchronously with default language
 if (!i18n.isInitialized) {
-  i18n
-    .use(initReactI18next)
-    .init({
-      resources,
-      lng: getSystemLanguage(),
-      fallbackLng: 'en',
-      interpolation: {
-        escapeValue: false,
-      },
-      react: {
-        useSuspense: false,
-      },
-    });
+  i18n.use(initReactI18next).init({
+    resources,
+    lng: getSystemLanguage(),
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false,
+    },
+    react: {
+      useSuspense: false,
+    },
+  });
 }
 
 // Load saved language after app starts
 export const loadSavedLanguage = async () => {
   try {
     const savedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'hi' || savedLanguage === 'mr')) {
+    if (
+      savedLanguage &&
+      (savedLanguage === 'en' ||
+        savedLanguage === 'hi' ||
+        savedLanguage === 'mr')
+    ) {
       await i18n.changeLanguage(savedLanguage);
     }
   } catch (error) {

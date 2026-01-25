@@ -1,8 +1,5 @@
-import Button from '@/src/components/Button';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import {
   ImageBackground,
   StyleSheet,
@@ -10,22 +7,53 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { COLORS } from '../../constants/colors';
-import { useLanguage } from '../../context/LanguageContext';
 
-type LangCode = 'en' | 'hi' | 'mr';
+import { useRouter } from 'expo-router';
+
+import { Ionicons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
+import Button from '@/src/components/Button';
+import { LanguageCode } from '@/src/types/models/language';
+
+import { COLORS } from '../../constants/colors';
+import { useLanguageStore } from '../../store/language.store';
+
+type LangCode = LanguageCode;
 
 export default function LanguageScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { setLanguage } = useLanguage();
+  const { setLanguage } = useLanguageStore();
 
   const [selected, setSelected] = useState<LangCode>('en');
 
   const languages = [
-    { code: 'en', title: 'English', sub: 'English', badge: 'Aa', bg: '#DBEAFE', text: '#1D4ED8' },
-    { code: 'hi', title: 'हिंदी', sub: 'Hindi', badge: 'अ', bg: '#FFEDD5', text: '#C2410C' },
-    { code: 'mr', title: 'मराठी', sub: 'Marathi', badge: 'म', bg: '#FEE2E2', text: '#B91C1C' },
+    {
+      code: 'en',
+      title: 'English',
+      sub: 'English',
+      badge: 'Aa',
+      bg: '#DBEAFE',
+      text: '#1D4ED8',
+    },
+    {
+      code: 'hi',
+      title: 'हिंदी',
+      sub: 'Hindi',
+      badge: 'अ',
+      bg: '#FFEDD5',
+      text: '#C2410C',
+    },
+    {
+      code: 'mr',
+      title: 'मराठी',
+      sub: 'Marathi',
+      badge: 'म',
+      bg: '#FEE2E2',
+      text: '#B91C1C',
+    },
   ];
 
   const handleContinue = async () => {
@@ -52,14 +80,12 @@ export default function LanguageScreen() {
       {/* Title */}
       <View style={styles.titleWrap}>
         <Text style={styles.title}>{t('language.title')}</Text>
-        <Text style={styles.subtitle}>
-          {t('language.select')}
-        </Text>
+        <Text style={styles.subtitle}>{t('language.select')}</Text>
       </View>
 
       {/* Language Cards */}
       <View style={styles.list}>
-        {languages.map(lang => {
+        {languages.map((lang) => {
           const active = selected === lang.code;
 
           return (
@@ -99,14 +125,18 @@ export default function LanguageScreen() {
       <Button
         label={t('common.continue')}
         onPress={handleContinue}
-        icon='arrow-forward'
+        icon="arrow-forward"
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal: 16},
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
+  },
 
   headerImage: {
     height: 240,

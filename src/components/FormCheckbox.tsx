@@ -1,18 +1,14 @@
-import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  Controller,
-  FieldValues
-} from 'react-hook-form';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { COLORS } from '../constants/colors';
+
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { Controller, FieldValues } from 'react-hook-form';
 
 import { IFormCheckboxProps } from '@/src/types/components/FormCheckbox';
+
+import { COLORS } from '../constants/colors';
 
 function FormCheckbox<T extends FieldValues>({
   control,
@@ -46,12 +42,7 @@ function FormCheckbox<T extends FieldValues>({
             )}
           </View>
 
-          <Text
-            style={[
-              styles.text,
-              disabled && styles.textDisabled,
-            ]}
-          >
+          <Text style={[styles.text, disabled && styles.textDisabled]}>
             {label}
           </Text>
         </TouchableOpacity>

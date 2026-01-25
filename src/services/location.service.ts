@@ -9,7 +9,7 @@ export const locationService = {
     };
   },
 
-  async reverseGeocode(lat: number, lng: number) {
+  async reverseGeocode() {
     // Placeholder: Reverse geocoding stub
     return {
       city: 'India',

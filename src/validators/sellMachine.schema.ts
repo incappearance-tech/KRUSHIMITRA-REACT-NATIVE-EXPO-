@@ -6,30 +6,22 @@ export const sellMachineSchema = z.object({
       z.object({
         uri: z.string().min(1),
         type: z.string().optional(),
-      })
+      }),
     )
     .min(1, 'At least one photo or video is required')
     .max(5, 'Maximum 5 photos/videos allowed'),
 
-  category: z
-    .string()
-    .min(1, 'Category is required'),
+  category: z.string().min(1, 'Category is required'),
 
   condition: z.enum(['Fair', 'Good', 'Excellent']),
 
-  modelYear: z
-    .string()
-    .regex(/^(19|20)\d{2}$/, 'Enter valid year'),
+  modelYear: z.string().regex(/^(19|20)\d{2}$/, 'Enter valid year'),
 
-  price: z
-    .string()
-    .regex(/^[1-9][0-9]*$/, 'Enter valid price'),
+  price: z.string().regex(/^[1-9][0-9]*$/, 'Enter valid price'),
 
   usageType: z.enum(['Personal', 'Commercial']),
 
-  location: z
-    .string()
-    .min(3, 'Location is required'),
+  location: z.string().min(3, 'Location is required'),
 });
 
 export type SellMachineForm = z.infer<typeof sellMachineSchema>;

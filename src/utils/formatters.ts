@@ -18,7 +18,12 @@ export const formatters = {
 
   formatAddress: (address: any) => {
     if (!address) return '';
-    const parts = [address.name, address.city, address.state, address.postalCode].filter(Boolean);
+    const parts = [
+      address.name,
+      address.city,
+      address.state,
+      address.postalCode,
+    ].filter(Boolean);
     return parts.join(', ');
   },
 };

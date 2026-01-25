@@ -1,14 +1,20 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { useRouter } from 'expo-router';
+
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
 
 import BackButton from '@/src/components/BackButton';
 import Button from '@/src/components/Button';
+import { UserRole } from '@/src/types/models/user';
+
 import { COLORS } from '../../constants/colors';
 
-type IRole = 'farmer' | 'labour' | 'transporter';
+type IRole = UserRole;
 type IRoleCardProps = {
   data: {
     title: string;
@@ -46,11 +52,11 @@ const ROLES = [
 ] as const;
 
 export default function RoleSelectScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   const [role, setRole] = useState<IRole>('farmer');
 
-  const selectedRole = ROLES.find(r => r.key === role);
+  const selectedRole = ROLES.find((r) => r.key === role);
 
   return (
     <View style={styles.container}>
@@ -59,7 +65,9 @@ export default function RoleSelectScreen() {
         <BackButton />
         <View style={styles.languagePill}>
           <MaterialIcons name="language" size={16} color={COLORS.borderFocus} />
-          <Text style={styles.languageText}>{t('language.english')}</Text>
+          <Text style={styles.languageText}>
+            {t(`language.${i18n.language}`)}
+          </Text>
           <Ionicons name="chevron-down" size={16} color={COLORS.borderFocus} />
         </View>
       </View>
@@ -69,7 +77,7 @@ export default function RoleSelectScreen() {
         <Text style={styles.title}>{t('roles.who_are_you')}</Text>
         <Text style={styles.subtitle}>{t('roles.role_subtitle')}</Text>
 
-        {ROLES.map(item => (
+        {ROLES.map((item) => (
           <RoleCard
             key={item.key}
             data={{
@@ -126,7 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   header: {
     flexDirection: 'row',

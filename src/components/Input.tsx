@@ -1,7 +1,8 @@
 import { StyleSheet, TextInput } from 'react-native';
-import { COLORS } from '../constants/colors';
 
 import { IInputProps } from '@/src/types/components/Input';
+
+import { COLORS } from '../constants/colors';
 
 export default function Input({
   placeholder,

@@ -1,9 +1,5 @@
-import BackButton from '@/src/components/BackButton';
-import { Ionicons } from '@expo/vector-icons';
-import * as Haptics from 'expo-haptics';
-import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import {
   Animated,
   Keyboard,
@@ -13,6 +9,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import * as Haptics from 'expo-haptics';
+import { useRouter } from 'expo-router';
+
+import { Ionicons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
+import BackButton from '@/src/components/BackButton';
+
 import { COLORS } from '../../constants/colors';
 
 const OTP_LENGTH = 4;
@@ -42,11 +48,19 @@ export default function OtpScreen() {
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(cursorOpacity, { toValue: 1, duration: 500, useNativeDriver: true }),
-        Animated.timing(cursorOpacity, { toValue: 0, duration: 500, useNativeDriver: true }),
-      ])
+        Animated.timing(cursorOpacity, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(cursorOpacity, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]),
     ).start();
-  }, []);
+  }, [cursorOpacity]);
 
   // 3. Auto-focus
   useEffect(() => {
@@ -63,10 +77,26 @@ export default function OtpScreen() {
   const shake = () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     Animated.sequence([
-      Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: -10, duration: 50, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnim, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: -10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: 0,
+        duration: 50,
+        useNativeDriver: true,
+      }),
     ]).start();
   };
 
@@ -78,7 +108,8 @@ export default function OtpScreen() {
     if (value.length === OTP_LENGTH) {
       Keyboard.dismiss();
       // Simulate verification check
-      if (value !== "1234") { // Example: 1234 is the "correct" code
+      if (value !== '1234') {
+        // Example: 1234 is the "correct" code
         setTimeout(shake, 100);
       } else {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -102,21 +133,30 @@ export default function OtpScreen() {
 
         <Text style={styles.title}>{t('auth.verification_code')}</Text>
         <Text style={styles.subtitle}>
-          {t('auth.otp_sent_to')}{'\n'}
+          {t('auth.otp_sent_to')}
+          {'\n'}
           <Text style={styles.bold}>+1 805 *** 8947</Text>
         </Text>
 
         <Animated.View style={{ transform: [{ translateX: shakeAnim }] }}>
-          <TouchableOpacity activeOpacity={1} onPress={() => inputRef.current?.focus()}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => inputRef.current?.focus()}
+          >
             <View style={styles.otpRow}>
               {Array.from({ length: OTP_LENGTH }).map((_, index) => {
                 const digit = otp[index];
                 const isActive = index === otp.length;
                 return (
-                  <View key={index} style={[styles.otpBox, isActive && styles.otpActive]}>
+                  <View
+                    key={index}
+                    style={[styles.otpBox, isActive && styles.otpActive]}
+                  >
                     <Text style={styles.otpText}>{digit || ''}</Text>
                     {isActive && !digit && (
-                      <Animated.View style={[styles.cursor, { opacity: cursorOpacity }]} />
+                      <Animated.View
+                        style={[styles.cursor, { opacity: cursorOpacity }]}
+                      />
                     )}
                   </View>
                 );
@@ -136,20 +176,35 @@ export default function OtpScreen() {
         />
 
         <View style={styles.timerPill}>
-          <Ionicons name="time-outline" size={14} color={COLORS.brand.primary} />
+          <Ionicons
+            name="time-outline"
+            size={14}
+            color={COLORS.brand.primary}
+          />
           <Text style={styles.timerText}>{formatTime(timer)}</Text>
         </View>
 
         <TouchableOpacity disabled={timer > 0} onPress={() => setTimer(117)}>
           <Text style={styles.resendText}>
             {t('auth.didnt_receive_otp')}
-            <Text style={[styles.resendLink, timer > 0 && { color: COLORS.textLight }]}> {t('auth.resend_otp')}</Text>
+            <Text
+              style={[
+                styles.resendLink,
+                timer > 0 && { color: COLORS.textLight },
+              ]}
+            >
+              {' '}
+              {t('auth.resend_otp')}
+            </Text>
           </Text>
         </TouchableOpacity>
 
         <View style={styles.footer}>
           <TouchableOpacity
-            style={[styles.verifyBtn, otp.length < OTP_LENGTH && { opacity: 0.5 }]}
+            style={[
+              styles.verifyBtn,
+              otp.length < OTP_LENGTH && { opacity: 0.5 },
+            ]}
             onPress={() => handleOtpChange(otp)}
           >
             <Text style={styles.verifyText}>{t('auth.verify_account')}</Text>
@@ -165,7 +220,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
-    paddingHorizontal:16
+    paddingHorizontal: 16,
   },
   hiddenInput: {
     position: 'absolute',

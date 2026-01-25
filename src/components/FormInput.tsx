@@ -1,18 +1,12 @@
 import React from 'react';
-import {
-  Controller,
-  FieldValues
-} from 'react-hook-form';
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
-import { COLORS } from '../constants/colors';
+
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+
+import { Controller, FieldValues } from 'react-hook-form';
 
 import { IFormInputProps } from '@/src/types/components/FormInput';
+
+import { COLORS } from '../constants/colors';
 
 function FormInput<T extends FieldValues>({
   control,
@@ -60,10 +54,7 @@ function FormInput<T extends FieldValues>({
 
             {/* Input */}
             <TextInput
-              style={[
-                styles.input,
-                multiline && styles.multilineInput,
-              ]}
+              style={[styles.input, multiline && styles.multilineInput]}
               value={field.value}
               onChangeText={field.onChange}
               placeholder={placeholder}
@@ -101,7 +92,6 @@ function FormInput<T extends FieldValues>({
           ) : (
             helperText && <Text style={styles.helper}>{helperText}</Text>
           )}
-
         </View>
       )}
     />
@@ -177,5 +167,4 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: COLORS.textLight,
   },
-
 });

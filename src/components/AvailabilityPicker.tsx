@@ -1,5 +1,5 @@
-import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 import {
   Platform,
   StyleSheet,
@@ -7,19 +7,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { COLORS } from '../constants/colors';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {
   IAvailabilityOption,
   IAvailabilityPickerProps,
-  IAvailabilityValue
+  IAvailabilityValue,
 } from '@/src/types/components/AvailabilityPicker';
+
+import { COLORS } from '../constants/colors';
 
 /* =======================
    Type Guard
    ======================= */
 const hasDate = (
-  value: IAvailabilityValue
+  value: IAvailabilityValue,
 ): value is { key: string; date: Date } => {
   return 'date' in value;
 };
@@ -43,11 +46,13 @@ const AvailabilityPicker: React.FC<IAvailabilityPickerProps> = ({
   }, [options]);
 
   const [selectedKey, setSelectedKey] = useState<string>(
-    value?.key ?? defaultOption.key
+    value?.key ?? defaultOption.key,
   );
 
   const [date, setDate] = useState<Date>(
-    value && hasDate(value) ? (value as { key: string; date: Date }).date : new Date()
+    value && hasDate(value)
+      ? (value as { key: string; date: Date }).date
+      : new Date(),
   );
 
   const [showPicker, setShowPicker] = useState(false);
@@ -77,7 +82,7 @@ const AvailabilityPicker: React.FC<IAvailabilityPickerProps> = ({
       setShowPicker(true);
       onChange({ key: option.key, date });
     },
-    [date, onChange]
+    [date, onChange],
   );
 
   const handleDateChange = useCallback(
@@ -92,7 +97,7 @@ const AvailabilityPicker: React.FC<IAvailabilityPickerProps> = ({
         date: selected,
       });
     },
-    [onChange, selectedKey]
+    [onChange, selectedKey],
   );
 
   /* ---------- Render ---------- */
@@ -108,10 +113,7 @@ const AvailabilityPicker: React.FC<IAvailabilityPickerProps> = ({
             <TouchableOpacity
               key={option.key}
               onPress={() => handleSelect(option)}
-              style={[
-                styles.radioBoxRow,
-                isActive && styles.radioBoxActive,
-              ]}
+              style={[styles.radioBoxRow, isActive && styles.radioBoxActive]}
             >
               <View
                 style={[

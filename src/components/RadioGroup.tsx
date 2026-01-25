@@ -1,13 +1,10 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { COLORS } from '../constants/colors';
+
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { IRadioGroupProps } from '@/src/types/components/RadioGroup';
+
+import { COLORS } from '../constants/colors';
 
 function RadioGroup<T extends string>({
   label,
@@ -27,16 +24,10 @@ function RadioGroup<T extends string>({
             <TouchableOpacity
               key={option.value}
               onPress={() => onChange(option.value)}
-              style={[
-                styles.radioButton,
-                isActive && styles.radioButtonActive,
-              ]}
+              style={[styles.radioButton, isActive && styles.radioButtonActive]}
             >
               <Text
-                style={[
-                  styles.radioText,
-                  isActive && styles.radioTextActive,
-                ]}
+                style={[styles.radioText, isActive && styles.radioTextActive]}
               >
                 {option.label}
               </Text>

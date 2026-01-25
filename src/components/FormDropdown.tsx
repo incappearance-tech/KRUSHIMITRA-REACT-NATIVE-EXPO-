@@ -1,29 +1,26 @@
-import { MaterialIcons } from '@expo/vector-icons';
 import React, { useMemo, useState } from 'react';
-import {
-  Controller,
-  FieldValues,
-  Path,
-  Control
-} from 'react-hook-form';
+
 import {
   FlatList,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  SafeAreaView,
-  Platform,
-  KeyboardAvoidingView
 } from 'react-native';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 // Assuming COLORS is imported from your constants
 import { COLORS } from '../constants/colors';
 
 // Re-defining props interface for clarity since I don't have your specific type file
-export interface IFormDropdownProps<TForm extends FieldValues, TValue extends string> {
+export interface IFormDropdownProps<TForm extends FieldValues> {
   control: Control<TForm>;
   name: Path<TForm>;
   label?: string;
@@ -34,7 +31,7 @@ export interface IFormDropdownProps<TForm extends FieldValues, TValue extends st
   searchPlaceholder?: string;
 }
 
-function FormDropdown<TForm extends FieldValues, TValue extends string>({
+function FormDropdown<TForm extends FieldValues>({
   control,
   name,
   label,
@@ -42,16 +39,16 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
   options,
   disabled = false,
   required,
-  searchPlaceholder = 'Search...'
-}: IFormDropdownProps<TForm, TValue>) {
+  searchPlaceholder = 'Search...',
+}: IFormDropdownProps<TForm>) {
   const [visible, setVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   // 1. Optimize Filtering: Only re-calculate when searchQuery or options change
   const filteredOptions = useMemo(() => {
     if (!searchQuery) return options;
-    return options.filter((item) =>
-      item.toLowerCase().includes(searchQuery.toLowerCase())
+    return options.filter((item: string) =>
+      item.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   }, [options, searchQuery]);
 
@@ -86,10 +83,7 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
             onPress={() => !disabled && setVisible(true)}
           >
             <Text
-              style={[
-                styles.inputText,
-                !value && styles.placeholder,
-              ]}
+              style={[styles.inputText, !value && styles.placeholder]}
               numberOfLines={1}
             >
               {value || placeholder}
@@ -117,7 +111,7 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
             animationType="slide"
             onRequestClose={handleClose}
           >
-            <KeyboardAvoidingView 
+            <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : undefined}
               style={styles.overlay}
             >
@@ -126,20 +120,29 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
                 activeOpacity={1}
                 onPress={handleClose}
               />
-              
+
               <View style={styles.sheet}>
                 <View style={styles.header}>
                   <Text style={styles.sheetTitle}>
                     {label ? `Select ${label}` : 'Select Option'}
                   </Text>
                   <TouchableOpacity onPress={handleClose}>
-                     <MaterialIcons name="close" size={24} color={COLORS.text || '#000'} />
+                    <MaterialIcons
+                      name="close"
+                      size={24}
+                      color={COLORS.text || '#000'}
+                    />
                   </TouchableOpacity>
                 </View>
 
                 {/* 2. Search Bar */}
                 <View style={styles.searchContainer}>
-                  <MaterialIcons name="search" size={20} color={COLORS.textLight || '#999'} style={styles.searchIcon} />
+                  <MaterialIcons
+                    name="search"
+                    size={20}
+                    color={COLORS.textLight || '#999'}
+                    style={styles.searchIcon}
+                  />
                   <TextInput
                     style={styles.searchInput}
                     placeholder={searchPlaceholder}
@@ -150,7 +153,11 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
                   />
                   {searchQuery.length > 0 && (
                     <TouchableOpacity onPress={() => setSearchQuery('')}>
-                       <MaterialIcons name="cancel" size={18} color={COLORS.textLight || '#999'} />
+                      <MaterialIcons
+                        name="cancel"
+                        size={18}
+                        color={COLORS.textLight || '#999'}
+                      />
                     </TouchableOpacity>
                   )}
                 </View>
@@ -172,7 +179,10 @@ function FormDropdown<TForm extends FieldValues, TValue extends string>({
                     const selected = item === value;
                     return (
                       <TouchableOpacity
-                        style={[styles.option, selected && styles.optionSelectedBg]}
+                        style={[
+                          styles.option,
+                          selected && styles.optionSelectedBg,
+                        ]}
                         onPress={() => {
                           onChange(item);
                           handleClose();
@@ -272,7 +282,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 30, // Safety padding for bottom
     height: '70%', // Increased height for better list viewing
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
@@ -289,7 +299,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.text || '#333',
   },
-  
+
   // Search Styles
   searchContainer: {
     flexDirection: 'row',
@@ -320,7 +330,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   optionSelectedBg: {
-    backgroundColor: '#F9FAFB', 
+    backgroundColor: '#F9FAFB',
   },
   optionText: {
     fontSize: 16,

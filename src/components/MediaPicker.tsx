@@ -1,6 +1,5 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import { ResizeMode, Video } from 'expo-av';
 import React from 'react';
+
 import {
   Image,
   ScrollView,
@@ -9,6 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import { ResizeMode, Video } from 'expo-av';
+
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { IMediaPickerProps } from '@/src/types/components/media';
 

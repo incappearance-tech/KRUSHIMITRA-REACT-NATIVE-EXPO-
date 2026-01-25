@@ -1,9 +1,5 @@
-import AppBar from '@/src/components/AppBar';
-import Button from '@/src/components/Button';
-import { IBadgeProps, IDetailRowProps } from '@/src/types/sell-machine/payment-success';
-import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import React, { useEffect, useRef } from 'react';
+
 import {
   Animated,
   Image,
@@ -14,13 +10,25 @@ import {
   Text,
   View,
 } from 'react-native';
+
+import { router } from 'expo-router';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
+import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+import {
+  IBadgeProps,
+  IDetailRowProps,
+} from '@/src/types/sell-machine/payment-success';
+
 import { COLORS } from '../../../constants/colors';
 
 /* -------------------------------------------------------------------------- */
 /*                                  SCREEN                                    */
 /* -------------------------------------------------------------------------- */
-
-import { useTranslation } from 'react-i18next';
 
 export default function PaymentSuccessScreen() {
   const { t } = useTranslation();
@@ -55,7 +63,7 @@ export default function PaymentSuccessScreen() {
           duration: 0,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     ).start();
   }, [fadeAnim, slideAnim, pingAnim]);
 
@@ -97,7 +105,9 @@ export default function PaymentSuccessScreen() {
             </View>
           </View>
 
-          <Text style={styles.successTitle}>{t('sell_payment.success.title')}</Text>
+          <Text style={styles.successTitle}>
+            {t('sell_payment.success.title')}
+          </Text>
           <Text style={styles.successSubtitle}>
             {t('sell_payment.success.subtitle')}
           </Text>
@@ -106,13 +116,22 @@ export default function PaymentSuccessScreen() {
         {/* Receipt */}
         <View style={styles.receiptCard}>
           <View style={styles.receiptHeader}>
-            <Text style={styles.receiptLabel}>{t('sell_payment.success.total_paid')}</Text>
+            <Text style={styles.receiptLabel}>
+              {t('sell_payment.success.total_paid')}
+            </Text>
             <Text style={styles.receiptAmount}>₹ 499.00</Text>
           </View>
 
           <View style={styles.receiptBody}>
-            <DetailRow label={t('sell_payment.success.transaction_id')} value="#TRX-8923492" mono />
-            <DetailRow label={t('dashboard.activity.date')} value="Oct 24, 2024, 10:30 AM" />
+            <DetailRow
+              label={t('sell_payment.success.transaction_id')}
+              value="#TRX-8923492"
+              mono
+            />
+            <DetailRow
+              label={t('dashboard.activity.date')}
+              value="Oct 24, 2024, 10:30 AM"
+            />
             <DetailRow
               label={t('sell_payment.methods.card.title')}
               value="HDFC **** 4582"
@@ -129,7 +148,9 @@ export default function PaymentSuccessScreen() {
 
         {/* Benefit */}
         <View style={styles.benefitSection}>
-          <Text style={styles.sectionHeader}>{t('sell_payment.success.unlocked_benefit')}</Text>
+          <Text style={styles.sectionHeader}>
+            {t('sell_payment.success.unlocked_benefit')}
+          </Text>
 
           <View style={styles.benefitCard}>
             <Image
@@ -140,17 +161,18 @@ export default function PaymentSuccessScreen() {
             />
 
             <View style={styles.benefitInfo}>
-              <Text style={styles.benefitTitle}>
-                John Deere Tractor 5050D
-              </Text>
+              <Text style={styles.benefitTitle}>John Deere Tractor 5050D</Text>
               <Text style={styles.benefitStatus}>
-                {t('sell_machine.publish.premium_plan')} - {t('sell_payment.success.status_live')}
+                {t('sell_machine.publish.premium_plan')} -{' '}
+                {t('sell_payment.success.status_live')}
               </Text>
 
               <View style={styles.badgeRow}>
                 <Badge
                   icon="calendar-today"
-                  text={t('sell_payment.success.expires_on', { date: 'Nov 23' })}
+                  text={t('sell_payment.success.expires_on', {
+                    date: 'Nov 23',
+                  })}
                   bg="#dcfce7"
                   color="#15803d"
                 />
@@ -168,11 +190,15 @@ export default function PaymentSuccessScreen() {
 
       {/* Footer */}
       <View style={styles.footer}>
-        <Button label={t('sell_machine.listing_details')} icon="arrow-forward" onPress={() => router.push('/(farmer)/sell-machine/listing-details')} />
+        <Button
+          label={t('sell_machine.listing_details')}
+          icon="arrow-forward"
+          onPress={() => router.push('/(farmer)/sell-machine/listing-details')}
+        />
         <Button
           label={t('sell_payment.success.back_to_dashboard')}
           type="secondary"
-          onPress={() => router.replace("/(farmer)/")}
+          onPress={() => router.replace('/(farmer)/')}
         />
       </View>
     </View>
@@ -182,7 +208,6 @@ export default function PaymentSuccessScreen() {
 /* -------------------------------------------------------------------------- */
 /*                               HELPERS                                      */
 /* -------------------------------------------------------------------------- */
-
 
 const DetailRow = ({ label, value, mono, icon }: IDetailRowProps) => (
   <View style={styles.detailRow}>
@@ -196,19 +221,12 @@ const DetailRow = ({ label, value, mono, icon }: IDetailRowProps) => (
           style={{ marginRight: 6 }}
         />
       )}
-      <Text style={[styles.detailValue, mono && styles.monoText]}>
-        {value}
-      </Text>
+      <Text style={[styles.detailValue, mono && styles.monoText]}>{value}</Text>
     </View>
   </View>
 );
 
-const Badge = ({
-  icon,
-  text,
-  bg,
-  color,
-}: IBadgeProps) => (
+const Badge = ({ icon, text, bg, color }: IBadgeProps) => (
   <View style={[styles.badge, { backgroundColor: bg }]}>
     <MaterialIcons name={icon} size={12} color={color} />
     <Text style={[styles.badgeText, { color }]}>{text}</Text>
@@ -220,9 +238,13 @@ const Badge = ({
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal: 16},
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
+  },
 
-  scrollContent: { paddingBottom: 40,  },
+  scrollContent: { paddingBottom: 40 },
 
   successSection: {
     alignItems: 'center',

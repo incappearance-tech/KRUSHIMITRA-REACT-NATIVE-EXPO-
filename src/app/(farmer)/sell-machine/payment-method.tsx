@@ -1,27 +1,32 @@
-import AppBar from '@/src/components/AppBar';
-import Button from '@/src/components/Button';
-import Card from '@/src/components/Card';
-
-import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import React, { useCallback, useState } from 'react';
+
 import {
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { COLORS } from '../../../constants/colors';
 
-import { IPaymentOptionProps, PaymentMethod } from '@/src/types/sell-machine/payment-method';
+import { router } from 'expo-router';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
+
+import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+import Card from '@/src/components/Card';
+import {
+  IPaymentOptionProps,
+  PaymentMethod,
+} from '@/src/types/sell-machine/payment-method';
+
+import { COLORS } from '../../../constants/colors';
 
 /* -------------------------------------------------------------------------- */
 /*                                  SCREEN                                    */
 /* -------------------------------------------------------------------------- */
-
-import { useTranslation } from 'react-i18next';
 
 export default function CheckoutScreen() {
   const { t } = useTranslation();
@@ -36,7 +41,6 @@ export default function CheckoutScreen() {
       router.push('/(farmer)/sell-machine/payment-success');
     }, 2000);
   }, []);
-
 
   return (
     <View style={styles.container}>
@@ -57,7 +61,9 @@ export default function CheckoutScreen() {
           </View>
 
           <View style={styles.summaryContent}>
-            <Text style={styles.summaryLabel}>{t('sell_payment.total_payable')}</Text>
+            <Text style={styles.summaryLabel}>
+              {t('sell_payment.total_payable')}
+            </Text>
             <Text style={styles.summaryAmount}>₹ 499.00</Text>
 
             <View style={styles.dashedLine} />
@@ -69,13 +75,17 @@ export default function CheckoutScreen() {
 
             <View style={styles.summaryRow}>
               <Text style={styles.rowLabel}>{t('sell_payment.item')}</Text>
-              <Text style={styles.rowValue}>{t('sell_payment.listing_fee_tractor')}</Text>
+              <Text style={styles.rowValue}>
+                {t('sell_payment.listing_fee_tractor')}
+              </Text>
             </View>
           </View>
         </Card>
 
         {/* Payment Methods */}
-        <Text style={styles.sectionTitle}>{t('sell_payment.select_method')}</Text>
+        <Text style={styles.sectionTitle}>
+          {t('sell_payment.select_method')}
+        </Text>
 
         <View style={styles.methodsList}>
           <PaymentOption
@@ -108,7 +118,7 @@ export default function CheckoutScreen() {
       </ScrollView>
 
       {/* Footer */}
-      <View >
+      <View>
         <View style={styles.securityBadge}>
           <MaterialIcons name="lock" size={14} color={COLORS.success} />
           <Text style={styles.securityText}>
@@ -168,12 +178,7 @@ const PaymentOption = ({
         <Text style={styles.methodSubtitle}>{subtitle}</Text>
       </View>
 
-      <View
-        style={[
-          styles.radioOuter,
-          isSelected && styles.radioOuterActive,
-        ]}
-      >
+      <View style={[styles.radioOuter, isSelected && styles.radioOuterActive]}>
         {isSelected && <View style={styles.radioInner} />}
       </View>
     </TouchableOpacity>
@@ -185,9 +190,13 @@ const PaymentOption = ({
 /* -------------------------------------------------------------------------- */
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background,paddingHorizontal: 16 },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
+  },
 
-  scrollBody: { paddingBottom: 150,  },
+  scrollBody: { paddingBottom: 150 },
 
   summaryWatermark: {
     position: 'absolute',
@@ -293,7 +302,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
 
-
   securityBadge: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -307,5 +315,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 6,
   },
-
 });

@@ -1,7 +1,5 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import { ResizeMode, Video } from 'expo-av';
-import * as ImagePicker from 'expo-image-picker';
 import React, { useCallback, useMemo, useState } from 'react';
+
 import {
   Alert,
   Image,
@@ -11,21 +9,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { COLORS } from '../constants/colors';
+
+import { ResizeMode, Video } from 'expo-av';
+import * as ImagePicker from 'expo-image-picker';
+
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { IMediaItem, IMediaUploaderProps } from '@/src/types/components/media';
+
+import { COLORS } from '../constants/colors';
 
 /* =======================
    Media Item (Memoized)
    ======================= */
 const MediaPreview = React.memo(
-  ({
-    item,
-    onRemove,
-  }: {
-    item: IMediaItem;
-    onRemove: () => void;
-  }) => {
+  ({ item, onRemove }: { item: IMediaItem; onRemove: () => void }) => {
     return (
       <View style={styles.mediaWrapper}>
         {item.type === 'video' ? (
@@ -38,7 +36,11 @@ const MediaPreview = React.memo(
               isMuted
             />
             <View style={styles.videoOverlay}>
-              <MaterialIcons name="play-circle-fill" size={24} color={COLORS.white} />
+              <MaterialIcons
+                name="play-circle-fill"
+                size={24}
+                color={COLORS.white}
+              />
             </View>
           </>
         ) : (
@@ -50,8 +52,9 @@ const MediaPreview = React.memo(
         </TouchableOpacity>
       </View>
     );
-  }
+  },
 );
+MediaPreview.displayName = 'MediaPreview';
 
 /* =======================
    Main Component
@@ -69,23 +72,19 @@ const MediaUploader: React.FC<IMediaUploaderProps> = ({
     if (initialMedia.length > 0 && media.length === 0) {
       setMedia(initialMedia);
     }
-  }, [initialMedia]);
+  }, [initialMedia, media.length]);
 
   /* ---------- Derived State ---------- */
   const countText = useMemo(
     () => `${media.length}/${max}${min ? ` (Min ${min})` : ''}`,
-    [media.length, min, max]
+    [media.length, min, max],
   );
 
-  const isInvalid = useMemo(
-    () => media.length < min,
-    [media.length, min]
-  );
+  const isInvalid = useMemo(() => media.length < min, [media.length, min]);
 
   /* ---------- Permission ---------- */
   const ensurePermission = useCallback(async () => {
-    const { granted } =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!granted) {
       Alert.alert('Permission required to upload photos/videos');
     }
@@ -131,7 +130,7 @@ const MediaUploader: React.FC<IMediaUploaderProps> = ({
         return updated;
       });
     },
-    [onChange]
+    [onChange],
   );
 
   /* =======================
@@ -156,7 +155,11 @@ const MediaUploader: React.FC<IMediaUploaderProps> = ({
         {media.length < max && (
           <TouchableOpacity style={styles.addBox} onPress={pickMedia}>
             <View style={styles.iconCircle}>
-              <MaterialIcons name="add-a-photo" size={24} color={COLORS.brand.primary} />
+              <MaterialIcons
+                name="add-a-photo"
+                size={24}
+                color={COLORS.brand.primary}
+              />
             </View>
             <Text style={styles.addText}>Add</Text>
           </TouchableOpacity>

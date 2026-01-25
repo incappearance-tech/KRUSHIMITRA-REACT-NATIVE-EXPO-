@@ -1,23 +1,30 @@
-import Button from '@/src/components/Button';
-import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { COLORS } from '../../../constants/colors';
 
+import { router } from 'expo-router';
 
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { Trans, useTranslation } from 'react-i18next';
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+// --- Helper Components ---
+import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
+import { IRuleItemProps } from '@/src/types/buy-machine/payment';
+
+import { COLORS } from '../../../constants/colors';
 
 export default function UnlockContactScreen() {
   return (
@@ -33,16 +40,17 @@ function UnlockContactContent() {
 
   return (
     <View style={styles.container}>
-
       {/* Top App Bar */}
-      <AppBar title={t('payment_unlock.title')}/>
+      <AppBar title={t('payment_unlock.title')} />
 
       <ScrollView
-        contentContainerStyle={ { paddingBottom: insets.bottom + 120 }}
+        contentContainerStyle={{ paddingBottom: insets.bottom + 120 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Machine Info Card */}
-        <Text style={styles.sectionLabel}>{t('buy_machine_details.machine_details')}</Text>
+        <Text style={styles.sectionLabel}>
+          {t('buy_machine_details.machine_details')}
+        </Text>
         <View style={styles.machineCard}>
           <View style={styles.machineInfo}>
             <Text style={styles.machineTitle}>John Deere 5310</Text>
@@ -51,34 +59,59 @@ function UnlockContactContent() {
               <Text style={styles.sellerName}>Ramesh Kumar</Text>
             </View>
             <View style={styles.metaRow}>
-              <MaterialIcons name="location-on" size={16} color={COLORS.textSecondary} />
-              <Text style={styles.locationName}>{t('buy_machine_details.village', { name: 'Palwal' })}</Text>
+              <MaterialIcons
+                name="location-on"
+                size={16}
+                color={COLORS.textSecondary}
+              />
+              <Text style={styles.locationName}>
+                {t('buy_machine_details.village', { name: 'Palwal' })}
+              </Text>
             </View>
           </View>
           <Image
-            source={{ uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=200' }}
+            source={{
+              uri: 'https://images.unsplash.com/photo-1594411127027-02488e0e0f3e?q=80&w=200',
+            }}
             style={styles.machineImg as any}
           />
         </View>
 
         {/* Pricing Hero */}
         <View style={styles.priceHero}>
-          <Text style={styles.priceLabel}>{t('payment_unlock.unlock_fee')}</Text>
+          <Text style={styles.priceLabel}>
+            {t('payment_unlock.unlock_fee')}
+          </Text>
           <Text style={styles.priceAmount}>₹29</Text>
           <View style={styles.oneTimeBadge}>
-            <MaterialIcons name="verified" size={14} color={COLORS.brand.primary} />
-            <Text style={styles.oneTimeText}>{t('payment_unlock.one_time')}</Text>
+            <MaterialIcons
+              name="verified"
+              size={14}
+              color={COLORS.brand.primary}
+            />
+            <Text style={styles.oneTimeText}>
+              {t('payment_unlock.one_time')}
+            </Text>
           </View>
         </View>
 
         {/* Warning Box */}
         <View style={styles.warningBox}>
-          <MaterialIcons name="warning" size={20} color={COLORS.warningDark} style={{ marginTop: 2 }} />
+          <MaterialIcons
+            name="warning"
+            size={20}
+            color={COLORS.warningDark}
+            style={{ marginTop: 2 }}
+          />
           <View style={{ flex: 1 }}>
-            <Text style={styles.warningTitle}>{t('payment_unlock.warning_title')}</Text>
+            <Text style={styles.warningTitle}>
+              {t('payment_unlock.warning_title')}
+            </Text>
             <Text style={styles.warningDesc}>
               <Trans i18nKey="payment_unlock.warning_desc">
-                Payment is <Text style={{ fontWeight: '800' }}>ONLY</Text> to reveal the phone number. It is not a deposit for the machine itself.
+                Payment is <Text style={{ fontWeight: '800' }}>ONLY</Text> to
+                reveal the phone number. It is not a deposit for the machine
+                itself.
               </Trans>
             </Text>
           </View>
@@ -100,28 +133,28 @@ function UnlockContactContent() {
             color={COLORS.brand.primary}
             bg={COLORS.brand.muted}
           />
-        </View> 
+        </View>
       </ScrollView>
 
       {/* Sticky Bottom Footer */}
-      <View style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}>
+      <View
+        style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}
+      >
         <Button
           label={t('payment_unlock.pay_unlock', { price: '₹29' })}
-          onPress={() => router.push("/buy-machine/unlock-contact")}
+          onPress={() => router.push('/buy-machine/unlock-contact')}
           icon="lock-open"
         />
         <View style={styles.secureRow}>
           <MaterialIcons name="lock" size={14} color={COLORS.textSecondary} />
-          <Text style={styles.secureText}>{t('payment_unlock.secure_payment')}</Text>
+          <Text style={styles.secureText}>
+            {t('payment_unlock.secure_payment')}
+          </Text>
         </View>
       </View>
     </View>
   );
 }
-
-// --- Helper Components ---
-import { IRuleItemProps } from '@/src/types/buy-machine/payment';
-import AppBar from '@/src/components/AppBar';
 
 const RuleItem = ({ icon, title, desc, color, bg }: IRuleItemProps) => (
   <View style={styles.ruleItem}>
@@ -137,7 +170,11 @@ const RuleItem = ({ icon, title, desc, color, bg }: IRuleItemProps) => (
 
 // --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal:16},
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 16,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -146,9 +183,14 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
-  backButton: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
+  backButton: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },
 
   sectionLabel: {
@@ -158,7 +200,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: 12,
-    marginLeft: 4
+    marginLeft: 4,
   },
 
   machineCard: {
@@ -170,18 +212,41 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
     alignItems: 'center',
     marginBottom: 24,
-    ...Platform.select({ ios: { shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 5 }, android: { elevation: 2 } })
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.05,
+        shadowRadius: 5,
+      },
+      android: { elevation: 2 },
+    }),
   },
   machineInfo: { flex: 1 },
-  machineTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text, marginBottom: 6 },
-  metaRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 },
+  machineTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.text,
+    marginBottom: 6,
+  },
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4,
+  },
   sellerName: { fontSize: 14, fontWeight: '600', color: '#15803d' },
   locationName: { fontSize: 14, color: COLORS.textSecondary },
   machineImg: { width: 80, height: 80, borderRadius: 12, marginLeft: 16 },
 
   priceHero: { alignItems: 'center', paddingVertical: 16, marginBottom: 16 },
   priceLabel: { fontSize: 14, color: COLORS.textSecondary, marginBottom: 4 },
-  priceAmount: { fontSize: 48, fontWeight: '800', color: COLORS.text, marginBottom: 8 },
+  priceAmount: {
+    fontSize: 48,
+    fontWeight: '800',
+    color: COLORS.text,
+    marginBottom: 8,
+  },
   oneTimeBadge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -191,7 +256,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 20,
-    gap: 4
+    gap: 4,
   },
   oneTimeText: { fontSize: 12, fontWeight: '700', color: COLORS.brand.primary },
 
@@ -203,15 +268,36 @@ const styles = StyleSheet.create({
     padding: 16,
     flexDirection: 'row',
     gap: 12,
-    marginBottom: 24
+    marginBottom: 24,
   },
-  warningTitle: { fontSize: 14, fontWeight: '800', color: COLORS.warningDark, marginBottom: 2 },
+  warningTitle: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: COLORS.warningDark,
+    marginBottom: 2,
+  },
   warningDesc: { fontSize: 14, color: COLORS.warningDark, lineHeight: 20 },
 
   rulesList: { marginBottom: 32 },
-  ruleItem: { flexDirection: 'row', gap: 16, marginBottom: 20, paddingHorizontal: 4 },
-  ruleIconCircle: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
-  ruleTitle: { fontSize: 15, fontWeight: '700', color: COLORS.text, marginBottom: 2 },
+  ruleItem: {
+    flexDirection: 'row',
+    gap: 16,
+    marginBottom: 20,
+    paddingHorizontal: 4,
+  },
+  ruleIconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ruleTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: COLORS.text,
+    marginBottom: 2,
+  },
   ruleDesc: { fontSize: 14, color: COLORS.textSecondary, lineHeight: 20 },
 
   paymentMethod: {
@@ -222,12 +308,24 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.brand.muted,
     borderColor: COLORS.brand.primary,
     borderWidth: 1,
-    borderRadius: 12
+    borderRadius: 12,
   },
   row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   paymentMethodText: { fontSize: 16, fontWeight: '600', color: COLORS.text },
-  radioSelectedOuter: { width: 22, height: 22, borderRadius: 11, backgroundColor: COLORS.brand.primary, alignItems: 'center', justifyContent: 'center' },
-  radioSelectedInner: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'black' },
+  radioSelectedOuter: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: COLORS.brand.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  radioSelectedInner: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'black',
+  },
 
   footer: {
     position: 'absolute',
@@ -251,9 +349,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
-    elevation: 6
+    elevation: 6,
   },
   payButtonText: { color: 'black', fontSize: 18, fontWeight: '800' },
-  secureRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4, marginTop: 12 },
-  secureText: { fontSize: 12, color: COLORS.textSecondary }
+  secureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+    marginTop: 12,
+  },
+  secureText: { fontSize: 12, color: COLORS.textSecondary },
 });

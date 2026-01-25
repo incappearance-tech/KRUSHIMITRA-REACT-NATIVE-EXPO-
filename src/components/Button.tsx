@@ -1,5 +1,5 @@
-import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
+
 import {
   ActivityIndicator,
   StyleSheet,
@@ -7,9 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { COLORS } from '../constants/colors';
+
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { IButtonProps, IButtonType } from '@/src/types/components/Button';
+
+import { COLORS } from '../constants/colors';
 
 /* =======================
    Component
@@ -36,22 +39,29 @@ const Button: React.FC<IButtonProps> = ({
 
   const bg =
     backgroundColor ??
-    (variant === 'outline' || variant === 'ghost' ? 'transparent' :
-      (type === 'danger'
+    (variant === 'outline' || variant === 'ghost'
+      ? 'transparent'
+      : type === 'danger'
         ? COLORS.danger
         : type === 'secondary'
           ? COLORS.gray[50]
-          : COLORS.primary[600]));
+          : COLORS.primary[600]);
 
   const txtColor =
     textColor ??
-    (variant === 'outline' || variant === 'ghost' ? COLORS.brand.primary :
-      (type === 'secondary' ? '#374151' : COLORS.gray[200]));
+    (variant === 'outline' || variant === 'ghost'
+      ? COLORS.brand.primary
+      : type === 'secondary'
+        ? '#374151'
+        : COLORS.gray[200]);
 
   const brColor =
     borderColor ??
-    (variant === 'outline' ? COLORS.brand.primary :
-      (type === 'secondary' ? '#E5E7EB' : 'transparent'));
+    (variant === 'outline'
+      ? COLORS.brand.primary
+      : type === 'secondary'
+        ? '#E5E7EB'
+        : 'transparent');
 
   return (
     <View style={[sticky && styles.sticky]}>
@@ -73,17 +83,9 @@ const Button: React.FC<IButtonProps> = ({
           <ActivityIndicator color={txtColor} />
         ) : (
           <>
-            <Text style={[styles.text, { color: txtColor }]}>
-              {label}
-            </Text>
+            <Text style={[styles.text, { color: txtColor }]}>{label}</Text>
 
-            {icon && (
-              <MaterialIcons
-                name={icon}
-                size={20}
-                color={txtColor}
-              />
-            )}
+            {icon && <MaterialIcons name={icon} size={20} color={txtColor} />}
           </>
         )}
       </TouchableOpacity>
@@ -91,7 +93,8 @@ const Button: React.FC<IButtonProps> = ({
   );
 };
 
-export default Button;
+// Memoize Button to prevent unnecessary re-renders
+export default React.memo(Button);
 
 /* =======================
    Styles
@@ -116,7 +119,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-
   },
 
   text: {

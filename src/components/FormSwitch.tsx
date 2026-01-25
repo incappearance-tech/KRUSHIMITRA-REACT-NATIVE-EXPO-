@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  Controller,
-  FieldValues
-} from 'react-hook-form';
-import {
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-} from 'react-native';
-import { COLORS } from '../constants/colors';
+
+import { StyleSheet, Switch, Text, View } from 'react-native';
+
+import { Controller, FieldValues } from 'react-hook-form';
 
 import { IFormSwitchProps } from '@/src/types/components/FormSwitch';
+
+import { COLORS } from '../constants/colors';
 
 function FormSwitch<T extends FieldValues>({
   control,

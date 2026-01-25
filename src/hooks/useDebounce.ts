@@ -1,15 +1,36 @@
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export const useDebounce = <T,>(value: T, delay: number) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+/**
+ * Debounce hook to delay updating a value
+ * Useful for search inputs to reduce unnecessary API calls or filtering operations
+ *
+ * @param value - The value to debounce
+ * @param delay - Delay in milliseconds (default: 500ms)
+ * @returns Debounced value
+ *
+ * @example
+ * const [searchTerm, setSearchTerm] = useState('');
+ * const debouncedSearchTerm = useDebounce(searchTerm, 500);
+ *
+ * useEffect(() => {
+ *   // This will only run 500ms after user stops typing
+ *   performSearch(debouncedSearchTerm);
+ * }, [debouncedSearchTerm]);
+ */
+export function useDebounce<T>(value: T, delay: number = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
-  const debounce = useCallback(() => {
-    const timeout = setTimeout(() => {
+  useEffect(() => {
+    // Set up the timeout
+    const handler = setTimeout(() => {
       setDebouncedValue(value);
     }, delay);
 
-    return () => clearTimeout(timeout);
+    // Clean up the timeout if value changes before delay expires
+    return () => {
+      clearTimeout(handler);
+    };
   }, [value, delay]);
 
-  return { debouncedValue, debounce };
-};
+  return debouncedValue;
+}
