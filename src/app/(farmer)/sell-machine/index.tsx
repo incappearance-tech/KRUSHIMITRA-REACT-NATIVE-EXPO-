@@ -1,3 +1,5 @@
+import AppBar from '@/src/components/AppBar';
+import { COLORS } from '@/src/constants/colors';
 import { useSellingStore } from '@/src/store/selling.store';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Redirect, useRouter } from 'expo-router';
@@ -44,18 +46,9 @@ export default function SellMachineInventory() {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor={THEME.backgroundLight} />
 
             {/* HEADER */}
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.headerBtn}>
-                    <MaterialIcons name="arrow-back-ios" size={20} color={THEME.textMainLight} />
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>My Selling Inventory</Text>
-                <TouchableOpacity style={styles.headerBtn}>
-                    <MaterialIcons name="more-horiz" size={24} color={THEME.textMainLight} />
-                </TouchableOpacity>
-            </View>
+            <AppBar title="My Old Machine Selling Inventory" />   
 
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
@@ -168,17 +161,17 @@ export default function SellMachineInventory() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: THEME.backgroundLight,
+        backgroundColor: COLORS.background,
+                paddingHorizontal: 16,
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 16,
         paddingVertical: 12,
         backgroundColor: 'rgba(246, 248, 246, 0.95)',
-        borderBottomWidth: 1,
-        borderBottomColor: THEME.borderLight,
+        // borderBottomWidth: 1,
+        // borderBottomColor: THEME.borderLight,
     },
     headerBtn: {
         width: 40,
@@ -192,7 +185,6 @@ const styles = StyleSheet.create({
         color: THEME.textMainLight,
     },
     scrollContent: {
-        padding: 16,
         paddingBottom: 100,
     },
     summaryCard: {

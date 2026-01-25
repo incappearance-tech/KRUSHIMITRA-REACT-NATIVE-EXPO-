@@ -21,6 +21,10 @@ pnpm-debug.log*
 .expo-shared/
 dist/
 web-build/
+.jscpd.json
+.jscpd-ignore.json
+package-lock.json
+yarn.lock
 
 # Expo local env
 .env

@@ -1,12 +1,244 @@
 {
   "statistics": {
-    "detectionDate": "2026-01-11T13:55:31.184Z",
+    "detectionDate": "2026-01-25T07:13:11.421Z",
     "formats": {
-      "javascript": {
+      "css": {
         "sources": {
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/search.tsx": {
             "lines": 0,
-            "tokens": 19,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-success.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/index.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/request.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/index.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/filters.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/unlock.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/index.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/filters.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/details.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/contact.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/intent.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/details.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/index.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/_layout.tsx": {
+            "lines": 0,
+            "tokens": 4,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 0,
+          "tokens": 60,
+          "sources": 18,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "javascript": {
+        "sources": {
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/search.tsx": {
+            "lines": 153,
+            "tokens": 1591,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -29,8 +261,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/details.tsx": {
-            "lines": 0,
-            "tokens": 19,
+            "lines": 169,
+            "tokens": 2064,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -41,8 +273,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/select-plan.tsx": {
-            "lines": 117,
-            "tokens": 1027,
+            "lines": 105,
+            "tokens": 868,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -78,7 +310,7 @@
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-method.tsx": {
             "lines": 135,
-            "tokens": 1012,
+            "tokens": 1005,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -100,9 +332,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx": {
-            "lines": 190,
-            "tokens": 1380,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/index.tsx": {
+            "lines": 115,
+            "tokens": 1425,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -112,9 +344,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx": {
+            "lines": 113,
+            "tokens": 1389,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 46,
+            "duplicatedTokens": 504,
+            "percentage": 40.71,
+            "percentageTokens": 36.29,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/requests.tsx": {
-            "lines": 0,
-            "tokens": 19,
+            "lines": 151,
+            "tokens": 1939,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/publish.tsx": {
+            "lines": 113,
+            "tokens": 1485,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -136,9 +392,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/preferences.tsx": {
+            "lines": 139,
+            "tokens": 1346,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/index.tsx": {
+            "lines": 144,
+            "tokens": 1694,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/availability.tsx": {
-            "lines": 0,
-            "tokens": 19,
+            "lines": 93,
+            "tokens": 1075,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -149,8 +429,20 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/add-machine.tsx": {
-            "lines": 0,
-            "tokens": 19,
+            "lines": 133,
+            "tokens": 1242,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 31,
+            "duplicatedTokens": 328,
+            "percentage": 23.31,
+            "percentageTokens": 26.41,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/request.tsx": {
+            "lines": 139,
+            "tokens": 1637,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -172,9 +464,21 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/index.tsx": {
+            "lines": 143,
+            "tokens": 1707,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/filters.tsx": {
-            "lines": 0,
-            "tokens": 19,
+            "lines": 143,
+            "tokens": 1521,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -187,6 +491,18 @@
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/details.tsx": {
             "lines": 0,
             "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/unlock.tsx": {
+            "lines": 107,
+            "tokens": 1494,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -220,9 +536,57 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/index.tsx": {
+            "lines": 130,
+            "tokens": 1523,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/filters.tsx": {
+            "lines": 113,
+            "tokens": 1347,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/details.tsx": {
+            "lines": 117,
+            "tokens": 1575,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/contact.tsx": {
+            "lines": 84,
+            "tokens": 1146,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx": {
-            "lines": 121,
-            "tokens": 1423,
+            "lines": 112,
+            "tokens": 1283,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -248,29 +612,29 @@
             "lines": 121,
             "tokens": 1237,
             "sources": 1,
-            "clones": 2,
-            "duplicatedLines": 26,
-            "duplicatedTokens": 352,
-            "percentage": 21.49,
-            "percentageTokens": 28.46,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 176,
+            "percentage": 10.74,
+            "percentageTokens": 14.23,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx": {
-            "lines": 119,
-            "tokens": 1482,
+            "lines": 98,
+            "tokens": 1175,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 13,
-            "duplicatedTokens": 176,
-            "percentage": 10.92,
-            "percentageTokens": 11.88,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/list.tsx": {
-            "lines": 173,
-            "tokens": 1431,
+            "lines": 219,
+            "tokens": 2068,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -281,8 +645,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/intent.tsx": {
-            "lines": 131,
-            "tokens": 1423,
+            "lines": 130,
+            "tokens": 1245,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -317,20 +681,92 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/details.tsx": {
-            "lines": 164,
-            "tokens": 2088,
+            "lines": 216,
+            "tokens": 2652,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
             "duplicatedTokens": 0,
             "percentage": 0,
             "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/_layout.tsx": {
+            "lines": 31,
+            "tokens": 284,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/profile.tsx": {
+            "lines": 70,
+            "tokens": 844,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/my-farm.tsx": {
+            "lines": 101,
+            "tokens": 1524,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/index.tsx": {
+            "lines": 92,
+            "tokens": 942,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/_layout.tsx": {
+            "lines": 3,
+            "tokens": 15,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx": {
+            "lines": 57,
+            "tokens": 602,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 44,
+            "duplicatedTokens": 381,
+            "percentage": 77.19,
+            "percentageTokens": 63.29,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/profile.tsx": {
-            "lines": 0,
-            "tokens": 19,
+            "lines": 97,
+            "tokens": 1350,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -340,21 +776,129 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/dashboard.tsx": {
-            "lines": 1,
-            "tokens": 19,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/payment-history.tsx": {
+            "lines": 50,
+            "tokens": 656,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
             "duplicatedTokens": 0,
             "percentage": 0,
             "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/index.tsx": {
+            "lines": 157,
+            "tokens": 1889,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/history.tsx": {
+            "lines": 50,
+            "tokens": 677,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx": {
+            "lines": 49,
+            "tokens": 468,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 161,
+            "duplicatedTokens": 1580,
+            "percentage": 328.57,
+            "percentageTokens": 337.61,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-vehicle.tsx": {
+            "lines": 81,
+            "tokens": 781,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 27,
+            "duplicatedTokens": 205,
+            "percentage": 33.33,
+            "percentageTokens": 26.25,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-driver.tsx": {
+            "lines": 32,
+            "tokens": 294,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 27,
+            "duplicatedTokens": 205,
+            "percentage": 84.38,
+            "percentageTokens": 69.73,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/drivers.tsx": {
+            "lines": 61,
+            "tokens": 879,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/add-vehicle.tsx": {
+            "lines": 151,
+            "tokens": 1670,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 15,
+            "duplicatedTokens": 176,
+            "percentage": 9.93,
+            "percentageTokens": 10.54,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/_layout.tsx": {
+            "lines": 3,
+            "tokens": 15,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx": {
+            "lines": 89,
+            "tokens": 908,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 28,
+            "duplicatedTokens": 296,
+            "percentage": 31.46,
+            "percentageTokens": 32.6,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/profile.tsx": {
-            "lines": 0,
-            "tokens": 19,
+            "lines": 82,
+            "tokens": 1129,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -364,9 +908,45 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/dashboard.tsx": {
-            "lines": 1,
-            "tokens": 19,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/index.tsx": {
+            "lines": 73,
+            "tokens": 1048,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx": {
+            "lines": 89,
+            "tokens": 904,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 89,
+            "duplicatedTokens": 903,
+            "percentage": 100,
+            "percentageTokens": 99.89,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transactions.tsx": {
+            "lines": 23,
+            "tokens": 371,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/support.tsx": {
+            "lines": 49,
+            "tokens": 789,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -377,8 +957,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/profile.tsx": {
-            "lines": 72,
-            "tokens": 717,
+            "lines": 71,
+            "tokens": 693,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -388,9 +968,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/dashboard.tsx": {
-            "lines": 270,
-            "tokens": 3245,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/my-farm.tsx": {
+            "lines": 101,
+            "tokens": 1328,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/mandi.tsx": {
+            "lines": 41,
+            "tokens": 574,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/language-settings.tsx": {
+            "lines": 52,
+            "tokens": 521,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -437,8 +1041,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/language.tsx": {
-            "lines": 70,
-            "tokens": 570,
+            "lines": 64,
+            "tokens": 564,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -484,15 +1088,39 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/ProgressStep.tsx": {
+            "lines": 5,
+            "tokens": 87,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/PaymentModal.tsx": {
+            "lines": 66,
+            "tokens": 955,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaUploader.tsx": {
-            "lines": 132,
-            "tokens": 1250,
+            "lines": 139,
+            "tokens": 1323,
             "sources": 1,
             "clones": 1,
             "duplicatedLines": 17,
             "duplicatedTokens": 178,
-            "percentage": 12.88,
-            "percentageTokens": 14.24,
+            "percentage": 12.23,
+            "percentageTokens": 13.45,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -505,6 +1133,18 @@
             "duplicatedTokens": 178,
             "percentage": 31.48,
             "percentageTokens": 35.04,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/LabeledInput.tsx": {
+            "lines": 22,
+            "tokens": 181,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -557,8 +1197,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormDropdown.tsx": {
-            "lines": 80,
-            "tokens": 550,
+            "lines": 124,
+            "tokens": 998,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -593,8 +1233,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Button.tsx": {
-            "lines": 26,
-            "tokens": 170,
+            "lines": 27,
+            "tokens": 172,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -654,7 +1294,7 @@
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/_layout.tsx": {
             "lines": 16,
-            "tokens": 151,
+            "tokens": 143,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -665,8 +1305,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/index.tsx": {
-            "lines": 58,
-            "tokens": 574,
+            "lines": 57,
+            "tokens": 566,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -678,14 +1318,14 @@
           }
         },
         "total": {
-          "lines": 3433,
-          "tokens": 34033,
-          "sources": 56,
-          "clones": 3,
-          "duplicatedLines": 43,
-          "duplicatedTokens": 530,
-          "percentage": 1.25,
-          "percentageTokens": 1.56,
+          "lines": 7146,
+          "tokens": 78990,
+          "sources": 90,
+          "clones": 9,
+          "duplicatedLines": 264,
+          "duplicatedTokens": 2643,
+          "percentage": 3.69,
+          "percentageTokens": 3.35,
           "newDuplicatedLines": 0,
           "newClones": 0
         }
@@ -693,14 +1333,14 @@
       "tsx": {
         "sources": {
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/search.tsx": {
-            "lines": 8,
-            "tokens": 91,
+            "lines": 234,
+            "tokens": 3358,
             "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
+            "clones": 1,
+            "duplicatedLines": 6,
+            "duplicatedTokens": 89,
+            "percentage": 2.56,
+            "percentageTokens": 2.65,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -717,20 +1357,20 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/details.tsx": {
-            "lines": 8,
-            "tokens": 89,
+            "lines": 251,
+            "tokens": 3881,
             "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
+            "clones": 1,
+            "duplicatedLines": 6,
+            "duplicatedTokens": 89,
+            "percentage": 2.39,
+            "percentageTokens": 2.29,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/select-plan.tsx": {
-            "lines": 449,
-            "tokens": 3515,
+            "lines": 382,
+            "tokens": 2906,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -742,7 +1382,7 @@
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/publish.tsx": {
             "lines": 472,
-            "tokens": 3694,
+            "tokens": 3699,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -754,7 +1394,7 @@
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-success.tsx": {
             "lines": 421,
-            "tokens": 3301,
+            "tokens": 3307,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -765,8 +1405,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-method.tsx": {
-            "lines": 317,
-            "tokens": 2415,
+            "lines": 310,
+            "tokens": 2346,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -788,9 +1428,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/index.tsx": {
+            "lines": 420,
+            "tokens": 3805,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 15,
+            "duplicatedTokens": 110,
+            "percentage": 3.57,
+            "percentageTokens": 2.89,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx": {
-            "lines": 335,
-            "tokens": 2539,
+            "lines": 287,
+            "tokens": 3268,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 127,
+            "percentage": 4.53,
+            "percentageTokens": 3.89,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/requests.tsx": {
+            "lines": 533,
+            "tokens": 4982,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -800,9 +1464,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/requests.tsx": {
-            "lines": 8,
-            "tokens": 89,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/publish.tsx": {
+            "lines": 436,
+            "tokens": 4037,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -824,9 +1488,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/preferences.tsx": {
+            "lines": 260,
+            "tokens": 3442,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/index.tsx": {
+            "lines": 467,
+            "tokens": 4407,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 15,
+            "duplicatedTokens": 110,
+            "percentage": 3.21,
+            "percentageTokens": 2.5,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/availability.tsx": {
-            "lines": 8,
-            "tokens": 89,
+            "lines": 243,
+            "tokens": 3563,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -837,8 +1525,20 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/add-machine.tsx": {
-            "lines": 8,
-            "tokens": 93,
+            "lines": 276,
+            "tokens": 2924,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/request.tsx": {
+            "lines": 498,
+            "tokens": 4652,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -860,9 +1560,21 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/index.tsx": {
+            "lines": 565,
+            "tokens": 5170,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/filters.tsx": {
-            "lines": 8,
-            "tokens": 89,
+            "lines": 447,
+            "tokens": 3929,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -881,6 +1593,18 @@
             "duplicatedTokens": 0,
             "percentage": 0,
             "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/unlock.tsx": {
+            "lines": 394,
+            "tokens": 3675,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 46,
+            "duplicatedTokens": 483,
+            "percentage": 11.68,
+            "percentageTokens": 13.14,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -908,15 +1632,63 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx": {
-            "lines": 303,
-            "tokens": 3560,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/index.tsx": {
+            "lines": 452,
+            "tokens": 4034,
             "sources": 1,
-            "clones": 2,
-            "duplicatedLines": 22,
-            "duplicatedTokens": 301,
-            "percentage": 7.26,
-            "percentageTokens": 8.46,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/filters.tsx": {
+            "lines": 372,
+            "tokens": 3411,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/details.tsx": {
+            "lines": 437,
+            "tokens": 3955,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 42,
+            "duplicatedTokens": 382,
+            "percentage": 9.61,
+            "percentageTokens": 9.66,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/contact.tsx": {
+            "lines": 364,
+            "tokens": 3281,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 40,
+            "duplicatedTokens": 355,
+            "percentage": 10.99,
+            "percentageTokens": 10.82,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx": {
+            "lines": 294,
+            "tokens": 3424,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 11,
+            "duplicatedTokens": 93,
+            "percentage": 3.74,
+            "percentageTokens": 2.72,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -924,11 +1696,11 @@
             "lines": 258,
             "tokens": 2925,
             "sources": 1,
-            "clones": 3,
-            "duplicatedLines": 50,
-            "duplicatedTokens": 455,
-            "percentage": 19.38,
-            "percentageTokens": 15.56,
+            "clones": 2,
+            "duplicatedLines": 39,
+            "duplicatedTokens": 305,
+            "percentage": 15.12,
+            "percentageTokens": 10.43,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -945,20 +1717,20 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx": {
-            "lines": 278,
-            "tokens": 3359,
+            "lines": 258,
+            "tokens": 3069,
             "sources": 1,
             "clones": 1,
             "duplicatedLines": 11,
-            "duplicatedTokens": 151,
-            "percentage": 3.96,
-            "percentageTokens": 4.5,
+            "duplicatedTokens": 93,
+            "percentage": 4.26,
+            "percentageTokens": 3.03,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/list.tsx": {
-            "lines": 388,
-            "tokens": 3236,
+            "lines": 483,
+            "tokens": 4694,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -969,8 +1741,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/intent.tsx": {
-            "lines": 250,
-            "tokens": 2988,
+            "lines": 244,
+            "tokens": 2761,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -993,8 +1765,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/filters.tsx": {
-            "lines": 561,
-            "tokens": 4816,
+            "lines": 562,
+            "tokens": 4822,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1005,20 +1777,104 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/details.tsx": {
-            "lines": 346,
-            "tokens": 4570,
+            "lines": 449,
+            "tokens": 6119,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
             "duplicatedTokens": 0,
             "percentage": 0,
             "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/_layout.tsx": {
+            "lines": 73,
+            "tokens": 609,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/profile.tsx": {
+            "lines": 254,
+            "tokens": 2979,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/my-farm.tsx": {
+            "lines": 217,
+            "tokens": 3443,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/(tabs)/index.tsx": {
+            "lines": 218,
+            "tokens": 2415,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/_layout.tsx": {
+            "lines": 12,
+            "tokens": 75,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx": {
+            "lines": 130,
+            "tokens": 1576,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 63,
+            "duplicatedTokens": 786,
+            "percentage": 48.46,
+            "percentageTokens": 49.87,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/profile.tsx": {
-            "lines": 8,
-            "tokens": 89,
+            "lines": 209,
+            "tokens": 3106,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 41,
+            "duplicatedTokens": 566,
+            "percentage": 19.62,
+            "percentageTokens": 18.22,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/payment-history.tsx": {
+            "lines": 97,
+            "tokens": 1572,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1028,21 +1884,153 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/dashboard.tsx": {
-            "lines": 15,
-            "tokens": 154,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/index.tsx": {
+            "lines": 299,
+            "tokens": 4266,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
             "duplicatedTokens": 0,
             "percentage": 0,
             "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/history.tsx": {
+            "lines": 123,
+            "tokens": 1737,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx": {
+            "lines": 123,
+            "tokens": 1289,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 72,
+            "duplicatedTokens": 1096,
+            "percentage": 58.54,
+            "percentageTokens": 85.03,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-vehicle.tsx": {
+            "lines": 186,
+            "tokens": 2044,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 45,
+            "duplicatedTokens": 444,
+            "percentage": 24.19,
+            "percentageTokens": 21.72,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-driver.tsx": {
+            "lines": 91,
+            "tokens": 940,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 34,
+            "duplicatedTokens": 283,
+            "percentage": 37.36,
+            "percentageTokens": 30.11,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/drivers.tsx": {
+            "lines": 237,
+            "tokens": 2252,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/add-vehicle.tsx": {
+            "lines": 327,
+            "tokens": 4128,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 127,
+            "percentage": 3.98,
+            "percentageTokens": 3.08,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/_layout.tsx": {
+            "lines": 12,
+            "tokens": 75,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx": {
+            "lines": 187,
+            "tokens": 2224,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 84,
+            "duplicatedTokens": 878,
+            "percentage": 44.92,
+            "percentageTokens": 39.48,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/profile.tsx": {
-            "lines": 8,
-            "tokens": 89,
+            "lines": 186,
+            "tokens": 2724,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 41,
+            "duplicatedTokens": 566,
+            "percentage": 22.04,
+            "percentageTokens": 20.78,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/index.tsx": {
+            "lines": 138,
+            "tokens": 2211,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 8,
+            "duplicatedTokens": 97,
+            "percentage": 5.8,
+            "percentageTokens": 4.39,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx": {
+            "lines": 199,
+            "tokens": 2331,
+            "sources": 1,
+            "clones": 6,
+            "duplicatedLines": 112,
+            "duplicatedTokens": 1446,
+            "percentage": 56.28,
+            "percentageTokens": 62.03,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transactions.tsx": {
+            "lines": 102,
+            "tokens": 1148,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1052,9 +2040,9 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/dashboard.tsx": {
-            "lines": 15,
-            "tokens": 154,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/support.tsx": {
+            "lines": 100,
+            "tokens": 1575,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1065,8 +2053,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/profile.tsx": {
-            "lines": 217,
-            "tokens": 1894,
+            "lines": 335,
+            "tokens": 2593,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1076,9 +2064,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/dashboard.tsx": {
-            "lines": 538,
-            "tokens": 5942,
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/my-farm.tsx": {
+            "lines": 180,
+            "tokens": 2761,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/mandi.tsx": {
+            "lines": 90,
+            "tokens": 1489,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/language-settings.tsx": {
+            "lines": 220,
+            "tokens": 1890,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1090,7 +2102,7 @@
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/role-select.tsx": {
             "lines": 230,
-            "tokens": 2089,
+            "tokens": 2088,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1101,8 +2113,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/otp.tsx": {
-            "lines": 278,
-            "tokens": 2786,
+            "lines": 279,
+            "tokens": 2792,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1125,8 +2137,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(auth)/language.tsx": {
-            "lines": 228,
-            "tokens": 1879,
+            "lines": 222,
+            "tokens": 1878,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1172,9 +2184,33 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/ProgressStep.tsx": {
+            "lines": 32,
+            "tokens": 466,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/PaymentModal.tsx": {
+            "lines": 143,
+            "tokens": 2241,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaUploader.tsx": {
-            "lines": 252,
-            "tokens": 2133,
+            "lines": 259,
+            "tokens": 2206,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1187,6 +2223,18 @@
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaPicker.tsx": {
             "lines": 186,
             "tokens": 1402,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/LabeledInput.tsx": {
+            "lines": 96,
+            "tokens": 767,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1236,23 +2284,23 @@
             "lines": 180,
             "tokens": 1251,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 21,
-            "duplicatedTokens": 116,
-            "percentage": 11.67,
-            "percentageTokens": 9.27,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormDropdown.tsx": {
-            "lines": 228,
-            "tokens": 1554,
+            "lines": 340,
+            "tokens": 2714,
             "sources": 1,
-            "clones": 1,
-            "duplicatedLines": 21,
-            "duplicatedTokens": 116,
-            "percentage": 9.21,
-            "percentageTokens": 7.46,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -1281,8 +2329,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/Button.tsx": {
-            "lines": 123,
-            "tokens": 815,
+            "lines": 129,
+            "tokens": 899,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1342,7 +2390,7 @@
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/_layout.tsx": {
             "lines": 49,
-            "tokens": 463,
+            "tokens": 455,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1353,8 +2401,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/index.tsx": {
-            "lines": 204,
-            "tokens": 1617,
+            "lines": 193,
+            "tokens": 1550,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1366,144 +2414,80 @@
           }
         },
         "total": {
-          "lines": 9289,
-          "tokens": 85283,
-          "sources": 56,
-          "clones": 6,
-          "duplicatedLines": 93,
-          "duplicatedTokens": 872,
-          "percentage": 1,
-          "percentageTokens": 1.02,
-          "newDuplicatedLines": 0,
-          "newClones": 0
-        }
-      },
-      "css": {
-        "sources": {
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/payment-success.tsx": {
-            "lines": 0,
-            "tokens": 3,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/intent.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/inspection-guide.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/details.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          },
-          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/_layout.tsx": {
-            "lines": 0,
-            "tokens": 4,
-            "sources": 1,
-            "clones": 0,
-            "duplicatedLines": 0,
-            "duplicatedTokens": 0,
-            "percentage": 0,
-            "percentageTokens": 0,
-            "newDuplicatedLines": 0,
-            "newClones": 0
-          }
-        },
-        "total": {
-          "lines": 0,
-          "tokens": 35,
-          "sources": 9,
-          "clones": 0,
-          "duplicatedLines": 0,
-          "duplicatedTokens": 0,
-          "percentage": 0,
-          "percentageTokens": 0,
+          "lines": 19856,
+          "tokens": 203521,
+          "sources": 90,
+          "clones": 28,
+          "duplicatedLines": 409,
+          "duplicatedTokens": 4565,
+          "percentage": 2.06,
+          "percentageTokens": 2.24,
           "newDuplicatedLines": 0,
           "newClones": 0
         }
       },
       "typescript": {
         "sources": {
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/data.ts": {
+            "lines": 80,
+            "tokens": 694,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/requests_data.ts": {
+            "lines": 63,
+            "tokens": 459,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/data.ts": {
+            "lines": 50,
+            "tokens": 380,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-in/data.ts": {
+            "lines": 52,
+            "tokens": 400,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/data.ts": {
+            "lines": 70,
+            "tokens": 562,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/validators/sellMachine.schema.ts": {
             "lines": 12,
             "tokens": 191,
@@ -1625,8 +2609,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/media.ts": {
-            "lines": 19,
-            "tokens": 170,
+            "lines": 20,
+            "tokens": 181,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1709,8 +2693,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/Button.ts": {
-            "lines": 19,
-            "tokens": 154,
+            "lines": 21,
+            "tokens": 184,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1745,8 +2729,8 @@
             "newClones": 0
           },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/types/components/AppBar.ts": {
-            "lines": 6,
-            "tokens": 56,
+            "lines": 7,
+            "tokens": 65,
             "sources": 1,
             "clones": 0,
             "duplicatedLines": 0,
@@ -1933,6 +2917,54 @@
             "duplicatedTokens": 0,
             "percentage": 0,
             "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/transporter.store.ts": {
+            "lines": 132,
+            "tokens": 1376,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 11,
+            "duplicatedTokens": 151,
+            "percentage": 8.33,
+            "percentageTokens": 10.97,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/selling.store.ts": {
+            "lines": 88,
+            "tokens": 958,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/rental.store.ts": {
+            "lines": 144,
+            "tokens": 1491,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/labour.store.ts": {
+            "lines": 57,
+            "tokens": 563,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 11,
+            "duplicatedTokens": 151,
+            "percentage": 19.3,
+            "percentageTokens": 26.82,
             "newDuplicatedLines": 0,
             "newClones": 0
           },
@@ -2128,6 +3160,18 @@
             "newDuplicatedLines": 0,
             "newClones": 0
           },
+          "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/data/transport.data.ts": {
+            "lines": 115,
+            "tokens": 952,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
           "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/constants/routes.ts": {
             "lines": 40,
             "tokens": 308,
@@ -2190,14 +3234,14 @@
           }
         },
         "total": {
-          "lines": 1026,
-          "tokens": 9723,
-          "sources": 57,
-          "clones": 0,
-          "duplicatedLines": 0,
-          "duplicatedTokens": 0,
-          "percentage": 0,
-          "percentageTokens": 0,
+          "lines": 1881,
+          "tokens": 17608,
+          "sources": 67,
+          "clones": 1,
+          "duplicatedLines": 11,
+          "duplicatedTokens": 151,
+          "percentage": 0.58,
+          "percentageTokens": 0.86,
           "newDuplicatedLines": 0,
           "newClones": 0
         }
@@ -2268,14 +3312,14 @@
       }
     },
     "total": {
-      "lines": 15311,
-      "tokens": 141621,
-      "sources": 182,
-      "clones": 9,
-      "duplicatedLines": 136,
-      "duplicatedTokens": 1402,
-      "percentage": 0.89,
-      "percentageTokens": 0.99,
+      "lines": 30446,
+      "tokens": 312726,
+      "sources": 269,
+      "clones": 38,
+      "duplicatedLines": 684,
+      "duplicatedTokens": 7359,
+      "percentage": 2.25,
+      "percentageTokens": 2.35,
       "newDuplicatedLines": 0,
       "newClones": 0
     }
@@ -2283,37 +3327,325 @@
   "duplicates": [
     {
       "format": "tsx",
-      "lines": 12,
-      "fragment": ";\r\n\r\n  return (\r\n    <View style={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Top App Bar */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('rating.title'",
+      "lines": 7,
+      "fragment": ">\r\n\r\n            <Text style={styles.bizName}>{transporter.name}</Text>\r\n            <View style={styles.ratingRow}>\r\n              <MaterialIcons name=\"star\" size={20} color=\"#eab308\" />\r\n              <Text style={styles.ratingVal}>{transporter.rating}</Text>\r\n              <",
       "tokens": 0,
       "firstFile": {
-        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/rating.tsx",
-        "start": 62,
-        "end": 73,
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/details.tsx",
+        "start": 104,
+        "end": 110,
         "startLoc": {
-          "line": 62,
-          "column": 2,
-          "position": 572
+          "line": 104,
+          "column": 5,
+          "position": 1148
         },
         "endLoc": {
-          "line": 73,
-          "column": 15,
-          "position": 722
+          "line": 110,
+          "column": 2,
+          "position": 1237
         }
       },
       "secondFile": {
-        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx",
-        "start": 37,
-        "end": 48,
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/transport/search.tsx",
+        "start": 129,
+        "end": 134,
         "startLoc": {
-          "line": 37,
+          "line": 129,
           "column": 2,
-          "position": 331
+          "position": 1213
         },
         "endLoc": {
-          "line": 48,
+          "line": 134,
+          "column": 3,
+          "position": 1300
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": ",\r\n    },\r\n    fabContainer: {\r\n        position: 'absolute',\r\n        bottom: 32,\r\n        right: 16,\r\n    },\r\n    fab: {\r\n        flexDirection: 'row',\r\n        alignItems: 'center',\r\n        gap: 8,\r\n        backgroundColor: THEME.primary,\r\n        paddingVertical: 14,\r\n        paddingHorizontal: 20,\r\n        borderRadius: 100,\r\n        elevation",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/index.tsx",
+        "start": 446,
+        "end": 461,
+        "startLoc": {
+          "line": 446,
+          "column": 10,
+          "position": 4248
+        },
+        "endLoc": {
+          "line": 461,
+          "column": 10,
+          "position": 4358
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/index.tsx",
+        "start": 392,
+        "end": 408,
+        "startLoc": {
+          "line": 392,
+          "column": 9,
+          "position": 3581
+        },
+        "endLoc": {
+          "line": 408,
+          "column": 12,
+          "position": 3693
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 10,
+      "fragment": "}\r\n        showBack\r\n        onBackPress={handleBack}\r\n      />\r\n\r\n      <View style={styles.content}>\r\n        <ProgressStep currentStep={currentStep} totalSteps={3} label={STEPS[currentStep - 1].title} />\r\n\r\n        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>\r\n          <ScrollView contentContainerStyle={styles.scrollContent",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/add-machine.tsx",
+        "start": 116,
+        "end": 125,
+        "startLoc": {
+          "line": 116,
+          "column": 19,
+          "position": 1228
+        },
+        "endLoc": {
+          "line": 125,
+          "column": 14,
+          "position": 1339
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx",
+        "start": 156,
+        "end": 165,
+        "startLoc": {
+          "line": 156,
+          "column": 15,
+          "position": 1559
+        },
+        "endLoc": {
+          "line": 165,
+          "column": 11,
+          "position": 1670
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 23,
+      "fragment": "}>Use Current Location</Text>\r\n                </TouchableOpacity>\r\n\r\n                <FormInput\r\n                  label=\"Village / Pind\"\r\n                  name=\"village\"\r\n                  placeholder=\"Village\"\r\n                  control={control}\r\n                />\r\n\r\n                <View style={styles.row}>\r\n                  <View style={{ flex: 1 }}>\r\n                    <FormInput label=\"Taluka\" name=\"taluka\" placeholder=\"Taluka\" control={control} />\r\n                  </View>\r\n                  <View style={{ width: 12 }} />\r\n                  <View style={{ flex: 1 }}>\r\n                    <FormInput label=\"District\" name=\"district\" placeholder=\"District\" control={control} />\r\n                  </View>\r\n                </View>\r\n\r\n                <RadioGroup\r\n                  label=\"Machine Condition\"\r\n                  value={watch",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/rent-out/add-machine.tsx",
+        "start": 164,
+        "end": 186,
+        "startLoc": {
+          "line": 164,
+          "column": 11,
+          "position": 1710
+        },
+        "endLoc": {
+          "line": 186,
+          "column": 6,
+          "position": 1927
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx",
+        "start": 171,
+        "end": 179,
+        "startLoc": {
+          "line": 171,
+          "column": 2,
+          "position": 1821
+        },
+        "endLoc": {
+          "line": 179,
+          "column": 2,
+          "position": 1994
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": "import { COLORS } from '@/src/constants/colors';\r\nimport { MaterialIcons } from '@expo/vector-icons';\r\nimport { useLocalSearchParams, useRouter } from 'expo-router';\r\nimport React from 'react';\r\nimport {\r\n    Image,\r\n    ScrollView,\r\n    StatusBar,\r\n    StyleSheet,\r\n    Text,\r\n    TouchableOpacity,\r\n    View\r\n} from 'react-native';\r\nimport { LABOURERS } from './data';\r\n\r\nexport default function LabourDetailsScreen",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/details.tsx",
+        "start": 1,
+        "end": 16,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 16,
+          "column": 20,
+          "position": 124
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/unlock.tsx",
+        "start": 1,
+        "end": 16,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 16,
+          "column": 19,
+          "position": 124
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 10,
+      "fragment": "return (\r\n        <View style={styles.container}>\r\n            <StatusBar barStyle=\"dark-content\" backgroundColor=\"rgba(255,255,255,0.9)\" />\r\n\r\n            {/* App Bar */}\r\n            <View style={styles.appBar}>\r\n                <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>\r\n                    <MaterialIcons name=\"arrow-back\" size={24} color=\"#0f172a\" />\r\n                </TouchableOpacity>\r\n                <Text style={styles.appBarTitle}>Labour",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/details.tsx",
+        "start": 21,
+        "end": 30,
+        "startLoc": {
+          "line": 21,
+          "column": 5,
+          "position": 199
+        },
+        "endLoc": {
+          "line": 30,
+          "column": 7,
+          "position": 330
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/unlock.tsx",
+        "start": 21,
+        "end": 30,
+        "startLoc": {
+          "line": 21,
+          "column": 5,
+          "position": 197
+        },
+        "endLoc": {
+          "line": 30,
+          "column": 8,
+          "position": 328
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": "import { COLORS } from '@/src/constants/colors';\r\nimport { MaterialIcons } from '@expo/vector-icons';\r\nimport { useLocalSearchParams, useRouter } from 'expo-router';\r\nimport React from 'react';\r\nimport {\r\n    Image,\r\n    ScrollView,\r\n    StatusBar,\r\n    StyleSheet,\r\n    Text,\r\n    TouchableOpacity,\r\n    View\r\n} from 'react-native';\r\nimport { LABOURERS } from './data';\r\n\r\nexport default function LabourContactScreen",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/contact.tsx",
+        "start": 1,
+        "end": 16,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 16,
+          "column": 20,
+          "position": 124
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/unlock.tsx",
+        "start": 1,
+        "end": 16,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 16,
+          "column": 19,
+          "position": 124
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 8,
+      "fragment": "() {\r\n    const router = useRouter();\r\n    const { id } = useLocalSearchParams();\r\n    const labour = LABOURERS.find(l => l.id === id) || LABOURERS[0];\r\n\r\n    return (\r\n        <View style={styles.container}>\r\n            <StatusBar barStyle=\"dark-content\" backgroundColor=\"rgba(255,255,255,0.95)",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/contact.tsx",
+        "start": 16,
+        "end": 23,
+        "startLoc": {
+          "line": 16,
+          "column": 20,
+          "position": 125
+        },
+        "endLoc": {
+          "line": 23,
+          "column": 23,
+          "position": 229
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/unlock.tsx",
+        "start": 16,
+        "end": 23,
+        "startLoc": {
+          "line": 16,
+          "column": 19,
+          "position": 125
+        },
+        "endLoc": {
+          "line": 23,
+          "column": 22,
+          "position": 229
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 19,
+      "fragment": "</Text>\r\n                </TouchableOpacity>\r\n            </View>\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: {\r\n        flex: 1,\r\n        backgroundColor: COLORS.background,\r\n    },\r\n    appBar: {\r\n        flexDirection: 'row',\r\n        justifyContent: 'space-between',\r\n        alignItems: 'center',\r\n        paddingHorizontal: 16,\r\n        paddingVertical: 12,\r\n        backgroundColor: 'rgba(255,255,255,0.95)'",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/contact.tsx",
+        "start": 106,
+        "end": 124,
+        "startLoc": {
+          "line": 106,
+          "column": 9,
+          "position": 1360
+        },
+        "endLoc": {
+          "line": 124,
+          "column": 25,
+          "position": 1487
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/labour/details.tsx",
+        "start": 139,
+        "end": 157,
+        "startLoc": {
+          "line": 139,
+          "column": 5,
+          "position": 1791
+        },
+        "endLoc": {
+          "line": 157,
           "column": 24,
-          "position": 481
+          "position": 1918
         }
       }
     },
@@ -2354,74 +3686,38 @@
       }
     },
     {
-      "format": "javascript",
-      "lines": 14,
-      "fragment": "={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Top App Bar */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('payment_unlock.title')}</Text>\r\n        <View style={{ width: 40 }} />\r\n      </View>\r\n\r\n      <ScrollView\r\n        contentContainerStyle={[",
-      "tokens": 0,
-      "firstFile": {
-        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx",
-        "start": 35,
-        "end": 48,
-        "startLoc": {
-          "line": 35,
-          "column": 6,
-          "position": 265
-        },
-        "endLoc": {
-          "line": 48,
-          "column": 2,
-          "position": 441
-        }
-      },
-      "secondFile": {
-        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/purchase-confirmation.tsx",
-        "start": 48,
-        "end": 61,
-        "startLoc": {
-          "line": 48,
-          "column": 6,
-          "position": 397
-        },
-        "endLoc": {
-          "line": 61,
-          "column": 9,
-          "position": 573
-        }
-      }
-    },
-    {
       "format": "tsx",
       "lines": 12,
-      "fragment": ");\r\n\r\n  return (\r\n    <View style={styles.container}>\r\n      <StatusBar style=\"dark\" />\r\n\r\n      {/* Top App Bar */}\r\n      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>\r\n        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>\r\n          <MaterialIcons name=\"arrow-back\" size={24} color={COLORS.text} />\r\n        </TouchableOpacity>\r\n        <Text style={styles.headerTitle}>{t('payment_unlock.title'",
+      "fragment": ">\r\n  </View>\r\n);\r\n\r\n// --- Styles ---\r\nconst styles = StyleSheet.create({\r\n  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal:16},\r\n  header: {\r\n    flexDirection: 'row',\r\n    alignItems: 'center',\r\n    justifyContent: 'space-between',\r\n    paddingHorizontal: 16",
       "tokens": 0,
       "firstFile": {
         "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/payment.tsx",
-        "start": 32,
-        "end": 43,
+        "start": 134,
+        "end": 145,
         "startLoc": {
-          "line": 32,
-          "column": 2,
-          "position": 248
+          "line": 134,
+          "column": 5,
+          "position": 1453
         },
         "endLoc": {
-          "line": 43,
-          "column": 23,
-          "position": 399
+          "line": 145,
+          "column": 3,
+          "position": 1546
         }
       },
       "secondFile": {
         "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/buy-machine/unlock-contact.tsx",
-        "start": 37,
-        "end": 48,
+        "start": 152,
+        "end": 163,
         "startLoc": {
-          "line": 37,
+          "line": 152,
           "column": 5,
-          "position": 330
+          "position": 1637
         },
         "endLoc": {
-          "line": 48,
-          "column": 24,
-          "position": 481
+          "line": 163,
+          "column": 2,
+          "position": 1730
         }
       }
     },
@@ -2535,6 +3831,834 @@
     },
     {
       "format": "javascript",
+      "lines": 45,
+      "fragment": "} />\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Business Details</Text>\r\n                    <LabeledInput\r\n                        label=\"Owner / Business Name\"\r\n                        placeholder=\"Enter name\"\r\n                        value={formData.name}\r\n                        onChangeText={(text) => setFormData({ ...formData, name: text })}\r\n                        icon=\"person\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Base Location (Village/City)\"\r\n                        placeholder=\"e.g. Rampur, Pune\"\r\n                        value={formData.location}\r\n                        onChangeText={(text) => setFormData({ ...formData, location: text })}\r\n                        icon=\"location-on\"\r\n                    />\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Service Coverage</Text>\r\n                    <LabeledInput\r\n                        label=\"Operating Radius (km)\"\r\n                        placeholder=\"e.g. 50\"\r\n                        value={formData.radius}\r\n                        onChangeText={(text) => setFormData({ ...formData, radius: text })}\r\n                        icon=\"explore\"\r\n                        keyboardType=\"numeric\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Experience\"\r\n                        placeholder=\"e.g. 8 years\"\r\n                        value={formData.experience}\r\n                        onChangeText={(text) => setFormData({ ...formData, experience: text })}\r\n                        icon=\"workspace-premium\"\r\n                    />\r\n                </View>\r\n\r\n                <View style={{ height: 100 }} />\r\n            </ScrollView>\r\n\r\n            <View style={styles.footer}>\r\n                <Button label=\"Save Changes\" onPress={handleUpdate",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx",
+        "start": 66,
+        "end": 110,
+        "startLoc": {
+          "line": 66,
+          "column": 2,
+          "position": 640
+        },
+        "endLoc": {
+          "line": 110,
+          "column": 13,
+          "position": 1021
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx",
+        "start": 69,
+        "end": 113,
+        "startLoc": {
+          "line": 69,
+          "column": 9,
+          "position": 739
+        },
+        "endLoc": {
+          "line": 113,
+          "column": 13,
+          "position": 1144
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 21,
+      "fragment": "\"\r\n                        placeholder=\"e.g. 50\"\r\n                        value={formData.radius}\r\n                        onChangeText={(text) => setFormData({ ...formData, radius: text })}\r\n                        icon=\"explore\"\r\n                        keyboardType=\"numeric\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Experience\"\r\n                        placeholder=\"e.g. 8 years\"\r\n                        value={formData.experience}\r\n                        onChangeText={(text) => setFormData({ ...formData, experience: text })}\r\n                        icon=\"workspace-premium\"\r\n                    />\r\n                </View>\r\n\r\n                <View style={{ height: 100 }} />\r\n            </ScrollView>\r\n\r\n            <View style={styles.footer}>\r\n                <Button label=\"Save Changes",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx",
+        "start": 90,
+        "end": 110,
+        "startLoc": {
+          "line": 90,
+          "column": 22,
+          "position": 849
+        },
+        "endLoc": {
+          "line": 110,
+          "column": 13,
+          "position": 1015
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx",
+        "start": 93,
+        "end": 113,
+        "startLoc": {
+          "line": 93,
+          "column": 24,
+          "position": 972
+        },
+        "endLoc": {
+          "line": 113,
+          "column": 20,
+          "position": 1138
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": "\" />\r\n            </View>\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: { flex: 1, backgroundColor: COLORS.background },\r\n    scroll: { paddingBottom: 20 },\r\n    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, paddingTop: 20 },\r\n    headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },\r\n    section",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx",
+        "start": 110,
+        "end": 121,
+        "startLoc": {
+          "line": 110,
+          "column": 6,
+          "position": 1028
+        },
+        "endLoc": {
+          "line": 121,
+          "column": 8,
+          "position": 1175
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx",
+        "start": 113,
+        "end": 124,
+        "startLoc": {
+          "line": 113,
+          "column": 14,
+          "position": 1151
+        },
+        "endLoc": {
+          "line": 124,
+          "column": 12,
+          "position": 1298
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": "\" />\r\n            </View>\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: { flex: 1, backgroundColor: COLORS.background },\r\n    scroll: { paddingBottom: 20 },\r\n    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, paddingTop: 20 },\r\n    headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },\r\n    section: { paddingHorizontal: 16, marginBottom: 32",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-vehicle.tsx",
+        "start": 167,
+        "end": 178,
+        "startLoc": {
+          "line": 167,
+          "column": 5,
+          "position": 1589
+        },
+        "endLoc": {
+          "line": 178,
+          "column": 3,
+          "position": 1750
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx",
+        "start": 113,
+        "end": 121,
+        "startLoc": {
+          "line": 113,
+          "column": 14,
+          "position": 1151
+        },
+        "endLoc": {
+          "line": 121,
+          "column": 3,
+          "position": 1189
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 28,
+      "fragment": "}>\r\n                    <LabeledInput\r\n                        label=\"Driver Name *\"\r\n                        placeholder=\"Enter full name\"\r\n                        value={driverData.name}\r\n                        onChangeText={(text) => setDriverData({ ...driverData, name: text })}\r\n                        icon=\"person\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Driver Phone *\"\r\n                        placeholder=\"10-digit number\"\r\n                        value={driverData.phone}\r\n                        onChangeText={(text) => setDriverData({ ...driverData, phone: text })}\r\n                        icon=\"call\"\r\n                        keyboardType=\"phone-pad\"\r\n                        maxLength={10}\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"License Number\"\r\n                        placeholder=\"e.g. MH1220120001234\"\r\n                        value={driverData.licenseNo}\r\n                        onChangeText={(text) => setDriverData({ ...driverData, licenseNo: text })}\r\n                        icon=\"badge\"\r\n                    />\r\n                </View>\r\n            </ScrollView>\r\n\r\n            <View style={styles",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-driver.tsx",
+        "start": 53,
+        "end": 80,
+        "startLoc": {
+          "line": 53,
+          "column": 8,
+          "position": 550
+        },
+        "endLoc": {
+          "line": 80,
+          "column": 7,
+          "position": 755
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-vehicle.tsx",
+        "start": 137,
+        "end": 163,
+        "startLoc": {
+          "line": 137,
+          "column": 13,
+          "position": 1330
+        },
+        "endLoc": {
+          "line": 163,
+          "column": 2,
+          "position": 1535
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 10,
+      "fragment": ");\r\n\r\n    const [driverData, setDriverData] = useState<VehicleDriver>({\r\n        name: '',\r\n        phone: '',\r\n        licenseNo: '',\r\n    });\r\n\r\n    useEffect(() => {\r\n        const vehicle = profile?.vehicles.find(v => v.id === vehicleId",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-driver.tsx",
+        "start": 18,
+        "end": 27,
+        "startLoc": {
+          "line": 18,
+          "column": 2,
+          "position": 192
+        },
+        "endLoc": {
+          "line": 27,
+          "column": 10,
+          "position": 285
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-vehicle.tsx",
+        "start": 30,
+        "end": 39,
+        "startLoc": {
+          "line": 30,
+          "column": 2,
+          "position": 302
+        },
+        "endLoc": {
+          "line": 39,
+          "column": 3,
+          "position": 395
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 26,
+      "fragment": ">\r\n                    <LabeledInput\r\n                        label=\"Driver Name *\"\r\n                        placeholder=\"Enter full name\"\r\n                        value={driverData.name}\r\n                        onChangeText={(text) => setDriverData({ ...driverData, name: text })}\r\n                        icon=\"person\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Driver Phone *\"\r\n                        placeholder=\"10-digit number\"\r\n                        value={driverData.phone}\r\n                        onChangeText={(text) => setDriverData({ ...driverData, phone: text })}\r\n                        icon=\"call\"\r\n                        keyboardType=\"phone-pad\"\r\n                        maxLength={10}\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"License Number\"\r\n                        placeholder=\"e.g. MH1220120001234\"\r\n                        value={driverData.licenseNo}\r\n                        onChangeText={(text) => setDriverData({ ...driverData, licenseNo: text })}\r\n                        icon=\"badge\"\r\n                    />\r\n                </View>\r\n            </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-driver.tsx",
+        "start": 53,
+        "end": 78,
+        "startLoc": {
+          "line": 53,
+          "column": 2,
+          "position": 551
+        },
+        "endLoc": {
+          "line": 78,
+          "column": 3,
+          "position": 741
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit-vehicle.tsx",
+        "start": 137,
+        "end": 163,
+        "startLoc": {
+          "line": 137,
+          "column": 5,
+          "position": 1337
+        },
+        "endLoc": {
+          "line": 163,
+          "column": 2,
+          "position": 1529
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 16,
+      "fragment": "}>\r\n            <AppBar\r\n                title=\"Add New Vehicle\"\r\n                onBackPress={handleBack}\r\n            />\r\n\r\n            <View style={styles.content}>\r\n                <ProgressStep currentStep={currentStep} totalSteps={3} label={STEPS[currentStep - 1].title} />\r\n\r\n                <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>\r\n                    <ScrollView contentContainerStyle={styles.scrollForm} showsVerticalScrollIndicator={false}>\r\n\r\n                        {/* STEP 1: VEHICLE SPECS */}\r\n                        {currentStep === 1 && (\r\n                            <View style={styles.stepContainer}>\r\n                                <Text style={styles.label",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/add-vehicle.tsx",
+        "start": 128,
+        "end": 143,
+        "startLoc": {
+          "line": 128,
+          "column": 10,
+          "position": 1354
+        },
+        "endLoc": {
+          "line": 143,
+          "column": 6,
+          "position": 1530
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx",
+        "start": 156,
+        "end": 169,
+        "startLoc": {
+          "line": 156,
+          "column": 15,
+          "position": 1559
+        },
+        "endLoc": {
+          "line": 169,
+          "column": 10,
+          "position": 1719
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "/>\r\n                </View>\r\n            </View>\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: { flex: 1, backgroundColor: COLORS.background },\r\n    content: { flex: 1, paddingHorizontal: 16 },\r\n    scrollForm: { paddingBottom: 100, paddingTop: 16 },\r\n    stepContainer: { gap: 16 },\r\n\r\n    label",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/add-vehicle.tsx",
+        "start": 280,
+        "end": 293,
+        "startLoc": {
+          "line": 280,
+          "column": 21,
+          "position": 3021
+        },
+        "endLoc": {
+          "line": 293,
+          "column": 6,
+          "position": 3148
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(farmer)/sell-machine/add-details.tsx",
+        "start": 269,
+        "end": 281,
+        "startLoc": {
+          "line": 269,
+          "column": 11,
+          "position": 2932
+        },
+        "endLoc": {
+          "line": 281,
+          "column": 10,
+          "position": 3057
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 29,
+      "fragment": "={styles.container}>\r\n            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>\r\n                <View style={styles.header}>\r\n                    <BackButton />\r\n                    <Text style={styles.headerTitle}>Labour Profile Setup</Text>\r\n                    <View style={{ width: 40 }} />\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Basic Details</Text>\r\n                    <LabeledInput\r\n                        label=\"Full Name *\"\r\n                        placeholder=\"Enter your name\"\r\n                        value={formData.name}\r\n                        onChangeText={(text) => setFormData({ ...formData, name: text })}\r\n                        icon=\"person\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Village / Taluka / District *\"\r\n                        placeholder=\"e.g. Rampur, Haveli, Pune\"\r\n                        value={formData.location}\r\n                        onChangeText={(text) => setFormData({ ...formData, location: text })}\r\n                        icon=\"location-on\"\r\n                    />\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Labour Type *</Text>\r\n                    <View style={styles",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx",
+        "start": 75,
+        "end": 103,
+        "startLoc": {
+          "line": 75,
+          "column": 6,
+          "position": 709
+        },
+        "endLoc": {
+          "line": 103,
+          "column": 7,
+          "position": 1005
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx",
+        "start": 61,
+        "end": 95,
+        "startLoc": {
+          "line": 61,
+          "column": 6,
+          "position": 554
+        },
+        "endLoc": {
+          "line": 95,
+          "column": 9,
+          "position": 983
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "\" onPress={handleSubmit} icon=\"arrow-forward\" />\r\n            </View>\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: { flex: 1, backgroundColor: COLORS.background },\r\n    scroll: { paddingBottom: 20 },\r\n    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, paddingTop: 20 },\r\n    headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },\r\n    section: { paddingHorizontal: 16, marginBottom: 24 },\r\n    sectionTitle: { fontSize: 16, fontWeight: '700', marginBottom: 12, color: COLORS.textSecondary },\r\n    grid",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx",
+        "start": 164,
+        "end": 177,
+        "startLoc": {
+          "line": 164,
+          "column": 15,
+          "position": 1611
+        },
+        "endLoc": {
+          "line": 177,
+          "column": 5,
+          "position": 1826
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx",
+        "start": 113,
+        "end": 123,
+        "startLoc": {
+          "line": 113,
+          "column": 20,
+          "position": 1139
+        },
+        "endLoc": {
+          "line": 123,
+          "column": 7,
+          "position": 1231
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": ",\r\n            action: () => {\r\n                Alert.alert('Logout', 'Are you sure?', [\r\n                    { text: 'Cancel', style: 'cancel' },\r\n                    { text: 'Logout', style: 'destructive', onPress: () => router.replace('/') },\r\n                ]);\r\n            },\r\n            destructive: true,\r\n        },\r\n    ];\r\n\r\n    return (\r\n        <View style={styles.container}>\r\n            <ScrollView showsVerticalScrollIndicator={false}>\r\n                <View style={styles.header}>\r\n                    <BackButton />\r\n                    <Text style={styles.headerTitle}>My",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/profile.tsx",
+        "start": 57,
+        "end": 73,
+        "startLoc": {
+          "line": 57,
+          "column": 27,
+          "position": 483
+        },
+        "endLoc": {
+          "line": 73,
+          "column": 3,
+          "position": 660
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/profile.tsx",
+        "start": 60,
+        "end": 76,
+        "startLoc": {
+          "line": 60,
+          "column": 9,
+          "position": 507
+        },
+        "endLoc": {
+          "line": 76,
+          "column": 9,
+          "position": 684
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 10,
+      "fragment": "}\r\n                <View style={styles.menuSection}>\r\n                    {menuItems.map((item, i) => (\r\n                        <TouchableOpacity key={i} style={styles.menuItem} onPress={item.action}>\r\n                            <View style={[styles.menuIcon, item.destructive && { backgroundColor: '#fee2e2' }]}>\r\n                                <MaterialIcons name={item.icon as any} size={22} color={item.destructive ? '#dc2626' : COLORS.brand.primary} />\r\n                            </View>\r\n                            <View style={styles.menuContent}>\r\n                                <Text style={[styles.menuTitle, item.destructive && { color: '#dc2626' }]}>{item.title}</Text>\r\n                                <",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/profile.tsx",
+        "start": 135,
+        "end": 144,
+        "startLoc": {
+          "line": 135,
+          "column": 20,
+          "position": 1456
+        },
+        "endLoc": {
+          "line": 144,
+          "column": 2,
+          "position": 1649
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/profile.tsx",
+        "start": 153,
+        "end": 162,
+        "startLoc": {
+          "line": 153,
+          "column": 11,
+          "position": 1693
+        },
+        "endLoc": {
+          "line": 162,
+          "column": 2,
+          "position": 1886
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": "</View>\r\n                            <MaterialIcons name=\"chevron-right\" size={24} color=\"#d1d5db\" />\r\n                        </TouchableOpacity>\r\n                    ))}\r\n                </View>\r\n\r\n                <View style={{ height: 40 }} />\r\n            </ScrollView>\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: { flex: 1, backgroundColor: COLORS.background },\r\n    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, paddingTop: 20 },\r\n    headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },\r\n    profileCard",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/profile.tsx",
+        "start": 145,
+        "end": 161,
+        "startLoc": {
+          "line": 145,
+          "column": 29,
+          "position": 1671
+        },
+        "endLoc": {
+          "line": 161,
+          "column": 12,
+          "position": 1867
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/profile.tsx",
+        "start": 163,
+        "end": 179,
+        "startLoc": {
+          "line": 163,
+          "column": 29,
+          "position": 1916
+        },
+        "endLoc": {
+          "line": 179,
+          "column": 5,
+          "position": 2112
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 9,
+      "fragment": ">\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: { flex: 1, backgroundColor: COLORS.background },\r\n    scroll: { paddingBottom: 20 },\r\n    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/index.tsx",
+        "start": 106,
+        "end": 114,
+        "startLoc": {
+          "line": 106,
+          "column": 11,
+          "position": 1338
+        },
+        "endLoc": {
+          "line": 114,
+          "column": 3,
+          "position": 1435
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/register.tsx",
+        "start": 114,
+        "end": 122,
+        "startLoc": {
+          "line": 114,
+          "column": 5,
+          "position": 1159
+        },
+        "endLoc": {
+          "line": 122,
+          "column": 3,
+          "position": 1256
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 90,
+      "fragment": "={styles.container}>\r\n            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>\r\n                <View style={styles.header}>\r\n                    <BackButton />\r\n                    <Text style={styles.headerTitle}>Edit Labour Profile</Text>\r\n                    <View style={{ width: 40 }} />\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Basic Details</Text>\r\n                    <LabeledInput\r\n                        label=\"Full Name\"\r\n                        placeholder=\"Enter your name\"\r\n                        value={formData.name}\r\n                        onChangeText={(text) => setFormData({ ...formData, name: text })}\r\n                        icon=\"person\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Village / Taluka / District\"\r\n                        placeholder=\"e.g. Rampur, Haveli, Pune\"\r\n                        value={formData.location}\r\n                        onChangeText={(text) => setFormData({ ...formData, location: text })}\r\n                        icon=\"location-on\"\r\n                    />\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Labour Type</Text>\r\n                    <View style={styles.grid}>\r\n                        {LABOUR_TYPES.map((type) => (\r\n                            <TouchableOpacity\r\n                                key={type}\r\n                                style={[styles.chip, selectedTypes.includes(type) && styles.chipSelected]}\r\n                                onPress={() => toggleType(type)}\r\n                            >\r\n                                <MaterialIcons\r\n                                    name={selectedTypes.includes(type) ? \"check-box\" : \"check-box-outline-blank\"}\r\n                                    size={20}\r\n                                    color={selectedTypes.includes(type) ? COLORS.brand.primary : \"#9ca3af\"}\r\n                                />\r\n                                <Text style={[styles.chipText, selectedTypes.includes(type) && styles.chipTextSelected]}>{type}</Text>\r\n                            </TouchableOpacity>\r\n                        ))}\r\n                    </View>\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Work Preference</Text>\r\n                    <View style={styles.prefRow}>\r\n                        {WORK_PREFERENCES.map((pref) => (\r\n                            <TouchableOpacity\r\n                                key={pref}\r\n                                style={[styles.prefCard, selectedPreference === pref && styles.prefCardSelected]}\r\n                                onPress={() => setSelectedPreference(pref)}\r\n                            >\r\n                                <MaterialIcons\r\n                                    name={selectedPreference === pref ? \"radio-button-checked\" : \"radio-button-unchecked\"}\r\n                                    size={24}\r\n                                    color={selectedPreference === pref ? COLORS.brand.primary : \"#9ca3af\"}\r\n                                />\r\n                                <Text style={[styles.prefText, selectedPreference === pref && styles.prefTextSelected]}>{pref}</Text>\r\n                            </TouchableOpacity>\r\n                        ))}\r\n                    </View>\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Additional Information</Text>\r\n                    <LabeledInput\r\n                        label=\"Experience\"\r\n                        placeholder=\"e.g. 5 years\"\r\n                        value={formData.experience}\r\n                        onChangeText={(text) => setFormData({ ...formData, experience: text })}\r\n                        icon=\"workspace-premium\"\r\n                    />\r\n                    <LabeledInput\r\n                        label=\"Expected Daily Rate (₹)\"\r\n                        placeholder=\"e.g. 500\"\r\n                        value={formData.pricePerDay}\r\n                        onChangeText={(text) => setFormData({ ...formData, pricePerDay: text })}\r\n                        icon=\"payments\"\r\n                        keyboardType=\"numeric\"\r\n                    />\r\n                </View>\r\n\r\n                <View style={{ height: 100 }} />\r\n            </ScrollView>\r\n\r\n            <View style={styles.footer}>\r\n                <Button label=\"Save Changes\" onPress={handleUpdate",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx",
+        "start": 87,
+        "end": 176,
+        "startLoc": {
+          "line": 87,
+          "column": 6,
+          "position": 826
+        },
+        "endLoc": {
+          "line": 176,
+          "column": 13,
+          "position": 1729
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx",
+        "start": 61,
+        "end": 164,
+        "startLoc": {
+          "line": 61,
+          "column": 6,
+          "position": 554
+        },
+        "endLoc": {
+          "line": 164,
+          "column": 13,
+          "position": 1616
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 20,
+      "fragment": "useState } from 'react';\r\nimport {\r\n    Alert,\r\n    ScrollView,\r\n    StyleSheet,\r\n    Text,\r\n    TouchableOpacity,\r\n    View,\r\n} from 'react-native';\r\n\r\nconst LABOUR_TYPES = [\r\n    'Ploughing',\r\n    'Harvesting',\r\n    'Spraying',\r\n    'General Labour',\r\n];\r\n\r\nconst WORK_PREFERENCES = ['Daily Basis', 'Seasonal'] as const;\r\n\r\nexport default function LabourEdit",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx",
+        "start": 8,
+        "end": 27,
+        "startLoc": {
+          "line": 8,
+          "column": 2,
+          "position": 96
+        },
+        "endLoc": {
+          "line": 27,
+          "column": 11,
+          "position": 213
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx",
+        "start": 8,
+        "end": 27,
+        "startLoc": {
+          "line": 8,
+          "column": 2,
+          "position": 90
+        },
+        "endLoc": {
+          "line": 27,
+          "column": 19,
+          "position": 207
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 11,
+      "fragment": ";\r\n\r\n    const toggleType = (type: string) => {\r\n        if (selectedTypes.includes(type)) {\r\n            setSelectedTypes(selectedTypes.filter((t) => t !== type));\r\n        } else {\r\n            setSelectedTypes([...selectedTypes, type]);\r\n        }\r\n    };\r\n\r\n    const handleUpdate",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx",
+        "start": 56,
+        "end": 66,
+        "startLoc": {
+          "line": 56,
+          "column": 5,
+          "position": 509
+        },
+        "endLoc": {
+          "line": 66,
+          "column": 13,
+          "position": 607
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx",
+        "start": 39,
+        "end": 49,
+        "startLoc": {
+          "line": 39,
+          "column": 2,
+          "position": 354
+        },
+        "endLoc": {
+          "line": 49,
+          "column": 13,
+          "position": 452
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 11,
+      "fragment": ", [\r\n            { text: 'OK', onPress: () => router.back() },\r\n        ]);\r\n    };\r\n\r\n    return (\r\n        <View style={styles.container}>\r\n            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>\r\n                <View style={styles.header}>\r\n                    <BackButton />\r\n                    <Text style={styles.headerTitle}>Edit Labour",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx",
+        "start": 81,
+        "end": 91,
+        "startLoc": {
+          "line": 81,
+          "column": 32,
+          "position": 770
+        },
+        "endLoc": {
+          "line": 91,
+          "column": 7,
+          "position": 890
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx",
+        "start": 55,
+        "end": 65,
+        "startLoc": {
+          "line": 55,
+          "column": 38,
+          "position": 498
+        },
+        "endLoc": {
+          "line": 65,
+          "column": 9,
+          "position": 618
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 21,
+      "fragment": "</Text>\r\n                    <View style={styles.grid}>\r\n                        {LABOUR_TYPES.map((type) => (\r\n                            <TouchableOpacity\r\n                                key={type}\r\n                                style={[styles.chip, selectedTypes.includes(type) && styles.chipSelected]}\r\n                                onPress={() => toggleType(type)}\r\n                            >\r\n                                <MaterialIcons\r\n                                    name={selectedTypes.includes(type) ? \"check-box\" : \"check-box-outline-blank\"}\r\n                                    size={20}\r\n                                    color={selectedTypes.includes(type) ? COLORS.brand.primary : \"#9ca3af\"}\r\n                                />\r\n                                <Text style={[styles.chipText, selectedTypes.includes(type) && styles.chipTextSelected]}>{type}</Text>\r\n                            </TouchableOpacity>\r\n                        ))}\r\n                    </View>\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Work Preference</",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx",
+        "start": 114,
+        "end": 134,
+        "startLoc": {
+          "line": 114,
+          "column": 5,
+          "position": 1108
+        },
+        "endLoc": {
+          "line": 134,
+          "column": 3,
+          "position": 1334
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx",
+        "start": 102,
+        "end": 122,
+        "startLoc": {
+          "line": 102,
+          "column": 2,
+          "position": 993
+        },
+        "endLoc": {
+          "line": 122,
+          "column": 2,
+          "position": 1220
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 23,
+      "fragment": "</Text>\r\n                    <View style={styles.prefRow}>\r\n                        {WORK_PREFERENCES.map((pref) => (\r\n                            <TouchableOpacity\r\n                                key={pref}\r\n                                style={[styles.prefCard, selectedPreference === pref && styles.prefCardSelected]}\r\n                                onPress={() => setSelectedPreference(pref)}\r\n                            >\r\n                                <MaterialIcons\r\n                                    name={selectedPreference === pref ? \"radio-button-checked\" : \"radio-button-unchecked\"}\r\n                                    size={24}\r\n                                    color={selectedPreference === pref ? COLORS.brand.primary : \"#9ca3af\"}\r\n                                />\r\n                                <Text style={[styles.prefText, selectedPreference === pref && styles.prefTextSelected]}>{pref}</Text>\r\n                            </TouchableOpacity>\r\n                        ))}\r\n                    </View>\r\n                </View>\r\n\r\n                <View style={styles.section}>\r\n                    <Text style={styles.sectionTitle}>Additional Information</Text>\r\n                    <LabeledInput\r\n                        label=\"Experience",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx",
+        "start": 134,
+        "end": 156,
+        "startLoc": {
+          "line": 134,
+          "column": 11,
+          "position": 1334
+        },
+        "endLoc": {
+          "line": 156,
+          "column": 11,
+          "position": 1556
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/register.tsx",
+        "start": 122,
+        "end": 144,
+        "startLoc": {
+          "line": 122,
+          "column": 2,
+          "position": 1221
+        },
+        "endLoc": {
+          "line": 144,
+          "column": 22,
+          "position": 1443
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 32,
+      "fragment": "\"\r\n                    />\r\n                </View>\r\n\r\n                <View style={{ height: 100 }} />\r\n            </ScrollView>\r\n\r\n            <View style={styles.footer}>\r\n                <Button label=\"Save Changes\" onPress={handleUpdate} icon=\"check\" />\r\n            </View>\r\n        </View>\r\n    );\r\n}\r\n\r\nconst styles = StyleSheet.create({\r\n    container: { flex: 1, backgroundColor: COLORS.background },\r\n    scroll: { paddingBottom: 20 },\r\n    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, paddingTop: 20 },\r\n    headerTitle: { fontSize: 18, fontWeight: '700', color: COLORS.text },\r\n    section: { paddingHorizontal: 16, marginBottom: 24 },\r\n    sectionTitle: { fontSize: 16, fontWeight: '700', marginBottom: 12, color: COLORS.textSecondary },\r\n    grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },\r\n    chip: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 14, paddingVertical: 10, borderRadius: 10, borderWidth: 1, borderColor: '#e5e7eb', backgroundColor: '#fff' },\r\n    chipSelected: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.brand.muted },\r\n    chipText: { fontSize: 14, color: '#6b7280', fontWeight: '500' },\r\n    chipTextSelected: { color: COLORS.brand.primary, fontWeight: '700' },\r\n    prefRow: { flexDirection: 'row', gap: 12 },\r\n    prefCard: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, padding: 16, borderRadius: 12, borderWidth: 1, borderColor: '#e5e7eb', backgroundColor: '#fff' },\r\n    prefCardSelected: { borderColor: COLORS.brand.primary, backgroundColor: COLORS.brand.muted },\r\n    prefText: { fontSize: 15, fontWeight: '500', color: '#6b7280' },\r\n    prefTextSelected: { color: COLORS.text, fontWeight: '700' },\r\n    footer: { position: 'absolute', bottom: 0, left: 0, right: 0, padding: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#f3f4f6' }",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(labour)/edit.tsx",
+        "start": 168,
+        "end": 199,
+        "startLoc": {
+          "line": 168,
+          "column": 8,
+          "position": 1662
+        },
+        "endLoc": {
+          "line": 199,
+          "column": 2,
+          "position": 2325
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/app/(transporter)/edit.tsx",
+        "start": 102,
+        "end": 187,
+        "startLoc": {
+          "line": 102,
+          "column": 18,
+          "position": 954
+        },
+        "endLoc": {
+          "line": 187,
+          "column": 2,
+          "position": 2211
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": ",\r\n        }\r\n    ],\r\n    setProfile: (profile) => set({ profile }),\r\n    updateProfile: (updates) =>\r\n        set((state) => ({\r\n            profile: state.profile ? { ...state.profile, ...updates } : null,\r\n        })),\r\n    addLead: (lead) =>\r\n        set((state) => ({\r\n            leads: [lead, ...state.leads],\r\n            profile: state.profile ? { ...state.profile, callsReceived",
+      "tokens": 0,
+      "firstFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/labour.store.ts",
+        "start": 45,
+        "end": 56,
+        "startLoc": {
+          "line": 45,
+          "column": 13,
+          "position": 382
+        },
+        "endLoc": {
+          "line": 56,
+          "column": 14,
+          "position": 533
+        }
+      },
+      "secondFile": {
+        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/store/transporter.store.ts",
+        "start": 85,
+        "end": 96,
+        "startLoc": {
+          "line": 85,
+          "column": 10,
+          "position": 752
+        },
+        "endLoc": {
+          "line": 96,
+          "column": 14,
+          "position": 903
+        }
+      }
+    },
+    {
+      "format": "javascript",
       "lines": 18,
       "fragment": "={styles.section}>\r\n      {/* Header */}\r\n      <View style={styles.rowBetween}>\r\n        <Text style={styles.heading}>{title}</Text>\r\n        <Text style={[styles.subText, isInvalid && styles.errorText]}>\r\n          {media.length}/{max} {min > 0 && `(Min ${min})`}\r\n        </Text>\r\n      </View>\r\n\r\n      {/* Media List */}\r\n      <ScrollView\r\n        horizontal\r\n        showsHorizontalScrollIndicator={false}\r\n        style={styles.scroll}\r\n      >\r\n        {/* Add Button */}\r\n        {media.length < max && (\r\n          <TouchableOpacity style={styles.addBox} onPress={onAdd",
       "tokens": 0,
@@ -2555,53 +4679,17 @@
       },
       "secondFile": {
         "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/MediaUploader.tsx",
-        "start": 134,
-        "end": 150,
+        "start": 141,
+        "end": 157,
         "startLoc": {
-          "line": 134,
+          "line": 141,
           "column": 6,
-          "position": 1196
+          "position": 1269
         },
         "endLoc": {
-          "line": 150,
+          "line": 157,
           "column": 10,
-          "position": 1346
-        }
-      }
-    },
-    {
-      "format": "tsx",
-      "lines": 22,
-      "fragment": ";\r\n\r\n/* =======================\r\n   Styles\r\n   ======================= */\r\nconst styles = StyleSheet.create({\r\n  field: {\r\n    marginBottom: 12,\r\n  },\r\n\r\n  label: {\r\n    fontSize: 16,\r\n    marginBottom: 8,\r\n    color: COLORS.text,\r\n    fontWeight: '500',\r\n  },\r\n\r\n  required: {\r\n    color: COLORS.danger,\r\n  },\r\n\r\n  input",
-      "tokens": 0,
-      "firstFile": {
-        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormDropdown.tsx",
-        "start": 131,
-        "end": 152,
-        "startLoc": {
-          "line": 131,
-          "column": 13,
-          "position": 919
-        },
-        "endLoc": {
-          "line": 152,
-          "column": 6,
-          "position": 1035
-        }
-      },
-      "secondFile": {
-        "name": "E:/KRUSHIMITRA/KRUSHIMITRA-REACT-NATIVE-EXPO-/src/components/FormInput.tsx",
-        "start": 111,
-        "end": 132,
-        "startLoc": {
-          "line": 111,
-          "column": 10,
-          "position": 809
-        },
-        "endLoc": {
-          "line": 132,
-          "column": 13,
-          "position": 925
+          "position": 1419
         }
       }
     }

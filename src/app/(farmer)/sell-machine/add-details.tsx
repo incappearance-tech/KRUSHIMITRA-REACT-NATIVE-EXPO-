@@ -264,8 +264,7 @@ export default function SellMachineWizard() {
           <Button
             label={currentStep === 3 ? "Publish Listing" : "Next Step"}
             onPress={handleNext}
-            backgroundColor={COLORS.brand.primary}
-            textColor="#000"
+            
           />
         </View>
       </View>
@@ -274,8 +273,8 @@ export default function SellMachineWizard() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
-  content: { flex: 1, paddingHorizontal: 16 },
+  container: { flex: 1, backgroundColor: COLORS.background ,paddingHorizontal: 16},
+  content: { flex: 1,  },
   scrollForm: { paddingBottom: 100, paddingTop: 16 },
   stepContainer: { gap: 16 },
   stepTitle: { fontSize: 20, fontWeight: '800', color: COLORS.text, marginBottom: 8 },
