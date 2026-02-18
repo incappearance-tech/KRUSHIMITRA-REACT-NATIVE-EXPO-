@@ -244,18 +244,24 @@ export default function LabourBrowsingScreen() {
                       params: { id: labour.id },
                     })
                   }
-                  variant="secondary"
-                  style={{ flex: 1, height: 44 }}
+                  backgroundColor={COLORS.white}
+                  textColor={COLORS.text}
+                  style={styles.browseButtonStyle}
+                  labelStyle={{ fontSize: 12 }}
+                  iconSize={16}
                   icon="visibility"
                 />
 
                 {isBusy ? (
                   <Button
                     label={t('find_labour.busy')}
-                    onPress={() => {}}
+                    onPress={() => { }}
                     disabled
-                    variant="secondary"
-                    style={{ flex: 1, height: 44, opacity: 0.6 }}
+                    backgroundColor={COLORS.gray[100]}
+                    textColor={COLORS.textSecondary}
+                    style={styles.browseButtonStyle}
+                    labelStyle={{ fontSize: 12 }}
+                    iconSize={16}
                     icon="call-end"
                   />
                 ) : (
@@ -267,7 +273,11 @@ export default function LabourBrowsingScreen() {
                         params: { id: labour.id },
                       })
                     }
-                    style={{ flex: 1, height: 44 }}
+                    backgroundColor={COLORS.white}
+                    textColor={COLORS.text}
+                    style={styles.browseButtonStyle}
+                    labelStyle={{ fontSize: 12 }}
+                    iconSize={16}
                     icon="call"
                   />
                 )}
@@ -452,5 +462,19 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     borderTopWidth: 1,
     borderTopColor: COLORS.gray[100],
+  },
+  browseButtonStyle: {
+    flex: 1,
+    height: 40, // Slightly more compact
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+    paddingHorizontal: 8, // Tighter padding
+    gap: 6, // Centered spacing between icon and text
   },
 });

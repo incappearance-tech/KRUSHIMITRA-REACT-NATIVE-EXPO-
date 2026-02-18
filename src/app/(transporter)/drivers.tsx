@@ -14,6 +14,7 @@ import { useRouter } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import AppBar from '@/src/components/AppBar';
+import Button from '@/src/components/Button';
 import EmptyState from '@/src/components/EmptyState';
 import { COLORS } from '@/src/constants/colors';
 import { useTransporterStore } from '@/src/store/transporter.store';
@@ -63,7 +64,7 @@ export default function MyDriversScreen() {
                     </Text>
                   </View>
                 </View>
-                <TouchableOpacity style={styles.callBtn} onPress={() => {}}>
+                <TouchableOpacity style={styles.callBtn} onPress={() => { }}>
                   <MaterialIcons
                     name="call"
                     size={20}
@@ -114,11 +115,20 @@ export default function MyDriversScreen() {
             icon="people-outline"
             title="No Drivers Added"
             description="Add a vehicle to assign and manage your drivers here."
-            actionLabel="Add New Vehicle"
-            onActionPress={() => router.push('/(transporter)/add-vehicle')}
           />
         )}
       </ScrollView>
+
+      <Button
+        label="Add New Vehicle"
+        onPress={() => router.push('/(transporter)/add-vehicle')}
+        sticky
+        backgroundColor={COLORS.white}
+        textColor={COLORS.text}
+        icon="add-circle-outline"
+        style={styles.addNewButtonStyle}
+        labelStyle={{ fontSize: 16 }}
+      />
     </View>
   );
 }
@@ -236,5 +246,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
     color: COLORS.brand.primary,
+  },
+  addNewButtonStyle: {
+    margin: 20,
+    marginBottom: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });

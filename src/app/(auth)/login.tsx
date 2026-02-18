@@ -4,6 +4,9 @@ import {
   Dimensions,
   ImageBackground,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -31,7 +34,16 @@ export default function LoginScreen() {
 
   useEffect(() => {
     const t = setTimeout(() => inputRef.current?.focus(), 500);
-    return () => clearTimeout(t);
+
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setFocused(false);
+      inputRef.current?.blur();
+    });
+
+    return () => {
+      clearTimeout(t);
+      hideSubscription.remove();
+    };
   }, []);
 
   const onChange = (value: string) => {
@@ -45,111 +57,120 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      {/* HERO */}
-      <View style={styles.heroWrap}>
-        <ImageBackground
-          source={{
-            uri: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000',
-          }}
-          style={styles.hero}
-          imageStyle={styles.heroImage}
-        >
-          <View style={styles.heroOverlay} />
-          <View style={styles.badge}>
-            <View style={styles.badgeIcon}>
-              <MaterialIcons
-                name="agriculture"
-                size={18}
-                color={COLORS.brand.primary}
-              />
-            </View>
-            <Text style={styles.badgeText}>KrushiMitra</Text>
-          </View>
-        </ImageBackground>
-      </View>
-
-      {/* CARD */}
-      <View style={styles.cardWrap}>
-        <View style={styles.card}>
-          <Text style={styles.title}>{t('auth.welcome_back')}</Text>
-          <Text style={styles.subtitle}>{t('auth.login_subtitle')}</Text>
-
-          {/* IMPROVED INPUT BOX */}
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => inputRef.current?.focus()}
-            style={[styles.inputBox, focused && styles.inputFocused]}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* HERO */}
+        <View style={[styles.heroWrap, focused && { height: height * 0.22 }]}>
+          <ImageBackground
+            source={{
+              uri: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000',
+            }}
+            style={styles.hero}
+            imageStyle={styles.heroImage}
           >
-            <View style={styles.country}>
-              <Text style={styles.flag}>🇮🇳</Text>
-              <Text style={styles.code}>+91</Text>
-              <Ionicons
-                name="chevron-down"
-                size={14}
-                color={COLORS.textSecondary}
-              />
-            </View>
-
-            <View style={styles.inputContainer}>
-              <Text
-                style={[
-                  styles.label,
-                  (focused || mobile) && styles.labelActive,
-                ]}
-              >
-                {t('auth.mobile_number')}
-              </Text>
-              <TextInput
-                ref={inputRef}
-                value={mobile}
-                onChangeText={onChange}
-                keyboardType="number-pad"
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-                style={styles.input}
-                maxLength={10}
-                selectionColor={COLORS.brand.primary}
-              />
-            </View>
-
-            {isValid && (
-              <View style={styles.successIcon}>
+            <View style={styles.heroOverlay} />
+            <View style={styles.badge}>
+              <View style={styles.badgeIcon}>
                 <MaterialIcons
-                  name="check-circle"
-                  size={24}
+                  name="agriculture"
+                  size={18}
                   color={COLORS.brand.primary}
                 />
               </View>
-            )}
-          </TouchableOpacity>
-
-          {/* IMPROVED CTA */}
-          <TouchableOpacity
-            style={[styles.cta, !isValid && { opacity: 0.7 }]}
-            onPress={() => isValid && router.push('/otp')}
-            activeOpacity={0.8}
-          >
-            <View style={styles.ctaIcon}>
-              <Ionicons name="lock-open" size={20} color="#fff" />
+              <Text style={styles.badgeText}>KrushiMitra</Text>
             </View>
-            <Text style={styles.ctaText}>{t('auth.get_otp')}</Text>
-            {/* Spacer for visual balance against the icon */}
-            <View style={{ width: 44 }} />
-          </TouchableOpacity>
-
-          {/* REGISTER */}
-          <TouchableOpacity onPress={() => {}} style={styles.registerBtn}>
-            <Text style={styles.register}>
-              {t('common.new_user')}{' '}
-              <Text style={styles.registerLink}>{t('common.register')}</Text>
-            </Text>
-          </TouchableOpacity>
+          </ImageBackground>
         </View>
-      </View>
 
-      <Text style={styles.footer}>{t('auth.secure_network')}</Text>
-    </View>
+        {/* CARD */}
+        <View style={styles.cardWrap}>
+          <View style={styles.card}>
+            <Text style={styles.title}>{t('auth.welcome_back')}</Text>
+            <Text style={styles.subtitle}>{t('auth.login_subtitle')}</Text>
+
+            {/* IMPROVED INPUT BOX */}
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => inputRef.current?.focus()}
+              style={[styles.inputBox, focused && styles.inputFocused]}
+            >
+              <View style={styles.country}>
+                <Text style={styles.flag}>🇮🇳</Text>
+                <Text style={styles.code}>+91</Text>
+                <Ionicons
+                  name="chevron-down"
+                  size={14}
+                  color={COLORS.textSecondary}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Text
+                  style={[
+                    styles.label,
+                    (focused || mobile) && styles.labelActive,
+                  ]}
+                >
+                  {t('auth.mobile_number')}
+                </Text>
+                <TextInput
+                  ref={inputRef}
+                  value={mobile}
+                  onChangeText={onChange}
+                  keyboardType="number-pad"
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  style={styles.input}
+                  maxLength={10}
+                  selectionColor={COLORS.brand.primary}
+                />
+              </View>
+
+              {isValid && (
+                <View style={styles.successIcon}>
+                  <MaterialIcons
+                    name="check-circle"
+                    size={24}
+                    color={COLORS.brand.primary}
+                  />
+                </View>
+              )}
+            </TouchableOpacity>
+
+            {/* IMPROVED CTA */}
+            <TouchableOpacity
+              style={[styles.cta, !isValid && { opacity: 0.7 }]}
+              onPress={() => isValid && router.push('/otp')}
+              activeOpacity={0.8}
+            >
+              <View style={styles.ctaIcon}>
+                <Ionicons name="lock-open" size={20} color={COLORS.text} />
+              </View>
+              <Text style={styles.ctaText}>{t('auth.get_otp')}</Text>
+              {/* Spacer for visual balance against the icon */}
+              <View style={{ width: 44 }} />
+            </TouchableOpacity>
+
+            {/* REGISTER */}
+            {/* <TouchableOpacity onPress={() => { }} style={styles.registerBtn}>
+              <Text style={styles.register}>
+                {t('common.new_user')}{' '}
+                <Text style={styles.registerLink}>{t('common.register')}</Text>
+              </Text>
+            </TouchableOpacity> */}
+          </View>
+        </View>
+
+        <Text style={styles.footer}>{t('auth.secure_network')}</Text>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -163,7 +184,6 @@ const styles = StyleSheet.create({
   },
   hero: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   heroImage: {
@@ -177,6 +197,8 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
   },
   badge: {
+    position: 'absolute',
+    top: 20,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.95)',
@@ -202,7 +224,6 @@ const styles = StyleSheet.create({
     color: COLORS.text,
   },
   cardWrap: {
-    flex: 1,
     marginTop: -50,
     paddingHorizontal: 20,
   },
@@ -235,17 +256,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 20,
-    backgroundColor: COLORS.surfaceHighlight,
+    backgroundColor: COLORS.white,
     height: 72,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: COLORS.gray[200],
     marginBottom: 24,
     paddingHorizontal: 4,
+    // Add default shadow
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
   },
   inputFocused: {
-    borderWidth: 2,
-    borderColor: COLORS.brand.primary,
-    backgroundColor: COLORS.surface,
+    borderWidth: 1.5,
+    borderColor: COLORS.text, // Light Black
+    backgroundColor: COLORS.white,
+    // Stronger shadow when focused
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
   },
   country: {
     flexDirection: 'row',
@@ -274,7 +307,7 @@ const styles = StyleSheet.create({
   labelActive: {
     top: 8,
     fontSize: 12,
-    color: COLORS.brand.primary,
+    color: COLORS.text, // Light Black
     fontWeight: '700',
   },
   input: {
@@ -292,19 +325,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: COLORS.brand.primary,
+    backgroundColor: COLORS.white,
     height: 64,
     borderRadius: 20,
-    paddingHorizontal: 6, // Reduced to make the icon look like a "fab" inside
+    paddingHorizontal: 6,
     marginBottom: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
     elevation: 4,
-    shadowColor: COLORS.brand.primary,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.1,
     shadowRadius: 8,
   },
   ctaIcon: {
-    backgroundColor: 'rgba(255,255,255,0.4)',
+    backgroundColor: COLORS.gray[100],
     width: 52,
     height: 52,
     borderRadius: 16,
@@ -315,7 +350,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
     letterSpacing: 1,
-    color: '#fff',
+    color: COLORS.text,
     textAlign: 'center',
   },
   registerBtn: {

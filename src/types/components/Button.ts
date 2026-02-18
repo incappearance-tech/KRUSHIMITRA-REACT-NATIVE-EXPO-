@@ -8,6 +8,7 @@ export interface IButtonProps {
 
   type?: IButtonType;
   icon?: keyof typeof MaterialIcons.glyphMap;
+  iconSize?: number;
 
   loading?: boolean;
   disabled?: boolean;
@@ -18,5 +19,6 @@ export interface IButtonProps {
 
   sticky?: boolean;
   style?: any;
+  labelStyle?: any;
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
 }

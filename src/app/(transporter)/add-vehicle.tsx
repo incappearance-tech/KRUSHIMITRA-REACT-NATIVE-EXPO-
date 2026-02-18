@@ -305,7 +305,7 @@ export default function AddVehicleWizard() {
                           style={[
                             styles.planRadio,
                             selectedPlanKey === plan.key &&
-                              styles.planRadioSelected,
+                            styles.planRadioSelected,
                           ]}
                         >
                           {selectedPlanKey === plan.key && (
@@ -344,17 +344,15 @@ export default function AddVehicleWizard() {
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <View style={styles.footer}>
-          <Button
-            label={currentStep === 3 ? 'Process Payment' : 'Next Step'}
-            onPress={handleNext}
-            backgroundColor={
-              currentStep === 3 ? '#0f172a' : COLORS.brand.primary
-            }
-            textColor={currentStep === 3 ? '#fff' : '#000'}
-            icon={currentStep === 3 ? 'lock' : undefined}
-          />
-        </View>
+        <Button
+          label={currentStep === 3 ? 'Process Payment' : 'Next Step'}
+          onPress={handleNext}
+          sticky
+          backgroundColor={COLORS.white}
+          textColor={COLORS.text}
+          icon={currentStep === 3 ? 'lock' : 'arrow-forward'}
+          style={styles.nextButtonStyle}
+        />
       </View>
     </View>
   );
@@ -489,10 +487,16 @@ const styles = StyleSheet.create({
   totalLabel: { fontSize: 16, fontWeight: '700', color: '#0f172a' },
   totalVal: { fontSize: 18, fontWeight: '800', color: COLORS.brand.primary },
 
-  footer: {
-    paddingVertical: 16,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-    backgroundColor: COLORS.background,
+  nextButtonStyle: {
+    margin: 20,
+    marginBottom: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });

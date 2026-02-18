@@ -142,28 +142,18 @@ export default function FarmerProfileScreen() {
   const { control, handleSubmit, reset } = useForm<IFarmerProfileForm>({
     resolver: zodResolver(farmerProfileSchema),
     defaultValues: {
-      fullName: farmer?.name || user?.name || '',
-      farmerId: 'FK-9527',
+      fullName: '',
+      farmerId: '',
       district: '',
       taluka: '',
       village: '',
-      pinCode: '415001',
+      pinCode: '',
     },
   });
 
   useEffect(() => {
-    if (farmer) {
-      const parts = farmer.location.split(', ');
-      reset({
-        fullName: farmer.name,
-        farmerId: 'FK-9527',
-        village: parts[0] || '',
-        taluka: parts[1] || '',
-        district: parts[2] || '',
-        pinCode: '415001',
-      });
-    }
-  }, [farmer, reset]);
+    // Form starts empty as per request
+  }, [reset]);
 
   const onSubmit = (data: IFarmerProfileForm) => {
     setFarmer({
@@ -301,6 +291,10 @@ export default function FarmerProfileScreen() {
         label={t('common.save_continue')}
         onPress={handleSubmit(onSubmit)}
         icon="arrow-forward"
+        sticky
+        backgroundColor={COLORS.white}
+        textColor={COLORS.text}
+        style={styles.saveButtonStyle}
       />
     </View>
   );
@@ -357,6 +351,18 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     fontWeight: '600',
+  },
+  saveButtonStyle: {
+    margin: 20,
+    marginBottom: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 
   optionalText: {

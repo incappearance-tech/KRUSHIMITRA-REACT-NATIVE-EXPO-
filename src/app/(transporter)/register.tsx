@@ -132,13 +132,15 @@ export default function TransporterRegistration() {
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      <View style={styles.footer}>
-        <Button
-          label={t('transporter.complete_onboarding')}
-          onPress={handleSubmit}
-          icon="arrow-forward"
-        />
-      </View>
+      <Button
+        label={t('transporter.complete_onboarding')}
+        onPress={handleSubmit}
+        icon="arrow-forward"
+        sticky
+        backgroundColor={COLORS.white}
+        textColor={COLORS.text}
+        style={styles.onboardingButtonStyle}
+      />
     </View>
   );
 }
@@ -184,15 +186,16 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: COLORS.textSecondary,
   },
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: 16,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#f3f4f6',
-    elevation: 10,
+  onboardingButtonStyle: {
+    margin: 20,
+    marginBottom: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });

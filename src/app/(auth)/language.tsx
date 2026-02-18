@@ -126,6 +126,10 @@ export default function LanguageScreen() {
         label={t('common.continue')}
         onPress={handleContinue}
         icon="arrow-forward"
+        backgroundColor={COLORS.white}
+        textColor={COLORS.text}
+        sticky
+        style={styles.continueButtonStyle}
       />
     </View>
   );
@@ -192,8 +196,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   cardActive: {
-    borderColor: COLORS.brand.primary,
-    backgroundColor: COLORS.brand.muted,
+    borderColor: COLORS.gray[600], // Slight black / Dark gray
+    backgroundColor: COLORS.gray[50],
   },
 
   left: {
@@ -226,7 +230,7 @@ const styles = StyleSheet.create({
   },
 
   checkIcon: {
-    backgroundColor: COLORS.brand.primary,
+    backgroundColor: COLORS.brand.primary, // Back to green
     borderRadius: 12,
     padding: 4,
   },
@@ -249,5 +253,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: COLORS.text,
+  },
+  continueButtonStyle: {
+    margin: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });

@@ -23,6 +23,7 @@ const Button: React.FC<IButtonProps> = ({
   onPress,
   type = 'primary' as IButtonType,
   icon,
+  iconSize = 20,
 
   loading = false,
   disabled = false,
@@ -33,6 +34,7 @@ const Button: React.FC<IButtonProps> = ({
 
   sticky = false,
   style,
+  labelStyle,
   variant,
 }) => {
   const isDisabled = disabled || loading;
@@ -83,9 +85,9 @@ const Button: React.FC<IButtonProps> = ({
           <ActivityIndicator color={txtColor} />
         ) : (
           <>
-            <Text style={[styles.text, { color: txtColor }]}>{label}</Text>
+            <Text style={[styles.text, { color: txtColor }, labelStyle]}>{label}</Text>
 
-            {icon && <MaterialIcons name={icon} size={20} color={txtColor} />}
+            {icon && <MaterialIcons name={icon} size={iconSize} color={txtColor} />}
           </>
         )}
       </TouchableOpacity>

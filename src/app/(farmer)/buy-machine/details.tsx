@@ -248,73 +248,6 @@ function MachineDetailsContent() {
             </Text>
           </View>
 
-          {/* Machine Health Report (Premium Addition) */}
-          <View style={styles.healthCard}>
-            <View style={styles.healthHeader}>
-              <View style={styles.healthScoreWrap}>
-                <Text style={styles.healthScore}>88</Text>
-                <Text style={styles.healthScoreBase}>/100</Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.healthTitle}>Machine Health Report</Text>
-                <Text style={styles.healthSub}>
-                  Verified by 100-point inspection
-                </Text>
-              </View>
-              <MaterialIcons
-                name="verified-user"
-                size={24}
-                color={COLORS.success}
-              />
-            </View>
-            <View style={styles.healthStats}>
-              <View style={styles.healthStatItem}>
-                <MaterialIcons
-                  name="settings"
-                  size={16}
-                  color={COLORS.textSecondary}
-                />
-                <Text style={styles.healthStatText}>Engine: Good</Text>
-              </View>
-              <View style={styles.healthStatItem}>
-                <MaterialIcons
-                  name="tire-repair"
-                  size={16}
-                  color={COLORS.textSecondary}
-                />
-                <Text style={styles.healthStatText}>Tires: Fair</Text>
-              </View>
-            </View>
-          </View>
-
-          {/* Seller Profile */}
-          <Text style={styles.sectionHeading}>
-            {t('buy_machine_details.seller_profile')}
-          </Text>
-          <TouchableOpacity style={styles.sellerCard} activeOpacity={0.7}>
-            <View style={styles.sellerInfo}>
-              <Image
-                source={{ uri: 'https://i.pravatar.cc/150?u=miller' }}
-                style={styles.sellerAvatar}
-              />
-              <View>
-                <Text style={styles.sellerName}>Robert Miller</Text>
-                <Text style={styles.sellerVillage}>
-                  {t('buy_machine_details.village', { name: 'Oakdale' })}
-                </Text>
-                <View style={styles.ratingBadge}>
-                  <MaterialIcons name="star" size={14} color={COLORS.warning} />
-                  <Text style={styles.ratingText}>4.8</Text>
-                </View>
-              </View>
-            </View>
-            <MaterialIcons
-              name="chevron-right"
-              size={24}
-              color={COLORS.textSecondary}
-            />
-          </TouchableOpacity>
-
           {/* Premium Location Card */}
           <Text style={styles.sectionHeading}>
             {t('buy_machine_details.location_title')}
@@ -343,28 +276,15 @@ function MachineDetailsContent() {
         </View>
       </ScrollView>
 
-      {/* Sticky Bottom Footer */}
-      <View
-        style={[styles.footer, { paddingBottom: Math.max(20, insets.bottom) }]}
-      >
-        <View style={styles.footerInfo}>
-          <Text style={styles.contactHidden}>
-            {t('buy_machine_details.contact_hidden')}
-          </Text>
-          <View style={styles.footerVerified}>
-            <MaterialIcons name="shield" size={12} color={COLORS.success} />
-            <Text style={styles.footerVerifiedText}>
-              {t('buy_machine_details.verified_seller')}
-            </Text>
-          </View>
-        </View>
-        <Button
-          label={t('buy_machine_details.unlock_contact')}
-          onPress={() => router.push('/buy-machine/intent' as any)}
-          icon="lock-open"
-          style={styles.actionButton}
-        />
-      </View>
+      <Button
+        label={t('buy_machine_details.unlock_contact')}
+        onPress={() => router.push('/buy-machine/intent' as any)}
+        sticky
+        backgroundColor={COLORS.white}
+        textColor={COLORS.text}
+        icon="lock-open"
+        style={styles.unlockButtonStyle}
+      />
     </View>
   );
 }
@@ -722,37 +642,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: COLORS.white,
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.gray[100],
-    elevation: 25,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: -10 },
+  unlockButtonStyle: {
+    margin: 20,
+    marginBottom: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 20,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  footerInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
-    paddingHorizontal: 4,
-  },
-  contactHidden: {
-    fontSize: 13,
-    color: COLORS.textSecondary,
-    fontWeight: '600',
-  },
-  footerVerified: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  footerVerifiedText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: COLORS.successDark,
-  },
-  actionButton: { height: 56, borderRadius: 16 },
 });

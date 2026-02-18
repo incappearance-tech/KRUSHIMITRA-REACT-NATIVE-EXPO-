@@ -1,4 +1,4 @@
-import { useState } from 'react';
+ import { useState } from 'react';
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -91,18 +91,22 @@ export default function RoleSelectScreen() {
         ))}
       </View>
 
-      {/* Footer */}
-      <Button
-        label={t('common.continue')}
-        icon="arrow-forward"
-        onPress={() => selectedRole && router.push(selectedRole.route)}
-      />
-
-      <Text style={styles.terms}>
-        {t('roles.agree_terms')}{' '}
-        <Text style={styles.link}>{t('common.terms_service')}</Text> &{' '}
-        <Text style={styles.link}>{t('common.privacy_policy')}</Text>.
-      </Text>
+      {/* Sticky Footer Area */}
+      <View style={styles.footerContainer}>
+        <Button
+          label={t('common.continue')}
+          icon="arrow-forward"
+          onPress={() => selectedRole && router.push(selectedRole.route)}
+          backgroundColor={COLORS.white}
+          textColor={COLORS.text}
+          style={styles.continueButtonStyle}
+        />
+        <Text style={styles.terms}>
+          {t('roles.agree_terms')}{' '}
+          <Text style={styles.link}>{t('common.terms_service')}</Text> &{' '}
+          <Text style={styles.link}>{t('common.privacy_policy')}</Text>.
+        </Text>
+      </View>
     </View>
   );
 }
@@ -181,8 +185,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   cardSelected: {
-    borderColor: COLORS.brand.primary,
-    backgroundColor: COLORS.brand.muted,
+    borderColor: COLORS.gray[600], // Slight black
+    backgroundColor: COLORS.gray[50], // Very subtle background
   },
   iconCircle: {
     height: 48,
@@ -226,14 +230,37 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.brand.primary,
   },
   terms: {
-    fontSize: 12,
+    fontSize: 11,
     color: COLORS.textSecondary,
     textAlign: 'center',
-    marginTop: 12,
     lineHeight: 16,
+    paddingHorizontal: 20,
+    marginTop: -10, // Pull it closer to the button
+    marginBottom: 20,
   },
   link: {
     color: COLORS.brand.primary,
     fontWeight: '600',
+  },
+  footerContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: COLORS.background,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.gray[200],
+  },
+  continueButtonStyle: {
+    margin: 20,
+    marginBottom: 20, // Reduced to sit closer to terms
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });

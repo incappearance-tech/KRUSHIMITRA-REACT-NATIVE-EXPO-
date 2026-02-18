@@ -13,7 +13,7 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
 import { MaterialIcons } from '@expo/vector-icons';
-
+import Button from '@/src/components/Button';
 import { COLORS } from '@/src/constants/colors';
 
 import { LABOURERS } from './data';
@@ -158,21 +158,20 @@ export default function LabourDetailsScreen() {
         </View>
       </ScrollView>
 
-      {/* Footer Action */}
-      <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.actionBtn}
-          onPress={() =>
-            router.push({
-              pathname: '/(farmer)/labour/contact',
-              params: { id: labour.id },
-            })
-          }
-        >
-          <MaterialIcons name="call" size={24} color="#000" />
-          <Text style={styles.actionBtnText}>View Contact Info</Text>
-        </TouchableOpacity>
-      </View>
+      <Button
+        label="View Contact Info"
+        onPress={() =>
+          router.push({
+            pathname: '/(farmer)/labour/contact',
+            params: { id: labour.id },
+          })
+        }
+        sticky
+        backgroundColor={COLORS.white}
+        textColor={COLORS.text}
+        icon="call"
+        style={styles.profileButtonStyle}
+      />
     </View>
   );
 }
@@ -440,33 +439,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
   },
 
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: 16,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#f3f4f6',
-  },
-  actionBtn: {
-    backgroundColor: COLORS.brand.primary,
-    height: 56,
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    shadowColor: '#bbf7d0',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.5,
+  profileButtonStyle: {
+    margin: 20,
+    marginBottom: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 4,
-  },
-  actionBtnText: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#000',
+    elevation: 3,
   },
 });

@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -107,24 +109,28 @@ export default function OtpScreen() {
 
     if (value.length === OTP_LENGTH) {
       Keyboard.dismiss();
-      // Simulate verification check
-      if (value !== '1234') {
-        // Example: 1234 is the "correct" code
-        setTimeout(shake, 100);
-      } else {
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        router.replace('/(auth)/role-select');
-      }
+    }
+  };
+
+  const handleVerify = () => {
+    if (otp.length !== OTP_LENGTH) return;
+
+    // Simulate verification check
+    if (otp !== '1234') {
+      // Example: 1234 is the "correct" code
+      shake();
+    } else {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      router.replace('/(auth)/role-select');
     }
   };
 
   return (
-    <View style={styles.container}>
-      {/* <View style={styles.backWrap}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color={COLORS.black} />
-        </TouchableOpacity>
-      </View> */}
+    <KeyboardAvoidingView
+      behavior={'padding'}
+      style={styles.container}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
       <BackButton />
       <View style={styles.main}>
         <View style={styles.iconWrap}>
@@ -198,21 +204,22 @@ export default function OtpScreen() {
             </Text>
           </Text>
         </TouchableOpacity>
-
-        <View style={styles.footer}>
-          <TouchableOpacity
-            style={[
-              styles.verifyBtn,
-              otp.length < OTP_LENGTH && { opacity: 0.5 },
-            ]}
-            onPress={() => handleOtpChange(otp)}
-          >
-            <Text style={styles.verifyText}>{t('auth.verify_account')}</Text>
-            <Ionicons name="arrow-forward" size={20} color="#fff" />
-          </TouchableOpacity>
-        </View>
       </View>
-    </View>
+
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={[
+            styles.verifyBtn,
+            otp.length < OTP_LENGTH && { opacity: 0.5 },
+          ]}
+          onPress={handleVerify}
+          disabled={otp.length < OTP_LENGTH}
+        >
+          <Text style={styles.verifyText}>{t('auth.verify_account')}</Text>
+          <Ionicons name="arrow-forward" size={20} color={COLORS.text} />
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -314,22 +321,32 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   footer: {
-    marginTop: 'auto',
-    paddingBottom: 24,
+    backgroundColor: COLORS.background,
+    padding: 20,
+    paddingBottom: 20, // Reset to standard padding to move it lower
+    borderTopWidth: 1,
+    borderTopColor: COLORS.gray[200],
     width: '100%',
   },
   verifyBtn: {
     flexDirection: 'row',
     gap: 8,
-    backgroundColor: COLORS.brand.primary,
-    paddingVertical: 16,
-    borderRadius: 12,
+    backgroundColor: COLORS.white,
+    height: 56,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   verifyText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: COLORS.text,
+    fontSize: 18,
+    fontWeight: '700',
   },
 });

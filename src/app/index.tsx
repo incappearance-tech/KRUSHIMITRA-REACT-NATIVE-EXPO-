@@ -103,6 +103,9 @@ export default function App() {
         onPress={() => router.push('/(auth)/language')}
         sticky
         icon="arrow-forward"
+        backgroundColor={COLORS.white}
+        textColor={COLORS.text}
+        style={styles.getStartedButton}
       />
     </View>
   );
@@ -196,5 +199,16 @@ const styles = StyleSheet.create({
   benefitDesc: {
     fontSize: 12,
     color: '#6b7280',
+  },
+  getStartedButton: {
+    margin: 20,
+    paddingHorizontal: 24,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
 });
