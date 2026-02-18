@@ -58,11 +58,11 @@ export default function LoginScreen() {
           <View style={styles.heroOverlay} />
           <View style={styles.badge}>
             <View style={styles.badgeIcon}>
-              <MaterialIcons
+              {/* <MaterialIcons
                 name="agriculture"
                 size={18}
                 color={COLORS.brand.primary}
-              />
+              /> */}
             </View>
             <Text style={styles.badgeText}>KrushiMitra</Text>
           </View>
